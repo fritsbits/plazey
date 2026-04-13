@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+import { Image } from 'astro:assets';
+import vrijwilligerPortret from '../../../assets/images/vrijwilliger-portret.jpg';
+import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
+import kassaTokens from '../../../assets/images/kassa-tokens.jpg';
+import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
+import etenGrillen from '../../../assets/images/eten-grillen.jpg';
+
+const faqItems = [
+  { question: 'Moet ik me inschrijven om te helpen?', answer: 'Ja, stuur een mailtje naar info@plazey.be. We nemen zo snel mogelijk contact op.' },
+  { question: 'Krijg ik eten en drinken?', answer: 'Ja. Tijdens je shift krijg je een maaltijd en drankjes van Plazey.' },
+  { question: 'Kan ik maar één dagdeel komen?', answer: 'Ja, dat kan. Geef het aan in je mail.' },
+  { question: 'Kan ik met vrienden komen helpen?', answer: 'Ja, graag zelfs. Geef het aan in je mail.' },
+  { question: 'Ik spreek geen Nederlands en geen Frans. Kan ik toch helpen?', answer: 'Ja. Plazey is meertalig. Geef aan welke talen je spreekt.' },
+];
+---
+
+<BaseLayout title="Doe mee" lang="nl">
+  <section class="py-12">
+    <Container>
+      <div class="flex flex-col sm:flex-row gap-8 items-center">
+        <div class="flex-1">
+          <h1>Doe mee</h1>
+          <p class="opening">Kom helpen. Achter de bar, aan de kassa, of bij het opruimen.</p>
+        </div>
+        <figure class="flex-1">
+          <Image
+            src={vrijwilligerPortret}
+            alt="Een vrijwilliger in roze Plazey-t-shirt kijkt omhoog, met het festivalterrein op de achtergrond."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
+    </Container>
+  </section>
+
+  <section aria-labelledby="vrijwilliger-worden" class="py-12">
+    <Container>
+      <h2 id="vrijwilliger-worden">Vrijwilliger worden</h2>
+      <p>Plazey draait op vrijwilligers. Elk jaar helpen meer dan honderd mensen het festival mogelijk te maken. Jij kan er één van zijn.</p>
+      <p>Je kiest zelf wanneer en hoeveel. Een halve dag, een hele dag, of het volledige weekend.</p>
+
+      <ul role="list" class="roles-grid grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        <li class="role-card">
+          <Image
+            src={vrijwilligersBar}
+            alt="Vrijwilligers in roze Plazey-t-shirt achter de bar."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded mb-3"
+          />
+          <h3>Bar</h3>
+          <p>Je schenkt drankjes en zorgt dat iedereen iets heeft. Je werkt in team. Geen ervaring nodig.</p>
+        </li>
+        <li class="role-card">
+          <Image
+            src={kassaTokens}
+            alt="De tokenstand: een medewerker helpt een bezoeker aan de kleurrijke kassa."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded mb-3"
+          />
+          <h3>Kassa</h3>
+          <p>Bezoekers kopen hier hun tokens. Je hebt het eerste contact met mensen die het terrein binnenkomen. Meertalig zijn is een troef.</p>
+        </li>
+        <li class="role-card">
+          <Image
+            src={vrijwilligersBabyspot}
+            alt="Twee vrijwilligers voor de Baby Spot-caravan, de infostand voor gezinnen."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded mb-3"
+          />
+          <h3>Infostand</h3>
+          <p>Je beantwoordt vragen, geeft programmaboekjes mee en helpt mensen de weg vinden. Meerdere talen zijn handig.</p>
+        </li>
+        <li class="role-card">
+          <Image
+            src={etenGrillen}
+            alt="Een vrijwilliger in Plazey-t-shirt grilt spiesjes op een buitenstand."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded mb-3"
+          />
+          <h3>Opruim en opbouw</h3>
+          <p>Vóór of na het festival help je het terrein opbouwen of netjes achterlaten. Praktisch, concreet werk.</p>
+        </li>
+      </ul>
+
+      <p class="mt-6">Je hoeft geen ervaring te hebben. Plazey zorgt voor een maaltijd en drankjes terwijl je helpt.</p>
+
+      <a
+        href="mailto:info@plazey.be?subject=Vrijwilliger%20Plazey%202026"
+        class="btn-primary"
+      >
+        Schrijf je in via info@plazey.be
+      </a>
+      <p>Vermeld in je mail: wanneer je beschikbaar bent en waarvoor je interesse hebt.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="stel-project-voor" class="py-12">
+    <Container>
+      <h2 id="stel-project-voor">Stel een project voor</h2>
+      <p>Plazey wordt mee gemaakt door mensen uit de buurt. Een groot deel van het programma wordt ingediend en mee georganiseerd door buurtbewoners, lokale artiesten en organisaties.</p>
+      <p>Ben je buurtbewoner? Lokale artiest? Een kleine organisatie met een idee? Stel je project voor.</p>
+      <p>Zet in je voorstel: wie je bent, wat je van plan bent, wat je nodig hebt (ruimte, materiaal, tijd), en voor welke dag je denkt.</p>
+
+      <a
+        href="mailto:info@plazey.be?subject=Project%20voorstel%20Plazey%202026"
+        class="btn-ghost"
+      >
+        Stel je project voor via info@plazey.be
+      </a>
+    </Container>
+  </section>
+
+  <section aria-labelledby="vragen-vrijwilligers" class="py-12">
+    <Container>
+      <h2 id="vragen-vrijwilligers">Vragen</h2>
+      <Accordion items={faqItems} />
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+import { Image } from 'astro:assets';
+import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
+import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
+import etenGrillen from '../../../assets/images/eten-grillen.jpg';
+import kassaTokens from '../../../assets/images/kassa-tokens.jpg';
+import oordopjesProducten from '../../../assets/images/oordopjes-producten.jpg';
+
+const faqItems = [
+  { question: 'Is Plazey echt gratis?', answer: 'Ja. Geen tickets, geen toegangsprijs. Plazey is gratis voor iedereen, al sinds 1992.' },
+  { question: 'Mag ik mijn eigen eten en drinken meebrengen?', answer: 'Ja. Eigen eten en drinken zijn altijd welkom. Kraantjeswater haal je gratis aan de bar.' },
+  { question: 'Is er een cloakroom of bagageruimte?', answer: 'Nee. Kom met zo weinig bagage als mogelijk.' },
+  { question: 'Hoe laat begint en eindigt het festival?', answer: 'Op vrijdag starten de activiteiten om 19:30. Op zaterdag en zondag vanaf [starttijd invullen]. Het festival eindigt om [eindtijd invullen].' },
+  { question: 'Kan ik er met een rolstoel of kinderwagen naartoe?', answer: 'Ja. De hoofdpaden zijn vlak en toegankelijk voor rolstoelen en wandelwagens. Niet alle kleinere paden zijn toegankelijk.' },
+];
+---
+
+<BaseLayout title="Praktisch" lang="nl" currentPath="/nl/praktisch">
+  <div class="py-12">
+    <Container>
+      <h1>Praktisch</h1>
+      <p>Alles wat je moet weten om langs te komen.</p>
+
+      <nav aria-label="Op deze pagina" class="my-6">
+        <ul role="list" class="flex flex-wrap gap-4 text-sm">
+          <li><a href="#bereikbaarheid">Bereikbaarheid</a></li>
+          <li><a href="#eten-en-drinken">Eten &amp; drinken</a></li>
+          <li><a href="#toegankelijkheid">Toegankelijkheid</a></li>
+          <li><a href="#meer">Kinderen, regenplan &amp; meer</a></li>
+        </ul>
+      </nav>
+
+      <section id="bereikbaarheid" aria-labelledby="heading-bereikbaarheid" class="mt-12">
+        <Image
+          src={parkLaanKunst}
+          alt="De lange dreef van het Elisabethpark met kunstwerken aan de bomen en wandelaars."
+          widths={[800, 1200]}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          class="w-full rounded mb-6"
+        />
+        <h2 id="heading-bereikbaarheid">Bereikbaarheid</h2>
+
+        <h3>Metro</h3>
+        <p>Met metro lijn 2 of 6, halte Simonis/Elisabeth. Van de metro is het tien minuten wandelen naar het park. Het metrostation heeft een lift en is toegankelijk voor rolstoelgebruikers. Treinstation Simonis ligt ook vlakbij.</p>
+
+        <h3>Tram en bus</h3>
+        <ul>
+          <li>Tram 9 of 19, halte Simonis/Elisabeth.</li>
+          <li>Bus MIVB 13, 87 of N16 — halte Elisabethpark.</li>
+          <li>Bus MIVB 49 of 53 — halte Vrijheid.</li>
+          <li>De Lijn 212, 213, 214 of 355 — halte Elisabethpark.</li>
+        </ul>
+
+        <h3>Fiets</h3>
+        <p>Er is een onbewaakte fietsenstalling op het terrein. Breng een slot mee.</p>
+
+        <h3>Auto</h3>
+        <p>Parkeren kan rondom het park (betalend). Of in de ondergrondse parking Indigoneo, onder het park. Adres: Eugène Simonisplein 24, 1081 Koekelberg.</p>
+
+        <p><strong>Hulp nodig om van de metro naar het terrein te geraken?</strong> Mail <a href="mailto:info@plazey.be">info@plazey.be</a>. We helpen je verder.</p>
+      </section>
+
+      <section id="eten-en-drinken" aria-labelledby="heading-eten" class="mt-12">
+        <h2 id="heading-eten">Eten &amp; drinken</h2>
+        <figure class="mb-6">
+          <Image
+            src={etenFoodkraam}
+            alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
+            widths={[800, 1200]}
+            sizes="(max-width: 768px) 100vw, 80vw"
+            class="w-full rounded"
+          />
+        </figure>
+        <p>Je mag je eigen eten en drinken meebrengen. Kraantjeswater is gratis.</p>
+
+        <h3>Niet-alcoholische dranken</h3>
+        <table>
+          <caption class="sr-only">Niet-alcoholische drankprijzen Plazey 2026</caption>
+          <thead>
+            <tr><th scope="col">Drank</th><th scope="col">Prijs</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kraantjeswater</td><td>Gratis</td></tr>
+            <tr><td>Spuitwater</td><td>€1</td></tr>
+            <tr><td>Frisdrank</td><td>€2</td></tr>
+            <tr><td>Koffie</td><td>€[valideren]</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Alcoholische dranken</h3>
+        <table>
+          <caption class="sr-only">Alcoholische drankprijzen Plazey 2026</caption>
+          <thead>
+            <tr><th scope="col">Drank</th><th scope="col">Prijs</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pintje</td><td>€3</td></tr>
+            <tr><td>Wijn</td><td>€4</td></tr>
+          </tbody>
+        </table>
+        <p><small>⚠️ Prijzen van editie 2025. Te valideren voor publicatie 2026.</small></p>
+
+        <p>Naast dranken zijn er eetstandjes. We kiezen bewust voor buurtbewoners, lokale horecazaken en start-ups als standhouders. Wie er dit jaar staat, vind je binnenkort op deze pagina.</p>
+        <div class="flex flex-col sm:flex-row gap-6 my-6">
+          <figure class="flex-1">
+            <Image
+              src={etenGrillen}
+              alt="Een vrijwilliger in Plazey-t-shirt grilt spiesjes op een buitenstand."
+              widths={[400, 600]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full rounded"
+            />
+          </figure>
+          <figure class="flex-1">
+            <Image
+              src={kassaTokens}
+              alt="De kleurrijke tokenstand: een medewerker helpt een bezoeker."
+              widths={[400, 600]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full rounded"
+            />
+          </figure>
+        </div>
+        <p><strong>Cash én tokens worden aanvaard.</strong></p>
+      </section>
+
+      <section id="toegankelijkheid" aria-labelledby="heading-toegankelijkheid" class="mt-12">
+        <h2 id="heading-toegankelijkheid">Toegankelijkheid</h2>
+        <p>Heb je een vraag of nodig je hulp? Mail <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+        <figure class="mb-6">
+          <Image
+            src={oordopjesProducten}
+            alt="Gehoorbescherming op een tafel: oordopjes, kinderkoptelefoon en volwassen gehoorkap."
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 60vw"
+            class="w-full rounded"
+          />
+        </figure>
+        <h3>Wat er is</h3>
+        <ul>
+          <li><strong>CM1-toestel</strong> — aan de infostand. Maakt rechtstreeks verbinding met de geluidsinstallatie.</li>
+          <li><strong>Tolk Vlaamse Gebarentaal</strong> — zondag van 15:00 tot 19:00. Ook aanwezig aan kassa, bar en eetstandjes.</li>
+          <li><strong>Oordopjes</strong> — te verkrijgen aan de infostand.</li>
+          <li><strong>ADL-vrijwilligers</strong> — voor hulp bij praktische zaken. Schrijf ons vooraf via <a href="mailto:info@plazey.be">info@plazey.be</a>.</li>
+          <li><strong>Programma en dranklijst in braille</strong> — en in gewone druk — aan de infostand.</li>
+          <li><strong>Rustige ruimte</strong> — voor wie even weg wil van het lawaai.</li>
+          <li><strong>Aangepaste toiletten</strong> — voor rolstoelgebruikers.</li>
+          <li><strong>Vlakke hoofdpaden</strong> — toegankelijk voor rolstoelen en wandelwagens.</li>
+          <li><strong>Metro Simonis heeft een lift</strong> — rolstoel-toegankelijk.</li>
+        </ul>
+
+        <h3>Dit doen we samen met</h3>
+        <p>Demos · AnySurfer · Zonnelied vzw · Viernulvier · Club 1030 / GC De Kriekelaar · Scheldeoffensief</p>
+        <p><small>⚠️ Partnerlijst valideren vóór publicatie.</small></p>
+      </section>
+
+      <section id="meer" aria-labelledby="heading-meer" class="mt-12">
+        <h2 id="heading-meer">Kinderen, regenplan &amp; meer</h2>
+
+        <h3>Kinderen</h3>
+        <p>Kinderen zijn van harte welkom op Plazey. Er zijn activiteiten voor de allerkleinsten tot tieners. Loop je kind verloren? Kom naar de infostand [locatie invullen]. Een luierplek is aanwezig.</p>
+
+        <h3>Regenplan</h3>
+        <p>Plazey gaat altijd door, ook als het regent. Het park heeft overdekte plekken. Neem een regenjas mee voor de zekerheid.</p>
+
+        <h3>Veelgestelde vragen</h3>
+        <Accordion items={faqItems} />
+
+        <p>Staat jouw vraag er niet bij? Mail <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+      </section>
+    </Container>
+  </div>
+</BaseLayout>

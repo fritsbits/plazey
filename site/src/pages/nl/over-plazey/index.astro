@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import { Image } from 'astro:assets';
+import theaterBasiliek from '../../../assets/images/theater-basiliek.jpg';
+import dansPark from '../../../assets/images/dans-park.jpg';
+import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
+import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
+---
+
+<BaseLayout title="Over Plazey" lang="nl" currentPath="/nl/over-plazey">
+  <section class="py-12">
+    <Container>
+      <h1>Over Plazey</h1>
+      <p class="opening">Kom erbij, welke taal of welk tempo je ook hebt.</p>
+    </Container>
+  </section>
+
+  <figure class="my-0">
+    <Image
+      src={theaterBasiliek}
+      alt="Openluchttheatervoorstelling op een houten podium in het Elisabethpark, met de basiliek van Koekelberg op de achtergrond."
+      widths={[800, 1200, 1600]}
+      sizes="100vw"
+      class="w-full"
+    />
+  </figure>
+
+  <section aria-labelledby="het-verhaal" class="py-12">
+    <Container>
+      <h2 id="het-verhaal">Het verhaal</h2>
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
+        <div class="flex-1">
+          <p>Plazey begon in 1992 als een klein muziekfeestje voor de omwonenden van het Elisabethpark in Koekelberg. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
+          <p>In 2013 groeide het uit tot een gemoedelijke ontmoetingsplek rond Bar Eliza — een houten cafeetje midden in het park, waar de buurt bij elkaar kon komen. Muziek bleef het hart, maar workshops, animatie en eten kwamen erbij.</p>
+          <p>Sinds 2023 kiezen we voor radicale toegankelijkheid. Niet als label, maar als werk. Samen met Demos, AnySurfer en andere partners bouwen we aan een festival dat écht voor iedereen toegankelijk is — en dat eerlijk zegt wat nog niet lukt.</p>
+        </div>
+        <figure class="flex-1">
+          <Image
+            src={dansPark}
+            alt="Mensen dansen buiten tussen de bomen in het Elisabethpark, verschillende leeftijden, feestelijke sfeer."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
+    </Container>
+  </section>
+
+  <section aria-labelledby="wie-maakt" class="py-12">
+    <Container>
+      <h2 id="wie-maakt">Wie maakt Plazey?</h2>
+      <p>Plazey is een project van twee Brusselse gemeenschapscentra.</p>
+      <div class="org-grid grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6">
+        <div class="org-card">
+          <h3>Gemeenschapscentrum De Platoo</h3>
+          <p>Geworteld in de wijk. Ze brengen mensen samen via cultuur, ontmoeting en gemeenschapswerk in Koekelberg.</p>
+          <a href="https://deplatoo.be" rel="external noopener" target="_blank">Meer over De Platoo →</a>
+        </div>
+        <div class="org-card">
+          <h3>Gemeenschapscentrum De Zeyp</h3>
+          <p>Verbindt mensen in de brede noordwestelijke gordel van Brussel. Met een programma dat de buurt weerspiegelt.</p>
+          <a href="https://dezeyp.be" rel="external noopener" target="_blank">Meer over De Zeyp →</a>
+        </div>
+      </div>
+      <p class="mt-6">Meer dan honderd vrijwilligers maken Plazey elk jaar waar. Achter de bar, aan de kassa, aan de infostand — en bij het op- en afbouwen.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <figure>
+          <Image
+            src={vrijwilligersBabyspot}
+            alt="Twee vrijwilligers in roze Plazey-t-shirt voor de Baby Spot-caravan."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+        <figure>
+          <Image
+            src={vrijwilligersBar}
+            alt="Vrijwilligers in roze Plazey-t-shirt achter de bar, gezellige sfeer."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
+    </Container>
+  </section>
+
+  <section aria-labelledby="onze-partners" class="py-12">
+    <Container>
+      <h2 id="onze-partners">Onze partners</h2>
+      <ul role="list" class="logo-wall flex flex-wrap gap-4 mt-4">
+        <li><span>Demos</span></li>
+        <li><span>AnySurfer</span></li>
+        <li><span>Zonnelied vzw</span></li>
+        <li><span>Viernulvier</span></li>
+        <li><span>Club 1030 / GC De Kriekelaar</span></li>
+        <li><span>Scheldeoffensief</span></li>
+      </ul>
+      <p><small>⚠️ Partnerlijst valideren met De Platoo/De Zeyp vóór publicatie.</small></p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="doe-mee-callout" class="callout py-12">
+    <Container>
+      <h2 id="doe-mee-callout">Wil je mee bouwen?</h2>
+      <p>Kom helpen of stel een project voor.</p>
+      <a href="/nl/doe-mee" class="btn-ghost">Naar Doe mee →</a>
+    </Container>
+  </section>
+</BaseLayout>

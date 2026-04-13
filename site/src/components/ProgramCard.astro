@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  startTime: string;
+  endTime?: string;
+  type: string;
+  stage: string;
+  description?: string;
+  href: string;
+  lang: 'nl' | 'fr';
+}
+const { title, startTime, endTime, type, stage, description, href } = Astro.props;
+const timeDisplay = endTime ? `${startTime}–${endTime}` : startTime;
+---
+
+<a href={href} class="program-card flex flex-col gap-1 p-4 border rounded hover:shadow-sm">
+  <span class="time text-sm">{timeDisplay}</span>
+  <span class="type-chip text-xs border rounded-full px-2 py-0.5 self-start">{type}</span>
+  <h3 class="card-title font-medium">{title}</h3>
+  <span class="stage text-sm">{stage}</span>
+  {description && <p class="card-desc text-sm mt-1">{description}</p>}
+</a>

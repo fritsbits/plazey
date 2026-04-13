@@ -1,0 +1,47 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  lang: 'nl' | 'fr';
+  currentPath?: string;
+}
+const { title, lang, currentPath = '' } = Astro.props;
+
+const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
+---
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Plazey</title>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <a class="skip-link" href="#main-content">{skipLabel}</a>
+    <Header lang={lang} currentPath={currentPath} />
+    <main id="main-content" class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .skip-link:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    padding: 0.5rem 1rem;
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+interface Props {
+  lang: 'nl' | 'fr';
+  currentPath?: string;
+}
+const { lang, currentPath = '' } = Astro.props;
+
+const nav = lang === 'nl'
+  ? [
+      { href: '/nl/programma', label: 'Programma' },
+      { href: '/nl/praktisch', label: 'Praktisch' },
+      { href: '/nl/over-plazey', label: 'Over' },
+      { href: '/nl/doe-mee', label: 'Doe mee' },
+    ]
+  : [
+      { href: '/fr/programme', label: 'Programme' },
+      { href: '/fr/infos-pratiques', label: 'Infos pratiques' },
+      { href: '/fr/a-propos', label: 'À propos' },
+      { href: '/fr/participez', label: 'Participe' },
+    ];
+
+const homeHref = lang === 'nl' ? '/nl' : '/fr';
+
+const segmentMap: Record<string, string> = {
+  'programma': 'programme',
+  'programme': 'programma',
+  'praktisch': 'infos-pratiques',
+  'infos-pratiques': 'praktisch',
+  'over-plazey': 'a-propos',
+  'a-propos': 'over-plazey',
+  'doe-mee': 'participez',
+  'participez': 'doe-mee',
+};
+
+function alternateHref(currentPath: string, targetLang: 'nl' | 'fr'): string {
+  const withoutLang = currentPath.replace(/^\/(nl|fr)/, '');
+  if (!withoutLang) return `/${targetLang}`;
+  const mapped = withoutLang.split('/').filter(Boolean).map(s => segmentMap[s] ?? s);
+  return `/${targetLang}/${mapped.join('/')}`;
+}
+
+const navLabel = lang === 'fr' ? 'Navigation principale' : 'Hoofdnavigatie';
+const menuLabel = 'Menu';
+const langLabel = lang === 'fr' ? 'Choisir la langue' : 'Taal kiezen';
+const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Plazey — naar de startpagina';
+---
+
+<header class="border-b">
+  <nav aria-label={navLabel} class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-wrap items-center py-3 gap-x-4">
+    <a href={homeHref} aria-label={logoAriaLabel} class="logo-link mr-auto font-semibold text-lg">Plazey</a>
+
+    <button
+      class="nav-toggle md:hidden"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+      aria-label={menuLabel}
+    >
+      ☰
+    </button>
+
+    <ul id="nav-menu" role="list"
+      class="hidden w-full order-last md:order-none md:w-auto md:flex items-center gap-6 text-sm data-[open]:flex data-[open]:flex-col data-[open]:py-4 data-[open]:gap-4 data-[open]:border-t">
+      {nav.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            aria-current={currentPath.startsWith(href) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div role="group" aria-label={langLabel} class="lang-toggle flex items-center gap-2 text-sm">
+      <a
+        href={alternateHref(currentPath, 'nl')}
+        lang="nl"
+        aria-current={lang === 'nl' ? 'true' : undefined}
+      >NL</a>
+      <a
+        href={alternateHref(currentPath, 'fr')}
+        lang="fr"
+        aria-current={lang === 'fr' ? 'true' : undefined}
+      >FR</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+  const menu = document.getElementById('nav-menu') as HTMLElement;
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      menu.toggleAttribute('data-open', !isOpen);
+      if (!isOpen) {
+        const firstLink = menu.querySelector('a') as HTMLAnchorElement;
+        firstLink?.focus();
+      }
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.removeAttribute('data-open');
+        toggle.focus();
+      }
+    });
+
+    menu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = Array.from(
+        menu.querySelectorAll('a, button')
+      ) as HTMLElement[];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    });
+  }
+</script>

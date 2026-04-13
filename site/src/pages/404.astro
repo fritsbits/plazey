@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Default to Dutch for 404 pages, since we can't reliably detect language
+// from request URL in static builds. Users can switch via the links below.
+const lang = 'nl' as const;
+---
+
+<BaseLayout
+  title="Pagina niet gevonden"
+  lang={lang}
+>
+  <section aria-label="404 error">
+    <h1>Deze pagina bestaat niet (meer).</h1>
+    <p>Misschien zoek je het programma of praktische info?</p>
+    <div role="list" class="button-group">
+      <a href="/nl/programma" class="btn-primary">Naar het programma</a>
+      <a href="/nl/praktisch" class="btn-ghost">Naar praktisch</a>
+      <a href="/nl/" class="btn-text">Terug naar start</a>
+    </div>
+    <p class="language-switch">
+      <a href="/fr/">Cherche la version française ?</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .language-switch {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+  }
+
+  .language-switch a {
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+import { getCollection } from 'astro:content';
+import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '../../config/site.ts';
+
+const allItems = await getCollection('programme');
+const frItems = allItems.filter(e => e.data.lang === 'fr');
+const saturdayHighlights = frItems.filter(e => e.data.day === 'saturday').slice(0, 3);
+const hasProgramme = frItems.length > 0;
+---
+
+<BaseLayout title="Plazey festival" lang="fr" currentPath="/fr">
+  <section aria-label="Héro" class="py-16">
+    <Container>
+      <h1>Passez nous voir. Plazey, c'est trois jours de fête gratuite au parc Élisabeth.</h1>
+      <p>{FESTIVAL_DATES_FR} · {FESTIVAL_LOCATION}</p>
+      <a href="/fr/programme" class="btn-primary">Voir le programme</a>
+      <a href="/fr/participez" class="btn-ghost">Venir aider</a>
+      <a href="/fr/infos-pratiques#acces" class="btn-text">Comment s'y rendre</a>
+      <p class="edition-indicator">Édition 2026</p>
+    </Container>
+    <figure>
+      <img
+        src="/images/plazey-2026.jpg"
+        alt="Une soirée d'été colorée au parc Élisabeth lors de Plazey 2026."
+        width="1200"
+        height="800"
+        class="w-full"
+      />
+    </figure>
+  </section>
+
+  <section aria-labelledby="quest-ce-que-plazey" class="py-12">
+    <Container>
+      <h2 id="quest-ce-que-plazey">C'est quoi Plazey ?</h2>
+      <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
+        <li>
+          <h3>Gratuit depuis 1992</h3>
+          <p>Pas de tickets, pas d'entrée payante. Plazey a toujours été gratuit.</p>
+        </li>
+        <li>
+          <h3>Musique, danse, ateliers</h3>
+          <p>Concerts, cirque, films, activités enfants — tous genres, tous âges.</p>
+        </li>
+        <li>
+          <h3>Pour tout le quartier</h3>
+          <p>On parle plusieurs langues. Pour les enfants comme pour les grands. Fait avec les habitant·es du quartier.</p>
+        </li>
+      </ul>
+    </Container>
+  </section>
+
+  <section aria-labelledby="programme-teaser" class="py-12">
+    <Container>
+      <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
+      {hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+        <>
+          <div role="tablist" aria-label="Sélectionner un jour" class="day-tabs flex gap-2 mt-4">
+            <button role="tab" aria-selected="true" aria-controls="tab-samedi" id="tab-btn-samedi">
+              Samedi 23 août
+            </button>
+          </div>
+          <div id="tab-samedi" role="tabpanel" aria-labelledby="tab-btn-samedi">
+            <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              {saturdayHighlights.map(item => (
+                <li>
+                  <ProgramCard
+                    title={item.data.title}
+                    startTime={item.data.startTime}
+                    {...(item.data.endTime && { endTime: item.data.endTime })}
+                    type={item.data.type}
+                    stage={item.data.stage}
+                    {...(item.data.description && { description: item.data.description })}
+                    href={`/fr/programme/${item.id.replace('fr/', '')}`}
+                    lang="fr"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a href="/fr/programme" class="btn-text">Voir le programme complet →</a>
+        </>
+      ) : (
+        <p>Le programme arrive bientôt. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Suis-nous sur Facebook pour l'annonce.</a></p>
+      )}
+    </Container>
+  </section>
+
+  <section aria-labelledby="comment-sy-rendre" class="py-12">
+    <Container>
+      <h2 id="comment-sy-rendre">Comment s'y rendre ?</h2>
+      <p>En métro ligne 2 ou 6, arrêt Simonis. De là, dix minutes à pied jusqu'au parc.</p>
+      <p>Tu peux aussi venir en tram, en bus, à vélo ou en voiture.</p>
+      <a href="/fr/infos-pratiques#acces" class="btn-text">Plus d'infos sur l'accès →</a>
+    </Container>
+  </section>
+
+  <section aria-labelledby="participe-teaser" class="py-12">
+    <Container>
+      <h2 id="participe-teaser">Participe</h2>
+      <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
+      <a href="/fr/participez" class="btn-ghost">Venir aider</a>
+    </Container>
+  </section>
+</BaseLayout>

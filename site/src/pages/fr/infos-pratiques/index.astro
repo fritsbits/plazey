@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+
+const faqItems = [
+  { question: 'Plazey est-il vraiment gratuit ?', answer: "Oui. Pas de tickets, pas d'entrée payante. Plazey est gratuit pour tout le monde, depuis 1992." },
+  { question: 'Puis-je apporter ma propre nourriture et boisson ?', answer: "Oui. Nourriture et boissons personnelles sont toujours les bienvenues. L'eau du robinet est gratuite au bar." },
+  { question: 'Y a-t-il un vestiaire ou une consigne ?', answer: 'Non. Venez avec le moins de bagages possible.' },
+  { question: 'À quelle heure commence et se termine le festival ?', answer: 'Le vendredi, les activités commencent à 19h30. Le samedi et dimanche à partir de [heure à compléter]. Le festival se termine à [heure à compléter].' },
+  { question: 'Puis-je y venir en fauteuil roulant ou avec une poussette ?', answer: 'Oui. Les allées principales sont planes et accessibles aux fauteuils roulants et poussettes. Tous les petits chemins ne le sont pas.' },
+];
+---
+
+<BaseLayout title="Infos pratiques" lang="fr" currentPath="/fr/infos-pratiques">
+  <div class="py-12">
+    <Container>
+      <h1>Infos pratiques</h1>
+      <p>Tout ce que tu dois savoir pour venir.</p>
+
+      <nav aria-label="Sur cette page" class="my-6">
+        <ul role="list" class="flex flex-wrap gap-4 text-sm">
+          <li><a href="#acces">Accès</a></li>
+          <li><a href="#manger-et-boire">Manger &amp; boire</a></li>
+          <li><a href="#accessibilite">Accessibilité</a></li>
+          <li><a href="#plus">Enfants, plan pluie &amp; plus</a></li>
+        </ul>
+      </nav>
+
+      <section id="acces" aria-labelledby="heading-acces" class="mt-12">
+        <h2 id="heading-acces">Accès</h2>
+
+        <h3>Métro</h3>
+        <p>En métro ligne 2 ou 6, arrêt Simonis/Élisabeth. De la station, dix minutes à pied jusqu'au parc. La station est équipée d'un ascenseur et est accessible aux fauteuils roulants.</p>
+
+        <h3>Tram et bus</h3>
+        <ul>
+          <li>Tram 9 ou 19, arrêt Simonis/Élisabeth.</li>
+          <li>Bus STIB 13, 87 ou N16 — arrêt Parc Élisabeth.</li>
+          <li>Bus STIB 49 ou 53 — arrêt Liberté.</li>
+          <li>De Lijn 212, 213, 214 ou 355 — arrêt Parc Élisabeth.</li>
+        </ul>
+
+        <h3>Vélo</h3>
+        <p>Un parking vélo non gardé est disponible sur le site. Prenez un antivol.</p>
+
+        <h3>Voiture</h3>
+        <p>Le stationnement est payant autour du parc. Ou dans le parking souterrain Indigoneo sous le parc. Adresse : Place Eugène Simonis 24, 1081 Koekelberg.</p>
+
+        <p><strong>Besoin d'aide pour aller de la station au site ?</strong> Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+      </section>
+
+      <section id="manger-et-boire" aria-labelledby="heading-manger" class="mt-12">
+        <h2 id="heading-manger">Manger &amp; boire</h2>
+        <p>Tu peux apporter ta propre nourriture et boisson. L'eau du robinet est gratuite.</p>
+
+        <h3>Boissons sans alcool</h3>
+        <table>
+          <caption class="sr-only">Prix des boissons sans alcool Plazey 2026</caption>
+          <thead><tr><th scope="col">Boisson</th><th scope="col">Prix</th></tr></thead>
+          <tbody>
+            <tr><td>Eau du robinet</td><td>Gratuit</td></tr>
+            <tr><td>Eau pétillante</td><td>€1</td></tr>
+            <tr><td>Soft</td><td>€2</td></tr>
+            <tr><td>Café</td><td>€[à valider]</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Boissons alcoolisées</h3>
+        <table>
+          <caption class="sr-only">Prix des boissons alcoolisées Plazey 2026</caption>
+          <thead><tr><th scope="col">Boisson</th><th scope="col">Prix</th></tr></thead>
+          <tbody>
+            <tr><td>Bière</td><td>€3</td></tr>
+            <tr><td>Vin</td><td>€4</td></tr>
+          </tbody>
+        </table>
+        <p><small>⚠️ Prix de l'édition 2025. À valider pour 2026.</small></p>
+
+        <p>Il y a aussi des stands alimentaires. Nous choisissons délibérément des habitant·es du quartier, des établissements horeca locaux et des start-ups. Les stands de cette année seront annoncés bientôt.</p>
+        <p><strong>Espèces et tokens acceptés.</strong></p>
+      </section>
+
+      <section id="accessibilite" aria-labelledby="heading-accessibilite" class="mt-12">
+        <h2 id="heading-accessibilite">Accessibilité</h2>
+        <p>Une question ou besoin d'aide ? Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+        <h3>Ce qui est disponible</h3>
+        <ul>
+          <li><strong>Appareil CM1</strong> — à l'infostand. Connexion directe avec la sonorisation.</li>
+          <li><strong>Interprète en Langue des Signes de Belgique Francophone</strong> — dimanche de 15h à 19h.</li>
+          <li><strong>Bouchons d'oreilles</strong> — disponibles à l'infostand.</li>
+          <li><strong>Bénévoles ADL</strong> — pour aide pratique sur site. Contacte-nous à l'avance via <a href="mailto:info@plazey.be">info@plazey.be</a>.</li>
+          <li><strong>Programme et liste de boissons en braille</strong> — et en impression standard — à l'infostand.</li>
+          <li><strong>Espace calme</strong> — pour se reposer du bruit.</li>
+          <li><strong>Toilettes adaptées</strong> — pour personnes en fauteuil roulant.</li>
+          <li><strong>Allées principales planes</strong> — accessibles aux fauteuils roulants et poussettes.</li>
+          <li><strong>Métro Simonis équipé d'un ascenseur</strong> — accessible en fauteuil roulant.</li>
+        </ul>
+
+        <h3>Nous faisons ça avec</h3>
+        <p>Demos · AnySurfer · Zonnelied vzw · Viernulvier · Club 1030 / GC De Kriekelaar · Scheldeoffensief</p>
+        <p><small>⚠️ Liste à valider avant publication.</small></p>
+      </section>
+
+      <section id="plus" aria-labelledby="heading-plus" class="mt-12">
+        <h2 id="heading-plus">Enfants, plan pluie &amp; plus</h2>
+
+        <h3>Enfants</h3>
+        <p>Les enfants sont les bienvenus à Plazey. Il y a des activités pour les tout-petits jusqu'aux ados. Ton enfant s'est perdu ? Viens à l'infostand [emplacement à compléter]. Un espace à langer est disponible.</p>
+
+        <h3>Plan pluie</h3>
+        <p>Plazey se tient toujours, même s'il pleut. Le parc dispose d'espaces couverts. Prends un imperméable par précaution.</p>
+
+        <h3>Questions fréquentes</h3>
+        <Accordion items={faqItems} />
+
+        <p>Ta question n'est pas là ? Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+      </section>
+    </Container>
+  </div>
+</BaseLayout>

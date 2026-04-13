@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+---
+
+<BaseLayout title="À propos de Plazey" lang="fr" currentPath="/fr/a-propos">
+  <section class="py-12">
+    <Container>
+      <h1>À propos de Plazey</h1>
+      <p class="opening">Rejoignez-nous, quelle que soit votre langue ou votre rythme.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="lhistoire" class="py-12">
+    <Container>
+      <h2 id="lhistoire">L'histoire</h2>
+      <p>Plazey a démarré en 1992 comme une petite fête musicale pour les riverain·es du parc Élisabeth à Koekelberg. Gratuit, en plein air, pour les voisin·es. Dans l'essence, c'est toujours ça.</p>
+      <p>En 2013, le festival a évolué en un lieu de rencontre convivial autour du Bar Eliza — un petit café en bois au cœur du parc, où le quartier pouvait se rassembler. La musique restait au centre, mais des ateliers, des animations et de la restauration ont rejoint l'aventure.</p>
+      <p>Depuis 2023, nous faisons le choix de l'accessibilité radicale. Pas comme étiquette, mais comme travail. Avec Demos, AnySurfer et d'autres partenaires, nous construisons un festival vraiment accessible à tout le monde — et nous disons honnêtement ce qui n'est pas encore possible.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="qui-fait" class="py-12">
+    <Container>
+      <h2 id="qui-fait">Qui fait Plazey ?</h2>
+      <p>Plazey est un projet de deux maisons de quartier bruxelloises.</p>
+      <div class="org-grid grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6">
+        <div class="org-card">
+          <h3>Maison de quartier De Platoo</h3>
+          <p>Enracinée dans le quartier. Elle rassemble les gens autour de la culture, de la rencontre et du travail communautaire à Koekelberg.</p>
+          <a href="https://deplatoo.be" rel="external noopener" target="_blank">En savoir plus sur De Platoo →</a>
+        </div>
+        <div class="org-card">
+          <h3>Maison de quartier De Zeyp</h3>
+          <p>Relie les habitant·es de la large ceinture nord-ouest de Bruxelles. Avec une programmation qui reflète le quartier.</p>
+          <a href="https://dezeyp.be" rel="external noopener" target="_blank">En savoir plus sur De Zeyp →</a>
+        </div>
+      </div>
+      <p class="mt-6">Plus de cent bénévoles font vivre Plazey chaque année. Derrière le bar, à la caisse, à l'infostand — et lors du montage et du démontage.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="nos-partenaires" class="py-12">
+    <Container>
+      <h2 id="nos-partenaires">Nos partenaires</h2>
+      <ul role="list" class="logo-wall flex flex-wrap gap-4 mt-4">
+        <li><span>Demos</span></li>
+        <li><span>AnySurfer</span></li>
+        <li><span>Zonnelied vzw</span></li>
+        <li><span>Viernulvier</span></li>
+        <li><span>Club 1030 / GC De Kriekelaar</span></li>
+        <li><span>Scheldeoffensief</span></li>
+      </ul>
+      <p><small>⚠️ Liste à valider avant publication.</small></p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="participe-callout" class="callout py-12">
+    <Container>
+      <h2 id="participe-callout">Tu veux contribuer ?</h2>
+      <p>Viens aider ou propose un projet.</p>
+      <a href="/fr/participez" class="btn-ghost">Vers Participe →</a>
+    </Container>
+  </section>
+</BaseLayout>

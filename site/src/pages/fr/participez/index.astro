@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+
+const faqItems = [
+  { question: "Dois-je m'inscrire pour aider ?", answer: 'Oui, envoie un mail à info@plazey.be. On te répond dès que possible.' },
+  { question: 'Est-ce que je reçois à manger et à boire ?', answer: "Oui. Pendant ton shift, Plazey t'offre un repas et des boissons." },
+  { question: 'Puis-je venir seulement une demi-journée ?', answer: "Oui, c'est possible. Indique-le dans ton mail." },
+  { question: "Puis-je venir avec des ami·es ?", answer: "Oui, avec plaisir. Indique-le dans ton mail." },
+  { question: 'Je ne parle ni néerlandais ni français. Puis-je quand même aider ?', answer: 'Oui. Plazey est multilingue. Indique quelles langues tu parles.' },
+];
+---
+
+<BaseLayout title="Participe" lang="fr">
+  <section class="py-12">
+    <Container>
+      <h1>Participe</h1>
+      <p class="opening">Venez donner un coup de main. Derrière le bar, à la caisse, ou pour le rangement.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="devenir-benevole" class="py-12">
+    <Container>
+      <h2 id="devenir-benevole">Devenir bénévole</h2>
+      <p>Plazey tourne grâce à ses bénévoles. Chaque année, plus de cent personnes rendent le festival possible. Tu peux en faire partie.</p>
+      <p>Tu choisis toi-même quand et combien. Une demi-journée, une journée entière, ou tout le week-end.</p>
+
+      <ul role="list" class="roles-grid grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        <li class="role-card">
+          <h3>Bar</h3>
+          <p>Tu sers les boissons et t'assures que tout le monde a ce qu'il lui faut. Tu travailles en équipe. Pas besoin d'expérience.</p>
+        </li>
+        <li class="role-card">
+          <h3>Caisse</h3>
+          <p>Les visiteur·euses achètent ici leurs tokens. Tu es le premier contact pour celles et ceux qui entrent sur le site.</p>
+        </li>
+        <li class="role-card">
+          <h3>Infostand</h3>
+          <p>Tu réponds aux questions, distribues les programmes et aides les gens à s'orienter. Parler plusieurs langues est un atout.</p>
+        </li>
+        <li class="role-card">
+          <h3>Rangement et montage</h3>
+          <p>Avant ou après le festival, tu aides à installer le site ou à le remettre en ordre. Travail concret et pratique.</p>
+        </li>
+      </ul>
+
+      <p class="mt-6">Tu n'as pas besoin d'expérience. Plazey t'offre un repas et des boissons quand tu aides.</p>
+
+      <a
+        href="mailto:info@plazey.be?subject=B%C3%A9n%C3%A9vole%20Plazey%202026"
+        class="btn-primary"
+      >
+        Inscris-toi via info@plazey.be
+      </a>
+      <p>Indique dans ton mail : quand tu es disponible et ce qui t'intéresse.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="proposer-projet" class="py-12">
+    <Container>
+      <h2 id="proposer-projet">Propose un projet</h2>
+      <p>Plazey est fait par les habitant·es du quartier. Une grande partie du programme est proposée et co-organisée par des habitant·es, des artistes locaux·ales et des associations.</p>
+      <p>Tu es habitant·e du quartier ? Artiste local·e ? Une petite asso avec une idée ? Propose ton projet.</p>
+      <p>Indique dans ta proposition : qui tu es, ce que tu prévois, ce dont tu as besoin (espace, matériel, temps), et pour quel jour tu penses.</p>
+
+      <a
+        href="mailto:info@plazey.be?subject=Proposition%20projet%20Plazey%202026"
+        class="btn-ghost"
+      >
+        Propose ton projet via info@plazey.be
+      </a>
+    </Container>
+  </section>
+
+  <section aria-labelledby="questions-benevoles" class="py-12">
+    <Container>
+      <h2 id="questions-benevoles">Questions</h2>
+      <Accordion items={faqItems} />
+    </Container>
+  </section>
+</BaseLayout>
