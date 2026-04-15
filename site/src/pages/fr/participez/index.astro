@@ -201,7 +201,7 @@ const faqItems = [
 </BaseLayout>
 
 <script>
-  document.querySelectorAll<HTMLFormElement>('form[data-netlify="true"]').forEach((form) => {
+  document.querySelectorAll<HTMLFormElement>('form[name="benevole"], form[name="proposition-projet"]').forEach((form) => {
     const successMessages: Record<string, string> = {
       benevole: 'Merci ! On te répond dès que possible.',
       'proposition-projet': 'Merci pour ta proposition ! On te répond dès que possible.',

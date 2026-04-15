@@ -248,7 +248,7 @@ const faqItems = [
 </BaseLayout>
 
 <script>
-  document.querySelectorAll<HTMLFormElement>('form[data-netlify="true"]').forEach((form) => {
+  document.querySelectorAll<HTMLFormElement>('form[name="vrijwilliger"], form[name="project-voorstel"]').forEach((form) => {
     const successMessages: Record<string, string> = {
       vrijwilliger: 'Bedankt! We nemen zo snel mogelijk contact op.',
       'project-voorstel': 'Bedankt voor je voorstel! We nemen zo snel mogelijk contact op.',
