@@ -199,3 +199,51 @@ const faqItems = [
     </Container>
   </section>
 </BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-netlify="true"]').forEach((form) => {
+    const successMessages: Record<string, string> = {
+      benevole: 'Merci ! On te répond dès que possible.',
+      'proposition-projet': 'Merci pour ta proposition ! On te répond dès que possible.',
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!submitBtn) return;
+
+      const originalText = submitBtn.textContent ?? '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'En cours…';
+
+      const formName = (form.querySelector<HTMLInputElement>('input[name="form-name"]')?.value) ?? '';
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+        });
+
+        if (response.ok) {
+          const msg = successMessages[formName] ?? 'Merci !';
+          form.innerHTML = `<p class="py-4 font-semibold">${msg}</p>`;
+        } else {
+          throw new Error('server error');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+
+        let errorEl = form.querySelector<HTMLParagraphElement>('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('p');
+          errorEl.className = 'form-error text-red-600 text-sm';
+          submitBtn.insertAdjacentElement('beforebegin', errorEl);
+        }
+        errorEl.textContent = 'Une erreur s\'est produite. Réessaie ou envoie un mail à info@plazey.be.';
+      }
+    });
+  });
+</script>
