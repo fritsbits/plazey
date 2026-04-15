@@ -94,13 +94,74 @@ const faqItems = [
 
       <p class="mt-6">Je hoeft geen ervaring te hebben. Plazey zorgt voor een maaltijd en drankjes terwijl je helpt.</p>
 
-      <a
-        href="mailto:info@plazey.be?subject=Vrijwilliger%20Plazey%202026"
-        class="btn-primary"
+      <form
+        name="vrijwilliger"
+        method="POST"
+        data-netlify="true"
+        class="mt-8 flex flex-col gap-5 max-w-lg"
       >
-        Schrijf je in via info@plazey.be
-      </a>
-      <p>Vermeld in je mail: wanneer je beschikbaar bent en waarvoor je interesse hebt.</p>
+        <input type="hidden" name="form-name" value="vrijwilliger" />
+
+        <div class="flex flex-col gap-1">
+          <label for="naam-vw" class="font-semibold text-sm">Naam</label>
+          <input
+            type="text"
+            id="naam-vw"
+            name="naam"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email-vw" class="font-semibold text-sm">E-mailadres</label>
+          <input
+            type="email"
+            id="email-vw"
+            name="email"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Wanneer ben je beschikbaar?</legend>
+          <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vrijdag</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Zaterdag</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="zondag" /> Zondag</label>
+        </fieldset>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Waarvoor heb je interesse?</legend>
+          <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="bar" /> Bar</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="kassa" /> Kassa</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="infostand" /> Infostand</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="opbouw-opruim" /> Opbouw en opruim</label>
+        </fieldset>
+
+        <div class="flex flex-col gap-1">
+          <label for="talen-vw" class="font-semibold text-sm">Welke talen spreek je?</label>
+          <input
+            type="text"
+            id="talen-vw"
+            name="talen"
+            placeholder="bv. Nederlands, Frans, Engels"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="extra-vw" class="font-semibold text-sm">Nog iets anders? <span class="font-normal text-gray-500">(optioneel)</span></label>
+          <textarea
+            id="extra-vw"
+            name="extra"
+            rows="3"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary self-start">Schrijf je in</button>
+      </form>
     </Container>
   </section>
 
@@ -109,14 +170,67 @@ const faqItems = [
       <h2 id="stel-project-voor">Stel een project voor</h2>
       <p>Plazey wordt mee gemaakt door mensen uit de buurt. Een groot deel van het programma wordt ingediend en mee georganiseerd door buurtbewoners, lokale artiesten en organisaties.</p>
       <p>Ben je buurtbewoner? Lokale artiest? Een kleine organisatie met een idee? Stel je project voor.</p>
-      <p>Zet in je voorstel: wie je bent, wat je van plan bent, wat je nodig hebt (ruimte, materiaal, tijd), en voor welke dag je denkt.</p>
-
-      <a
-        href="mailto:info@plazey.be?subject=Project%20voorstel%20Plazey%202026"
-        class="btn-ghost"
+      <form
+        name="project-voorstel"
+        method="POST"
+        data-netlify="true"
+        class="mt-6 flex flex-col gap-5 max-w-lg"
       >
-        Stel je project voor via info@plazey.be
-      </a>
+        <input type="hidden" name="form-name" value="project-voorstel" />
+
+        <div class="flex flex-col gap-1">
+          <label for="naam-pv" class="font-semibold text-sm">Naam</label>
+          <input
+            type="text"
+            id="naam-pv"
+            name="naam"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email-pv" class="font-semibold text-sm">E-mailadres</label>
+          <input
+            type="email"
+            id="email-pv"
+            name="email"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="project-omschrijving" class="font-semibold text-sm">Wat is je idee?</label>
+          <textarea
+            id="project-omschrijving"
+            name="omschrijving"
+            rows="4"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="project-nodig" class="font-semibold text-sm">Wat heb je nodig? <span class="font-normal text-gray-500">(ruimte, materiaal, tijd)</span></label>
+          <textarea
+            id="project-nodig"
+            name="nodig"
+            rows="3"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Voor welke dag denk je?</legend>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="vrijdag" /> Vrijdag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="zaterdag" /> Zaterdag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="zondag" /> Zondag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="weet-nog-niet" /> Weet ik nog niet</label>
+        </fieldset>
+
+        <button type="submit" class="btn-ghost self-start">Stel je project voor</button>
+      </form>
     </Container>
   </section>
 

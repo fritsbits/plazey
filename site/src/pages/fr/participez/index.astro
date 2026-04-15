@@ -47,13 +47,74 @@ const faqItems = [
 
       <p class="mt-6">Tu n'as pas besoin d'expérience. Plazey t'offre un repas et des boissons quand tu aides.</p>
 
-      <a
-        href="mailto:info@plazey.be?subject=B%C3%A9n%C3%A9vole%20Plazey%202026"
-        class="btn-primary"
+      <form
+        name="benevole"
+        method="POST"
+        data-netlify="true"
+        class="mt-8 flex flex-col gap-5 max-w-lg"
       >
-        Inscris-toi via info@plazey.be
-      </a>
-      <p>Indique dans ton mail : quand tu es disponible et ce qui t'intéresse.</p>
+        <input type="hidden" name="form-name" value="benevole" />
+
+        <div class="flex flex-col gap-1">
+          <label for="nom-bv" class="font-semibold text-sm">Nom</label>
+          <input
+            type="text"
+            id="nom-bv"
+            name="nom"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email-bv" class="font-semibold text-sm">Adresse e-mail</label>
+          <input
+            type="email"
+            id="email-bv"
+            name="email"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Quand es-tu disponible ?</legend>
+          <label class="flex items-center gap-2"><input type="checkbox" name="disponibilite" value="vendredi" /> Vendredi</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="disponibilite" value="samedi" /> Samedi</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="disponibilite" value="dimanche" /> Dimanche</label>
+        </fieldset>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Qu'est-ce qui t'intéresse ?</legend>
+          <label class="flex items-center gap-2"><input type="checkbox" name="role" value="bar" /> Bar</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="role" value="caisse" /> Caisse</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="role" value="infostand" /> Infostand</label>
+          <label class="flex items-center gap-2"><input type="checkbox" name="role" value="montage-rangement" /> Montage et rangement</label>
+        </fieldset>
+
+        <div class="flex flex-col gap-1">
+          <label for="langues-bv" class="font-semibold text-sm">Quelles langues parles-tu ?</label>
+          <input
+            type="text"
+            id="langues-bv"
+            name="langues"
+            placeholder="ex. français, néerlandais, anglais"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="extra-bv" class="font-semibold text-sm">Autre chose ? <span class="font-normal text-gray-500">(optionnel)</span></label>
+          <textarea
+            id="extra-bv"
+            name="extra"
+            rows="3"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary self-start">S'inscrire</button>
+      </form>
     </Container>
   </section>
 
@@ -62,14 +123,67 @@ const faqItems = [
       <h2 id="proposer-projet">Propose un projet</h2>
       <p>Plazey est fait par les habitant·es du quartier. Une grande partie du programme est proposée et co-organisée par des habitant·es, des artistes locaux·ales et des associations.</p>
       <p>Tu es habitant·e du quartier ? Artiste local·e ? Une petite asso avec une idée ? Propose ton projet.</p>
-      <p>Indique dans ta proposition : qui tu es, ce que tu prévois, ce dont tu as besoin (espace, matériel, temps), et pour quel jour tu penses.</p>
-
-      <a
-        href="mailto:info@plazey.be?subject=Proposition%20projet%20Plazey%202026"
-        class="btn-ghost"
+      <form
+        name="proposition-projet"
+        method="POST"
+        data-netlify="true"
+        class="mt-6 flex flex-col gap-5 max-w-lg"
       >
-        Propose ton projet via info@plazey.be
-      </a>
+        <input type="hidden" name="form-name" value="proposition-projet" />
+
+        <div class="flex flex-col gap-1">
+          <label for="nom-pp" class="font-semibold text-sm">Nom</label>
+          <input
+            type="text"
+            id="nom-pp"
+            name="nom"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email-pp" class="font-semibold text-sm">Adresse e-mail</label>
+          <input
+            type="email"
+            id="email-pp"
+            name="email"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="projet-description" class="font-semibold text-sm">Quelle est ton idée ?</label>
+          <textarea
+            id="projet-description"
+            name="description"
+            rows="4"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="projet-besoin" class="font-semibold text-sm">De quoi as-tu besoin ? <span class="font-normal text-gray-500">(espace, matériel, temps)</span></label>
+          <textarea
+            id="projet-besoin"
+            name="besoin"
+            rows="3"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Pour quel jour tu penses ?</legend>
+          <label class="flex items-center gap-2"><input type="radio" name="jour" value="vendredi" /> Vendredi</label>
+          <label class="flex items-center gap-2"><input type="radio" name="jour" value="samedi" /> Samedi</label>
+          <label class="flex items-center gap-2"><input type="radio" name="jour" value="dimanche" /> Dimanche</label>
+          <label class="flex items-center gap-2"><input type="radio" name="jour" value="pas-encore-su" /> Je ne sais pas encore</label>
+        </fieldset>
+
+        <button type="submit" class="btn-ghost self-start">Proposer mon projet</button>
+      </form>
     </Container>
   </section>
 
