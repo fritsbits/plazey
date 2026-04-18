@@ -1,24 +1,41 @@
 ---
+import { SITE_PHASE } from '../config/site.ts';
+
 interface Props {
   lang: 'nl' | 'fr';
   currentPath?: string;
 }
 const { lang, currentPath = '' } = Astro.props;
 
-const nav = lang === 'nl'
+const nlNav = SITE_PHASE === 'save-the-date'
   ? [
-      { href: '/nl/programma', label: 'Programma' },
       { href: '/nl/praktisch', label: 'Praktisch' },
       { href: '/nl/over-plazey', label: 'Over' },
-      { href: '/nl/doe-mee', label: 'Doe mee' },
+      { href: '/nl/vrijwilliger', label: 'Kom helpen' },
+      { href: '/nl/stel-een-project-voor', label: 'Stel een project voor' },
     ]
   : [
-      { href: '/fr/programme', label: 'Programme' },
-      { href: '/fr/infos-pratiques', label: 'Infos pratiques' },
-      { href: '/fr/a-propos', label: 'À propos' },
-      { href: '/fr/participez', label: 'Participe' },
+      { href: '/nl/programma', label: SITE_PHASE === 'aftermovie' ? 'Programma 2026' : 'Programma' },
+      { href: '/nl/praktisch', label: 'Praktisch' },
+      { href: '/nl/over-plazey', label: 'Over' },
+      { href: '/nl/vrijwilliger', label: 'Kom helpen' },
     ];
 
+const frNav = SITE_PHASE === 'save-the-date'
+  ? [
+      { href: '/fr/infos-pratiques', label: 'Pratique' },
+      { href: '/fr/a-propos', label: 'À propos' },
+      { href: '/fr/benevole', label: 'Venir aider' },
+      { href: '/fr/propose-ton-projet', label: 'Proposer un projet' },
+    ]
+  : [
+      { href: '/fr/programme', label: SITE_PHASE === 'aftermovie' ? 'Programme 2026' : 'Programme' },
+      { href: '/fr/infos-pratiques', label: 'Pratique' },
+      { href: '/fr/a-propos', label: 'À propos' },
+      { href: '/fr/benevole', label: 'Venir aider' },
+    ];
+
+const nav = lang === 'nl' ? nlNav : frNav;
 const homeHref = lang === 'nl' ? '/nl' : '/fr';
 
 const segmentMap: Record<string, string> = {
@@ -30,6 +47,10 @@ const segmentMap: Record<string, string> = {
   'a-propos': 'over-plazey',
   'doe-mee': 'participez',
   'participez': 'doe-mee',
+  'vrijwilliger': 'benevole',
+  'benevole': 'vrijwilliger',
+  'stel-een-project-voor': 'propose-ton-projet',
+  'propose-ton-projet': 'stel-een-project-voor',
 };
 
 function alternateHref(currentPath: string, targetLang: 'nl' | 'fr'): string {
@@ -64,6 +85,7 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
         <li>
           <a
             href={href}
+            class="nav-link"
             aria-current={currentPath.startsWith(href) ? 'page' : undefined}
           >
             {label}
