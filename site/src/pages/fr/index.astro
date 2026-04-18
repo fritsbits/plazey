@@ -2,31 +2,78 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/Container.astro';
 import ProgramCard from '../../components/ProgramCard.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '../../config/site.ts';
+import sfeerFestivalplein from '../../assets/images/sfeer-festivalplein.jpg';
+import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
+import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 
 const allItems = await getCollection('programme');
 const frItems = allItems.filter(e => e.data.lang === 'fr');
 const saturdayHighlights = frItems.filter(e => e.data.day === 'saturday').slice(0, 3);
 const hasProgramme = frItems.length > 0;
+
+const festivalDays: Record<string, 'friday' | 'saturday' | 'sunday'> = {
+  '2026-08-22': 'friday',
+  '2026-08-23': 'saturday',
+  '2026-08-24': 'sunday',
+};
+const todayKey = new Date().toISOString().slice(0, 10);
+const todayFestivalDay = festivalDays[todayKey];
+const todayItems = todayFestivalDay
+  ? frItems
+      .filter(e => e.data.day === todayFestivalDay)
+      .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime))
+      .slice(0, 3)
+  : saturdayHighlights;
 ---
 
 <BaseLayout title="Plazey festival" lang="fr" currentPath="/fr">
   <section aria-label="Héro" class="py-16">
-    <Container>
-      <h1>Passez nous voir. Plazey, c'est trois jours de fête gratuite au parc Élisabeth.</h1>
-      <p>{FESTIVAL_DATES_FR} · {FESTIVAL_LOCATION}</p>
-      <a href="/fr/programme" class="btn-primary">Voir le programme</a>
-      <a href="/fr/participez" class="btn-ghost">Venir aider</a>
-      <a href="/fr/infos-pratiques#acces" class="btn-text">Comment s'y rendre</a>
-      <p class="edition-indicator">Édition 2026</p>
+    <Container class="pb-8">
+      <span class="edition-indicator">Édition 2026</span>
+      {SITE_PHASE === 'aftermovie' ? (
+        <>
+          <h1>Merci. À l'année prochaine.</h1>
+          <div class="cta-group">
+            <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-primary">Voir nos photos sur Facebook</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1>Passez nous voir. Plazey, c'est trois jours de fête gratuite au parc Élisabeth.</h1>
+          <p class="mt-2">{FESTIVAL_DATES_FR} · {FESTIVAL_LOCATION}</p>
+          <div class="cta-group">
+            {SITE_PHASE === 'save-the-date' && (
+              <>
+                <a href="/fr/benevole" class="btn-primary">Venir aider</a>
+                <a href="/fr/propose-ton-projet" class="btn-ghost">Proposer un projet</a>
+              </>
+            )}
+            {SITE_PHASE === 'reveal' && (
+              <>
+                <a href="/fr/programme" class="btn-primary">Voir le programme</a>
+                <a href="/fr/benevole" class="btn-ghost">Venir aider</a>
+                <a href="/fr/infos-pratiques#acces" class="btn-text">Comment s'y rendre</a>
+              </>
+            )}
+            {SITE_PHASE === 'live' && (
+              <>
+                <a href="/fr/programme" class="btn-primary">Voir ce qui se passe aujourd'hui</a>
+                <a href="/fr/infos-pratiques#acces" class="btn-ghost">Comment s'y rendre</a>
+              </>
+            )}
+          </div>
+        </>
+      )}
     </Container>
     <figure>
-      <img
-        src="/images/plazey-2026.jpg"
-        alt="Une soirée d'été colorée au parc Élisabeth lors de Plazey 2026."
-        width="1200"
-        height="800"
+      <Image
+        src={sfeerFestivalplein}
+        alt="Le site du festival Plazey au parc Élisabeth : tables de pique-nique, guirlandes et le panneau Plazey entre les arbres."
+        widths={[800, 1200, 1600]}
+        sizes="100vw"
         class="w-full"
       />
     </figure>
@@ -54,9 +101,36 @@ const hasProgramme = frItems.length > 0;
 
   <section aria-labelledby="programme-teaser" class="py-12">
     <Container>
-      <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
-      {hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+      {SITE_PHASE === 'live' ? (
         <>
+          <h2 id="programme-teaser">Aujourd'hui à Plazey</h2>
+          <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            {todayItems.map(item => (
+              <li>
+                <ProgramCard
+                  title={item.data.title}
+                  startTime={item.data.startTime}
+                  {...(item.data.endTime && { endTime: item.data.endTime })}
+                  type={item.data.type}
+                  stage={item.data.stage}
+                  {...(item.data.description && { description: item.data.description })}
+                  href={`/fr/programme/${item.id.replace('fr/', '')}`}
+                  lang="fr"
+                />
+              </li>
+            ))}
+          </ul>
+          <a href="/fr/programme" class="btn-text">Voir tout ce qui se passe aujourd'hui →</a>
+        </>
+      ) : SITE_PHASE === 'aftermovie' ? (
+        <>
+          <h2 id="programme-teaser">Retour sur Plazey 2026</h2>
+          <p>Merci à toutes et tous celles et ceux qui étaient là.</p>
+          <a href="/fr/programme" class="btn-text">Voir le programme complet 2026 →</a>
+        </>
+      ) : hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+        <>
+          <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
           <div role="tablist" aria-label="Sélectionner un jour" class="day-tabs flex gap-2 mt-4">
             <button role="tab" aria-selected="true" aria-controls="tab-samedi" id="tab-btn-samedi">
               Samedi 23 août
@@ -83,10 +157,23 @@ const hasProgramme = frItems.length > 0;
           <a href="/fr/programme" class="btn-text">Voir le programme complet →</a>
         </>
       ) : (
-        <p>Le programme arrive bientôt. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Suis-nous sur Facebook pour l'annonce.</a></p>
+        <>
+          <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
+          <p>Le programme arrive bientôt. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Suis-nous sur Facebook pour l'annonce.</a></p>
+        </>
       )}
     </Container>
   </section>
+
+  <figure class="my-0">
+    <Image
+      src={sfeerPicknicktafels}
+      alt="Des festivaliers aux tables de pique-nique près de la scène, familles et guirlandes dans les arbres."
+      widths={[800, 1200, 1600]}
+      sizes="100vw"
+      class="w-full"
+    />
+  </figure>
 
   <section aria-labelledby="comment-sy-rendre" class="py-12">
     <Container>
@@ -99,9 +186,22 @@ const hasProgramme = frItems.length > 0;
 
   <section aria-labelledby="participe-teaser" class="py-12">
     <Container>
-      <h2 id="participe-teaser">Participe</h2>
-      <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
-      <a href="/fr/participez" class="btn-ghost">Venir aider</a>
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
+        <div class="flex-1">
+          <h2 id="participe-teaser">Participe</h2>
+          <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
+          <a href="/fr/benevole" class="btn-ghost">Venir aider</a>
+        </div>
+        <figure class="flex-1">
+          <Image
+            src={vrijwilligerPortret}
+            alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
     </Container>
   </section>
 </BaseLayout>
