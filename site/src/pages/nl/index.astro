@@ -13,17 +13,60 @@ const allItems = await getCollection('programme');
 const nlItems = allItems.filter(e => e.data.lang === 'nl');
 const saturdayHighlights = nlItems.filter(e => e.data.day === 'saturday').slice(0, 3);
 const hasProgramme = nlItems.length > 0;
+
+const festivalDays: Record<string, 'friday' | 'saturday' | 'sunday'> = {
+  '2026-08-22': 'friday',
+  '2026-08-23': 'saturday',
+  '2026-08-24': 'sunday',
+};
+const todayKey = new Date().toISOString().slice(0, 10);
+const todayFestivalDay = festivalDays[todayKey];
+const todayItems = todayFestivalDay
+  ? nlItems
+      .filter(e => e.data.day === todayFestivalDay)
+      .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime))
+      .slice(0, 3)
+  : saturdayHighlights;
 ---
 
 <BaseLayout title="Plazey festival" lang="nl" currentPath="/nl">
   <section aria-label="Hero" class="py-16">
     <Container>
-      <h1>Kom langs. Plazey is drie dagen gratis feest in het Elisabethpark.</h1>
-      <p>{FESTIVAL_DATES_NL} · {FESTIVAL_LOCATION}</p>
-      <a href="/nl/programma" class="btn-primary">Bekijk het programma</a>
-      <a href="/nl/doe-mee" class="btn-ghost">Kom helpen</a>
-      <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Zo geraak je er</a>
-      <p class="edition-indicator">Editie 2026</p>
+      <span class="edition-indicator">Editie 2026</span>
+      {SITE_PHASE === 'aftermovie' ? (
+        <>
+          <h1>Bedankt. Tot volgend jaar.</h1>
+          <div class="cta-group">
+            <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-primary">Bekijk onze foto's op Facebook</a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h1>Kom langs. Plazey is drie dagen lang gratis feest in het Elisabethpark.</h1>
+          <p>{FESTIVAL_DATES_NL} · {FESTIVAL_LOCATION}</p>
+          <div class="cta-group">
+            {SITE_PHASE === 'save-the-date' && (
+              <>
+                <a href="/nl/vrijwilliger" class="btn-primary">Kom helpen</a>
+                <a href="/nl/stel-een-project-voor" class="btn-ghost">Stel een project voor</a>
+              </>
+            )}
+            {SITE_PHASE === 'reveal' && (
+              <>
+                <a href="/nl/programma" class="btn-primary">Bekijk het programma</a>
+                <a href="/nl/vrijwilliger" class="btn-ghost">Kom helpen</a>
+                <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Zo geraak je er</a>
+              </>
+            )}
+            {SITE_PHASE === 'live' && (
+              <>
+                <a href="/nl/programma" class="btn-primary">Zie wat er vandaag speelt</a>
+                <a href="/nl/praktisch#bereikbaarheid" class="btn-ghost">Zo geraak je er</a>
+              </>
+            )}
+          </div>
+        </>
+      )}
     </Container>
     <figure>
       <Image
@@ -50,7 +93,7 @@ const hasProgramme = nlItems.length > 0;
         </li>
         <li>
           <h3>Voor de hele buurt</h3>
-          <p>We spreken meer talen. Jong en oud zijn welkom. Het programma wordt mee gemaakt door mensen uit de buurt.</p>
+          <p>Jong en oud zijn welkom. Het programma wordt mee gemaakt door buurtbewoners.</p>
         </li>
       </ul>
     </Container>
@@ -58,9 +101,36 @@ const hasProgramme = nlItems.length > 0;
 
   <section aria-labelledby="programma-teaser" class="py-12">
     <Container>
-      <h2 id="programma-teaser">Wat staat er op?</h2>
-      {hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+      {SITE_PHASE === 'live' ? (
         <>
+          <h2 id="programma-teaser">Vandaag op Plazey</h2>
+          <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            {todayItems.map(item => (
+              <li>
+                <ProgramCard
+                  title={item.data.title}
+                  startTime={item.data.startTime}
+                  {...(item.data.endTime && { endTime: item.data.endTime })}
+                  type={item.data.type}
+                  stage={item.data.stage}
+                  {...(item.data.description && { description: item.data.description })}
+                  href={`/nl/programma/${item.id.replace('nl/', '')}`}
+                  lang="nl"
+                />
+              </li>
+            ))}
+          </ul>
+          <a href="/nl/programma" class="btn-text">Zie alles wat er vandaag is →</a>
+        </>
+      ) : SITE_PHASE === 'aftermovie' ? (
+        <>
+          <h2 id="programma-teaser">Terugblik op Plazey 2026</h2>
+          <p>Dankjewel aan iedereen die er was.</p>
+          <a href="/nl/programma" class="btn-text">Bekijk het volledige programma 2026 →</a>
+        </>
+      ) : hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+        <>
+          <h2 id="programma-teaser">Wat staat er op het programma?</h2>
           <div role="tablist" aria-label="Dag selecteren" class="day-tabs flex gap-2 mt-4">
             <button role="tab" aria-selected="true" aria-controls="tab-zaterdag" id="tab-btn-zaterdag">
               Zaterdag 23 aug
@@ -87,7 +157,10 @@ const hasProgramme = nlItems.length > 0;
           <a href="/nl/programma" class="btn-text">Zie het volledige programma →</a>
         </>
       ) : (
-        <p>Het programma volgt binnenkort. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Volg ons op Facebook voor de aankondiging.</a></p>
+        <>
+          <h2 id="programma-teaser">Wat staat er op het programma?</h2>
+          <p>Het programma volgt binnenkort. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Volg ons op Facebook voor de aankondiging.</a></p>
+        </>
       )}
     </Container>
   </section>
@@ -113,11 +186,11 @@ const hasProgramme = nlItems.length > 0;
 
   <section aria-labelledby="doe-mee-teaser" class="py-12">
     <Container>
-      <div class="flex flex-col sm:flex-row gap-8 items-center">
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
         <div class="flex-1">
           <h2 id="doe-mee-teaser">Doe mee</h2>
           <p>Plazey draait op vrijwilligers. Wil je helpen? Achter de bar, aan de kassa of bij het opruimen.</p>
-          <a href="/nl/doe-mee" class="btn-ghost">Kom helpen</a>
+          <a href="/nl/vrijwilliger" class="btn-ghost">Kom helpen</a>
         </div>
         <figure class="flex-1">
           <Image
