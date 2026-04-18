@@ -14,7 +14,8 @@ const nlNav = SITE_PHASE === 'save-the-date'
       { href: '/nl/vrijwilliger', label: 'Kom helpen' },
       { href: '/nl/stel-een-project-voor', label: 'Stel een project voor' },
     ]
-  : [
+  : // reveal, live, and aftermovie all share the same nav links
+    [
       { href: '/nl/programma', label: SITE_PHASE === 'aftermovie' ? 'Programma 2026' : 'Programma' },
       { href: '/nl/praktisch', label: 'Praktisch' },
       { href: '/nl/over-plazey', label: 'Over' },
@@ -28,7 +29,8 @@ const frNav = SITE_PHASE === 'save-the-date'
       { href: '/fr/benevole', label: 'Venir aider' },
       { href: '/fr/propose-ton-projet', label: 'Proposer un projet' },
     ]
-  : [
+  : // reveal, live, and aftermovie all share the same nav links
+    [
       { href: '/fr/programme', label: SITE_PHASE === 'aftermovie' ? 'Programme 2026' : 'Programme' },
       { href: '/fr/infos-pratiques', label: 'Pratique' },
       { href: '/fr/a-propos', label: 'À propos' },
