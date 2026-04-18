@@ -15,3 +15,23 @@
   from = "/"
   to = "/nl"
   status = 302
+
+[[redirects]]
+  from = "/nl/doe-mee"
+  to = "/nl/vrijwilliger"
+  status = 301
+
+[[redirects]]
+  from = "/nl/doe-mee/*"
+  to = "/nl/vrijwilliger"
+  status = 301
+
+[[redirects]]
+  from = "/fr/participez"
+  to = "/fr/benevole"
+  status = 301
+
+[[redirects]]
+  from = "/fr/participez/*"
+  to = "/fr/benevole"
+  status = 301
