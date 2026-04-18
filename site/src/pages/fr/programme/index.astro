@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import ProgramCard from '../../../components/ProgramCard.astro';
 import { getCollection } from 'astro:content';
+import { SITE_PHASE, FACEBOOK_URL } from '../../../config/site.ts';
 
 const allItems = await getCollection('programme');
 const items = allItems
@@ -34,7 +35,21 @@ const types = [
   <section class="py-12">
     <Container>
       <h1>Programme</h1>
-      <p>22–24 août 2026. Tout est gratuit.</p>
+
+      {SITE_PHASE === 'save-the-date' ? (
+        <>
+          <p>Le programme 2026 arrive bientôt.</p>
+          <p><a href={FACEBOOK_URL} rel="external noopener" target="_blank">Suis-nous sur Facebook pour l'annonce.</a></p>
+        </>
+      ) : (
+        <>
+          <p>22–24 août 2026. Tout est gratuit.</p>
+
+          {SITE_PHASE === 'aftermovie' && (
+            <div role="note" class="season-banner my-4 p-4 bg-gray-100 rounded">
+              <p>C'était le programme de Plazey 2026.</p>
+            </div>
+          )}
 
       <form id="filter-form" aria-label="Filtrer le programme" class="my-6 space-y-4">
         <fieldset class="flex flex-wrap items-center gap-2">
@@ -101,6 +116,8 @@ const types = [
         Aucun résultat pour ces filtres.
         <button type="button" id="reset-filters-empty" class="underline">Effacer les filtres</button>
       </p>
+        </>
+      )}
     </Container>
   </section>
 </BaseLayout>
