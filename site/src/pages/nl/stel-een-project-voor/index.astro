@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+---
+
+<BaseLayout title="Stel een project voor" lang="nl" currentPath="/nl/stel-een-project-voor">
+  <section class="py-12">
+    <Container>
+      <h1>Stel een project voor</h1>
+      <p class="opening">Stel je voor. Met je idee en je buurt.</p>
+      <p>Plazey wordt mee gemaakt door mensen uit de buurt. Een groot deel van het programma wordt ingediend en mee georganiseerd door buurtbewoners, lokale artiesten en organisaties.</p>
+      <p>Ben je buurtbewoner? Lokale artiest? Een kleine organisatie met een idee? Stel je project voor.</p>
+      <p>Zet in je voorstel: wie je bent, wat je van plan bent, wat je nodig hebt, en voor welke dag je denkt.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="project-form-heading" class="py-12">
+    <Container>
+      <h2 id="project-form-heading">Stuur je voorstel</h2>
+
+      <form
+        name="project-voorstel"
+        method="POST"
+        data-netlify="true"
+        class="mt-6 flex flex-col gap-5 max-w-lg"
+      >
+        <input type="hidden" name="form-name" value="project-voorstel" />
+
+        <div class="flex flex-col gap-1">
+          <label for="naam-pv" class="font-semibold text-sm">Naam</label>
+          <input
+            type="text"
+            id="naam-pv"
+            name="naam"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email-pv" class="font-semibold text-sm">E-mailadres</label>
+          <input
+            type="email"
+            id="email-pv"
+            name="email"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="project-omschrijving" class="font-semibold text-sm">Wat is je idee?</label>
+          <textarea
+            id="project-omschrijving"
+            name="omschrijving"
+            rows="4"
+            required
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="project-nodig" class="font-semibold text-sm">Wat heb je nodig? <span class="font-normal text-gray-500">(ruimte, materiaal, tijd)</span></label>
+          <textarea
+            id="project-nodig"
+            name="nodig"
+            rows="3"
+            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+          ></textarea>
+        </div>
+
+        <fieldset class="flex flex-col gap-2">
+          <legend class="font-semibold text-sm">Voor welke dag denk je?</legend>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="vrijdag" /> Vrijdag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="zaterdag" /> Zaterdag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="zondag" /> Zondag</label>
+          <label class="flex items-center gap-2"><input type="radio" name="dag" value="weet-nog-niet" /> Weet ik nog niet</label>
+        </fieldset>
+
+        <button type="submit" class="btn-primary self-start">Stel je project voor</button>
+      </form>
+    </Container>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[name="project-voorstel"]');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!submitBtn) return;
+      const originalText = submitBtn.textContent ?? '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Bezig…';
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+        });
+        if (response.ok) {
+          form.innerHTML = '<p class="py-4 font-semibold">Bedankt voor je voorstel! We nemen zo snel mogelijk contact op.</p>';
+        } else {
+          throw new Error('server error');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        let errorEl = form.querySelector<HTMLParagraphElement>('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('p');
+          errorEl.className = 'form-error text-red-600 text-sm';
+          submitBtn.insertAdjacentElement('beforebegin', errorEl);
+        }
+        errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+      }
+    });
+  }
+</script>
