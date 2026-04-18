@@ -1,6 +1,11 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
+import { Image } from 'astro:assets';
+import theaterBasiliek from '../../../assets/images/theater-basiliek.jpg';
+import dansPark from '../../../assets/images/dans-park.jpg';
+import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
+import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
 ---
 
 <BaseLayout title="À propos de Plazey" lang="fr" currentPath="/fr/a-propos">
@@ -11,12 +16,35 @@ import Container from '../../../components/Container.astro';
     </Container>
   </section>
 
+  <figure class="my-0">
+    <Image
+      src={theaterBasiliek}
+      alt="Spectacle de théâtre en plein air sur une scène en bois au parc Élisabeth, avec la basilique de Koekelberg en arrière-plan."
+      widths={[800, 1200, 1600]}
+      sizes="100vw"
+      class="w-full"
+    />
+  </figure>
+
   <section aria-labelledby="lhistoire" class="py-12">
     <Container>
       <h2 id="lhistoire">L'histoire</h2>
-      <p>Plazey a démarré en 1992 comme une petite fête musicale pour les riverain·es du parc Élisabeth à Koekelberg. Gratuit, en plein air, pour les voisin·es. Dans l'essence, c'est toujours ça.</p>
-      <p>En 2013, le festival a évolué en un lieu de rencontre convivial autour du Bar Eliza — un petit café en bois au cœur du parc, où le quartier pouvait se rassembler. La musique restait au centre, mais des ateliers, des animations et de la restauration ont rejoint l'aventure.</p>
-      <p>Depuis 2023, nous faisons le choix de l'accessibilité radicale. Pas comme étiquette, mais comme travail. Avec Demos, AnySurfer et d'autres partenaires, nous construisons un festival vraiment accessible à tout le monde — et nous disons honnêtement ce qui n'est pas encore possible.</p>
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
+        <div class="flex-1">
+          <p>Plazey a démarré en 1992 comme une petite fête musicale pour les riverain·es du parc Élisabeth à Koekelberg. Gratuit, en plein air, pour les voisin·es. Dans l'essence, c'est toujours ça.</p>
+          <p>En 2013, le festival a évolué en un lieu de rencontre convivial autour du Bar Eliza — un petit café en bois au cœur du parc, où le quartier pouvait se rassembler. La musique restait au centre, mais des ateliers, des animations et de la restauration ont rejoint l'aventure.</p>
+          <p>Depuis 2023, nous faisons le choix de l'accessibilité radicale. Pas comme étiquette, mais comme travail. Avec Demos, AnySurfer et d'autres partenaires, nous construisons un festival vraiment accessible à tout le monde — et nous disons honnêtement ce qui n'est pas encore possible.</p>
+        </div>
+        <figure class="flex-1">
+          <Image
+            src={dansPark}
+            alt="Des gens qui dansent dehors entre les arbres du parc Élisabeth, tous âges, ambiance festive."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
     </Container>
   </section>
 
@@ -37,6 +65,27 @@ import Container from '../../../components/Container.astro';
         </div>
       </div>
       <p class="mt-6">Plus de cent bénévoles font vivre Plazey chaque année. Derrière le bar, à la caisse, à l'infostand — et lors du montage et du démontage.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <figure>
+          <Image
+            src={vrijwilligersBabyspot}
+            alt="Deux bénévoles en t-shirt rose Plazey devant la caravane Baby Spot."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+        <figure>
+          <Image
+            src={vrijwilligersBar}
+            alt="Bénévoles en t-shirt rose Plazey derrière le bar, ambiance conviviale."
+            widths={[400, 700]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            class="w-full rounded"
+          />
+        </figure>
+      </div>
     </Container>
   </section>
 
@@ -59,7 +108,7 @@ import Container from '../../../components/Container.astro';
     <Container>
       <h2 id="participe-callout">Tu veux contribuer ?</h2>
       <p>Viens aider ou propose un projet.</p>
-      <a href="/fr/participez" class="btn-ghost">Vers Participe →</a>
+      <a href="/fr/benevole" class="btn-ghost">Vers Participe →</a>
     </Container>
   </section>
 </BaseLayout>
