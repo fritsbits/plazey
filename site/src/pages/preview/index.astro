@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import { SITE_PHASE } from '../../config/site.ts';
+import { getCollection } from 'astro:content';
+
+const all = await getCollection('programme');
+const drafts = all.filter(e => e.data.draft);
+const nlDrafts = drafts.filter(e => e.data.lang === 'nl');
+const frDrafts = drafts.filter(e => e.data.lang === 'fr');
+
+type Entry = { href: string; label: string; note?: string };
+type Group = { title: string; entries: Entry[] };
+
+const groups: Group[] = [
+  {
+    title: 'Pages — live',
+    entries: [
+      { href: '/nl', label: `Home NL (phase: ${SITE_PHASE})` },
+      { href: '/fr', label: `Home FR (phase: ${SITE_PHASE})` },
+      { href: '/nl/programma', label: 'Programma NL — default' },
+      { href: '/fr/programme', label: 'Programme FR — default' },
+      { href: '/nl/praktisch', label: 'Praktisch NL' },
+      { href: '/fr/infos-pratiques', label: 'Infos pratiques FR' },
+      { href: '/nl/over-plazey', label: 'Over Plazey NL' },
+      { href: '/fr/a-propos', label: 'À propos FR' },
+      { href: '/nl/vrijwilliger', label: 'Kom helpen NL' },
+      { href: '/fr/benevole', label: 'Venir aider FR' },
+      { href: '/nl/stel-een-project-voor', label: 'Stel een project voor NL' },
+      { href: '/fr/propose-ton-projet', label: 'Proposer un projet FR' },
+    ],
+  },
+  {
+    title: 'Programme filter — URL state',
+    entries: [
+      { href: '/nl/programma?dag=friday', label: 'Alleen vrijdag' },
+      { href: '/nl/programma?dag=saturday&type=concert', label: 'Zaterdag + concerten' },
+      { href: '/nl/programma?dag=sunday&type=workshop,kids', label: 'Zondag + workshop + kids' },
+      { href: '/nl/programma?dag=friday&type=kids', label: 'Vrijdag + kids — empty state', note: 'Triggert "Niks gevonden" als er geen match is.' },
+    ],
+  },
+  {
+    title: 'Overflow / stress cases',
+    entries: [
+      ...nlDrafts.map(e => ({
+        href: `/nl/programma/${e.id.replace('nl/', '')}`,
+        label: `NL overflow: ${e.data.title.slice(0, 60)}…`,
+        note: 'Lange titel, podiumnaam, artiest, beschrijving en body-tekst.',
+      })),
+      ...frDrafts.map(e => ({
+        href: `/fr/programme/${e.id.replace('fr/', '')}`,
+        label: `FR overflow: ${e.data.title.slice(0, 60)}…`,
+        note: 'Même principe, locale FR.',
+      })),
+    ],
+  },
+  {
+    title: 'Draft / placeholder markers',
+    entries: [
+      { href: '/nl/praktisch#eten-en-drinken', label: 'Draft note — NL (prijzen 2025)' },
+      { href: '/fr/infos-pratiques#manger-et-boire', label: 'Draft note — FR (prix 2025)' },
+      { href: '/nl/over-plazey', label: 'Draft note — partnerlijst NL' },
+      { href: '/fr/a-propos', label: 'Draft note — liste FR' },
+    ],
+  },
+  {
+    title: 'Component patterns',
+    entries: [
+      { href: '/nl/praktisch#meer', label: 'FAQ accordion NL', note: 'Native <details>; klap open.' },
+      { href: '/nl/over-plazey#doe-mee-callout', label: 'Callout block NL' },
+      { href: '/fr/a-propos#participe-callout', label: 'Callout block FR' },
+      { href: '/nl/programma/le-ministere-du-groove', label: 'Click-to-play embed NL', note: 'Disable JS → <noscript> fallback link.' },
+      { href: '/fr/programme/le-ministere-du-groove', label: 'Click-to-play embed FR' },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Preview" lang="nl">
+  <section class="section">
+    <Container>
+      <h1>Preview</h1>
+      <p class="opening">Wireframe-review index. Elke renderable state staat hier als linkbaar URL.</p>
+
+      <p class="draft-note">Deze pagina is intern. Niet voor publiek. Niet gelinkt vanuit navigatie.</p>
+
+      {groups.map(group => (
+        <section class="mt-10">
+          <h2>{group.title}</h2>
+          <ul class="mt-3 space-y-1">
+            {group.entries.map(entry => (
+              <li>
+                <a href={entry.href}>{entry.label}</a>
+                {entry.note && <span class="text-sm" style="color: var(--color-text-muted);"> — {entry.note}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <section class="mt-10">
+        <h2>Phase-specific home</h2>
+        <p>De hero en teasers op de home variëren per <code>SITE_PHASE</code>. Wissel de waarde in <code>src/config/site.ts</code> om andere states te renderen:</p>
+        <ul class="mt-3 space-y-1">
+          <li><code>save-the-date</code> — datum vooraankondiging, programma-nav verborgen</li>
+          <li><code>reveal</code> — huidige state, programma uitgelicht</li>
+          <li><code>live</code> — "Vandaag op Plazey" met dag-specifieke items</li>
+          <li><code>aftermovie</code> — terugblik, dankwoord, Facebook-link</li>
+        </ul>
+        <p class="mt-3">Huidig: <strong>{SITE_PHASE}</strong>.</p>
+      </section>
+
+      <section class="mt-10">
+        <h2>Viewports</h2>
+        <p>Test beide in de browser-devtools:</p>
+        <ul class="mt-3 space-y-1">
+          <li><strong>1440 × 900</strong> — desktop review</li>
+          <li><strong>375 × 667</strong> — mobile review (iPhone SE / base)</li>
+        </ul>
+        <p class="mt-3">Onder <code>768px</code> verschijnt de hamburger-toggle in de header.</p>
+      </section>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,20 +1,103 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+import { Image } from 'astro:assets';
+import concertRapBasiliek from '../../../assets/images/concert-rap-basiliek.jpg';
+import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
+import dansPark from '../../../assets/images/dans-park.jpg';
+import muziekTromClose from '../../../assets/images/muziek-trom-close.jpg';
+
+const exemples = [
+  {
+    src: concertRapBasiliek,
+    alt: 'Deux MC sur une scène en plein air devant un public dense, la Basilique de Koekelberg en arrière-plan.',
+    titre: 'Les groupes du quartier sur scène',
+    texte: 'Club 1030 a programmé quatre jeunes groupes du quartier.',
+  },
+  {
+    src: parkLaanKunst,
+    alt: 'Allée d\'arbres du Parc Elisabeth avec des œuvres d\'art accrochées aux branches, des visiteurs marchent en dessous.',
+    titre: 'De l\'art dans les arbres',
+    texte: 'Arborescences a donné un arbre du parc à chaque artiste.',
+  },
+  {
+    src: dansPark,
+    alt: 'Groupe de personnes de différents âges dansant ensemble entre les arbres du parc.',
+    titre: 'Danser ensemble',
+    texte: 'Etage Tropical a donné des ateliers ouverts à toutes et tous.',
+  },
+  {
+    src: muziekTromClose,
+    alt: 'Gros plan d\'une grosse caisse frappée par un maillet, un trompettiste derrière.',
+    titre: 'Les percussions du quartier',
+    texte: 'Fanfakids a traversé le parc avec tambours et trompettes.',
+  },
+];
+
+const faqItems = [
+  { question: 'Je n\'ai pas d\'association. Est-ce que je peux quand même proposer quelque chose ?', answer: 'Oui. Les individus sont bienvenu·es.' },
+  { question: 'Je dois parler néerlandais ou français ?', answer: 'Non. Plazey est multilingue. Propose dans la langue qui te convient.' },
+  { question: 'Est-ce que je suis payé·e ?', answer: 'On travaille avec un budget limité. Indique dans ta proposition ce dont tu as besoin. On te répond honnêtement sur ce qu\'on peut couvrir ou non.' },
+  { question: 'Jusqu\'à quand je peux proposer ?', answer: 'On planifie le programme en hiver. Plus tu proposes tôt, plus tu as de chances.' },
+  { question: 'Il y a une limite sur ce qui est possible ?', answer: 'Presque pas. Musique, danse, théâtre, cinéma, atelier, cuisine, sport, art, enfants. Envoie et on en parle.' },
+  { question: 'Qu\'est-ce qui se passe avec ma proposition ?', answer: 'On lit chaque proposition et on te recontacte. Parfois on propose une rencontre. Parfois on adapte ton idée ensemble.' },
+];
 ---
 
 <BaseLayout title="Proposer un projet" lang="fr" currentPath="/fr/propose-ton-projet">
-  <section class="py-12">
+  <section class="section">
     <Container>
       <h1>Proposer un projet</h1>
       <p class="opening">Fais-toi connaître. Avec ton idée et ton quartier.</p>
-      <p>Plazey est construit par le bas. Une grande partie du programme est proposée et co-organisée par des habitant·es, des artistes locaux·ales et des associations.</p>
-      <p>Tu es habitant·e du quartier ? Artiste local·e ? Une petite association avec une idée ? Propose ton projet.</p>
-      <p>Dans ta proposition, indique : qui tu es, ce que tu envisages, ce dont tu as besoin (espace, matériel, temps), et pour quel jour tu penses.</p>
+      <p>Plazey, c'est le quartier qui le fait. Une grande partie du programme vient d'habitant·es, d'artistes locaux et de petites associations qui ont proposé leur idée.</p>
+      <p>C'est peut-être toi, la prochaine fois.</p>
     </Container>
   </section>
 
-  <section aria-labelledby="project-form-heading" class="py-12">
+  <section aria-labelledby="exemples-heading" class="section">
+    <Container>
+      <h2 id="exemples-heading">Qu'ont déjà fait les habitant·es ?</h2>
+      <p>Voici ce que des voisin·es et des collectifs ont apporté à Plazey ces dernières années.</p>
+
+      <ul role="list" class="exemples-grid grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        {exemples.map((e) => (
+          <li class="exemple-card">
+            <Image
+              src={e.src}
+              alt={e.alt}
+              widths={[400, 700]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full aspect-[4/3] object-cover rounded-md mb-3"
+            />
+            <h3>{e.titre}</h3>
+            <p>{e.texte}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="mt-6">Aussi vu à Plazey : des balades dans Koekelberg, un club de lecture pour enfants, un labo de théâtre inclusif, une chorale ouverte à tout le monde, des films de cinéastes bruxellois·es, un apéro littéraire.</p>
+      <p>Tu vois : musique, danse, théâtre, cinéma, lecture, cuisine, sport. Petit ou grand. Pour un après-midi ou pour trois jours.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="proposition-heading" class="section">
+    <Container>
+      <h2 id="proposition-heading">Ce que tu mets dans ta proposition</h2>
+      <p>Reste court. Quelques phrases par question, ça suffit.</p>
+
+      <ul class="list-disc pl-6 mt-4">
+        <li>Qui tu es, et comment on peut te joindre.</li>
+        <li>Ton idée, en trois à cinq phrases.</li>
+        <li>Ce dont tu as besoin : espace, matériel, temps, son, une scène, budget.</li>
+        <li>Le jour que tu envisages.</li>
+      </ul>
+
+      <p class="mt-4">Pas encore tout au point ? Pas grave. Envoie ce que tu as, on réfléchit avec toi.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="project-form-heading" class="section">
     <Container>
       <h2 id="project-form-heading">Envoie ta proposition</h2>
 
@@ -22,7 +105,7 @@ import Container from '../../../components/Container.astro';
         name="proposition-projet"
         method="POST"
         data-netlify="true"
-        class="mt-6 flex flex-col gap-5 max-w-lg"
+        class="mt-6 flex flex-col gap-5"
       >
         <input type="hidden" name="form-name" value="proposition-projet" />
 
@@ -33,7 +116,7 @@ import Container from '../../../components/Container.astro';
             id="naam-pv"
             name="naam"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </div>
 
@@ -44,7 +127,7 @@ import Container from '../../../components/Container.astro';
             id="email-pv"
             name="email"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </div>
 
@@ -55,7 +138,7 @@ import Container from '../../../components/Container.astro';
             name="omschrijving"
             rows="4"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           ></textarea>
         </div>
 
@@ -65,7 +148,7 @@ import Container from '../../../components/Container.astro';
             id="project-nodig"
             name="nodig"
             rows="3"
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           ></textarea>
         </div>
 
@@ -79,6 +162,13 @@ import Container from '../../../components/Container.astro';
 
         <button type="submit" class="btn-primary self-start">Envoyer ma proposition</button>
       </form>
+    </Container>
+  </section>
+
+  <section aria-labelledby="questions-proposition" class="section">
+    <Container>
+      <h2 id="questions-proposition">Questions</h2>
+      <Accordion items={faqItems} />
     </Container>
   </section>
 </BaseLayout>

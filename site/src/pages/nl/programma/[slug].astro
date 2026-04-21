@@ -28,9 +28,15 @@ const dayLabels: Record<string, string> = {
   lang="nl"
   currentPath={`/nl/programma/${Astro.params.slug}`}
 >
-  <section class="py-12">
+  <section class="section">
     <Container>
-      <a href="/nl/programma" class="back-link text-sm">← Terug naar programma</a>
+      <a href="/nl/programma" class="back-link text-sm inline-flex items-center gap-1">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Terug naar programma
+      </a>
 
       <h1 class="mt-4">{item.data.title}</h1>
       <p class="meta text-sm mt-1">
@@ -48,8 +54,11 @@ const dayLabels: Record<string, string> = {
           data-src={item.data.embedUrl}
           data-title={item.data.title}
         >
-          <button class="play-btn w-full border rounded py-8 flex items-center justify-center gap-2 hover:bg-gray-50" aria-label={`Afspelen: ${item.data.title}`}>
-            ▶ Beluister {item.data.title}
+          <button class="play-btn w-full border rounded-md py-8 flex items-center justify-center gap-2 hover:bg-gray-50" aria-label={`Afspelen: ${item.data.title}`}>
+            <svg class="icon icon-md" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Beluister {item.data.title}
           </button>
           <noscript>
             <a href={item.data.embedUrl} rel="external noopener" target="_blank">

@@ -10,7 +10,7 @@ import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
 import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 
 const allItems = await getCollection('programme');
-const frItems = allItems.filter(e => e.data.lang === 'fr');
+const frItems = allItems.filter(e => e.data.lang === 'fr' && !e.data.draft);
 const saturdayHighlights = frItems.filter(e => e.data.day === 'saturday').slice(0, 3);
 const hasProgramme = frItems.length > 0;
 
@@ -30,7 +30,7 @@ const todayItems = todayFestivalDay
 ---
 
 <BaseLayout title="Plazey festival" lang="fr" currentPath="/fr">
-  <section aria-label="Héro" class="py-16">
+  <section aria-label="Héro" class="section">
     <Container class="pb-8">
       <span class="edition-indicator">Édition 2026</span>
       {SITE_PHASE === 'aftermovie' ? (
@@ -79,7 +79,7 @@ const todayItems = todayFestivalDay
     </figure>
   </section>
 
-  <section aria-labelledby="quest-ce-que-plazey" class="py-12">
+  <section aria-labelledby="quest-ce-que-plazey" class="section">
     <Container>
       <h2 id="quest-ce-que-plazey">C'est quoi Plazey ?</h2>
       <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
@@ -99,7 +99,7 @@ const todayItems = todayFestivalDay
     </Container>
   </section>
 
-  <section aria-labelledby="programme-teaser" class="py-12">
+  <section aria-labelledby="programme-teaser" class="section">
     <Container>
       {SITE_PHASE === 'live' ? (
         <>
@@ -175,7 +175,7 @@ const todayItems = todayFestivalDay
     />
   </figure>
 
-  <section aria-labelledby="comment-sy-rendre" class="py-12">
+  <section aria-labelledby="comment-sy-rendre" class="section">
     <Container>
       <h2 id="comment-sy-rendre">Comment s'y rendre ?</h2>
       <p>En métro ligne 2 ou 6, arrêt Simonis. De là, dix minutes à pied jusqu'au parc.</p>
@@ -184,7 +184,7 @@ const todayItems = todayFestivalDay
     </Container>
   </section>
 
-  <section aria-labelledby="participe-teaser" class="py-12">
+  <section aria-labelledby="participe-teaser" class="section">
     <Container>
       <div class="flex flex-col sm:flex-row gap-8 items-start">
         <div class="flex-1">
@@ -198,7 +198,7 @@ const todayItems = todayFestivalDay
             alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
       </div>

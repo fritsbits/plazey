@@ -234,7 +234,7 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 ---
 
-## S6 — Doe mee
+## S6 — Kom helpen (Vrijwilliger)
 
 ### Page header / hero
 
@@ -274,6 +274,50 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 ---
 
+## S7 — Stel een project voor
+
+*This page is primarily text-led, but the "what have neighbours done before?"-section needs visual evidence to be convincing. Each example card gets one photo. Where no matching photo exists, leave the card text-only rather than using a mismatched image — mismatched photos hurt trust on a page whose whole job is building trust.*
+
+### Example card: jonge muzikanten op hun eerste groot podium (Club 1030 / Nar6ssique)
+
+![Twee MC's op een openluchtpodium, dicht publiek, Basiliek van Koekelberg op de achtergrond](../../site/src/assets/images/concert-rap-basiliek.jpg)
+
+*`538535839` — Jong, buurt-gebaseerd, energie, herkenbaar Koekelberg. Past perfect bij "jonge artiesten krijgen hier een groot publiek".*
+
+### Example card: kunst aan de bomen (Arborescences / Dear Pigs)
+
+![Brede tree-lined park avenue met kunstwerken aan de takken](../../site/src/assets/images/park-laan-kunst.jpg)
+
+*`503383143` — Exact wat het project is: kunst in het park, één boom per kunstenaar. Sterkste match in de hele set voor deze categorie.*
+
+### Example card: percussie-ensemble (Fanfakids / Strak-X)
+
+![Close-up van een bass drum die wordt aangeslagen, trompet erachter, publiek wazig](../../site/src/assets/images/muziek-trom-close.jpg)
+
+*`536285406` — Detail-energie. Geschikt voor "percussie-collectief van de buurt".*
+
+### Example card: dans voor iedereen (Etage Tropical / G-dance)
+
+![Groep mensen dansend onder de bomen, diverse leeftijden, één persoon met roze hoed](../../site/src/assets/images/dans-park.jpg)
+
+*`535445939` — Dansbeeld met diverse groep. Niet specifiek G-dance (rolstoelen niet duidelijk zichtbaar), maar leest als inclusief en ongedwongen. Gebruik met zorgvuldige alt text en onderschrift die de G-dance-invalshoek benoemt.*
+
+### Example card: leesclub in het park (Koekelboekske)
+
+> [PLACEHOLDER: Kinderen die samen lezen of luisteren naar een verhaal in het park. Niet aanwezig in de huidige set. Alternatief tijdens overbrugging: kaart tekstueel laten zonder foto — beter dan een mismatch.]
+
+### Example card: inclusief theater (Scheldeoffensief)
+
+![Outdoor theater op een laag houten podium, zittend publiek, Basiliek op de achtergrond](../../site/src/assets/images/theater-basiliek.jpg)
+
+*`528386718` — Generieke theater-match. Toont geen inclusiviteit expliciet; gebruik alleen als tekst die naast de kaart staat de invalshoek duidelijk maakt.*
+
+### Example card: stadswandeling (Brukselbinnenstebuiten)
+
+> [PLACEHOLDER: Groep mensen op een stadswandeling / rondleiding door Koekelberg, gids die iets aanwijst. Niet aanwezig in de huidige set. Laat de kaart tekstueel als er geen foto is.]
+
+---
+
 ## Cross-cutting: photos available but not yet placed
 
 These photos have strong potential but aren't assigned to a primary slot above. Available for use in editorial sections, callouts, or future pages.
@@ -288,4 +332,4 @@ These photos have strong potential but aren't assigned to a primary slot above. 
 
 ---
 
-*Last updated: 2026-04-12*
+*Last updated: 2026-04-18*

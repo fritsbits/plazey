@@ -13,7 +13,7 @@ const { title, startTime, endTime, type, stage, description, href } = Astro.prop
 const timeDisplay = endTime ? `${startTime}–${endTime}` : startTime;
 ---
 
-<a href={href} class="program-card flex flex-col gap-1 p-4 border rounded hover:shadow-sm">
+<a href={href} class="program-card flex flex-col gap-1 p-4 border rounded-md hover:shadow-sm">
   <span class="time text-sm">{timeDisplay}</span>
   <span class="type-chip text-xs border rounded-full px-2 py-0.5 self-start">{type}</span>
   <h3 class="card-title font-medium">{title}</h3>

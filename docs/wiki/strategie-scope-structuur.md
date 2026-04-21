@@ -4,7 +4,9 @@
 
 > Doorloop van de Garrett UX planning playbook (Plane 0 → 3) voor de nieuwe Plazey-site. Gecollapsed in één document omdat het project klein is. Plane 4 (Skeleton) volgt apart.
 
-**Status:** draft v4 · **Datum:** 2026-04-11 · **Owner:** Frederik
+**Status:** draft v5 · **Datum:** 2026-04-18 · **Owner:** Frederik
+
+**v5-wijziging (2026-04-18):** "Doe mee" is niet langer één pagina. Gesplitst in twee aparte routes — `/vrijwilliger` (Kom helpen, altijd in nav) en `/stel-een-project-voor` (enkel in nav tijdens `save-the-date`). Beide werken met gestructureerde Netlify-formulieren in plaats van mailto. Reden: vrijwilligersopvolging en programmavoorstellen lopen in verschillende maanden en vragen andere informatie — ze in één pagina proppen verwarde beide doelgroepen. Skeleton per pagina herwerkt in `s6-vrijwilliger.md` + nieuwe `s7-stel-een-project-voor.md`.
 
 **Input:**
 
@@ -106,7 +108,7 @@
 
 - **Toegevoegd: Niet overhyped.** De site claimt niets wat het festival niet waarmaakt. Geen "radicaal toegankelijk" als marketing-label. Wat er is, is er; wat er niet is, benoemen we eerlijk. *Radicaal toegankelijk* mag eenmalig op **Over Plazey** verschijnen in de verleden tijd (als historische zelfbenoeming sinds 2023), nooit als claim in de tegenwoordige tijd op home of praktisch.
 
-- **Toegevoegd: Copy volgt de Tone of voice guide.** Alle site-teksten volgen [Tone of voice guide — Plazey](https://www.notion.so/33fd3ecc475c81caa19dc265e61ebf70) — helder, warm, uitnodigend, easy-read, bilinguaal NL/FR. Warm openingsmotief (*kom langs / kom erbij / kom helpen*) staat alleen op home, Over Plazey en Doe mee.
+- **Toegevoegd: Copy volgt de Tone of voice guide.** Alle site-teksten volgen [Tone of voice guide — Plazey](https://www.notion.so/33fd3ecc475c81caa19dc265e61ebf70) — helder, warm, uitnodigend, easy-read, bilinguaal NL/FR. Warm openingsmotief (*kom langs / kom erbij / kom helpen / stel je voor*) staat alleen op home, Over Plazey, Kom helpen en Stel een project voor.
 
 ### Open vragen
 
@@ -134,7 +136,9 @@
 
 - Over Plazey: sinds 1992, gedragen door GC PLAtoo + GC Zeyp, bottom-up, gratis. Korte missie. Partner-logo's in context.
 
-- Doe mee: vrijwilligers-call met één mail-to, plus "voorstel een project" mail-to voor lokale artiesten en organisaties. Geen form in v1.
+- Kom helpen (`/vrijwilliger` · `/benevole`): vrijwilligers-call met gestructureerd Netlify-formulier (naam, mail, beschikbaarheid per dag, rol-interesse, talen, vrije tekst). Bevestigingsbericht na succesvolle submit.
+
+- Stel een project voor (`/stel-een-project-voor` · `/propose-ton-projet`): aparte pagina die buurtbewoners, lokale artiesten en kleine organisaties uitnodigt om programma in te dienen. Gestructureerd Netlify-formulier (naam, mail, idee, wat je nodig hebt, voorkeur-dag). Alleen zichtbaar in de hoofdnav tijdens de `save-the-date`-fase; verdwijnt uit nav zodra programma gelocked is.
 
 - Bilinguaal NL/FR, elke pagina gedupliceerd, persistente taalswitch, taal-geprefixte URLs (`/nl/...`, `/fr/...`).
 
@@ -194,7 +198,9 @@
 
 - Home hero → Frederik, 3× per jaar (save-the-date → reveal → live → aftermovie).
 
-- Doe mee → Frederik, actief april–augustus.
+- Kom helpen (vrijwilliger) → Frederik, actief april–augustus. Submissies komen binnen via Netlify Forms dashboard.
+
+- Stel een project voor → Frederik, actief oktober–februari (vóór programmatie-lock). Submissies via Netlify Forms.
 
 ### Content-herbruik uit huidige site
 

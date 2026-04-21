@@ -14,7 +14,11 @@ Tracker for missing photos. Update this list as shots are acquired. When a photo
 - [ ] **Baby/families facilities** — baby changing area, stroller parking, or the baby rest zone in context. Needed for S4 "kinderen" section.
 - [ ] **Organiser / core team** — a candid portrait or behind-the-scenes moment with people from GC De Platoo and GC De Zeyp. Not a posed group shot. Needed for S5 "wie maakt Plazey".
 - [ ] **Setup / build** — volunteers setting up tents, stage rigging, or decoration before the festival opens. Needed for S5 "wie maakt Plazey" and S6 "doe mee" opbouw role.
-- [ ] **Volunteer crew celebration** — a shared moment of pride or team energy among the volunteer crew (e.g. end-of-day toast, group laugh). Needed for S6 "doe mee" general atmosphere.
+- [ ] **Volunteer crew celebration** — a shared moment of pride or team energy among the volunteer crew (e.g. end-of-day toast, group laugh). Needed for S6 "Kom helpen" general atmosphere.
+- [ ] **Leesclub / kids literair in het park** — children reading together or listening to a story outdoors (e.g. Koekelboekske context). Needed for S7 "Stel een project voor" example card. No suitable photo in current set.
+- [ ] **Stadswandeling / rondleiding** — group on a guided walking tour through Koekelberg with a guide gesturing. Needed for S7 example card (Brukselbinnenstebuiten-type project). No suitable photo in current set.
+- [ ] **G-dance / inclusieve dans** — dance class or performance where people with and without disabilities dance together; wheelchairs or other aids clearly visible. Needed for S7 example card (Etage Tropical-type project). Current dans-foto is generiek, niet G-dance-specifiek.
+- [ ] **Inclusief theaterlab** — moment on stage with mixed cast (people with and without disabilities visibly together). Needed for S7 example card (Scheldeoffensief-type project). Current theater photo reads as generic outdoor theater.
 
 ---
 
@@ -24,4 +28,4 @@ Tracker for missing photos. Update this list as shots are acquired. When a photo
 
 ---
 
-*Last updated: 2026-04-12*
+*Last updated: 2026-04-18*

@@ -4,7 +4,9 @@
 
 > Plane 4 van de Garrett UX planning playbook voor [plazey.be](http://plazey.be/). Bouwt verder op [Strategie · Scope · Structuur — Plazey website v4](https://www.notion.so/33ed3ecc475c81098e26c21780562018) en volgt de [Tone of voice guide — Plazey](https://www.notion.so/33fd3ecc475c81caa19dc265e61ebf70).
 
-**Status:** draft v1 · **Datum:** 2026-04-11 · **Owner:** Frederik
+**Status:** draft v2 · **Datum:** 2026-04-18 · **Owner:** Frederik
+
+**v2-wijziging (2026-04-18):** Doe mee is gesplitst in twee routes: `/vrijwilliger` + `/stel-een-project-voor` (NL) en `/benevole` + `/propose-ton-projet` (FR). Beide werken met Netlify-formulieren, niet mailto. Zie `s6-vrijwilliger.md` en nieuwe `s7-stel-een-project-voor.md`.
 
 ---
 
@@ -34,7 +36,7 @@
 
 ## Kern (vijf beslissingen)
 
-1. **Zès globale routes** (inclusief Home en Programma-detail), één globale shell (header + footer + taaltoggle).
+1. **Zeven globale routes** per taal (Home, Programma, Programma-detail, Praktisch, Over Plazey, Kom helpen, Stel een project voor), één globale shell (header + footer + taaltoggle). *Stel een project voor* is alleen in de hoofdnav tijdens `save-the-date`; daarna blijft de pagina bereikbaar maar onopvallend.
 
 1. **Layer-cake** op alle content-pagina's; Z-patroon alleen in de home hero.
 
@@ -42,7 +44,7 @@
 
 1. **Praktisch is één pagina met vier anchor-secties**, niet vier sub-pagina's. Elke anker heeft een deelbare URL.
 
-1. **Home en Doe mee dragen de primaire CTA's.** Programma, Praktisch en Over hebben functionele secundaire acties (filteren, contact, meer lezen), geen marketing-CTA.
+1. **Home, Kom helpen en Stel een project voor dragen de primaire CTA's.** Kom helpen en Stel een project voor zijn beide formulier-gedreven pagina's met een duidelijke submit als primaire actie. Programma, Praktisch en Over hebben functionele secundaire acties (filteren, contact, meer lezen), geen marketing-CTA.
 
 ---
 

@@ -30,7 +30,7 @@ export const FESTIVAL_DATES = 'vrijdag 14 t/m zondag 16 augustus 2026'
 export const FESTIVAL_DATES_FR = 'vendredi 14 au dimanche 16 août 2026'
 ```
 
-**Off-season Doe mee (aparte conditie):** de seizoensbanner op Doe mee (sept–mrt) is gebaseerd op kalendermaand, niet op `SITE_PHASE`. Zie S6.
+**Fase-afhankelijke nav:** tijdens `save-the-date` toont de nav **Praktisch · Over · Kom helpen · Stel een project voor** (Programma nog niet, programmatie loopt). Vanaf `reveal` toont de nav **Programma · Praktisch · Over · Kom helpen** (Stel een project voor verdwijnt uit nav want programma is gelocked; pagina blijft bereikbaar via directe URL). Zie `src/components/Header.astro` voor de implementatie en `s6-vrijwilliger.md` / `s7-stel-een-project-voor.md` voor per-pagina-gedrag.
 
 ---
 
@@ -67,10 +67,13 @@ export const FESTIVAL_DATES_FR = 'vendredi 14 au dimanche 16 août 2026'
   <nav aria-label="Hoofdnavigatie">
     <a href="/nl" aria-label="Plazey — startpagina"><!-- logo --></a>
     <ul role="list">
+      <!-- reveal / live / aftermovie: -->
       <li><a href="/nl/programma" aria-current="page">Programma</a></li>
       <li><a href="/nl/praktisch">Praktisch</a></li>
-      <li><a href="/nl/over">Over</a></li>
-      <li><a href="/nl/doe-mee">Doe mee</a></li>
+      <li><a href="/nl/over-plazey">Over</a></li>
+      <li><a href="/nl/vrijwilliger">Kom helpen</a></li>
+      <!-- save-the-date: Programma weg, Stel een project voor erbij -->
+      <!-- <li><a href="/nl/stel-een-project-voor">Stel een project voor</a></li> -->
     </ul>
     <div role="group" aria-label="Taal kiezen">
       <a href="/nl/…" aria-current="true" lang="nl">NL</a>

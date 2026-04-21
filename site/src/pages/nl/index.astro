@@ -10,7 +10,7 @@ import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
 import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 
 const allItems = await getCollection('programme');
-const nlItems = allItems.filter(e => e.data.lang === 'nl');
+const nlItems = allItems.filter(e => e.data.lang === 'nl' && !e.data.draft);
 const saturdayHighlights = nlItems.filter(e => e.data.day === 'saturday').slice(0, 3);
 const hasProgramme = nlItems.length > 0;
 
@@ -30,7 +30,7 @@ const todayItems = todayFestivalDay
 ---
 
 <BaseLayout title="Plazey festival" lang="nl" currentPath="/nl">
-  <section aria-label="Hero" class="py-16">
+  <section aria-label="Hero" class="section">
     <Container>
       <span class="edition-indicator">Editie 2026</span>
       {SITE_PHASE === 'aftermovie' ? (
@@ -79,7 +79,7 @@ const todayItems = todayFestivalDay
     </figure>
   </section>
 
-  <section aria-labelledby="wat-is-plazey" class="py-12">
+  <section aria-labelledby="wat-is-plazey" class="section">
     <Container>
       <h2 id="wat-is-plazey">Wat is Plazey?</h2>
       <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
@@ -99,7 +99,7 @@ const todayItems = todayFestivalDay
     </Container>
   </section>
 
-  <section aria-labelledby="programma-teaser" class="py-12">
+  <section aria-labelledby="programma-teaser" class="section">
     <Container>
       {SITE_PHASE === 'live' ? (
         <>
@@ -175,7 +175,7 @@ const todayItems = todayFestivalDay
     />
   </figure>
 
-  <section aria-labelledby="bereikbaarheid-teaser" class="py-12">
+  <section aria-labelledby="bereikbaarheid-teaser" class="section">
     <Container>
       <h2 id="bereikbaarheid-teaser">Hoe kom ik er?</h2>
       <p>Met metro lijn 2 of 6, halte Simonis. Van daar is het tien minuten wandelen naar het park.</p>
@@ -184,7 +184,7 @@ const todayItems = todayFestivalDay
     </Container>
   </section>
 
-  <section aria-labelledby="doe-mee-teaser" class="py-12">
+  <section aria-labelledby="doe-mee-teaser" class="section">
     <Container>
       <div class="flex flex-col sm:flex-row gap-8 items-start">
         <div class="flex-1">
@@ -198,7 +198,7 @@ const todayItems = todayFestivalDay
             alt="Een vrijwilliger in roze Plazey-t-shirt kijkt omhoog, met het festivalterrein achter haar."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
       </div>

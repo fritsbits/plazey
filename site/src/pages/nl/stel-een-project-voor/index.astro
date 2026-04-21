@@ -1,20 +1,103 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
+import Accordion from '../../../components/Accordion.astro';
+import { Image } from 'astro:assets';
+import concertRapBasiliek from '../../../assets/images/concert-rap-basiliek.jpg';
+import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
+import dansPark from '../../../assets/images/dans-park.jpg';
+import muziekTromClose from '../../../assets/images/muziek-trom-close.jpg';
+
+const voorbeelden = [
+  {
+    src: concertRapBasiliek,
+    alt: 'Twee MC\'s op een openluchtpodium voor een dicht publiek, met de Basiliek van Koekelberg op de achtergrond.',
+    titel: 'Buurtbands op een groot podium',
+    tekst: 'Club 1030 programmeerde vier jonge bands uit de buurt.',
+  },
+  {
+    src: parkLaanKunst,
+    alt: 'Bomenlaan in Elisabethpark met kunstwerken die aan de takken hangen, bezoekers wandelen eronder.',
+    titel: 'Kunst aan de bomen',
+    tekst: 'Arborescences gaf elke kunstenaar één boom in het park.',
+  },
+  {
+    src: dansPark,
+    alt: 'Groep mensen in verschillende leeftijden die samen dansen tussen de bomen van het park.',
+    titel: 'Dans voor iedereen',
+    tekst: 'Etage Tropical gaf workshops open voor mensen met en zonder beperking.',
+  },
+  {
+    src: muziekTromClose,
+    alt: 'Close-up van een bass drum die wordt aangeslagen, een trompetspeler erachter.',
+    titel: 'Percussie uit de buurt',
+    tekst: 'Fanfakids trok met trommels en trompet door het park.',
+  },
+];
+
+const faqItems = [
+  { question: 'Ik heb geen organisatie. Mag ik toch iets voorstellen?', answer: 'Ja. Individuen zijn welkom.' },
+  { question: 'Moet ik Nederlands of Frans spreken?', answer: 'Nee. Plazey is meertalig. Dien in in de taal die voor jou werkt.' },
+  { question: 'Krijg ik betaald?', answer: 'We werken met een beperkt budget. Zet in je voorstel wat je nodig hebt. We antwoorden eerlijk wat we wel en niet kunnen dekken.' },
+  { question: 'Tot wanneer kan ik voorstellen?', answer: 'We plannen het programma in de winter. Hoe vroeger je indient, hoe groter de kans.' },
+  { question: 'Is er een limiet op wat er kan?', answer: 'Bijna niet. Muziek, dans, theater, film, workshop, eten, sport, kunst, kinderen. Stuur het en we praten erover.' },
+  { question: 'Wat gebeurt er met mijn voorstel?', answer: 'We lezen elk voorstel en nemen contact op. Soms vragen we een gesprek. Soms passen we je idee samen aan.' },
+];
 ---
 
 <BaseLayout title="Stel een project voor" lang="nl" currentPath="/nl/stel-een-project-voor">
-  <section class="py-12">
+  <section class="section">
     <Container>
       <h1>Stel een project voor</h1>
       <p class="opening">Stel je voor. Met je idee en je buurt.</p>
-      <p>Plazey wordt mee gemaakt door mensen uit de buurt. Een groot deel van het programma wordt ingediend en mee georganiseerd door buurtbewoners, lokale artiesten en organisaties.</p>
-      <p>Ben je buurtbewoner? Lokale artiest? Een kleine organisatie met een idee? Stel je project voor.</p>
-      <p>Zet in je voorstel: wie je bent, wat je van plan bent, wat je nodig hebt, en voor welke dag je denkt.</p>
+      <p>Plazey wordt mee gemaakt door de buurt. Een groot deel van het programma komt van buurtbewoners, lokale artiesten en kleine organisaties die zelf een idee indienden.</p>
+      <p>Misschien is dat jij, volgende keer.</p>
     </Container>
   </section>
 
-  <section aria-labelledby="project-form-heading" class="py-12">
+  <section aria-labelledby="voorbeelden-heading" class="section">
+    <Container>
+      <h2 id="voorbeelden-heading">Wat hebben buurtbewoners al gedaan?</h2>
+      <p>Dit brachten buren en collectieven de voorbije jaren op Plazey.</p>
+
+      <ul role="list" class="voorbeelden-grid grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        {voorbeelden.map((v) => (
+          <li class="voorbeeld-card">
+            <Image
+              src={v.src}
+              alt={v.alt}
+              widths={[400, 700]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full aspect-[4/3] object-cover rounded-md mb-3"
+            />
+            <h3>{v.titel}</h3>
+            <p>{v.tekst}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="mt-6">Ook op Plazey gedaan: rondleidingen door Koekelberg, een leesclub voor kinderen, een inclusief theaterlab, een koor open voor iedereen, films van Brusselse makers, een literaire apéro.</p>
+      <p>Je ziet het: muziek, dans, theater, film, lezen, eten, sport. Klein of groot. Voor één middag of voor drie dagen.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="voorstel-heading" class="section">
+    <Container>
+      <h2 id="voorstel-heading">Wat zet je in je voorstel?</h2>
+      <p>Hou het kort. Een paar zinnen per vraag volstaat.</p>
+
+      <ul class="list-disc pl-6 mt-4">
+        <li>Wie je bent, en hoe we je kunnen bereiken.</li>
+        <li>Wat je idee is, in drie tot vijf zinnen.</li>
+        <li>Wat je nodig hebt: ruimte, materiaal, tijd, geluid, een podium, budget.</li>
+        <li>Voor welke dag je denkt.</li>
+      </ul>
+
+      <p class="mt-4">Nog niet alles rond? Dat geeft niet. Stuur wat je hebt, we denken mee.</p>
+    </Container>
+  </section>
+
+  <section aria-labelledby="project-form-heading" class="section">
     <Container>
       <h2 id="project-form-heading">Stuur je voorstel</h2>
 
@@ -22,7 +105,7 @@ import Container from '../../../components/Container.astro';
         name="project-voorstel"
         method="POST"
         data-netlify="true"
-        class="mt-6 flex flex-col gap-5 max-w-lg"
+        class="mt-6 flex flex-col gap-5"
       >
         <input type="hidden" name="form-name" value="project-voorstel" />
 
@@ -33,7 +116,7 @@ import Container from '../../../components/Container.astro';
             id="naam-pv"
             name="naam"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </div>
 
@@ -44,7 +127,7 @@ import Container from '../../../components/Container.astro';
             id="email-pv"
             name="email"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           />
         </div>
 
@@ -55,7 +138,7 @@ import Container from '../../../components/Container.astro';
             name="omschrijving"
             rows="4"
             required
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           ></textarea>
         </div>
 
@@ -65,7 +148,7 @@ import Container from '../../../components/Container.astro';
             id="project-nodig"
             name="nodig"
             rows="3"
-            class="border border-gray-300 rounded px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600"
+            class="border border-gray-300 rounded-md px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-neutral-900"
           ></textarea>
         </div>
 
@@ -79,6 +162,13 @@ import Container from '../../../components/Container.astro';
 
         <button type="submit" class="btn-primary self-start">Stel je project voor</button>
       </form>
+    </Container>
+  </section>
+
+  <section aria-labelledby="vragen-projectvoorstel" class="section">
+    <Container>
+      <h2 id="vragen-projectvoorstel">Vragen</h2>
+      <Accordion items={faqItems} />
     </Container>
   </section>
 </BaseLayout>

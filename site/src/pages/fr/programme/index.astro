@@ -7,7 +7,7 @@ import { SITE_PHASE, FACEBOOK_URL } from '../../../config/site.ts';
 
 const allItems = await getCollection('programme');
 const items = allItems
-  .filter(e => e.data.lang === 'fr')
+  .filter(e => e.data.lang === 'fr' && !e.data.draft)
   .sort((a, b) => {
     const dayOrder: Record<string, number> = { friday: 0, saturday: 1, sunday: 2 };
     const dayDiff = (dayOrder[a.data.day] ?? 0) - (dayOrder[b.data.day] ?? 0);
@@ -32,7 +32,7 @@ const types = [
 ---
 
 <BaseLayout title="Programme" lang="fr" currentPath="/fr/programme">
-  <section class="py-12">
+  <section class="section">
     <Container>
       <h1>Programme</h1>
 
@@ -46,7 +46,7 @@ const types = [
           <p>22–24 août 2026. Tout est gratuit.</p>
 
           {SITE_PHASE === 'aftermovie' && (
-            <div role="note" class="season-banner my-4 p-4 bg-gray-100 rounded">
+            <div role="note" class="season-banner my-4 p-4 bg-gray-100 rounded-md">
               <p>C'était le programme de Plazey 2026.</p>
             </div>
           )}

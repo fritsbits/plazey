@@ -316,20 +316,30 @@ The website is intended to be photo-centric — photos carry the vibe in hero sl
 
 ---
 
-### S6 — Doe mee
+### S6 — Kom helpen (Vrijwilliger)
 
 | Slot | Status | Notes |
 |------|--------|-------|
-| Vrijwilliger worden hero | ✅ | `528729450`, `528283988` |
-| Role cards (bar, food, info, kids) | ✅ Partial | Bar (`528351191`), food (`529162241`), info point (`528283988`). No photo for backstage/tech or setup roles. |
-| Project voorstellen section | ⚠️ | No photo clearly depicting an artist, group, or community project being proposed or workshopped. |
-| **Gap** | ⚠️ | No "before the festival" photos — setup, build, soundcheck. These would make the "doe mee" page feel more real and concrete for potential volunteers. |
+| Vrijwilliger worden hero | ✅ | `528729450` (`vrijwilliger-portret.jpg`) |
+| Role cards (bar, kassa, infostand, opruim) | ✅ | Bar (`528351191`), kassa/tokens (`528547725`), infostand/Baby Spot (`528283988`), opruim+eten (`529162241` — grillen staat hier stand-in). |
+| **Gap** | ⚠️ | No "before the festival" photos — setup, build, soundcheck. These would make the opruim/opbouw-rol feel concreet for potential volunteers. Also no photo for backstage/tech roles if those worden toegevoegd. |
 
 ---
 
-### S7 — 404 / empty states / off-season banner
+### S7 — Stel een project voor
 
-No photos needed — these states use graphic/illustrated treatments.
+*New page (2026-04-18). The zone with concrete example projects needs photo backing, otherwise the page is text-only and fails to convince someone that their idea belongs here.*
+
+| Slot | Status | Notes |
+|------|--------|-------|
+| Voorbeeld: jonge muzikanten (Club 1030 / Nar6ssique) | ✅ | `538535839` (`concert-rap-basiliek.jpg`) — MCs op buitenscene, Basiliek op de achtergrond. Leest als "jonge artiest op hun eerste podium". Alternatief: `538980955` (avondconcert). |
+| Voorbeeld: dans voor iedereen (Etage Tropical / G-dance) | ✅ Partial | `535445939` (`dans-park.jpg`) — groep diverse leeftijden danst in het park. Geen duidelijke zichtbare G-dance-context (mensen met rolstoel / hulpmiddelen). Bruikbaar als generieke dans-illustratie. |
+| Voorbeeld: kunst in het park (Arborescences / Dear Pigs) | ✅ | `503383143` (`park-laan-kunst.jpg`) — beste match: bomenlaan met kunst aan de takken. Exact wat Arborescences is. |
+| Voorbeeld: leesclub / kids-literair (Koekelboekske) | ⚠️ Geen | Niet aanwezig in set. Alternatief: `490354341` (kids-kookworkshop) werkt als stand-in voor "kinderen rond een tafel" maar het onderwerp klopt niet (eten, niet lezen). |
+| Voorbeeld: percussie-ensemble (Fanfakids / Strak-X) | ✅ | `536285406` (`muziek-trom-close.jpg`) — trom close-up met trompet erachter. Past perfect bij percussie-ensemble. |
+| Voorbeeld: inclusief theater (Scheldeoffensief) | ⚠️ Partial | `528386718` (`theater-basiliek.jpg`) werkt als generieke theaterscene, maar toont geen mensen met / zonder beperking samen op scène. |
+| Voorbeeld: rondleiding / stadswandeling (Brukselbinnenstebuiten) | ⚠️ Geen | Geen foto van een groep die rondgeleid wordt. Bereikbaarheids-wandelbeeld `503383143` kan secundair werken. |
+| **Gap** | ⚠️ | Minstens één foto tekort voor Koekelboekske-type (kinderen die lezen of vertellen in het park). Liefst ook één "G-dance/inclusieve dans"-specifieke foto en één "stadswandeling/tour"-foto om het voorbeeldenrooster echt divers te tonen. |
 
 ---
 
@@ -354,4 +364,12 @@ No photos needed — these states use graphic/illustrated treatments.
 
 ---
 
-*Last updated: 2026-04-12*
+---
+
+### S8 — 404 / empty states / off-season banner
+
+No photos needed — these states use graphic/illustrated treatments.
+
+---
+
+*Last updated: 2026-04-18*

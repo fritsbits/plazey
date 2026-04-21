@@ -19,7 +19,7 @@ const faqItems = [
 ---
 
 <BaseLayout title="Praktisch" lang="nl" currentPath="/nl/praktisch">
-  <div class="py-12">
+  <div class="section">
     <Container>
       <h1>Praktisch</h1>
       <p>Alles wat je moet weten om langs te komen.</p>
@@ -39,7 +39,7 @@ const faqItems = [
           alt="De lange dreef van het Elisabethpark met kunstwerken aan de bomen en wandelaars."
           widths={[800, 1200]}
           sizes="(max-width: 768px) 100vw, 80vw"
-          class="w-full rounded mb-6"
+          class="w-full rounded-md mb-6"
         />
         <h2 id="heading-bereikbaarheid">Bereikbaarheid</h2>
 
@@ -71,7 +71,7 @@ const faqItems = [
             alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
             widths={[800, 1200]}
             sizes="(max-width: 768px) 100vw, 80vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
         <p>Je mag je eigen eten en drinken meebrengen. Kraantjeswater is gratis.</p>
@@ -86,7 +86,7 @@ const faqItems = [
             <tr><td>Kraantjeswater</td><td>Gratis</td></tr>
             <tr><td>Spuitwater</td><td>€1</td></tr>
             <tr><td>Frisdrank</td><td>€2</td></tr>
-            <tr><td>Koffie</td><td>€[valideren]</td></tr>
+            <tr><td>Koffie</td><td><em class="text-gray-500">te valideren</em></td></tr>
           </tbody>
         </table>
 
@@ -101,7 +101,7 @@ const faqItems = [
             <tr><td>Wijn</td><td>€4</td></tr>
           </tbody>
         </table>
-        <p><small>⚠️ Prijzen van editie 2025. Te valideren voor publicatie 2026.</small></p>
+        <p class="draft-note">Prijzen van editie 2025. Nog te valideren voor publicatie 2026.</p>
 
         <p>Naast dranken zijn er eetstandjes. We kiezen bewust voor buurtbewoners, lokale horecazaken en start-ups als standhouders. Wie er dit jaar staat, vind je binnenkort op deze pagina.</p>
         <div class="flex flex-col sm:flex-row gap-6 my-6">
@@ -111,7 +111,7 @@ const faqItems = [
               alt="Een vrijwilliger in Plazey-t-shirt grilt spiesjes op een buitenstand."
               widths={[400, 600]}
               sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full rounded"
+              class="w-full rounded-md"
             />
           </figure>
           <figure class="flex-1">
@@ -120,7 +120,7 @@ const faqItems = [
               alt="De kleurrijke tokenstand: een medewerker helpt een bezoeker."
               widths={[400, 600]}
               sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full rounded"
+              class="w-full rounded-md"
             />
           </figure>
         </div>
@@ -137,7 +137,7 @@ const faqItems = [
             alt="Gehoorbescherming op een tafel: oordopjes, kinderkoptelefoon en volwassen gehoorkap."
             widths={[600, 900]}
             sizes="(max-width: 768px) 100vw, 60vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
         <h3>Wat er is</h3>
@@ -155,7 +155,7 @@ const faqItems = [
 
         <h3>Dit doen we samen met</h3>
         <p>Demos · AnySurfer · Zonnelied vzw · Viernulvier · Club 1030 / GC De Kriekelaar · Scheldeoffensief</p>
-        <p><small>⚠️ Partnerlijst valideren vóór publicatie.</small></p>
+        <p class="draft-note">Partnerlijst nog te valideren vóór publicatie.</p>
       </section>
 
       <section id="meer" aria-labelledby="heading-meer" class="mt-12">

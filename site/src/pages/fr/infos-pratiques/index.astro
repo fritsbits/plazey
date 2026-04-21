@@ -2,6 +2,12 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
+import { Image } from 'astro:assets';
+import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
+import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
+import etenGrillen from '../../../assets/images/eten-grillen.jpg';
+import kassaTokens from '../../../assets/images/kassa-tokens.jpg';
+import oordopjesProducten from '../../../assets/images/oordopjes-producten.jpg';
 
 const faqItems = [
   { question: 'Plazey est-il vraiment gratuit ?', answer: "Oui. Pas de tickets, pas d'entrée payante. Plazey est gratuit pour tout le monde, depuis 1992." },
@@ -13,7 +19,7 @@ const faqItems = [
 ---
 
 <BaseLayout title="Infos pratiques" lang="fr" currentPath="/fr/infos-pratiques">
-  <div class="py-12">
+  <div class="section">
     <Container>
       <h1>Infos pratiques</h1>
       <p>Tout ce que tu dois savoir pour venir.</p>
@@ -28,6 +34,13 @@ const faqItems = [
       </nav>
 
       <section id="acces" aria-labelledby="heading-acces" class="mt-12">
+        <Image
+          src={parkLaanKunst}
+          alt="La longue allée du parc Élisabeth avec des œuvres d'art dans les arbres et des promeneurs."
+          widths={[800, 1200]}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          class="w-full rounded-md mb-6"
+        />
         <h2 id="heading-acces">Accès</h2>
 
         <h3>Métro</h3>
@@ -52,6 +65,15 @@ const faqItems = [
 
       <section id="manger-et-boire" aria-labelledby="heading-manger" class="mt-12">
         <h2 id="heading-manger">Manger &amp; boire</h2>
+        <figure class="mb-6">
+          <Image
+            src={etenFoodkraam}
+            alt="Un stand alimentaire sous une tente à Plazey : deux femmes préparent et servent à manger."
+            widths={[800, 1200]}
+            sizes="(max-width: 768px) 100vw, 80vw"
+            class="w-full rounded-md"
+          />
+        </figure>
         <p>Tu peux apporter ta propre nourriture et boisson. L'eau du robinet est gratuite.</p>
 
         <h3>Boissons sans alcool</h3>
@@ -62,7 +84,7 @@ const faqItems = [
             <tr><td>Eau du robinet</td><td>Gratuit</td></tr>
             <tr><td>Eau pétillante</td><td>€1</td></tr>
             <tr><td>Soft</td><td>€2</td></tr>
-            <tr><td>Café</td><td>€[à valider]</td></tr>
+            <tr><td>Café</td><td><em class="text-gray-500">à valider</em></td></tr>
           </tbody>
         </table>
 
@@ -75,9 +97,29 @@ const faqItems = [
             <tr><td>Vin</td><td>€4</td></tr>
           </tbody>
         </table>
-        <p><small>⚠️ Prix de l'édition 2025. À valider pour 2026.</small></p>
+        <p class="draft-note">Prix de l'édition 2025. Encore à valider pour 2026.</p>
 
         <p>Il y a aussi des stands alimentaires. Nous choisissons délibérément des habitant·es du quartier, des établissements horeca locaux et des start-ups. Les stands de cette année seront annoncés bientôt.</p>
+        <div class="flex flex-col sm:flex-row gap-6 my-6">
+          <figure class="flex-1">
+            <Image
+              src={etenGrillen}
+              alt="Un·e bénévole en t-shirt Plazey fait griller des brochettes sur un stand extérieur."
+              widths={[400, 600]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full rounded-md"
+            />
+          </figure>
+          <figure class="flex-1">
+            <Image
+              src={kassaTokens}
+              alt="Le stand tokens coloré : un·e bénévole aide un·e visiteur·euse."
+              widths={[400, 600]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full rounded-md"
+            />
+          </figure>
+        </div>
         <p><strong>Espèces et tokens acceptés.</strong></p>
       </section>
 
@@ -85,6 +127,15 @@ const faqItems = [
         <h2 id="heading-accessibilite">Accessibilité</h2>
         <p>Une question ou besoin d'aide ? Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
 
+        <figure class="mb-6">
+          <Image
+            src={oordopjesProducten}
+            alt="Protection auditive sur une table : bouchons d'oreilles, casque pour enfants et protège-oreilles adulte."
+            widths={[600, 900]}
+            sizes="(max-width: 768px) 100vw, 60vw"
+            class="w-full rounded-md"
+          />
+        </figure>
         <h3>Ce qui est disponible</h3>
         <ul>
           <li><strong>Appareil CM1</strong> — à l'infostand. Connexion directe avec la sonorisation.</li>
@@ -100,7 +151,7 @@ const faqItems = [
 
         <h3>Nous faisons ça avec</h3>
         <p>Demos · AnySurfer · Zonnelied vzw · Viernulvier · Club 1030 / GC De Kriekelaar · Scheldeoffensief</p>
-        <p><small>⚠️ Liste à valider avant publication.</small></p>
+        <p class="draft-note">Liste encore à valider avant publication.</p>
       </section>
 
       <section id="plus" aria-labelledby="heading-plus" class="mt-12">

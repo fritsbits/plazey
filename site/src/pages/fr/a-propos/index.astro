@@ -9,7 +9,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
 ---
 
 <BaseLayout title="À propos de Plazey" lang="fr" currentPath="/fr/a-propos">
-  <section class="py-12">
+  <section class="section">
     <Container>
       <h1>À propos de Plazey</h1>
       <p class="opening">Rejoignez-nous, quelle que soit votre langue ou votre rythme.</p>
@@ -26,7 +26,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
     />
   </figure>
 
-  <section aria-labelledby="lhistoire" class="py-12">
+  <section aria-labelledby="lhistoire" class="section">
     <Container>
       <h2 id="lhistoire">L'histoire</h2>
       <div class="flex flex-col sm:flex-row gap-8 items-start">
@@ -41,14 +41,14 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Des gens qui dansent dehors entre les arbres du parc Élisabeth, tous âges, ambiance festive."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="qui-fait" class="py-12">
+  <section aria-labelledby="qui-fait" class="section">
     <Container>
       <h2 id="qui-fait">Qui fait Plazey ?</h2>
       <p>Plazey est un projet de deux maisons de quartier bruxelloises.</p>
@@ -73,7 +73,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Deux bénévoles en t-shirt rose Plazey devant la caravane Baby Spot."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
         <figure>
@@ -82,14 +82,14 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Bénévoles en t-shirt rose Plazey derrière le bar, ambiance conviviale."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded"
+            class="w-full rounded-md"
           />
         </figure>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="nos-partenaires" class="py-12">
+  <section aria-labelledby="nos-partenaires" class="section">
     <Container>
       <h2 id="nos-partenaires">Nos partenaires</h2>
       <ul role="list" class="logo-wall flex flex-wrap gap-4 mt-4">
@@ -100,11 +100,11 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
         <li><span>Club 1030 / GC De Kriekelaar</span></li>
         <li><span>Scheldeoffensief</span></li>
       </ul>
-      <p><small>⚠️ Liste à valider avant publication.</small></p>
+      <p class="draft-note">Liste encore à valider avant publication.</p>
     </Container>
   </section>
 
-  <section aria-labelledby="participe-callout" class="callout py-12">
+  <section aria-labelledby="participe-callout" class="callout section">
     <Container>
       <h2 id="participe-callout">Tu veux contribuer ?</h2>
       <p>Viens aider ou propose un projet.</p>

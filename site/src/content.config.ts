@@ -15,6 +15,7 @@ const programme = defineCollection({
     artist: z.string().optional(),
     description: z.string().optional(),
     embedUrl: z.string().url().optional(),
+    draft: z.boolean().optional().default(false),
   }),
 });
 

@@ -1,5 +1,5 @@
 // src/config/site.ts
-export const SITE_PHASE: 'save-the-date' | 'reveal' | 'live' | 'aftermovie' = 'reveal';
+export const SITE_PHASE: 'save-the-date' | 'reveal' | 'live' | 'aftermovie' = 'save-the-date';
 export const FESTIVAL_YEAR = 2026;
 export const FESTIVAL_DATES_NL = '22–24 augustus 2026';
 export const FESTIVAL_DATES_FR = '22–24 août 2026';
