@@ -86,7 +86,7 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
           >
             <Image
               src={p.src}
-              alt={isNL ? p.altNl : p.altFr}
+              alt=""
               height={88}
               class="partner-logo"
             />
@@ -124,6 +124,7 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
   }
 
   .partner-logo {
+    display: block;
     height: 44px;
     width: auto;
     max-width: 120px;
