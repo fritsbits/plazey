@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Partners from '../components/Partners.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -17,6 +18,8 @@ const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} — Plazey</title>
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+    <link href="https://fonts.bunny.net/css?family=caprasimo:400&display=swap" rel="stylesheet" />
   </head>
   <body class="min-h-screen flex flex-col">
     <a class="skip-link" href="#main-content">{skipLabel}</a>
@@ -24,6 +27,7 @@ const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
     <main id="main-content" class="flex-1">
       <slot />
     </main>
+    <Partners lang={lang} />
     <Footer lang={lang} />
   </body>
 </html>
