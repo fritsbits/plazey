@@ -53,6 +53,8 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 
 **Programme detail pages:** `[slug].astro` with `getStaticPaths`. Click-to-play embed: lazy iframe loaded on button click (JS), `<noscript>` fallback link.
 
+**Forms:** Contact, volunteer, and project-proposal forms use **Netlify Forms** (`data-netlify="true"`). No third-party form backend. Submissions are captured by Netlify and forwarded by email. Each form has a hidden `form-name` input and a client-side JS progressive-enhancement handler that POSTs with `fetch()` so the user stays on the page. The `<noscript>` path still submits natively.
+
 ## Programme content collection schema (`src/content.config.ts`)
 
 - `title` (string, required)
@@ -89,13 +91,35 @@ Key rules:
 
 ## Praktisch page in-page anchors
 
-NL: `#bereikbaarheid`, `#eten-en-drinken`, `#toegankelijkheid`, `#meer`
-FR: `#acces`, `#manger-et-boire`, `#accessibilite`, `#plus`
+NL: `#bereikbaarheid`, `#eten-en-drinken`, `#toegankelijkheid`, `#kinderen`, `#faq`
+FR: `#acces`, `#manger-et-boire`, `#accessibilite`, `#enfants`, `#questions-frequentes`
 
 ## Social
 
 - Facebook only: facebook.com/plazeyfestival
 - No Instagram account — do not add Instagram links anywhere on the site.
+
+## Design Context
+
+### Users
+Brussels neighbourhood residents — families, children, language learners (NL + FR), volunteers, and people who want to contribute a project. Casual, community context: users arrive via Facebook shares, word of mouth, or physical flyers. Not a tech-savvy audience. Many access on mobile. Readability must work for tired people, kids, and people reading in a second language.
+
+### Brand Personality
+Warm, bubbly, accessible — the energy of a neighbourhood party, not a polished festival brand. Honest and direct. Nothing corporate, distant, or over-designed.
+
+### Aesthetic Direction
+**Now (wireframe phase):** Grayscale only. Caprasimo for headings, system-ui for body. Huisstijl tokens replace CSS custom properties in `global.css` — no markup changes needed.
+
+**Huisstijl target:** Bold & festive — strong colours, expressive typography, poster-like composition. Feels like something the community could have made.
+
+**Explicit anti-references:** Generic festival look — dark backgrounds, neon accents, countdown timers, DJ poster aesthetics.
+
+### Design Principles
+1. **Type carries character.** Caprasimo is the main personality signal. Body supports it — legible, calm, never competing.
+2. **Bold, not loud.** Festive energy from confident colour and composition, not visual noise.
+3. **Readable by everyone.** Short sentences, clear hierarchy, WCAG AA minimum. Language learners and small screens first.
+4. **Community-first aesthetics.** Warmth over slick polish. Poster quality over corporate finish.
+5. **Huisstijl-ready at all times.** No hard-coded values. All decisions must survive a token swap.
 
 ## Do not suggest
 
@@ -106,4 +130,4 @@ FR: `#acces`, `#manger-et-boire`, `#accessibilite`, `#plus`
 - EN-language version (NL + FR only)
 - Instagram links anywhere
 - park-kaart / SVG map (cut from scope)
-- Formspree or any form backend — all CTAs on Doe mee / Participez are `mailto:` links
+- Formspree or any third-party form backend — we use Netlify Forms (built into hosting)

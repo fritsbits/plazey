@@ -15,7 +15,7 @@ Stel een project voor
 
 ## Openingsregel (warm motief, direct onder H1)
 
-Stel je voor. Met je idee en je buurt.
+Heb je een idee? Laat het weten.
 
 ## Intro
 
@@ -136,7 +136,7 @@ Proposer un projet
 
 ## Phrase d'ouverture (motif chaleureux)
 
-Fais-toi connaître. Avec ton idée et ton quartier.
+Tu as une idée ? Fais-nous signe.
 
 ## Intro
 

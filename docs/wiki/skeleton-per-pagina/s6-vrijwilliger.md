@@ -40,30 +40,22 @@ Op mobile: stack verticaal, portret onder de openingsregel.
 **Vraag:** "Wat zou ik kunnen doen?"
 
 ```
-[H2: Vrijwilliger worden]
-
-[Intro: 2 zinnen — "Plazey draait op vrijwilligers. …"]
-[Intro: 1 zin — "Je kiest zelf wanneer en hoeveel."]
-
 [ROL-GRID: 1 kolom mobile / 2 kolommen desktop]
 
 +----------------+  +----------------+
-| [Foto bar]     |  | [Foto kassa]   |
 | Bar            |  | Kassa          |
 | [1-2 zinnen]   |  | [1-2 zinnen]   |
 +----------------+  +----------------+
 +----------------+  +----------------+
-| [Foto infost.] |  | [Foto opruim]  |
-| Infostand      |  | Opruim en      |
-| [1-2 zinnen]   |  | opbouw         |
+| Infostand      |  | Opbouw en      |
+| [1-2 zinnen]   |  | opruim         |
 |                |  | [1-2 zinnen]   |
 +----------------+  +----------------+
 
-[Afsluitregel: "Je hoeft geen ervaring te hebben. Plazey zorgt voor
- een maaltijd en drankjes terwijl je helpt."]
+[Afsluitregel: "Je hoeft geen ervaring te hebben. …"]
 ```
 
-**Belangrijke wijziging t.o.v. v1:** elke rol-kaart heeft nu een eigen foto bovenaan (bar, kassa, infostand/baby spot, grillen). Zie `image-placements.md`.
+Geen foto per rol-kaart. Twee sfeerbeelden (vrijwilligers-bar + vrijwilligers-babyspot) staan als image-pair onder het grid.
 
 ---
 

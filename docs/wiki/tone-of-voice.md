@@ -62,15 +62,25 @@ Plazey is het driedaagse, gratis stadsfestival in het Elisabethpark in Koekelber
 
 ## 3.6 Warme opening op scharniermomenten
 
-*Waarom:* de meeste teksten op de site zijn praktisch en feitelijk. Op drie plekken mag en moet de toon iets warmer, omdat de lezer daar niet iets komt opzoeken maar een gevoel komt bevestigen: home (hero), Over Plazey (openingsregel), Doe mee (afsluitende oproep). Gebruik daar een korte, uitnodigende zin met een open werkwoord ("kom langs", "kom erbij", "kom helpen"). Overal elders: feitelijk en strak.
+*Waarom:* de meeste teksten op de site zijn praktisch en feitelijk. Op vier plekken mag en moet de toon iets warmer, omdat de lezer daar niet iets komt opzoeken maar een gevoel komt bevestigen: home (hero), Over Plazey (openingsregel), Vrijwilliger (openingsregel), Stel een project voor (openingsregel). Overal elders: feitelijk en strak.
 
-- **Do (home):** "Kom langs. Plazey is drie dagen gratis feest in het Elisabethpark."
+*Regel:* de opening **oriënteert de lezer naar de inhoud van de pagina**. H1 noemt de pagina; de opening zegt wat de lezer er vindt. Geen woordspeling. Geen dubbele bodem. Geen waardeclaim die losstaat van de pagina-inhoud. De vorm mag warm zijn, maar de functie is altijd: brug H1 → body.
 
-- **Do (Over Plazey):** "Kom erbij, welke taal of welk tempo je ook hebt."
+Op pagina's waar de taak van de pagina *zelf* uitnodigen is (home, vrijwilliger, stel een project voor), kan de opening een imperatief of een vraag zijn. Op pagina's waar de taak informeren is (over-plazey), oriënteert de opening inhoudelijk.
 
-- **Do (Doe mee):** "Kom helpen. Achter de bar, aan de kassa, of bij het opruimen."
+- **Do (home):** "Kom langs. Plazey is drie dagen gratis feest in het Elisabethpark." — uitnodiging + wat het is.
 
-- **Don't (praktisch):** "Meander door het park en laat je meevoeren door het ritme van de zomer."
+- **Do (Over Plazey):** "Dertig jaar buurtfeest in het Elisabethpark. Dit is wie het maakt." — oriënteert naar verhaal + wie.
+
+- **Do (Vrijwilliger):** "Kom helpen. Achter de bar, aan de kassa, of bij het opruimen." — uitnodiging + concrete inhoud.
+
+- **Do (Stel een project voor):** "Heb je een idee? Laat het weten." — vraag + laagdrempelige actie.
+
+- **Don't (waardeclaim zonder oriëntatie):** "Kom erbij, welke taal of welk tempo je ook hebt." — belooft inclusiviteit maar de pagina gaat over geschiedenis en organisatoren. Lezer weet niet wat er op de pagina staat.
+
+- **Don't (dubbele bodem):** "Stel je voor. Met je idee en je buurt." — *"Stel je voor"* parseert eerst als *imagine*, pas bij her-lezing als *propose*.
+
+- **Don't (abstracte metafoor):** "Meander door het park en laat je meevoeren door het ritme van de zomer." — geen informatie.
 
 ## 3.7 Bilinguaal, niet tweetalig
 
@@ -80,13 +90,15 @@ Plazey is het driedaagse, gratis stadsfestival in het Elisabethpark in Koekelber
 
 - **Don't:** "Welkom / Bienvenue op Plazey, het festival dat iedereen welkom heet."
 
-De Franse versie gebruikt dezelfde warme opening op dezelfde drie scharniermomenten, met werkwoorden die bij een festival passen. Werk-hypotheses voor validatie door een Franstalige meelezer:
+De Franse versie gebruikt dezelfde warme opening op dezelfde vier scharniermomenten. De vorm mag per pagina verschillen — wat telt is dat de zin kort, eerlijk en onmiddellijk begrijpelijk is, ook voor wie Frans aan het leren is. Werk-hypotheses voor validatie door een Franstalige meelezer:
 
 - **Home:** "Passez nous voir. Plazey, c'est trois jours de fête gratuite au parc Élisabeth."
 
-- **Over Plazey:** "Rejoignez-nous, quelle que soit votre langue ou votre rythme."
+- **Over Plazey / À propos:** "Trente ans de fête de quartier au parc Élisabeth. Voilà qui le fait."
 
-- **Doe mee:** "Venez donner un coup de main."
+- **Vrijwilliger / Bénévole:** "Venez donner un coup de main."
+
+- **Stel een project voor / Proposer un projet:** "Tu as une idée ? Fais-nous signe."
 
 ## 3.8 Concreet boven abstract
 

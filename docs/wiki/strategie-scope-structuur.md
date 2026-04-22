@@ -108,7 +108,7 @@
 
 - **Toegevoegd: Niet overhyped.** De site claimt niets wat het festival niet waarmaakt. Geen "radicaal toegankelijk" als marketing-label. Wat er is, is er; wat er niet is, benoemen we eerlijk. *Radicaal toegankelijk* mag eenmalig op **Over Plazey** verschijnen in de verleden tijd (als historische zelfbenoeming sinds 2023), nooit als claim in de tegenwoordige tijd op home of praktisch.
 
-- **Toegevoegd: Copy volgt de Tone of voice guide.** Alle site-teksten volgen [Tone of voice guide — Plazey](https://www.notion.so/33fd3ecc475c81caa19dc265e61ebf70) — helder, warm, uitnodigend, easy-read, bilinguaal NL/FR. Warm openingsmotief (*kom langs / kom erbij / kom helpen / stel je voor*) staat alleen op home, Over Plazey, Kom helpen en Stel een project voor.
+- **Toegevoegd: Copy volgt de Tone of voice guide.** Alle site-teksten volgen [Tone of voice guide — Plazey](https://www.notion.so/33fd3ecc475c81caa19dc265e61ebf70) — helder, warm, uitnodigend, easy-read, bilinguaal NL/FR. Warme openingsregel staat alleen op home, Over Plazey, Vrijwilliger en Stel een project voor — kort, eerlijk, open, rechtstreeks tot de lezer gericht. Geen vast patroon; geen woordspelingen of dubbele bodems.
 
 ### Open vragen
 

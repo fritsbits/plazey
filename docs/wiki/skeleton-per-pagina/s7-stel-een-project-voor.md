@@ -6,7 +6,7 @@
 
 > **Primaire CTA:** Netlify-formulier "Stel je project voor".
 
-> **Warm openingsmotief actief op deze pagina.** ("Stel je voor. Met je idee en je buurt.")
+> **Warm openingsmotief actief op deze pagina.** ("Heb je een idee? Laat het weten.")
 
 > **Fase-zichtbaarheid:** in hoofdnav tijdens `save-the-date`. Verdwijnt uit nav bij `reveal`/`live`/`aftermovie` (programmatie is dan gelocked). Pagina blijft bereikbaar via directe URL en via footer-link.
 
@@ -34,8 +34,8 @@ De nieuwe pagina lost elk van die vier op: eigen route, fase-specifieke nav-aanw
 ```
 +--------------------------------------+
 | [H1: Stel een project voor]          |
-| [Opening: "Stel je voor. Met je      |
-|  idee en je buurt."]                 |
+| [Opening: "Heb je een idee? Laat     |
+|  het weten."]                        |
 |                                      |
 | [Intro-paragraaf: 2-3 zinnen —       |
 |  waarom deze pagina bestaat, wie     |

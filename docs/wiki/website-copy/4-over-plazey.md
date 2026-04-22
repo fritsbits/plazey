@@ -10,9 +10,9 @@
 
 Over Plazey
 
-**Openingsregel (warm motief, direct onder H1):**
+**Openingsregel (oriënterend, direct onder H1):**
 
-Kom erbij, welke taal of welk tempo je ook hebt.
+Dertig jaar buurtfeest in het Elisabethpark. Dit is wie het maakt.
 
 ---
 
@@ -72,9 +72,9 @@ Naar Doe mee →
 
 À propos de Plazey
 
-**Phrase d’ouverture (motif chaleureux, directement sous le H1) :**
+**Phrase d’ouverture (orientante, directement sous le H1) :**
 
-Rejoignez-nous, quelle que soit votre langue ou votre rythme.
+Trente ans de fête de quartier au parc Élisabeth. Voilà qui le fait.
 
 ---
 
