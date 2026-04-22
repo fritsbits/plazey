@@ -11,6 +11,10 @@ site/dist/
 site/.astro/
 site/node_modules/
 
+# Superpowers brainstorming (local mockups)
+site/.superpowers/
+.superpowers/
+
 # Env files
 .env
 .env.*
