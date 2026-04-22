@@ -8,6 +8,7 @@ import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '
 import sfeerFestivalplein from '../../assets/images/sfeer-festivalplein.jpg';
 import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
 import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
+import theaterBasiliek from '../../assets/images/theater-basiliek.jpg';
 
 const allItems = await getCollection('programme');
 const nlItems = allItems.filter(e => e.data.lang === 'nl' && !e.data.draft);
@@ -30,9 +31,9 @@ const todayItems = todayFestivalDay
 ---
 
 <BaseLayout title="Plazey festival" lang="nl" currentPath="/nl">
-  <section aria-label="Hero" class="section">
+  <section aria-label="Hero" class="section pb-0">
     <Container>
-      <span class="edition-indicator">Editie 2026</span>
+      {SITE_PHASE !== 'save-the-date' && <span class="edition-indicator">Editie 2026</span>}
       {SITE_PHASE === 'aftermovie' ? (
         <>
           <h1>Bedankt. Tot volgend jaar.</h1>
@@ -42,8 +43,12 @@ const todayItems = todayFestivalDay
         </>
       ) : (
         <>
-          <h1>Kom langs. Plazey is drie dagen lang gratis feest in het Elisabethpark.</h1>
-          <p>{FESTIVAL_DATES_NL} · {FESTIVAL_LOCATION}</p>
+          {SITE_PHASE === 'save-the-date' ? (
+            <h1>Elk jaar maakt de buurt Plazey. Dit jaar jij ook?</h1>
+          ) : (
+            <h1>Kom langs. Plazey is drie dagen lang gratis feest in het Elisabethpark.</h1>
+          )}
+          <p class={SITE_PHASE === 'save-the-date' ? 'text-date' : 'text-meta'}>{FESTIVAL_DATES_NL} · {FESTIVAL_LOCATION}</p>
           <div class="cta-group">
             {SITE_PHASE === 'save-the-date' && (
               <>
@@ -55,20 +60,23 @@ const todayItems = todayFestivalDay
               <>
                 <a href="/nl/programma" class="btn-primary">Bekijk het programma</a>
                 <a href="/nl/vrijwilliger" class="btn-ghost">Kom helpen</a>
-                <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Zo geraak je er</a>
+                <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Bekijk hoe je er geraakt</a>
               </>
             )}
             {SITE_PHASE === 'live' && (
               <>
                 <a href="/nl/programma" class="btn-primary">Zie wat er vandaag speelt</a>
-                <a href="/nl/praktisch#bereikbaarheid" class="btn-ghost">Zo geraak je er</a>
+                <a href="/nl/praktisch#bereikbaarheid" class="btn-ghost">Bekijk hoe je er geraakt</a>
               </>
             )}
           </div>
         </>
       )}
+      <p class="lang-switcher">
+        <a href="/fr" lang="fr" hreflang="fr">Lire en français →</a>
+      </p>
     </Container>
-    <figure>
+    <figure class="mt-12">
       <Image
         src={sfeerFestivalplein}
         alt="Het Plazey-festivalterrein in het Elisabethpark: picknicktafels, slingers, en het Plazey-bord tussen de bomen."
@@ -82,20 +90,27 @@ const todayItems = todayFestivalDay
   <section aria-labelledby="wat-is-plazey" class="section">
     <Container>
       <h2 id="wat-is-plazey">Wat is Plazey?</h2>
-      <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
-        <li>
-          <h3>Gratis sinds 1992</h3>
-          <p>Geen tickets, geen toegangsprijs. Plazey is altijd al gratis geweest.</p>
-        </li>
-        <li>
-          <h3>Muziek, dans, workshops</h3>
-          <p>Concerten, circusacts, films, kinderactiviteiten — alle genres, alle leeftijden.</p>
-        </li>
-        <li>
-          <h3>Voor de hele buurt</h3>
-          <p>Jong en oud zijn welkom. Het programma wordt mee gemaakt door buurtbewoners.</p>
-        </li>
-      </ul>
+      {SITE_PHASE === 'save-the-date' ? (
+        <>
+          <p>Plazey is drie dagen gratis feest in het Elisabethpark. Al meer dan dertig jaar, voor de hele buurt.</p>
+          <a href="/nl/over-plazey" class="btn-text mt-4">Lees meer over Plazey →</a>
+        </>
+      ) : (
+        <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8">
+          <li>
+            <h3>Gratis sinds 1992</h3>
+            <p>Geen tickets, geen toegangsprijs. Plazey is altijd al gratis geweest.</p>
+          </li>
+          <li>
+            <h3>Muziek, dans, workshops</h3>
+            <p>Concerten, circusacts, films, kinderactiviteiten — alle genres, alle leeftijden.</p>
+          </li>
+          <li>
+            <h3>Voor de hele buurt</h3>
+            <p>Jong en oud zijn welkom. Het programma wordt mee gemaakt door buurtbewoners.</p>
+          </li>
+        </ul>
+      )}
     </Container>
   </section>
 
@@ -120,23 +135,19 @@ const todayItems = todayFestivalDay
               </li>
             ))}
           </ul>
-          <a href="/nl/programma" class="btn-text">Zie alles wat er vandaag is →</a>
+          <a href="/nl/programma" class="btn-text mt-6">Zie alles wat er vandaag is →</a>
         </>
       ) : SITE_PHASE === 'aftermovie' ? (
         <>
           <h2 id="programma-teaser">Terugblik op Plazey 2026</h2>
           <p>Dankjewel aan iedereen die er was.</p>
-          <a href="/nl/programma" class="btn-text">Bekijk het volledige programma 2026 →</a>
+          <a href="/nl/programma" class="btn-text mt-6">Bekijk het volledige programma 2026 →</a>
         </>
       ) : hasProgramme && SITE_PHASE !== 'save-the-date' ? (
         <>
           <h2 id="programma-teaser">Wat staat er op het programma?</h2>
-          <div role="tablist" aria-label="Dag selecteren" class="day-tabs flex gap-2 mt-4">
-            <button role="tab" aria-selected="true" aria-controls="tab-zaterdag" id="tab-btn-zaterdag">
-              Zaterdag 23 aug
-            </button>
-          </div>
-          <div id="tab-zaterdag" role="tabpanel" aria-labelledby="tab-btn-zaterdag">
+          <p class="day-label mt-4">Zaterdag 23 aug</p>
+          <div>
             <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
               {saturdayHighlights.map(item => (
                 <li>
@@ -154,8 +165,28 @@ const todayItems = todayFestivalDay
               ))}
             </ul>
           </div>
-          <a href="/nl/programma" class="btn-text">Zie het volledige programma →</a>
+          <a href="/nl/programma" class="btn-text mt-6">Zie het volledige programma →</a>
         </>
+      ) : SITE_PHASE === 'save-the-date' ? (
+        <div class="flex flex-col sm:flex-row gap-8 items-start">
+          <div class="flex-1">
+            <h2 id="programma-teaser">Jij maakt het programma</h2>
+            <p>Muziek, dans, workshops, kunst — elk jaar zetten buurtbewoners het programma mee op. Heb jij iets?</p>
+            <div class="cta-group">
+              <a href="/nl/stel-een-project-voor" class="btn-ghost">Stuur je idee in</a>
+              <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-text">Volg ons op Facebook →</a>
+            </div>
+          </div>
+          <figure class="flex-1">
+            <Image
+              src={theaterBasiliek}
+              alt="Voorstelling op het buitenpodium in het Elisabethpark, met de Basiliek van Koekelberg op de achtergrond."
+              widths={[400, 700]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              class="w-full image-rounded"
+            />
+          </figure>
+        </div>
       ) : (
         <>
           <h2 id="programma-teaser">Wat staat er op het programma?</h2>
@@ -165,6 +196,7 @@ const todayItems = todayFestivalDay
     </Container>
   </section>
 
+  {SITE_PHASE !== 'save-the-date' && (
   <figure class="my-0">
     <Image
       src={sfeerPicknicktafels}
@@ -174,23 +206,28 @@ const todayItems = todayFestivalDay
       class="w-full"
     />
   </figure>
+  )}
 
+  {SITE_PHASE !== 'save-the-date' && (
   <section aria-labelledby="bereikbaarheid-teaser" class="section">
     <Container>
       <h2 id="bereikbaarheid-teaser">Hoe kom ik er?</h2>
       <p>Met metro lijn 2 of 6, halte Simonis. Van daar is het tien minuten wandelen naar het park.</p>
       <p>Je kan ook komen met de tram, de bus, de fiets of de wagen.</p>
-      <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Meer info over bereikbaarheid →</a>
+      <a href="/nl/praktisch#bereikbaarheid" class="btn-text mt-6">Lees meer over bereikbaarheid →</a>
     </Container>
   </section>
+  )}
 
   <section aria-labelledby="doe-mee-teaser" class="section">
     <Container>
       <div class="flex flex-col sm:flex-row gap-8 items-start">
         <div class="flex-1">
-          <h2 id="doe-mee-teaser">Doe mee</h2>
+          <h2 id="doe-mee-teaser">{SITE_PHASE === 'save-the-date' ? 'Vrijwilliger worden' : 'Doe mee'}</h2>
           <p>Plazey draait op vrijwilligers. Wil je helpen? Achter de bar, aan de kassa of bij het opruimen.</p>
-          <a href="/nl/vrijwilliger" class="btn-ghost">Kom helpen</a>
+          <div class="cta-group">
+            <a href="/nl/vrijwilliger" class="btn-ghost">Kom helpen</a>
+          </div>
         </div>
         <figure class="flex-1">
           <Image
@@ -198,7 +235,7 @@ const todayItems = todayFestivalDay
             alt="Een vrijwilliger in roze Plazey-t-shirt kijkt omhoog, met het festivalterrein achter haar."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
       </div>

@@ -42,7 +42,7 @@ const dayLabels: Record<string, string> = {
       <p class="meta text-sm mt-1">
         {dayLabels[item.data.day]} · {item.data.startTime}{item.data.endTime && `–${item.data.endTime}`} · {item.data.type} · {item.data.stage}
       </p>
-      <span class="type-chip text-xs border rounded-full px-2 py-0.5 inline-block mt-2">{item.data.type}</span>
+      <span class="type-chip mt-2">{item.data.type}</span>
 
       <div class="description mt-6">
         <Content />
@@ -50,7 +50,7 @@ const dayLabels: Record<string, string> = {
 
       {item.data.embedUrl && (
         <div class="embed-wrapper mt-6" data-src={item.data.embedUrl} data-title={item.data.title}>
-          <button class="play-btn w-full border rounded-md py-8 flex items-center justify-center gap-2 hover:bg-gray-50" aria-label={`Écouter : ${item.data.title}`}>
+          <button class="play-btn w-full border py-8 flex items-center justify-center gap-2" aria-label={`Écouter : ${item.data.title}`}>
             <svg class="icon icon-md" viewBox="0 0 24 24" aria-hidden="true">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>

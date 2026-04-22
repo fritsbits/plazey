@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import { Image } from 'astro:assets';
-import theaterBasiliek from '../../../assets/images/theater-basiliek.jpg';
 import dansPark from '../../../assets/images/dans-park.jpg';
 import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
 import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
@@ -12,28 +11,23 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
   <section class="section">
     <Container>
       <h1>Over Plazey</h1>
-      <p class="opening">Kom erbij, welke taal of welk tempo je ook hebt.</p>
+      <p class="opening">Dertig jaar buurtfeest in het Elisabethpark. Dit is wie het maakt.</p>
+      <div class="cta-group">
+        <a href="#contact" class="btn-ghost">Neem contact op</a>
+      </div>
     </Container>
   </section>
-
-  <figure class="my-0">
-    <Image
-      src={theaterBasiliek}
-      alt="Openluchttheatervoorstelling op een houten podium in het Elisabethpark, met de basiliek van Koekelberg op de achtergrond."
-      widths={[800, 1200, 1600]}
-      sizes="100vw"
-      class="w-full"
-    />
-  </figure>
 
   <section aria-labelledby="het-verhaal" class="section">
     <Container>
       <h2 id="het-verhaal">Het verhaal</h2>
-      <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <div class="flex flex-col sm:flex-row gap-8 items-center">
         <div class="flex-1">
-          <p>Plazey begon in 1992 als een klein muziekfeestje voor de omwonenden van het Elisabethpark in Koekelberg. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
-          <p>In 2013 groeide het uit tot een gemoedelijke ontmoetingsplek rond Bar Eliza — een houten cafeetje midden in het park, waar de buurt bij elkaar kon komen. Muziek bleef het hart, maar workshops, animatie en eten kwamen erbij.</p>
-          <p>Sinds 2023 kiezen we voor radicale toegankelijkheid. Niet als label, maar als werk. Samen met Demos, AnySurfer en andere partners bouwen we aan een festival dat écht voor iedereen toegankelijk is — en dat eerlijk zegt wat nog niet lukt.</p>
+          <p>Plazey begon in 1992 als een klein muziekfeest voor de omwonenden van het Elisabethpark. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
+          <p>In het begin was het een klassiek zomerfestival — met bekende bandnamen die je ook op andere Vlaamse festivals zag. Dat veranderde. Plazey groeide naar de buurt toe. De muziek, de workshops, de eetstandjes: die komen nu van mensen die hier wonen en werken. Niet van elders gehaald, maar van hier.</p>
+          <p>Achter het festival staan twee Brusselse gemeenschapscentra. De naam zegt het zelf: <strong>PLAtoo</strong> uit Koekelberg en <strong>ZEYp</strong> uit Ganshoren. Meer dan honderd vrijwilligers maken Plazey elk jaar waar.</p>
+          <p>Sinds 2023 werken we eraan dat iedereen mee kan doen. Concreet: oordopjes aan de infostand, een programma in braille, en een tolk Vlaamse Gebarentaal op zondag. We zeggen eerlijk wat al kan en wat nog niet.</p>
+          <p>Plazey is er voor iedereen — en je moet je er welkom én veilig voelen. Altijd. Ongewenst gedrag hoort hier niet thuis.</p>
         </div>
         <figure class="flex-1">
           <Image
@@ -41,39 +35,19 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Mensen dansen buiten tussen de bomen in het Elisabethpark, verschillende leeftijden, feestelijke sfeer."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
       </div>
-    </Container>
-  </section>
 
-  <section aria-labelledby="wie-maakt" class="section">
-    <Container>
-      <h2 id="wie-maakt">Wie maakt Plazey?</h2>
-      <p>Plazey is een project van twee Brusselse gemeenschapscentra.</p>
-      <div class="org-grid grid grid-cols-1 sm:grid-cols-2 gap-8 mt-6">
-        <div class="org-card">
-          <h3>Gemeenschapscentrum De Platoo</h3>
-          <p>Geworteld in de wijk. Ze brengen mensen samen via cultuur, ontmoeting en gemeenschapswerk in Koekelberg.</p>
-          <a href="https://deplatoo.be" rel="external noopener" target="_blank">Meer over De Platoo →</a>
-        </div>
-        <div class="org-card">
-          <h3>Gemeenschapscentrum De Zeyp</h3>
-          <p>Verbindt mensen in de brede noordwestelijke gordel van Brussel. Met een programma dat de buurt weerspiegelt.</p>
-          <a href="https://dezeyp.be" rel="external noopener" target="_blank">Meer over De Zeyp →</a>
-        </div>
-      </div>
-      <p class="mt-6">Meer dan honderd vrijwilligers maken Plazey elk jaar waar. Achter de bar, aan de kassa, aan de infostand — en bij het op- en afbouwen.</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
         <figure>
           <Image
             src={vrijwilligersBabyspot}
             alt="Twee vrijwilligers in roze Plazey-t-shirt voor de Baby Spot-caravan."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
         <figure>
@@ -82,33 +56,162 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Vrijwilligers in roze Plazey-t-shirt achter de bar, gezellige sfeer."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="onze-partners" class="section">
+  <section aria-labelledby="de-centra" class="section">
     <Container>
-      <h2 id="onze-partners">Onze partners</h2>
-      <ul role="list" class="logo-wall flex flex-wrap gap-4 mt-4">
-        <li><span>Demos</span></li>
-        <li><span>AnySurfer</span></li>
-        <li><span>Zonnelied vzw</span></li>
-        <li><span>Viernulvier</span></li>
-        <li><span>Club 1030 / GC De Kriekelaar</span></li>
-        <li><span>Scheldeoffensief</span></li>
-      </ul>
-      <p class="draft-note">Partnerlijst nog te valideren met De Platoo/De Zeyp vóór publicatie.</p>
+      <h2 id="de-centra">De gemeenschapscentra</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
+        <div>
+          <h3>GC De Platoo</h3>
+          <p class="text-sm" style="color: var(--color-text-muted)">Koekelberg</p>
+          <ul role="list" class="list-none p-0 mt-3 flex flex-col gap-2 text-sm">
+            <li>
+              <a href="https://www.deplatoo.be" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 font-medium no-underline hover:underline">
+                deplatoo.be
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://maps.google.com/?q=Pantheonlaan+14,+1081+Koekelberg" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted)">
+                Pantheonlaan 14, 1081 Koekelberg
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>GC De Zeyp</h3>
+          <p class="text-sm" style="color: var(--color-text-muted)">Ganshoren</p>
+          <ul role="list" class="list-none p-0 mt-3 flex flex-col gap-2 text-sm">
+            <li>
+              <a href="https://www.dezeyp.be" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 font-medium no-underline hover:underline">
+                dezeyp.be
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://maps.google.com/?q=Zeypstraat+47,+1083+Ganshoren" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted)">
+                Zeypstraat 47, 1083 Ganshoren
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </Container>
   </section>
 
-  <section aria-labelledby="doe-mee-callout" class="callout section">
+  <aside id="contact" aria-labelledby="contact-heading" class="callout section">
     <Container>
-      <h2 id="doe-mee-callout">Wil je mee bouwen?</h2>
-      <p>Kom helpen of stel een project voor.</p>
-      <a href="/nl/vrijwilliger" class="btn-ghost">Naar Doe mee →</a>
+      <h2 id="contact-heading">Neem contact op.</h2>
+      <p>Vraag, idee, of iets anders? Laat het weten.</p>
+
+      <div class="cta-form">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          class="flex flex-col gap-6"
+        >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="origin" value="over-plazey" />
+            <input type="hidden" name="lang" value="nl" />
+
+            <div class="form-field">
+              <label for="contact-naam">Naam</label>
+              <input
+                type="text"
+                id="contact-naam"
+                name="naam"
+                required
+                autocomplete="name"
+                maxlength="200"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-email">E-mailadres</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                autocomplete="email"
+                maxlength="254"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-bericht">Bericht</label>
+              <textarea
+                id="contact-bericht"
+                name="bericht"
+                rows="4"
+                required
+                maxlength="2000"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary self-start">Stuur je bericht</button>
+          </form>
+      </div>
     </Container>
-  </section>
+  </aside>
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!submitBtn) return;
+      const originalText = submitBtn.textContent ?? '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Bezig…';
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+        });
+        if (response.ok) {
+          const successEl = document.createElement('p');
+          successEl.className = 'py-4 font-semibold';
+          successEl.setAttribute('role', 'status');
+          successEl.setAttribute('tabindex', '-1');
+          successEl.textContent = 'Bedankt! We nemen zo snel mogelijk contact op.';
+          form.replaceWith(successEl);
+          successEl.focus();
+        } else {
+          throw new Error('server error');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        let errorEl = form.querySelector<HTMLParagraphElement>('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('p');
+          errorEl.className = 'form-error';
+          errorEl.setAttribute('role', 'alert');
+          submitBtn.insertAdjacentElement('beforebegin', errorEl);
+        }
+        errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+      }
+    });
+  }
+</script>

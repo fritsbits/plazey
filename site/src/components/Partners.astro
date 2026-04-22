@@ -87,7 +87,10 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
             <Image
               src={p.src}
               alt=""
-              height={88}
+              widths={[88, 120, 176]}
+              sizes="120px"
+              loading="lazy"
+              decoding="async"
               class="partner-logo"
             />
           </a>
@@ -128,5 +131,6 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
     height: 44px;
     width: auto;
     max-width: 120px;
+    filter: grayscale(100%);
   }
 </style>

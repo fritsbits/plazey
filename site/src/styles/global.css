@@ -24,37 +24,79 @@
 
   /* Typography */
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Caprasimo", Georgia, "Times New Roman", serif;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
     color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    text-wrap: balance;
   }
 
   h1 {
-    font-size: clamp(1.875rem, 4vw, 2.75rem);
-    font-weight: 600;
+    font-size: clamp(2rem, 5.5vw, 3.5rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
   h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.25;
+    font-size: clamp(1.375rem, 3.5vw, 1.75rem);
+    line-height: 1.2;
     letter-spacing: -0.01em;
   }
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.35;
+  h2 {
+    margin-block-end: 0.75rem;
   }
-  h4 { font-size: 1rem; font-weight: 600; }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-block-end: 0.25rem;
+  }
+  h4 { font-size: 1rem; }
 
-  p { line-height: 1.5; }
+  /* Heading top rhythm — only when something precedes the heading */
+  * + h2 { margin-block-start: 2.5rem; }
+  * + h3 { margin-block-start: 1.5rem; }
+  * + h4 { margin-block-start: 1rem; }
+
+  p { line-height: 1.6; text-wrap: pretty; }
+  p + p { margin-top: 0.75rem; }
+
+  main li { line-height: 1.55; }
+  main li + li { margin-top: 0.375rem; }
+  /* Layout lists use `gap` for spacing — prose margin would misalign grid rows */
+  main :where(.grid, .flex, .roles-list, .partners-logos, .page-nav) > li + li {
+    margin-top: 0;
+  }
 
   a { color: inherit; text-decoration: underline; }
   a:hover { color: var(--color-hover); }
+
+  img { filter: grayscale(100%); }
+
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+    border-radius: var(--radius);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @layer components {
@@ -74,7 +116,21 @@
     line-height: 1.25rem;
     text-decoration: none;
     border-radius: var(--radius);
-    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    transition-property: background-color, border-color, color, scale;
+    transition-duration: 0.15s;
+  }
+  .btn-primary:active,
+  .btn-ghost:active,
+  .btn-text:active {
+    scale: 0.96;
+    transition-duration: 0.05s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:active,
+    .btn-ghost:active,
+    .btn-text:active {
+      scale: 1;
+    }
   }
   .btn-primary,
   .btn-ghost {
@@ -102,6 +158,8 @@
   }
   .btn-text {
     color: var(--color-text);
+    padding: 0.5rem 0.25rem;
+    min-height: 44px;
   }
   .btn-text:hover {
     color: var(--color-text);
@@ -114,7 +172,26 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  /* Meta line — date/location under hero h1 */
+  .text-meta {
+    font-size: 0.875rem;
+    color: var(--color-text-faint);
+    letter-spacing: 0.02em;
+    margin-top: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Date line — load-bearing facts (when / where / free) under hero H1 */
+  .text-date {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+    margin-top: 0.875rem;
+    font-variant-numeric: tabular-nums;
   }
 
   /* Eyebrow label above h1 */
@@ -136,8 +213,84 @@
     margin-top: 0.5rem;
   }
 
+  /* Language switcher under hero */
+  .lang-switcher {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-text-faint);
+  }
+  .lang-switcher a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1px;
+  }
+
+  /* Day label above a list of programme cards on the home teaser */
+  .day-label {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  /* Image utility — shared border-radius across content images */
+  .image-rounded {
+    border-radius: var(--radius);
+  }
+
+  /* Standard content-image aspect ratio */
+  .aspect-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Type chip — pill used on ProgramCard + programme detail pages */
+  .type-chip {
+    display: inline-block;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    color: var(--color-text);
+  }
+
+  /* Shared play-button for programme detail embed */
+  .play-btn {
+    background: var(--color-surface);
+    border-color: var(--color-border-subtle);
+    border-radius: var(--radius);
+    transition: background-color 0.15s;
+  }
+  .play-btn:hover {
+    background: var(--color-surface-muted);
+  }
+
   /* Nav */
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    margin-right: -0.5rem;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition-property: background-color, scale;
+    transition-duration: 0.15s;
+  }
+  .nav-toggle:hover { background: var(--color-surface-muted); }
+  .nav-toggle:active { scale: 0.96; transition-duration: 0.05s; }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-toggle:active { scale: 1; }
+  }
+
   .nav-link {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
     color: var(--color-text-muted);
     font-weight: 500;
     text-decoration: none;
@@ -151,7 +304,24 @@
     font-weight: 600;
   }
 
+  .lang-toggle a {
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  .lang-toggle a:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .lang-toggle a[aria-current="true"] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
   .logo-link {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1;
     color: var(--color-text);
     text-decoration: none;
   }
@@ -176,11 +346,368 @@
     color: var(--color-text);
   }
 
-  /* Callout block — full border, not a left-stripe */
+  /* Callout block — light panel for bottom CTAs and secondary content */
   .callout {
     border-top: 1px solid var(--color-border-subtle);
     border-bottom: 1px solid var(--color-border-subtle);
     background: var(--color-surface-muted);
+  }
+
+  /* Form panel — white surface for form content inside a callout */
+  .cta-form {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .cta-form {
+      padding: 2rem;
+    }
+  }
+
+  /* Sticky wrapper for in-page sub-navigation */
+  .page-subnav-wrapper {
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) {
+    .page-subnav-wrapper {
+      position: sticky;
+      top: calc(var(--header-height, 52px) - 1px);
+      z-index: 10;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding-block: 0.5rem;
+    }
+  }
+
+  /* In-page anchor navigation (used on long pages like Praktisch) */
+  .page-nav {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.5rem;
+    row-gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .page-nav a {
+    display: inline-block;
+    padding: 0.25rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .page-nav a:hover {
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom-color: var(--color-text);
+  }
+  .page-nav li {
+    margin-top: 0;
+  }
+  .page-nav a[aria-current="true"] {
+    color: var(--color-text);
+    font-weight: 600;
+    border-bottom-width: 2px;
+    border-bottom-color: var(--color-text);
+  }
+
+  /* Page section with top rule — used on Praktisch and similar long pages */
+  .page-section {
+    padding-top: 3rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--color-border-subtle);
+    /* Offset for anchor jumps so the heading doesn't land under the sticky header (mobile)
+       or header + subnav (≥768px). JS click handler refines this live; CSS covers direct
+       links and back/forward. */
+    scroll-margin-top: calc(var(--header-height, 53px) + 8px);
+  }
+  @media (min-width: 768px) {
+    .page-section {
+      padding-top: 4rem;
+      margin-top: 4rem;
+      scroll-margin-top: calc(var(--header-height, 53px) + 54px);
+    }
+  }
+  /* First section sits directly under the subnav — no rule, no extra gap */
+  .page-section:first-of-type {
+    padding-top: 0;
+    margin-top: 2rem;
+    border-top: none;
+  }
+
+  /* Hero image inside a section — capped height to prevent disproportionate blocks */
+  .section-image {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    margin-bottom: 2rem;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+
+  /* Pair of images side by side */
+  .image-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+  .image-pair img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+  @media (max-width: 639px) {
+    .image-pair { grid-template-columns: 1fr; }
+  }
+
+  /* Menu + image split — Eten & drinken: menu left, single image right */
+  .menu-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin-block: 1.5rem;
+  }
+  .menu-split img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+  @media (max-width: 639px) {
+    .menu-split { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  /* Two-column grid — used for the access-category directory on Toegankelijkheid */
+  .col-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 3rem;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 639px) {
+    .col-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* Transport grid — Bereikbaarheid: 3 small cards on top, 1 wide card below (Tram & bus) */
+  .transport-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .transport-grid .card-wide {
+    grid-column: 1 / -1;
+  }
+  @media (max-width: 639px) {
+    .transport-grid { grid-template-columns: 1fr; }
+    .transport-grid .card-wide { grid-column: auto; }
+  }
+
+  /* Transport cards — per-mode block: icon + mode label stacked, then body */
+  .transport-card {
+    padding: 1rem 1.125rem;
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius);
+  }
+  .transport-card .mode-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0.5rem;
+    background: var(--color-surface);
+    border-radius: 50%;
+    box-sizing: content-box;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-muted);
+  }
+  .transport-card .mode {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    line-height: 1.15;
+    margin-bottom: 0.35rem;
+    color: var(--color-text);
+  }
+  .transport-card p {
+    margin: 0;
+  }
+  .transport-card p + ul,
+  .transport-card p + p {
+    margin-top: 0.375rem;
+  }
+  .transport-card ul {
+    margin: 0.375rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .transport-card li {
+    margin-top: 0.125rem;
+  }
+
+  /* Kids split — image left, intro + dl right. Mirrors menu-split but flipped for rhythm. */
+  .kids-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin-block: 1.5rem;
+  }
+  .kids-split img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+  @media (max-width: 639px) {
+    .kids-split { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  /* Project-proposal example cards — Stel een project voor / Propose ton projet */
+  .voorbeeld-card img,
+  .exemple-card img {
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+  /* Pull the caption close to its image — overrides the global `* + h3` prose spacing */
+  .voorbeeld-card h3,
+  .exemple-card h3 {
+    margin-block-start: 0.75rem;
+  }
+
+  /* Generic content photos wrapped in <figure> — home hero, section breaks, split teasers, over-plazey / a-propos */
+  figure img {
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+
+  /* Access category — Toegankelijkheid */
+  .access-cat .label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .access-cat .label svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    padding: 0.375rem;
+    background: var(--color-surface-muted);
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+  .access-cat ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .access-cat li {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  /* Kids terms — Kinderen (short dt/dd list) */
+  .kids-terms {
+    margin: 0.75rem 0 0;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 1.25rem;
+    row-gap: 0.5rem;
+  }
+  .kids-terms dt {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+  .kids-terms dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    align-self: center;
+  }
+  @media (max-width: 479px) {
+    .kids-terms {
+      grid-template-columns: 1fr;
+      row-gap: 0.75rem;
+    }
+    .kids-terms dd {
+      margin-top: 0.125rem;
+    }
+  }
+
+  /* Drinks list — poster-style menu, display face on drinks, tabular-nums on prices */
+  .drinks-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  .drinks-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 0;
+    padding-block: 0.5rem;
+    border-bottom: 1px dotted var(--color-border);
+  }
+  .drinks-list li:last-child {
+    border-bottom: none;
+  }
+  .drinks-list .drink {
+    font-family: var(--font-heading);
+    font-size: 1.375rem;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+  .drinks-list .dots {
+    flex: 1;
+    min-width: 1rem;
+    border-bottom: 1px dotted var(--color-border);
+    transform: translateY(-0.25rem);
+  }
+  .drinks-list .price {
+    font-variant-numeric: tabular-nums;
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+  .drinks-list .price[data-pending="true"] {
+    color: var(--color-text-faint);
+    font-style: italic;
+    font-size: 0.875rem;
+  }
+
+  /* Callout for important inline notices */
+  .callout-inline {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    background: var(--color-surface-muted);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius);
+    padding: 0.875rem 1rem;
+    font-size: 0.9375rem;
+    margin-block: 1.5rem;
   }
 
   /* Icons — inline SVG, outline stroke 1.5 */
@@ -196,4 +723,79 @@
   .icon-sm { width: 1rem; height: 1rem; }
   .icon-md { width: 1.25rem; height: 1.25rem; }
   .icon-lg { width: 1.5rem; height: 1.5rem; }
+
+  /* Accordion chevron — horizontal line always, vertical line only when collapsed
+     Gives a + / − toggle in line with the honest, typography-first tone of the page. */
+  .accordion-chevron {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+  .accordion-item[open] .accordion-chevron .vertical {
+    display: none;
+  }
+
+  /* Form fields — token-based, huisstijl-ready */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .form-field label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
+  .form-field input,
+  .form-field textarea {
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus {
+    outline: none;
+    border-color: var(--color-text);
+    box-shadow: 0 0 0 2px var(--color-text);
+  }
+  /* Caret colour is pinned to a literal #6b7280 because CSS variables can't be interpolated
+     into url() data strings. During the huisstijl token swap, re-express this via a
+     CSS mask + currentColor so the caret inherits brand colour. */
+  .form-field select {
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-field select:focus {
+    outline: none;
+    border-color: var(--color-text);
+    box-shadow: 0 0 0 2px var(--color-text);
+  }
+  /* Mutes the placeholder option's colour. Requires <select required> paired with an
+     empty-value <option disabled selected>. */
+  .form-field select:invalid {
+    color: var(--color-text-muted);
+  }
+  .form-error {
+    color: #b91c1c;
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+  }
 }

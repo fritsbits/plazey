@@ -3,17 +3,17 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
 import { Image } from 'astro:assets';
+import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION } from '../../../config/site';
 import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
-import etenGrillen from '../../../assets/images/eten-grillen.jpg';
-import kassaTokens from '../../../assets/images/kassa-tokens.jpg';
-import oordopjesProducten from '../../../assets/images/oordopjes-producten.jpg';
+import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
 
 const faqItems = [
   { question: 'Is Plazey echt gratis?', answer: 'Ja. Geen tickets, geen toegangsprijs. Plazey is gratis voor iedereen, al sinds 1992.' },
   { question: 'Mag ik mijn eigen eten en drinken meebrengen?', answer: 'Ja. Eigen eten en drinken zijn altijd welkom. Kraantjeswater haal je gratis aan de bar.' },
   { question: 'Is er een cloakroom of bagageruimte?', answer: 'Nee. Kom met zo weinig bagage als mogelijk.' },
-  { question: 'Hoe laat begint en eindigt het festival?', answer: 'Op vrijdag starten de activiteiten om 19:30. Op zaterdag en zondag vanaf [starttijd invullen]. Het festival eindigt om [eindtijd invullen].' },
+  { question: 'Hoe laat begint en eindigt het festival?', answer: 'Vrijdag start om 19:30. De uren voor zaterdag en zondag bevestigen we later.' },
+  { question: 'Wat als het regent?', answer: 'Plazey gaat altijd door, ook als het regent. Het park heeft overdekte plekken. Neem een regenjas mee voor de zekerheid.' },
   { question: 'Kan ik er met een rolstoel of kinderwagen naartoe?', answer: 'Ja. De hoofdpaden zijn vlak en toegankelijk voor rolstoelen en wandelwagens. Niet alle kleinere paden zijn toegankelijk.' },
 ];
 ---
@@ -22,156 +22,379 @@ const faqItems = [
   <div class="section">
     <Container>
       <h1>Praktisch</h1>
-      <p>Alles wat je moet weten om langs te komen.</p>
+      <p class="text-date">{FESTIVAL_DATES_NL} · {FESTIVAL_LOCATION} · Gratis</p>
+    </Container>
 
-      <nav aria-label="Op deze pagina" class="my-6">
-        <ul role="list" class="flex flex-wrap gap-4 text-sm">
-          <li><a href="#bereikbaarheid">Bereikbaarheid</a></li>
-          <li><a href="#eten-en-drinken">Eten &amp; drinken</a></li>
-          <li><a href="#toegankelijkheid">Toegankelijkheid</a></li>
-          <li><a href="#meer">Kinderen, regenplan &amp; meer</a></li>
-        </ul>
-      </nav>
+    <div class="page-subnav-wrapper">
+      <Container>
+        <nav aria-label="Op deze pagina">
+          <ul role="list" class="page-nav">
+            <li><a href="#bereikbaarheid">Bereikbaarheid</a></li>
+            <li><a href="#eten-en-drinken">Eten &amp; drinken</a></li>
+            <li><a href="#toegankelijkheid">Toegankelijkheid</a></li>
+            <li><a href="#kinderen">Kinderen</a></li>
+            <li><a href="#faq">Veelgestelde vragen</a></li>
+          </ul>
+        </nav>
+      </Container>
+    </div>
 
-      <section id="bereikbaarheid" aria-labelledby="heading-bereikbaarheid" class="mt-12">
+    <Container>
+      <section id="bereikbaarheid" aria-labelledby="heading-bereikbaarheid" class="page-section">
         <Image
           src={parkLaanKunst}
           alt="De lange dreef van het Elisabethpark met kunstwerken aan de bomen en wandelaars."
           widths={[800, 1200]}
           sizes="(max-width: 768px) 100vw, 80vw"
-          class="w-full rounded-md mb-6"
+          class="section-image"
         />
-        <h2 id="heading-bereikbaarheid">Bereikbaarheid</h2>
+        <h2 id="heading-bereikbaarheid">Vijf minuten wandelen van metro Simonis</h2>
 
-        <h3>Metro</h3>
-        <p>Met metro lijn 2 of 6, halte Simonis/Elisabeth. Van de metro is het tien minuten wandelen naar het park. Het metrostation heeft een lift en is toegankelijk voor rolstoelgebruikers. Treinstation Simonis ligt ook vlakbij.</p>
+        <div class="transport-grid">
+          <div class="transport-card">
+            <svg class="icon mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 22V12a10 10 0 1 1 20 0v10"/>
+              <path d="M15 6.8v1.4a3 2.8 0 1 1-6 0V6.8"/>
+              <path d="M10 15h.01"/>
+              <path d="M14 15h.01"/>
+              <path d="M10 19a4 4 0 0 1-4-4v-3a6 6 0 1 1 12 0v3a4 4 0 0 1-4 4Z"/>
+              <path d="m9 19-2 3"/>
+              <path d="m15 19 2 3"/>
+            </svg>
+            <span class="mode">Metro</span>
+            <p>Lijn 2 of 6, halte Simonis/Elisabeth. Vijf minuten wandelen naar het park. Het metrostation heeft een lift.</p>
+          </div>
 
-        <h3>Tram en bus</h3>
-        <ul>
-          <li>Tram 9 of 19, halte Simonis/Elisabeth.</li>
-          <li>Bus MIVB 13, 87 of N16 — halte Elisabethpark.</li>
-          <li>Bus MIVB 49 of 53 — halte Vrijheid.</li>
-          <li>De Lijn 212, 213, 214 of 355 — halte Elisabethpark.</li>
-        </ul>
+          <div class="transport-card">
+            <svg class="icon mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="18.5" cy="17.5" r="3.5"/>
+              <circle cx="5.5" cy="17.5" r="3.5"/>
+              <circle cx="15" cy="5" r="1"/>
+              <path d="M12 17.5V14l-3-3 4-3 2 3h2"/>
+            </svg>
+            <span class="mode">Fiets</span>
+            <p>Onbewaakte stalling op het terrein. Breng een slot mee.</p>
+          </div>
 
-        <h3>Fiets</h3>
-        <p>Er is een onbewaakte fietsenstalling op het terrein. Breng een slot mee.</p>
+          <div class="transport-card">
+            <svg class="icon mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+              <circle cx="7" cy="17" r="2"/>
+              <path d="M9 17h6"/>
+              <circle cx="17" cy="17" r="2"/>
+            </svg>
+            <span class="mode">Auto</span>
+            <p>Betalend rondom het park, of in de ondergrondse parking Indigoneo. Adres: Eugène Simonisplein 24, 1081 Koekelberg.</p>
+          </div>
 
-        <h3>Auto</h3>
-        <p>Parkeren kan rondom het park (betalend). Of in de ondergrondse parking Indigoneo, onder het park. Adres: Eugène Simonisplein 24, 1081 Koekelberg.</p>
+          <div class="transport-card card-wide">
+            <svg class="icon mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 6v6"/>
+              <path d="M15 6v6"/>
+              <path d="M2 12h19.6"/>
+              <path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/>
+              <circle cx="7" cy="18" r="2"/>
+              <path d="M9 18h5"/>
+              <circle cx="16" cy="18" r="2"/>
+            </svg>
+            <span class="mode">Tram &amp; bus</span>
+            <p>Halte Elisabethpark of Simonis/Elisabeth.</p>
+            <ul>
+              <li>Tram 9 of 19</li>
+              <li>Bus MIVB 13, 87, N16 — halte Elisabethpark</li>
+              <li>Bus MIVB 49 of 53 — halte Vrijheid</li>
+              <li>De Lijn 212, 213, 214, 355 — halte Elisabethpark</li>
+            </ul>
+          </div>
+        </div>
 
-        <p><strong>Hulp nodig om van de metro naar het terrein te geraken?</strong> Mail <a href="mailto:info@plazey.be">info@plazey.be</a>. We helpen je verder.</p>
+        <div class="callout-inline">
+          <p><strong>Hulp nodig om van de metro naar het terrein te komen?</strong> <a href="#contact" data-topic="bereikbaarheid">Laat het ons weten.</a></p>
+        </div>
       </section>
 
-      <section id="eten-en-drinken" aria-labelledby="heading-eten" class="mt-12">
-        <h2 id="heading-eten">Eten &amp; drinken</h2>
-        <figure class="mb-6">
+      <section id="eten-en-drinken" aria-labelledby="heading-eten" class="page-section">
+        <h2 id="heading-eten">Breng je eigen picknick, of koop aan de bar</h2>
+
+        <div class="menu-split">
+          <div>
+            <h3>Aan de bar</h3>
+            <ul class="drinks-list">
+              <li><span class="drink">Kraantjeswater</span><span class="dots" aria-hidden="true"></span><span class="price">gratis</span></li>
+              <li><span class="drink">Spuitwater</span><span class="dots" aria-hidden="true"></span><span class="price">€ 1</span></li>
+              <li><span class="drink">Frisdrank</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
+              <li><span class="drink">Pintje</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Wijn</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Koffie</span><span class="dots" aria-hidden="true"></span><span class="price" data-pending="true">nog te bevestigen</span></li>
+            </ul>
+          </div>
           <Image
             src={etenFoodkraam}
             alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
-            widths={[800, 1200]}
-            sizes="(max-width: 768px) 100vw, 80vw"
-            class="w-full rounded-md"
+            widths={[400, 800]}
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
-        </figure>
-        <p>Je mag je eigen eten en drinken meebrengen. Kraantjeswater is gratis.</p>
-
-        <h3>Niet-alcoholische dranken</h3>
-        <table>
-          <caption class="sr-only">Niet-alcoholische drankprijzen Plazey 2026</caption>
-          <thead>
-            <tr><th scope="col">Drank</th><th scope="col">Prijs</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Kraantjeswater</td><td>Gratis</td></tr>
-            <tr><td>Spuitwater</td><td>€1</td></tr>
-            <tr><td>Frisdrank</td><td>€2</td></tr>
-            <tr><td>Koffie</td><td><em class="text-gray-500">te valideren</em></td></tr>
-          </tbody>
-        </table>
-
-        <h3>Alcoholische dranken</h3>
-        <table>
-          <caption class="sr-only">Alcoholische drankprijzen Plazey 2026</caption>
-          <thead>
-            <tr><th scope="col">Drank</th><th scope="col">Prijs</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Pintje</td><td>€3</td></tr>
-            <tr><td>Wijn</td><td>€4</td></tr>
-          </tbody>
-        </table>
-        <p class="draft-note">Prijzen van editie 2025. Nog te valideren voor publicatie 2026.</p>
+        </div>
 
         <p>Naast dranken zijn er eetstandjes. We kiezen bewust voor buurtbewoners, lokale horecazaken en start-ups als standhouders. Wie er dit jaar staat, vind je binnenkort op deze pagina.</p>
-        <div class="flex flex-col sm:flex-row gap-6 my-6">
-          <figure class="flex-1">
-            <Image
-              src={etenGrillen}
-              alt="Een vrijwilliger in Plazey-t-shirt grilt spiesjes op een buitenstand."
-              widths={[400, 600]}
-              sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full rounded-md"
-            />
-          </figure>
-          <figure class="flex-1">
-            <Image
-              src={kassaTokens}
-              alt="De kleurrijke tokenstand: een medewerker helpt een bezoeker."
-              widths={[400, 600]}
-              sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full rounded-md"
-            />
-          </figure>
+
+        <p>Cash wordt aanvaard.</p>
+      </section>
+
+      <section id="toegankelijkheid" aria-labelledby="heading-toegankelijkheid" class="page-section">
+        <h2 id="heading-toegankelijkheid">Iedereen welkom, ook als je hulp nodig hebt</h2>
+
+        <div class="col-grid-2">
+          <div class="access-cat">
+            <span class="label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/></svg>
+              Gehoor
+            </span>
+            <ul>
+              <li><strong>CM1-toestel</strong> — aan de infostand. Maakt rechtstreeks verbinding met de geluidsinstallatie.</li>
+              <li><strong>Tolk Vlaamse Gebarentaal</strong> — zondag van 15:00 tot 19:00.</li>
+              <li><strong>Oordopjes</strong> — te verkrijgen aan de infostand.</li>
+            </ul>
+          </div>
+
+          <div class="access-cat">
+            <span class="label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>
+              Mobiliteit
+            </span>
+            <ul>
+              <li><strong>Vlakke hoofdpaden</strong> — toegankelijk voor rolstoelen en wandelwagens.</li>
+              <li><strong>Aangepaste toiletten</strong> — voor rolstoelgebruikers.</li>
+              <li><strong>Metro Simonis heeft een lift</strong> — rolstoel-toegankelijk.</li>
+            </ul>
+          </div>
+
+          <div class="access-cat">
+            <span class="label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+              Zorg &amp; info
+            </span>
+            <ul>
+              <li><strong>Hulp bij dagelijkse dingen</strong> — vrijwilligers helpen je bij eten, drinken, toilet of de weg vinden op het terrein. <a href="#contact" data-topic="toegankelijkheid" data-prefill="adl">Vraag het vooraf aan.</a></li>
+              <li><strong>Programma en dranklijst in braille</strong> — en in gewone druk — aan de infostand.</li>
+              <li><strong>Rustige ruimte</strong> — voor wie even weg wil van het lawaai.</li>
+            </ul>
+          </div>
+
+          <div class="access-cat">
+            <span class="label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+              Veiligheid
+            </span>
+            <ul>
+              <li>Zie je dat iemand lastiggevallen wordt? Vraag gewoon: "Gaat het?"</li>
+              <li>Voel je je zelf niet veilig? Spreek een medewerker aan — gele of roze t-shirt.</li>
+              <li>We luisteren zonder oordeel en zoeken samen uit wat er nodig is.</li>
+            </ul>
+          </div>
         </div>
-        <p><strong>Cash én tokens worden aanvaard.</strong></p>
+
+        <div class="callout-inline">
+          <p>Heb je een vraag of nodig je hulp? <a href="#contact" data-topic="toegankelijkheid">Stel je vraag.</a></p>
+        </div>
       </section>
 
-      <section id="toegankelijkheid" aria-labelledby="heading-toegankelijkheid" class="mt-12">
-        <h2 id="heading-toegankelijkheid">Toegankelijkheid</h2>
-        <p>Heb je een vraag of nodig je hulp? Mail <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
-
-        <figure class="mb-6">
+      <section id="kinderen" aria-labelledby="heading-kinderen" class="page-section">
+        <h2 id="heading-kinderen">Kinderen welkom, van baby tot tiener</h2>
+        <div class="kids-split">
           <Image
-            src={oordopjesProducten}
-            alt="Gehoorbescherming op een tafel: oordopjes, kinderkoptelefoon en volwassen gehoorkap."
-            widths={[600, 900]}
-            sizes="(max-width: 768px) 100vw, 60vw"
-            class="w-full rounded-md"
+            src={kidsZandbak}
+            alt="Kinderen van verschillende leeftijden spelen samen in een zandbak op Plazey, met festivalkramen en lichtjes op de achtergrond."
+            widths={[400, 800]}
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
-        </figure>
-        <h3>Wat er is</h3>
-        <ul>
-          <li><strong>CM1-toestel</strong> — aan de infostand. Maakt rechtstreeks verbinding met de geluidsinstallatie.</li>
-          <li><strong>Tolk Vlaamse Gebarentaal</strong> — zondag van 15:00 tot 19:00. Ook aanwezig aan kassa, bar en eetstandjes.</li>
-          <li><strong>Oordopjes</strong> — te verkrijgen aan de infostand.</li>
-          <li><strong>ADL-vrijwilligers</strong> — voor hulp bij praktische zaken. Schrijf ons vooraf via <a href="mailto:info@plazey.be">info@plazey.be</a>.</li>
-          <li><strong>Programma en dranklijst in braille</strong> — en in gewone druk — aan de infostand.</li>
-          <li><strong>Rustige ruimte</strong> — voor wie even weg wil van het lawaai.</li>
-          <li><strong>Aangepaste toiletten</strong> — voor rolstoelgebruikers.</li>
-          <li><strong>Vlakke hoofdpaden</strong> — toegankelijk voor rolstoelen en wandelwagens.</li>
-          <li><strong>Metro Simonis heeft een lift</strong> — rolstoel-toegankelijk.</li>
-        </ul>
-
-        <h3>Dit doen we samen met</h3>
-        <p>Demos · AnySurfer · Zonnelied vzw · Viernulvier · Club 1030 / GC De Kriekelaar · Scheldeoffensief</p>
-        <p class="draft-note">Partnerlijst nog te valideren vóór publicatie.</p>
+          <div>
+            <p>Kinderen zijn van harte welkom op Plazey. Er zijn activiteiten voor de allerkleinsten tot tieners.</p>
+            <dl class="kids-terms">
+              <dt>Je kind kwijt?</dt>
+              <dd>Kom naar de infostand.</dd>
+              <dt>Luier?</dt>
+              <dd>Luierplek op het terrein.</dd>
+              <dt>Te hard geluid?</dt>
+              <dd>Oordopjes en kinderkoptelefoon aan de infostand.</dd>
+            </dl>
+          </div>
+        </div>
       </section>
 
-      <section id="meer" aria-labelledby="heading-meer" class="mt-12">
-        <h2 id="heading-meer">Kinderen, regenplan &amp; meer</h2>
-
-        <h3>Kinderen</h3>
-        <p>Kinderen zijn van harte welkom op Plazey. Er zijn activiteiten voor de allerkleinsten tot tieners. Loop je kind verloren? Kom naar de infostand [locatie invullen]. Een luierplek is aanwezig.</p>
-
-        <h3>Regenplan</h3>
-        <p>Plazey gaat altijd door, ook als het regent. Het park heeft overdekte plekken. Neem een regenjas mee voor de zekerheid.</p>
-
-        <h3>Veelgestelde vragen</h3>
+      <section id="faq" aria-labelledby="heading-faq" class="page-section">
+        <h2 id="heading-faq">Veelgestelde vragen</h2>
         <Accordion items={faqItems} />
-
-        <p>Staat jouw vraag er niet bij? Mail <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+        <p>Staat jouw vraag er niet bij? <a href="#contact" data-topic="anders">Stel je vraag.</a></p>
       </section>
     </Container>
   </div>
+
+  <aside id="contact" aria-labelledby="contact-heading" class="callout section">
+    <Container>
+      <h2 id="contact-heading">Heb je een vraag?</h2>
+      <p>Over bereikbaarheid, toegankelijkheid, eten — schrijf ons.</p>
+
+      <div class="cta-form">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          class="flex flex-col gap-6"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="origin" value="praktisch" />
+          <input type="hidden" name="lang" value="nl" />
+
+          <div class="form-field">
+            <label for="contact-naam">Naam</label>
+            <input type="text" id="contact-naam" name="naam" required />
+          </div>
+
+          <div class="form-field">
+            <label for="contact-email">E-mailadres</label>
+            <input type="email" id="contact-email" name="email" required />
+          </div>
+
+          <div class="form-field">
+            <label for="contact-onderwerp">Onderwerp</label>
+            <select id="contact-onderwerp" name="onderwerp" required>
+              <option value="" disabled selected>Kies een onderwerp</option>
+              <option value="bereikbaarheid">Bereikbaarheid</option>
+              <option value="toegankelijkheid">Toegankelijkheid</option>
+              <option value="eten">Eten &amp; drinken</option>
+              <option value="kinderen">Kinderen</option>
+              <option value="anders">Iets anders</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="contact-bericht">Bericht</label>
+            <textarea id="contact-bericht" name="bericht" rows="4" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary self-start">Stuur je bericht</button>
+        </form>
+      </div>
+    </Container>
+  </aside>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+        if (!submitBtn) return;
+        const originalText = submitBtn.textContent ?? '';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Bezig…';
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+          });
+          if (response.ok) {
+            form.innerHTML = '<p class="py-4 font-semibold">Bedankt! We nemen zo snel mogelijk contact op.</p>';
+          } else {
+            throw new Error('server error');
+          }
+        } catch {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+          let errorEl = form.querySelector<HTMLParagraphElement>('.form-error');
+          if (!errorEl) {
+            errorEl = document.createElement('p');
+            errorEl.className = 'form-error';
+            submitBtn.insertAdjacentElement('beforebegin', errorEl);
+          }
+          errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+        }
+      });
+    }
+  </script>
+
+  <script>
+    const PREFILLS: Record<string, string> = {
+      adl: 'Ik wil graag vragen om hulp van een vrijwilliger tijdens Plazey. Wat ik nodig heb: ',
+    };
+
+    function getOffset(): number {
+      const header = document.querySelector('header') as HTMLElement | null;
+      const subnav = document.querySelector('.page-subnav-wrapper') as HTMLElement | null;
+      const headerH = header?.offsetHeight ?? 0;
+      const subnavSticky = subnav ? getComputedStyle(subnav).position === 'sticky' : false;
+      const subnavH = subnavSticky ? (subnav?.offsetHeight ?? 0) : 0;
+      return headerH + subnavH + 8;
+    }
+
+    function scrollToId(id: string) {
+      const target = document.getElementById(id);
+      if (!target) return;
+      const y = target.getBoundingClientRect().top + window.scrollY - getOffset();
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    // In-page anchor subnav: scroll-spy + click-to-scroll
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.page-nav a[href^="#"]'));
+    if (sections.length && navLinks.length) {
+      function update() {
+        const offset = getOffset();
+        let active = sections[0]?.id ?? '';
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= offset) active = section.id;
+        }
+        for (const link of navLinks) {
+          if (link.getAttribute('href') === `#${active}`) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        }
+      }
+      for (const link of navLinks) {
+        link.addEventListener('click', (e) => {
+          const id = link.getAttribute('href')?.slice(1);
+          if (!id) return;
+          e.preventDefault();
+          scrollToId(id);
+          history.replaceState(null, '', `#${id}`);
+        });
+      }
+      document.addEventListener('scroll', update, { passive: true });
+      update();
+    }
+
+    // Section CTAs → contact form: preselect topic, optional message prefill
+    const topicLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-topic]');
+    for (const link of topicLinks) {
+      link.addEventListener('click', (e) => {
+        const topic = link.dataset.topic;
+        const prefill = link.dataset.prefill;
+        if (!topic) return;
+        e.preventDefault();
+
+        const select = document.querySelector<HTMLSelectElement>('select[name="onderwerp"]');
+        if (select) select.value = topic;
+
+        const msg = document.querySelector<HTMLTextAreaElement>('textarea[name="bericht"]');
+        if (msg && prefill && !msg.value) {
+          msg.value = PREFILLS[prefill] ?? '';
+        }
+
+        scrollToId('contact');
+
+        // Focus the first field so the form's H2 + all fields remain in view.
+        // Focusing the message textarea (last field) would trigger the browser's
+        // scroll-into-view and jump past the heading.
+        setTimeout(() => {
+          const naam = document.querySelector<HTMLInputElement>('input[name="naam"]');
+          naam?.focus({ preventScroll: true });
+        }, 500);
+      });
+    }
+  </script>
 </BaseLayout>

@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import { Image } from 'astro:assets';
-import theaterBasiliek from '../../../assets/images/theater-basiliek.jpg';
 import dansPark from '../../../assets/images/dans-park.jpg';
 import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
 import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
@@ -12,19 +11,12 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
   <section class="section">
     <Container>
       <h1>À propos de Plazey</h1>
-      <p class="opening">Rejoignez-nous, quelle que soit votre langue ou votre rythme.</p>
+      <p class="opening">Trente ans de fête de quartier au parc Élisabeth. Voilà qui le fait.</p>
+      <div class="cta-group">
+        <a href="#contact" class="btn-ghost">Contacte-nous</a>
+      </div>
     </Container>
   </section>
-
-  <figure class="my-0">
-    <Image
-      src={theaterBasiliek}
-      alt="Spectacle de théâtre en plein air sur une scène en bois au parc Élisabeth, avec la basilique de Koekelberg en arrière-plan."
-      widths={[800, 1200, 1600]}
-      sizes="100vw"
-      class="w-full"
-    />
-  </figure>
 
   <section aria-labelledby="lhistoire" class="section">
     <Container>
@@ -32,8 +24,9 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
       <div class="flex flex-col sm:flex-row gap-8 items-start">
         <div class="flex-1">
           <p>Plazey a démarré en 1992 comme une petite fête musicale pour les riverain·es du parc Élisabeth à Koekelberg. Gratuit, en plein air, pour les voisin·es. Dans l'essence, c'est toujours ça.</p>
-          <p>En 2013, le festival a évolué en un lieu de rencontre convivial autour du Bar Eliza — un petit café en bois au cœur du parc, où le quartier pouvait se rassembler. La musique restait au centre, mais des ateliers, des animations et de la restauration ont rejoint l'aventure.</p>
-          <p>Depuis 2023, nous faisons le choix de l'accessibilité radicale. Pas comme étiquette, mais comme travail. Avec Demos, AnySurfer et d'autres partenaires, nous construisons un festival vraiment accessible à tout le monde — et nous disons honnêtement ce qui n'est pas encore possible.</p>
+          <p>Au début, c'était un festival d'été classique — avec des noms qu'on voyait aussi sur d'autres scènes flamandes. Ça a changé. Plazey s'est tourné vers le quartier. La musique, les ateliers, les stands à manger : tout vient maintenant des gens qui vivent et travaillent ici. Plus de cent bénévoles le font vivre chaque année.</p>
+          <p>Derrière le festival, deux maisons de quartier bruxelloises. Le nom le dit lui-même : <strong>PLAtoo</strong> à Koekelberg et <strong>ZEYp</strong> à Ganshoren.</p>
+          <p>Depuis 2023, nous travaillons à ce que tout le monde puisse en faire partie. Concrètement : des bouchons d'oreilles à l'infostand, un programme en braille, et une interprète en langue des signes flamande le dimanche. Nous disons honnêtement ce qui marche et ce qui ne marche pas encore.</p>
         </div>
         <figure class="flex-1">
           <Image
@@ -41,7 +34,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Des gens qui dansent dehors entre les arbres du parc Élisabeth, tous âges, ambiance festive."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
       </div>
@@ -73,7 +66,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Deux bénévoles en t-shirt rose Plazey devant la caravane Baby Spot."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
         <figure>
@@ -82,7 +75,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             alt="Bénévoles en t-shirt rose Plazey derrière le bar, ambiance conviviale."
             widths={[400, 700]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full rounded-md"
+            class="w-full image-rounded"
           />
         </figure>
       </div>
@@ -104,11 +97,103 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
     </Container>
   </section>
 
-  <section aria-labelledby="participe-callout" class="callout section">
+  <aside id="contact" aria-labelledby="contact-heading" class="callout section">
     <Container>
-      <h2 id="participe-callout">Tu veux contribuer ?</h2>
-      <p>Viens aider ou propose un projet.</p>
-      <a href="/fr/benevole" class="btn-ghost">Vers Participe →</a>
+      <h2 id="contact-heading">Contacte-nous.</h2>
+      <p>Question, idée, autre chose ? Fais-nous signe.</p>
+
+      <div class="cta-form">
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          class="flex flex-col gap-6"
+        >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="origin" value="a-propos" />
+            <input type="hidden" name="lang" value="fr" />
+
+            <div class="form-field">
+              <label for="contact-naam">Nom</label>
+              <input
+                type="text"
+                id="contact-naam"
+                name="naam"
+                required
+                autocomplete="name"
+                maxlength="200"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-email">Adresse e-mail</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                autocomplete="email"
+                maxlength="254"
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="contact-bericht">Message</label>
+              <textarea
+                id="contact-bericht"
+                name="bericht"
+                rows="4"
+                required
+                maxlength="2000"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary self-start">Envoie ton message</button>
+          </form>
+      </div>
     </Container>
-  </section>
+  </aside>
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!submitBtn) return;
+      const originalText = submitBtn.textContent ?? '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'En cours…';
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+        });
+        if (response.ok) {
+          const successEl = document.createElement('p');
+          successEl.className = 'py-4 font-semibold';
+          successEl.setAttribute('role', 'status');
+          successEl.setAttribute('tabindex', '-1');
+          successEl.textContent = 'Merci ! On te répond dès que possible.';
+          form.replaceWith(successEl);
+          successEl.focus();
+        } else {
+          throw new Error('server error');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        let errorEl = form.querySelector<HTMLParagraphElement>('.form-error');
+        if (!errorEl) {
+          errorEl = document.createElement('p');
+          errorEl.className = 'form-error';
+          errorEl.setAttribute('role', 'alert');
+          submitBtn.insertAdjacentElement('beforebegin', errorEl);
+        }
+        errorEl.textContent = 'Quelque chose a mal tourné. Réessaie ou envoie un mail à info@plazey.be.';
+      }
+    });
+  }
+</script>

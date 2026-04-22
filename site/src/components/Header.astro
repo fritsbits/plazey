@@ -10,65 +10,44 @@ const { lang, currentPath = '' } = Astro.props;
 const nlNav = SITE_PHASE === 'save-the-date'
   ? [
       { href: '/nl/praktisch', label: 'Praktisch' },
-      { href: '/nl/over-plazey', label: 'Over' },
+      { href: '/nl/over-plazey', label: 'Over Plazey' },
       { href: '/nl/vrijwilliger', label: 'Kom helpen' },
-      { href: '/nl/stel-een-project-voor', label: 'Stel een project voor' },
+      { href: '/nl/stel-een-project-voor', label: 'Stel project voor' },
     ]
   : // reveal, live, and aftermovie all share the same nav links
     [
       { href: '/nl/programma', label: SITE_PHASE === 'aftermovie' ? 'Programma 2026' : 'Programma' },
       { href: '/nl/praktisch', label: 'Praktisch' },
-      { href: '/nl/over-plazey', label: 'Over' },
       { href: '/nl/vrijwilliger', label: 'Kom helpen' },
+      { href: '/nl/over-plazey', label: 'Over Plazey' },
     ];
 
 const frNav = SITE_PHASE === 'save-the-date'
   ? [
       { href: '/fr/infos-pratiques', label: 'Pratique' },
       { href: '/fr/a-propos', label: 'À propos' },
-      { href: '/fr/benevole', label: 'Venir aider' },
-      { href: '/fr/propose-ton-projet', label: 'Proposer un projet' },
+      { href: '/fr/benevole', label: 'Viens aider' },
+      { href: '/fr/propose-ton-projet', label: 'Propose un projet' },
     ]
   : // reveal, live, and aftermovie all share the same nav links
     [
       { href: '/fr/programme', label: SITE_PHASE === 'aftermovie' ? 'Programme 2026' : 'Programme' },
       { href: '/fr/infos-pratiques', label: 'Pratique' },
+      { href: '/fr/benevole', label: 'Viens aider' },
       { href: '/fr/a-propos', label: 'À propos' },
-      { href: '/fr/benevole', label: 'Venir aider' },
     ];
 
 const nav = lang === 'nl' ? nlNav : frNav;
 const homeHref = lang === 'nl' ? '/nl' : '/fr';
 
-const segmentMap: Record<string, string> = {
-  'programma': 'programme',
-  'programme': 'programma',
-  'praktisch': 'infos-pratiques',
-  'infos-pratiques': 'praktisch',
-  'over-plazey': 'a-propos',
-  'a-propos': 'over-plazey',
-  'vrijwilliger': 'benevole',
-  'benevole': 'vrijwilliger',
-  'stel-een-project-voor': 'propose-ton-projet',
-  'propose-ton-projet': 'stel-een-project-voor',
-};
-
-function alternateHref(currentPath: string, targetLang: 'nl' | 'fr'): string {
-  const withoutLang = currentPath.replace(/^\/(nl|fr)/, '');
-  if (!withoutLang) return `/${targetLang}`;
-  const mapped = withoutLang.split('/').filter(Boolean).map(s => segmentMap[s] ?? s);
-  return `/${targetLang}/${mapped.join('/')}`;
-}
-
 const navLabel = lang === 'fr' ? 'Navigation principale' : 'Hoofdnavigatie';
 const menuLabel = 'Menu';
-const langLabel = lang === 'fr' ? 'Choisir la langue' : 'Taal kiezen';
 const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Plazey — naar de startpagina';
 ---
 
-<header class="border-b">
+<header class="border-b sticky top-0 z-20" style="background: var(--color-surface);">
   <nav aria-label={navLabel} class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-wrap items-center py-3 gap-x-4">
-    <a href={homeHref} aria-label={logoAriaLabel} class="logo-link mr-auto font-semibold text-lg">Plazey</a>
+    <a href={homeHref} aria-label={logoAriaLabel} class="logo-link mr-auto text-lg">Plazey</a>
 
     <button
       class="nav-toggle md:hidden"
@@ -98,22 +77,17 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
       ))}
     </ul>
 
-    <div role="group" aria-label={langLabel} class="lang-toggle flex items-center gap-2 text-sm">
-      <a
-        href={alternateHref(currentPath, 'nl')}
-        lang="nl"
-        aria-current={lang === 'nl' ? 'true' : undefined}
-      >NL</a>
-      <a
-        href={alternateHref(currentPath, 'fr')}
-        lang="fr"
-        aria-current={lang === 'fr' ? 'true' : undefined}
-      >FR</a>
-    </div>
   </nav>
 </header>
 
 <script>
+  const headerEl = document.querySelector('header') as HTMLElement;
+  if (headerEl) {
+    const setHeight = () => document.documentElement.style.setProperty('--header-height', `${headerEl.offsetHeight}px`);
+    new ResizeObserver(setHeight).observe(headerEl);
+    setHeight();
+  }
+
   const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
   const menu = document.getElementById('nav-menu') as HTMLElement;
 
@@ -135,6 +109,13 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
         toggle.focus();
       }
     });
+
+    for (const link of menu.querySelectorAll('a')) {
+      link.addEventListener('click', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.removeAttribute('data-open');
+      });
+    }
 
     menu.addEventListener('keydown', (e) => {
       if (e.key !== 'Tab') return;
