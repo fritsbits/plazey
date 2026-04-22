@@ -647,3 +647,23 @@ None of these changes require new planes or fundamental restructuring. They're t
 **Playbook versions:** Frontend wireframe (Apr 12), UX planning (Apr 12)  
 **Commit range:** 23d5ea1 (wireframe baseline) → 4159a12 (HEAD)
 
+---
+
+## Amendments applied: 2026-04-22
+
+- **UX playbook** (`332d3ecc-475c-8168-b2d6-ce7ad4144d32`): +15 blocks across Scope and Skeleton planes
+  - Scope: 4 decision checkpoints (lifecycle phases, form backend, sponsors/partners, mixed-flow page diagnostic)
+  - Skeleton: phase state inventory template + form state inventory template
+- **Frontend Wireframe playbook** (`340d3ecc-475c-8168-bd3d-c1fb95a5c334`): +32 blocks across Five decisions, Design tokens, Component patterns, CLAUDE.md stanza, How to make a wireframe look mature, Workflow pattern, and Definition of done
+  - Five decisions: `teach-impeccable` added as kickoff decision
+  - Design tokens: DESIGN.md + `:root` + `@layer` boilerplate
+  - Component patterns: Partners / logo band + Async form submission
+  - CLAUDE.md stanza: additions for tokens, phases, forms, partners, accessibility
+  - How to make a wireframe look mature: "Every state reviewable at a URL" bullet
+  - Workflow pattern: new Stage 4 (per-page critique / audit / harden review loop)
+  - Definition of done: "critique / audit / harden run and passed on every page" bullet
+
+All amendments prefixed with a callout block so they're visually marked in Notion. None of the original playbook blocks were modified or deleted — every amendment is a pure append.
+
+Full plan: `docs/superpowers/plans/2026-04-22-playbook-amendments.md`.
+
