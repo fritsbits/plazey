@@ -3,76 +3,49 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import { Image } from 'astro:assets';
 import dansPark from '../../../assets/images/dans-park.jpg';
-import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
-import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
 ---
 
 <BaseLayout title="Over Plazey" lang="nl" currentPath="/nl/over-plazey">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Over Plazey</h1>
       <p class="opening">Dertig jaar buurtfeest in het Elisabethpark. Dit is wie het maakt.</p>
       <div class="cta-group">
-        <a href="#contact" class="btn-ghost">Neem contact op</a>
+        <a href="#contact" class="btn-primary">Neem contact op</a>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="het-verhaal" class="section">
-    <Container>
+  <section aria-labelledby="het-verhaal" class="story-split">
+    <div class="story-text">
       <h2 id="het-verhaal">Het verhaal</h2>
-      <div class="flex flex-col sm:flex-row gap-8 items-center">
-        <div class="flex-1">
-          <p>Plazey begon in 1992 als een klein muziekfeest voor de omwonenden van het Elisabethpark. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
-          <p>In het begin was het een klassiek zomerfestival — met bekende bandnamen die je ook op andere Vlaamse festivals zag. Dat veranderde. Plazey groeide naar de buurt toe. De muziek, de workshops, de eetstandjes: die komen nu van mensen die hier wonen en werken. Niet van elders gehaald, maar van hier.</p>
-          <p>Achter het festival staan twee Brusselse gemeenschapscentra. De naam zegt het zelf: <strong>PLAtoo</strong> uit Koekelberg en <strong>ZEYp</strong> uit Ganshoren. Meer dan honderd vrijwilligers maken Plazey elk jaar waar.</p>
-          <p>Sinds 2023 werken we eraan dat iedereen mee kan doen. Concreet: oordopjes aan de infostand, een programma in braille, en een tolk Vlaamse Gebarentaal op zondag. We zeggen eerlijk wat al kan en wat nog niet.</p>
-          <p>Plazey is er voor iedereen — en je moet je er welkom én veilig voelen. Altijd. Ongewenst gedrag hoort hier niet thuis.</p>
-        </div>
-        <figure class="flex-1">
-          <Image
-            src={dansPark}
-            alt="Mensen dansen buiten tussen de bomen in het Elisabethpark, verschillende leeftijden, feestelijke sfeer."
-            widths={[400, 700]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full image-rounded"
-          />
-        </figure>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-        <figure>
-          <Image
-            src={vrijwilligersBabyspot}
-            alt="Twee vrijwilligers in roze Plazey-t-shirt voor de Baby Spot-caravan."
-            widths={[400, 700]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full image-rounded"
-          />
-        </figure>
-        <figure>
-          <Image
-            src={vrijwilligersBar}
-            alt="Vrijwilligers in roze Plazey-t-shirt achter de bar, gezellige sfeer."
-            widths={[400, 700]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="w-full image-rounded"
-          />
-        </figure>
-      </div>
-    </Container>
+      <p>Plazey begon in 1992 als een klein muziekfeest voor de omwonenden van het Elisabethpark. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
+      <p>In het begin was het een klassiek zomerfestival — met bekende bandnamen die je ook op andere Vlaamse festivals zag. Dat veranderde. Plazey groeide naar de buurt toe. De muziek, de workshops, de eetstandjes: die komen nu van mensen die hier wonen en werken. Niet van elders gehaald, maar van hier.</p>
+      <p>Achter het festival staan twee Brusselse gemeenschapscentra. De naam zegt het zelf: <strong>PLAtoo</strong> uit Koekelberg en <strong>ZEYp</strong> uit Ganshoren. Meer dan honderd vrijwilligers maken Plazey elk jaar waar.</p>
+      <p>Sinds 2023 werken we eraan dat iedereen mee kan doen. Concreet: oordopjes aan de infostand, een programma in braille, en een tolk Vlaamse Gebarentaal op zondag. We zeggen eerlijk wat al kan en wat nog niet.</p>
+      <p>Plazey is er voor iedereen — en je moet je er welkom én veilig voelen. Altijd. Ongewenst gedrag hoort hier niet thuis.</p>
+    </div>
+    <div class="story-image">
+      <Image
+        src={dansPark}
+        alt="Mensen dansen buiten tussen de bomen in het Elisabethpark, verschillende leeftijden, feestelijke sfeer."
+        widths={[800, 1200, 1600]}
+        sizes="50vw"
+      />
+    </div>
   </section>
 
   <section aria-labelledby="de-centra" class="section">
     <Container>
       <h2 id="de-centra">De gemeenschapscentra</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
-        <div>
+      <div class="org-grid grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+        <div class="org-card">
           <h3>GC De Platoo</h3>
-          <p class="text-sm" style="color: var(--color-text-muted)">Koekelberg</p>
-          <ul role="list" class="list-none p-0 mt-3 flex flex-col gap-2 text-sm">
+          <p class="org-place">Koekelberg</p>
+          <p>Geworteld in de buurt. De Platoo brengt mensen samen rond cultuur, ontmoeting en buurtwerk.</p>
+          <ul role="list" class="org-links">
             <li>
-              <a href="https://www.deplatoo.be" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 font-medium no-underline hover:underline">
+              <a href="https://www.deplatoo.be" rel="external noopener" target="_blank">
                 deplatoo.be
                 <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
@@ -80,7 +53,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
               </a>
             </li>
             <li>
-              <a href="https://maps.google.com/?q=Pantheonlaan+14,+1081+Koekelberg" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted)">
+              <a href="https://maps.google.com/?q=Pantheonlaan+14,+1081+Koekelberg" rel="external noopener" target="_blank">
                 Pantheonlaan 14, 1081 Koekelberg
                 <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
@@ -89,12 +62,13 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
             </li>
           </ul>
         </div>
-        <div>
+        <div class="org-card">
           <h3>GC De Zeyp</h3>
-          <p class="text-sm" style="color: var(--color-text-muted)">Ganshoren</p>
-          <ul role="list" class="list-none p-0 mt-3 flex flex-col gap-2 text-sm">
+          <p class="org-place">Ganshoren</p>
+          <p>Verbindt buurtbewoners van de brede noordwestrand van Brussel. Met een programma dat de buurt weerspiegelt.</p>
+          <ul role="list" class="org-links">
             <li>
-              <a href="https://www.dezeyp.be" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 font-medium no-underline hover:underline">
+              <a href="https://www.dezeyp.be" rel="external noopener" target="_blank">
                 dezeyp.be
                 <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
@@ -102,7 +76,7 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
               </a>
             </li>
             <li>
-              <a href="https://maps.google.com/?q=Zeypstraat+47,+1083+Ganshoren" rel="external noopener" target="_blank" class="inline-flex items-center gap-1.5 no-underline hover:underline" style="color: var(--color-text-muted)">
+              <a href="https://maps.google.com/?q=Zeypstraat+47,+1083+Ganshoren" rel="external noopener" target="_blank">
                 Zeypstraat 47, 1083 Ganshoren
                 <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
@@ -210,7 +184,12 @@ import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
           errorEl.setAttribute('role', 'alert');
           submitBtn.insertAdjacentElement('beforebegin', errorEl);
         }
-        errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+        errorEl.textContent = '';
+        errorEl.append('Er ging iets mis. Probeer het opnieuw of stuur een mail naar ');
+        const mailLink = document.createElement('a');
+        mailLink.href = 'mailto:info@plazey.be';
+        mailLink.textContent = 'info@plazey.be';
+        errorEl.append(mailLink, '.');
       }
     });
   }

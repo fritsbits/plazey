@@ -16,9 +16,9 @@ const items = allItems
   });
 
 const days = [
-  { value: 'friday', label: 'Vrijdag 22 augustus' },
-  { value: 'saturday', label: 'Zaterdag 23 augustus' },
-  { value: 'sunday', label: 'Zondag 24 augustus' },
+  { value: 'friday', label: 'Vrijdag 28 augustus' },
+  { value: 'saturday', label: 'Zaterdag 29 augustus' },
+  { value: 'sunday', label: 'Zondag 30 augustus' },
 ];
 
 const types = [
@@ -32,7 +32,7 @@ const types = [
 ---
 
 <BaseLayout title="Programma" lang="nl" currentPath="/nl/programma">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Programma</h1>
 
@@ -43,7 +43,7 @@ const types = [
         </>
       ) : (
         <>
-          <p>22–24 augustus 2026. Alles is gratis.</p>
+          <p>28–30 augustus 2026. Alles is gratis.</p>
 
           {SITE_PHASE === 'aftermovie' && (
             <div role="note" class="season-banner my-4 p-4 image-rounded" style="background: var(--color-surface-muted);">

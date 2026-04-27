@@ -45,30 +45,29 @@ const menuLabel = 'Menu';
 const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Plazey — naar de startpagina';
 ---
 
-<header class="border-b sticky top-0 z-20" style="background: var(--color-surface);">
-  <nav aria-label={navLabel} class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-wrap items-center py-3 gap-x-4">
-    <a href={homeHref} aria-label={logoAriaLabel} class="logo-link mr-auto text-lg">Plazey</a>
+<header class="site-nav">
+  <nav aria-label={navLabel} class="site-nav-row">
+    <a href={homeHref} aria-label={logoAriaLabel} class="site-nav-brand">Plazey</a>
 
     <button
-      class="nav-toggle md:hidden"
+      class="site-nav-toggle nav-toggle"
       aria-expanded="false"
       aria-controls="nav-menu"
       aria-label={menuLabel}
     >
-      <svg class="icon icon-md" viewBox="0 0 24 24" aria-hidden="true">
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
       </svg>
     </button>
 
-    <ul id="nav-menu" role="list"
-      class="hidden w-full order-last md:order-none md:w-auto md:flex items-center gap-6 text-sm data-[open]:flex data-[open]:flex-col data-[open]:py-4 data-[open]:gap-4 data-[open]:border-t">
+    <ul id="nav-menu" role="list" class="site-nav-menu">
       {nav.map(({ href, label }) => (
         <li>
           <a
+            class="site-nav-item"
             href={href}
-            class="nav-link"
             aria-current={currentPath.startsWith(href) ? 'page' : undefined}
           >
             {label}
@@ -76,12 +75,11 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
         </li>
       ))}
     </ul>
-
   </nav>
 </header>
 
 <script>
-  const headerEl = document.querySelector('header') as HTMLElement;
+  const headerEl = document.querySelector('header.site-nav') as HTMLElement;
   if (headerEl) {
     const setHeight = () => document.documentElement.style.setProperty('--header-height', `${headerEl.offsetHeight}px`);
     new ResizeObserver(setHeight).observe(headerEl);

@@ -7,17 +7,19 @@ const { items, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 ---
 
-<dl class="accordion divide-y">
+<dl class="accordion">
   {items.map((item) => (
     <details class="accordion-item">
-      <summary class="flex items-center justify-between py-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-        <Heading class="accordion-question font-medium text-base">{item.question}</Heading>
-        <svg class="icon accordion-chevron" viewBox="0 0 24 24" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"/>
-          <line class="vertical" x1="12" y1="5" x2="12" y2="19"/>
-        </svg>
+      <summary class="accordion-summary">
+        <Heading class="accordion-question">{item.question}</Heading>
+        <span class="accordion-toggle" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line class="vertical" x1="12" y1="4" x2="12" y2="20"/>
+          </svg>
+        </span>
       </summary>
-      <p class="accordion-answer pb-4">{item.answer}</p>
+      <div class="accordion-answer"><p>{item.answer}</p></div>
     </details>
   ))}
 </dl>

@@ -16,12 +16,12 @@ const faqItems = [
 ---
 
 <BaseLayout title="Venir aider" lang="fr" currentPath="/fr/benevole">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Venir aider</h1>
       <p class="opening">Derrière le bar, à la caisse, ou pour le rangement. Chaque année, plus de cent personnes rendent Plazey possible.</p>
       <div class="cta-group">
-        <a href="#inscription" class="btn-ghost">Deviens bénévole</a>
+        <a href="#inscription" class="btn-primary">Deviens bénévole</a>
       </div>
     </Container>
   </section>
@@ -70,7 +70,7 @@ const faqItems = [
     </Container>
   </section>
 
-  <section aria-labelledby="questions-benevoles" class="section">
+  <section aria-labelledby="questions-benevoles" class="faq-section">
     <Container>
       <h2 id="questions-benevoles">Questions</h2>
       <Accordion items={faqItems} />
@@ -169,21 +169,40 @@ const faqItems = [
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1.75rem;
+    margin: 1.5rem 0;
   }
   @media (max-width: 639px) {
-    .roles-list { grid-template-columns: 1fr; }
+    .roles-list { grid-template-columns: 1fr; gap: 1.25rem; }
   }
   .roles-list li {
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--color-border-subtle);
+    background: var(--color-surface-muted);
+    border: 2.5px solid var(--color-text);
+    border-radius: 1.5rem;
+    padding: 1.5rem 1.5rem;
+    box-shadow: 6px 6px 0 var(--color-text);
+    margin: 0;
   }
-  .roles-list li:nth-child(odd) {
-    padding-right: 2rem;
+  .roles-list li:nth-child(4n+1) { transform: rotate(-0.6deg); }
+  .roles-list li:nth-child(4n+2) { transform: rotate(0.4deg); }
+  .roles-list li:nth-child(4n+3) { transform: rotate(-0.3deg); }
+  .roles-list li:nth-child(4n+4) { transform: rotate(0.5deg); }
+  .roles-list li > h3 {
+    margin-block-start: 0;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
   }
-
+  .roles-list li > p {
+    margin-top: 0.5rem;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .roles-list li { transform: none !important; }
+  }
 </style>
 
 <script>
@@ -223,7 +242,12 @@ const faqItems = [
           errorEl.setAttribute('role', 'alert');
           submitBtn.insertAdjacentElement('beforebegin', errorEl);
         }
-        errorEl.textContent = 'Quelque chose a mal tourné. Réessaie ou envoie un mail à info@plazey.be.';
+        errorEl.textContent = '';
+        errorEl.append("Ça n'a pas marché. Réessaie ou écris-nous à ");
+        const mailLink = document.createElement('a');
+        mailLink.href = 'mailto:info@plazey.be';
+        mailLink.textContent = 'info@plazey.be';
+        errorEl.append(mailLink, '.');
       }
     });
   }

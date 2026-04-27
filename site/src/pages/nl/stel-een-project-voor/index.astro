@@ -14,24 +14,36 @@ const voorbeelden = [
     alt: 'Twee MC\'s op een openluchtpodium voor een dicht publiek, met de Basiliek van Koekelberg op de achtergrond.',
     titel: 'Buurtbands op een groot podium',
     tekst: 'Club 1030 programmeerde vier jonge bands uit de buurt.',
+    type: 'Muziek',
+    typeColor: 'coral',
+    formaat: 'Groot podium',
   },
   {
     src: parkLaanKunst,
     alt: 'Bomenlaan in Elisabethpark met kunstwerken die aan de takken hangen, bezoekers wandelen eronder.',
     titel: 'Kunst aan de bomen',
     tekst: 'Arborescences gaf elke kunstenaar één boom in het park.',
+    type: 'Kunst',
+    typeColor: 'blush',
+    formaat: 'In het park',
   },
   {
     src: dansPark,
     alt: 'Groep mensen in verschillende leeftijden die samen dansen tussen de bomen van het park.',
     titel: 'Dans voor iedereen',
     tekst: 'Etage Tropical gaf workshops open voor mensen met en zonder beperking.',
+    type: 'Dans',
+    typeColor: 'mustard',
+    formaat: 'Workshop',
   },
   {
     src: muziekTromClose,
     alt: 'Close-up van een bass drum die wordt aangeslagen, een trompetspeler erachter.',
     titel: 'Percussie uit de buurt',
     tekst: 'Fanfakids trok met trommels en trompet door het park.',
+    type: 'Muziek',
+    typeColor: 'coral',
+    formaat: 'Door de buurt',
   },
 ];
 
@@ -46,12 +58,12 @@ const faqItems = [
 ---
 
 <BaseLayout title="Stel een project voor" lang="nl" currentPath="/nl/stel-een-project-voor">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Stel een project voor</h1>
       <p class="opening">Plazey wordt mee gemaakt door de buurt. Buurtbewoners, lokale artiesten en kleine organisaties zetten elk jaar een deel van het programma op. Misschien jij ook.</p>
       <div class="cta-group">
-        <a href="#stuur-voorstel" class="btn-ghost">Stel je project voor</a>
+        <a href="#stuur-voorstel" class="btn-primary">Stel je project voor</a>
       </div>
     </Container>
   </section>
@@ -60,31 +72,40 @@ const faqItems = [
     <Container>
       <h2 id="voorbeelden-heading">Wat hebben buurtbewoners al gedaan?</h2>
 
-      <ul role="list" class="voorbeelden-grid grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12 mt-8">
+      <ul role="list" class="voorbeeld-list">
         {voorbeelden.map((v) => (
-          <li class="voorbeeld-card">
+          <li class="voorbeeld-row">
             <Image
               src={v.src}
               alt={v.alt}
-              widths={[400, 700]}
-              sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full aspect-image object-cover image-rounded"
+              widths={[120, 220]}
+              sizes="88px"
+              class="voorbeeld-thumb"
             />
-            <h3>{v.titel}</h3>
-            <p>{v.tekst}</p>
+            <div class="voorbeeld-body">
+              <ul class="chip-row" aria-label="Soort project">
+                <li class={`chip chip-${v.typeColor}`}>{v.type}</li>
+                <li class="chip chip-neutral">{v.formaat}</li>
+              </ul>
+              <h3>{v.titel}</h3>
+              <p>{v.tekst}</p>
+            </div>
           </li>
         ))}
       </ul>
 
       <p class="mt-6">Ook op Plazey gedaan: rondleidingen door Koekelberg, een leesclub voor kinderen, een inclusief theaterlab, een koor open voor iedereen, films van Brusselse makers, een literaire apéro.</p>
       <p>Je ziet het: muziek, dans, theater, film, lezen, eten, sport. Klein of groot. Voor één middag of voor drie dagen.</p>
-      <div class="cta-group">
-        <a href="#stuur-voorstel" class="btn-ghost">Stel je project voor</a>
+
+      <div class="proposal-bridge">
+        <h2>Jouw idee?</h2>
+        <p>We luisteren.</p>
+        <a href="#stuur-voorstel" class="btn-primary">Stel je project voor</a>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="vragen-projectvoorstel" class="section">
+  <section aria-labelledby="vragen-projectvoorstel" class="faq-section">
     <Container>
       <h2 id="vragen-projectvoorstel">Vragen</h2>
       <Accordion items={faqItems} />
@@ -93,7 +114,7 @@ const faqItems = [
 
   <aside id="stuur-voorstel" aria-labelledby="stuur-voorstel-heading" class="callout section">
     <Container>
-      <h2 id="stuur-voorstel-heading">Stel je project voor.</h2>
+      <h2 id="stuur-voorstel-heading" class="h2-display">Stel je <span class="underline-mustard">project</span> voor.</h2>
       <p>We lezen elk voorstel en nemen contact op.</p>
 
       <div class="cta-form">
@@ -203,7 +224,12 @@ const faqItems = [
           errorEl.setAttribute('role', 'alert');
           submitBtn.insertAdjacentElement('beforebegin', errorEl);
         }
-        errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+        errorEl.textContent = '';
+        errorEl.append('Er ging iets mis. Probeer het opnieuw of stuur een mail naar ');
+        const mailLink = document.createElement('a');
+        mailLink.href = 'mailto:info@plazey.be';
+        mailLink.textContent = 'info@plazey.be';
+        errorEl.append(mailLink, '.');
       }
     });
   }

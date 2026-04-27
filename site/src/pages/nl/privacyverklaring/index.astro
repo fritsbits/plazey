@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+---
+
+<BaseLayout title="Privacyverklaring" lang="nl" currentPath="/nl/privacyverklaring">
+  <section class="section hero-intro">
+    <Container>
+      <h1>Privacyverklaring</h1>
+      <p class="opening">We vragen je zo weinig mogelijk en we volgen je niet.</p>
+    </Container>
+  </section>
+
+  <section class="section">
+    <Container class="legal-prose">
+      <h2>Wie we zijn</h2>
+      <p>Plazey wordt georganiseerd door GC De Platoo (Koekelberg). De Platoo is verantwoordelijk voor de gegevens die je achterlaat.</p>
+      <p>Vraag of opmerking? Mail <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+      <h2>Wat we van je vragen</h2>
+      <p>Plazey heeft drie formulieren. Je vult ze enkel in als je dat zelf wil.</p>
+      <p><strong>Contact</strong> — naam, e-mailadres en je bericht. Om je vraag te beantwoorden.</p>
+      <p><strong>Word vrijwilliger</strong> — naam, e-mailadres, wanneer je kan, voor welke rol, welke talen je spreekt, en wat je nog kwijt wil. Om je in te plannen.</p>
+      <p><strong>Stel je project voor</strong> — naam, e-mailadres, je idee, wat je nodig hebt, en voor welke dag. Om je voorstel te lezen en te antwoorden.</p>
+      <p>Je geeft ons je gegevens zelf. Je kan ze altijd laten verwijderen door te mailen naar <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+      <h2>Wie je gegevens ziet</h2>
+      <p>Het Plazey-team bij De Platoo. We delen je gegevens niet met anderen en we verkopen ze niet.</p>
+      <p>De site en de formulieren draaien op Netlify. Netlify slaat je inzending op en stuurt ons een mail.</p>
+
+      <h2>Cookies</h2>
+      <p>We gebruiken geen analytics, geen tracking en geen reclame-cookies. Daarom is er ook geen cookiebanner.</p>
+
+      <h2>Externe diensten</h2>
+      <ul>
+        <li><strong>Lettertypes</strong> komen van Bunny Fonts. Geen tracking.</li>
+        <li><strong>Muziekfragmenten</strong> op de programmapagina's komen van Spotify of SoundCloud. Ze laden pas wanneer je op "Beluister" klikt.</li>
+        <li><strong>Externe links</strong> (Facebook, Google Maps, sites van partners) vallen onder de regels van die diensten zelf.</li>
+      </ul>
+
+      <h2>Je rechten</h2>
+      <p>Je kan ons vragen welke gegevens we van je hebben, ze laten verbeteren, of ze laten verwijderen. Mail naar <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+      <p>Niet tevreden met ons antwoord? Dan kan je klacht indienen bij de Gegevensbeschermingsautoriteit, Drukpersstraat 35, 1000 Brussel — <a href="https://www.gegevensbeschermingsautoriteit.be" rel="external noopener" target="_blank">gegevensbeschermingsautoriteit.be</a>.</p>
+
+      <p class="legal-meta">Laatst bijgewerkt op 27 april 2026.</p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-prose h2 {
+    margin-top: 2rem;
+  }
+  .legal-prose h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-prose p,
+  .legal-prose ul {
+    max-width: 60ch;
+  }
+  .legal-prose ul {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0;
+  }
+  .legal-prose li + li {
+    margin-top: 0.5rem;
+  }
+  .legal-meta {
+    margin-top: 2.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+</style>

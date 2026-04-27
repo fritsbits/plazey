@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+---
+
+<BaseLayout title="Politique de confidentialité" lang="fr" currentPath="/fr/politique-de-confidentialite">
+  <section class="section hero-intro">
+    <Container>
+      <h1>Politique de confidentialité</h1>
+      <p class="opening">On te demande le moins possible et on ne te piste pas.</p>
+    </Container>
+  </section>
+
+  <section class="section">
+    <Container class="legal-prose">
+      <h2>Qui nous sommes</h2>
+      <p>Plazey est organisé par le CC De Platoo (Koekelberg). De Platoo est responsable des données que tu laisses.</p>
+      <p>Une question ? Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+      <h2>Ce qu'on te demande</h2>
+      <p>Plazey a trois formulaires. Tu ne les remplis que si tu le veux.</p>
+      <p><strong>Contact</strong> — ton nom, ton e-mail et ton message. Pour répondre à ta question.</p>
+      <p><strong>Devenir bénévole</strong> — ton nom, ton e-mail, tes disponibilités, le rôle qui t'intéresse, les langues que tu parles, et ce que tu veux ajouter. Pour t'intégrer à l'équipe.</p>
+      <p><strong>Proposer ton projet</strong> — ton nom, ton e-mail, ton idée, ce dont tu as besoin et pour quel jour. Pour lire ta proposition et te répondre.</p>
+      <p>Tu nous donnes tes données toi-même. Tu peux les faire supprimer à tout moment en écrivant à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+
+      <h2>Qui voit tes données</h2>
+      <p>L'équipe Plazey au CC De Platoo. On ne partage pas tes données et on ne les vend pas.</p>
+      <p>Le site et les formulaires tournent sur Netlify. Netlify stocke ton envoi et nous envoie un mail.</p>
+
+      <h2>Cookies</h2>
+      <p>On n'utilise aucun outil d'analyse, aucun traçage, aucun cookie publicitaire. C'est pour ça qu'il n'y a pas de bandeau cookies.</p>
+
+      <h2>Services externes</h2>
+      <ul>
+        <li><strong>Les polices</strong> viennent de Bunny Fonts. Aucun traçage.</li>
+        <li><strong>Les extraits musicaux</strong> sur les pages du programme viennent de Spotify ou SoundCloud. Ils ne se chargent qu'au moment où tu cliques sur "Écouter".</li>
+        <li><strong>Les liens externes</strong> (Facebook, Google Maps, sites de nos partenaires) suivent leurs propres règles.</li>
+      </ul>
+
+      <h2>Tes droits</h2>
+      <p>Tu peux nous demander quelles données on a sur toi, les faire corriger, ou les faire supprimer. Écris à <a href="mailto:info@plazey.be">info@plazey.be</a>.</p>
+      <p>Pas satisfait·e de notre réponse ? Tu peux déposer plainte auprès de l'Autorité de protection des données, Rue de la Presse 35, 1000 Bruxelles — <a href="https://www.autoriteprotectiondonnees.be" rel="external noopener" target="_blank">autoriteprotectiondonnees.be</a>.</p>
+
+      <p class="legal-meta">Dernière mise à jour le 27 avril 2026.</p>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-prose h2 {
+    margin-top: 2rem;
+  }
+  .legal-prose h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-prose p,
+  .legal-prose ul {
+    max-width: 60ch;
+  }
+  .legal-prose ul {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0;
+  }
+  .legal-prose li + li {
+    margin-top: 0.5rem;
+  }
+  .legal-meta {
+    margin-top: 2.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+</style>

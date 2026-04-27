@@ -15,12 +15,12 @@ const faqItems = [
 ---
 
 <BaseLayout title="Kom helpen" lang="nl" currentPath="/nl/vrijwilliger">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Kom helpen</h1>
       <p class="opening">Achter de bar, aan de kassa, of bij het opruimen. Tientallen mensen helpen elk jaar mee.</p>
       <div class="cta-group">
-        <a href="#inschrijven" class="btn-ghost">Word vrijwilliger</a>
+        <a href="#inschrijven" class="btn-primary">Word vrijwilliger</a>
       </div>
     </Container>
   </section>
@@ -66,7 +66,7 @@ const faqItems = [
     </Container>
   </section>
 
-  <section aria-labelledby="vragen-vrijwilligers" class="section">
+  <section aria-labelledby="vragen-vrijwilligers" class="faq-section">
     <Container>
       <h2 id="vragen-vrijwilligers">Vragen</h2>
       <Accordion items={faqItems} />
@@ -165,32 +165,40 @@ const faqItems = [
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    border-top: 1px solid var(--color-border-subtle);
-    border-bottom: 1px solid var(--color-border-subtle);
+    gap: 1.75rem;
+    margin: 1.5rem 0;
   }
   @media (max-width: 639px) {
-    .roles-list { grid-template-columns: 1fr; }
+    .roles-list { grid-template-columns: 1fr; gap: 1.25rem; }
   }
   .roles-list li {
-    padding: 1.25rem 0;
+    background: var(--color-surface-muted);
+    border: 2.5px solid var(--color-text);
+    border-radius: 1.5rem;
+    padding: 1.5rem 1.5rem;
+    box-shadow: 6px 6px 0 var(--color-text);
+    margin: 0;
   }
-  .roles-list li:nth-child(odd) {
-    padding-right: 2rem;
+  .roles-list li:nth-child(4n+1) { transform: rotate(-0.6deg); }
+  .roles-list li:nth-child(4n+2) { transform: rotate(0.4deg); }
+  .roles-list li:nth-child(4n+3) { transform: rotate(-0.3deg); }
+  .roles-list li:nth-child(4n+4) { transform: rotate(0.5deg); }
+  .roles-list li > h3 {
+    margin-block-start: 0;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
   }
-  .roles-list li:nth-child(even) {
-    padding-left: 2rem;
+  .roles-list li > p {
+    margin-top: 0.5rem;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
   }
-  .roles-list li:nth-child(n+3) {
-    border-top: 1px solid var(--color-border-subtle);
+  @media (prefers-reduced-motion: reduce) {
+    .roles-list li { transform: none !important; }
   }
-  @media (max-width: 639px) {
-    .roles-list li { border-top: none; border-bottom: 1px solid var(--color-border-subtle); }
-    .roles-list li:last-child { border-bottom: none; }
-  }
-
 </style>
 
 <script>
@@ -230,7 +238,12 @@ const faqItems = [
           errorEl.setAttribute('role', 'alert');
           submitBtn.insertAdjacentElement('beforebegin', errorEl);
         }
-        errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw of stuur een mail naar info@plazey.be.';
+        errorEl.textContent = '';
+        errorEl.append('Er ging iets mis. Probeer het opnieuw of stuur een mail naar ');
+        const mailLink = document.createElement('a');
+        mailLink.href = 'mailto:info@plazey.be';
+        mailLink.textContent = 'info@plazey.be';
+        errorEl.append(mailLink, '.');
       }
     });
   }

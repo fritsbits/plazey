@@ -14,24 +14,36 @@ const exemples = [
     alt: 'Deux MC sur une scène en plein air devant un public dense, la Basilique de Koekelberg en arrière-plan.',
     titre: 'Les groupes du quartier sur scène',
     texte: 'Club 1030 a programmé quatre jeunes groupes du quartier.',
+    type: 'Musique',
+    typeColor: 'coral',
+    format: 'Grande scène',
   },
   {
     src: parkLaanKunst,
     alt: 'Allée d\'arbres du Parc Elisabeth avec des œuvres d\'art accrochées aux branches, des visiteurs marchent en dessous.',
     titre: 'De l\'art dans les arbres',
     texte: 'Arborescences a donné un arbre du parc à chaque artiste.',
+    type: 'Art',
+    typeColor: 'blush',
+    format: 'Dans le parc',
   },
   {
     src: dansPark,
     alt: 'Groupe de personnes de différents âges dansant ensemble entre les arbres du parc.',
     titre: 'Danser ensemble',
     texte: 'Etage Tropical a donné des ateliers ouverts à toutes et tous.',
+    type: 'Danse',
+    typeColor: 'mustard',
+    format: 'Atelier',
   },
   {
     src: muziekTromClose,
     alt: 'Gros plan d\'une grosse caisse frappée par un maillet, un trompettiste derrière.',
     titre: 'Les percussions du quartier',
     texte: 'Fanfakids a traversé le parc avec tambours et trompettes.',
+    type: 'Musique',
+    typeColor: 'coral',
+    format: 'À travers le parc',
   },
 ];
 
@@ -46,12 +58,12 @@ const faqItems = [
 ---
 
 <BaseLayout title="Proposer un projet" lang="fr" currentPath="/fr/propose-ton-projet">
-  <section class="section">
+  <section class="section hero-intro hero-green">
     <Container>
       <h1>Proposer un projet</h1>
       <p class="opening">Plazey, c'est le quartier qui le fait. Des habitant·es, des artistes locaux et de petites associations mettent chaque année une partie du programme sur pied. Peut-être toi aussi.</p>
       <div class="cta-group">
-        <a href="#envoi" class="btn-ghost">Propose ton projet</a>
+        <a href="#envoi" class="btn-primary">Propose ton projet</a>
       </div>
     </Container>
   </section>
@@ -60,31 +72,40 @@ const faqItems = [
     <Container>
       <h2 id="exemples-heading">Qu'ont déjà fait les habitant·es ?</h2>
 
-      <ul role="list" class="exemples-grid grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12 mt-8">
+      <ul role="list" class="exemple-list">
         {exemples.map((e) => (
-          <li class="exemple-card">
+          <li class="exemple-row">
             <Image
               src={e.src}
               alt={e.alt}
-              widths={[400, 700]}
-              sizes="(max-width: 640px) 100vw, 50vw"
-              class="w-full aspect-image object-cover image-rounded"
+              widths={[120, 220]}
+              sizes="88px"
+              class="exemple-thumb"
             />
-            <h3>{e.titre}</h3>
-            <p>{e.texte}</p>
+            <div class="exemple-body">
+              <ul class="chip-row" aria-label="Type de projet">
+                <li class={`chip chip-${e.typeColor}`}>{e.type}</li>
+                <li class="chip chip-neutral">{e.format}</li>
+              </ul>
+              <h3>{e.titre}</h3>
+              <p>{e.texte}</p>
+            </div>
           </li>
         ))}
       </ul>
 
       <p class="mt-6">Aussi vu à Plazey : des balades dans Koekelberg, un club de lecture pour enfants, un labo de théâtre inclusif, une chorale ouverte à tout le monde, des films de cinéastes bruxellois·es, un apéro littéraire.</p>
       <p>Tu vois : musique, danse, théâtre, cinéma, lecture, cuisine, sport. Petit ou grand. Pour un après-midi ou pour trois jours.</p>
-      <div class="cta-group">
-        <a href="#envoi" class="btn-ghost">Propose ton projet</a>
+
+      <div class="proposal-bridge">
+        <h2>Et ton idée ?</h2>
+        <p>On t'écoute.</p>
+        <a href="#envoi" class="btn-primary">Propose ton projet</a>
       </div>
     </Container>
   </section>
 
-  <section aria-labelledby="questions-proposition" class="section">
+  <section aria-labelledby="questions-proposition" class="faq-section">
     <Container>
       <h2 id="questions-proposition">Questions</h2>
       <Accordion items={faqItems} />
@@ -93,7 +114,7 @@ const faqItems = [
 
   <aside id="envoi" aria-labelledby="envoi-heading" class="callout section">
     <Container>
-      <h2 id="envoi-heading">Propose ton projet.</h2>
+      <h2 id="envoi-heading" class="h2-display">Propose ton <span class="underline-mustard">projet</span>.</h2>
       <p>On lit chaque proposition et on te recontacte.</p>
 
       <div class="cta-form">
@@ -203,7 +224,12 @@ const faqItems = [
           errorEl.setAttribute('role', 'alert');
           submitBtn.insertAdjacentElement('beforebegin', errorEl);
         }
-        errorEl.textContent = 'Quelque chose a mal tourné. Réessaie ou envoie un mail à info@plazey.be.';
+        errorEl.textContent = '';
+        errorEl.append("Ça n'a pas marché. Réessaie ou écris-nous à ");
+        const mailLink = document.createElement('a');
+        mailLink.href = 'mailto:info@plazey.be';
+        mailLink.textContent = 'info@plazey.be';
+        errorEl.append(mailLink, '.');
       }
     });
   }

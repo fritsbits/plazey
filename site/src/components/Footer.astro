@@ -9,9 +9,9 @@ const { lang } = Astro.props;
 const isNL = lang === 'nl';
 ---
 
-<footer>
+<footer class="site-footer">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 text-sm">
-    <div class="pt-4 text-sm flex justify-between items-center" style="color: var(--color-text-muted);">
+    <div class="pt-4 text-sm flex justify-between items-center">
       <div>
         <a href="/nl" lang="nl" aria-current={lang === 'nl' ? 'true' : undefined}>NL</a>
         <span aria-hidden="true"> · </span>
@@ -27,5 +27,24 @@ const isNL = lang === 'nl';
       <p>Site door <a href="https://frederikvincx.com/" rel="external noopener" target="_blank">Impact Studio</a></p>
     </div>
   </div>
-
 </footer>
+
+<style>
+  .site-footer {
+    background: var(--color-text);
+    color: var(--color-surface);
+    border-top: 3px solid var(--color-text);
+  }
+  .site-footer a {
+    color: var(--color-surface);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .site-footer a:hover {
+    color: var(--color-mustard);
+  }
+  .site-footer a[aria-current="true"] {
+    color: var(--color-mustard);
+    font-weight: 600;
+  }
+</style>

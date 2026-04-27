@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import nationaleLoterij from '../assets/images/partners/nationale-loterij.png';
+import nationaleLoterij from '../assets/images/partners/nationale-loterij.svg';
 import vlaanderenCjm from '../assets/images/partners/vlaanderen-cjm.jpg';
-import beBrussels from '../assets/images/partners/be-brussels.jpg';
+import beBrussels from '../assets/images/partners/be-brussels.svg';
 import vgc from '../assets/images/partners/vgc.jpg';
 import leefmilieuBrussel from '../assets/images/partners/leefmilieu-brussel.png';
 import sportBrussels from '../assets/images/partners/sport-brussels.png';
@@ -102,7 +102,7 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
 
 <style>
   .partners {
-    background: var(--color-surface);
+    background: #fff;
     border-top: 1px solid var(--color-border-subtle);
   }
 
@@ -131,6 +131,5 @@ const label = isNL ? 'Met steun van' : 'Avec le soutien de';
     height: 44px;
     width: auto;
     max-width: 120px;
-    filter: grayscale(100%);
   }
 </style>
