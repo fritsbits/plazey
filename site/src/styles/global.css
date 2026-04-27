@@ -353,17 +353,16 @@
     background: var(--color-surface-muted);
   }
 
-  /* Form panel — white surface for form content inside a callout */
+  /* Form — lives directly on the callout surface; no nested card.
+     Width-capped so fields match the data they hold, not the container. */
   .cta-form {
-    background: var(--color-surface);
-    border-radius: var(--radius);
     margin-top: 2rem;
-    padding: 1.5rem;
+    max-width: 32rem;
   }
-  @media (min-width: 768px) {
-    .cta-form {
-      padding: 2rem;
-    }
+
+  /* Callout anchors land below the sticky header when linked to via #hash */
+  .callout[id] {
+    scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
 
   /* Sticky wrapper for in-page sub-navigation */
@@ -746,6 +745,50 @@
     font-weight: 600;
     font-size: 0.875rem;
     color: var(--color-text);
+  }
+  /* Narrow modifier — short data (names, emails) shouldn't stretch the full form width */
+  .form-field--narrow input {
+    max-width: 24rem;
+  }
+  /* Inline "(optional)" hint next to a label */
+  .field-optional {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+  }
+  /* Legends sit above checkbox/radio groups. Slightly larger than field labels
+     so they read as section headers, not leaves. */
+  form legend {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text);
+    padding: 0;
+  }
+  /* Horizontal wrapping option group — days, roles, etc. */
+  .option-group {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .option-group .options {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+    row-gap: 0.5rem;
+  }
+  .option-group .options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  /* Success message after form submit */
+  .form-success {
+    padding-block: 1rem;
+    font-weight: 600;
   }
   .form-field input,
   .form-field textarea {

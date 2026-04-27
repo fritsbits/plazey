@@ -87,11 +87,11 @@ const faqItems = [
           name="benevole"
           method="POST"
           data-netlify="true"
-          class="flex flex-col gap-6"
+          class="flex flex-col gap-5"
         >
             <input type="hidden" name="form-name" value="benevole" />
 
-            <div class="form-field">
+            <div class="form-field form-field--narrow">
               <label for="naam-vw">Nom</label>
               <input
                 type="text"
@@ -103,7 +103,7 @@ const faqItems = [
               />
             </div>
 
-            <div class="form-field">
+            <div class="form-field form-field--narrow">
               <label for="email-vw">Adresse e-mail</label>
               <input
                 type="email"
@@ -115,19 +115,23 @@ const faqItems = [
               />
             </div>
 
-            <fieldset class="flex flex-col gap-2">
-              <legend class="font-semibold text-sm">Quand es-tu disponible ?</legend>
-              <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vendredi</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Samedi</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="beschikbaarheid" value="zondag" /> Dimanche</label>
+            <fieldset class="option-group">
+              <legend>Quand es-tu disponible ?</legend>
+              <div class="options">
+                <label><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vendredi</label>
+                <label><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Samedi</label>
+                <label><input type="checkbox" name="beschikbaarheid" value="zondag" /> Dimanche</label>
+              </div>
             </fieldset>
 
-            <fieldset class="flex flex-col gap-2">
-              <legend class="font-semibold text-sm">Qu'est-ce qui t'intéresse ?</legend>
-              <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="bar" /> Bar</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="kassa" /> Caisse</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="infostand" /> Infostand</label>
-              <label class="flex items-center gap-2"><input type="checkbox" name="rol" value="opbouw-opruim" /> Rangement et montage</label>
+            <fieldset class="option-group">
+              <legend>Qu'est-ce qui t'intéresse ?</legend>
+              <div class="options">
+                <label><input type="checkbox" name="rol" value="bar" /> Bar</label>
+                <label><input type="checkbox" name="rol" value="kassa" /> Caisse</label>
+                <label><input type="checkbox" name="rol" value="infostand" /> Infostand</label>
+                <label><input type="checkbox" name="rol" value="opbouw-opruim" /> Rangement et montage</label>
+              </div>
             </fieldset>
 
             <div class="form-field">
@@ -143,7 +147,7 @@ const faqItems = [
             </div>
 
             <div class="form-field">
-              <label for="extra-vw">Autre chose ? <span style="font-weight: 400; color: var(--color-text-muted)">(facultatif)</span></label>
+              <label for="extra-vw">Autre chose ? <small class="field-optional">(facultatif)</small></label>
               <textarea
                 id="extra-vw"
                 name="extra"
@@ -200,7 +204,7 @@ const faqItems = [
         });
         if (response.ok) {
           const successEl = document.createElement('p');
-          successEl.className = 'py-4 font-semibold';
+          successEl.className = 'form-success';
           successEl.setAttribute('role', 'status');
           successEl.setAttribute('tabindex', '-1');
           successEl.textContent = 'Merci ! On te répond avant le festival.';
