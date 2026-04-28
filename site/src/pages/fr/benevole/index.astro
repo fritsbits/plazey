@@ -222,13 +222,14 @@ const faqItems = [
           body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
         });
         if (response.ok) {
-          const successEl = document.createElement('p');
-          successEl.className = 'form-success';
-          successEl.setAttribute('role', 'status');
-          successEl.setAttribute('tabindex', '-1');
-          successEl.textContent = 'Merci ! On te répond avant le festival.';
-          form.replaceWith(successEl);
-          successEl.focus();
+          const aside = form.closest('aside');
+          if (!aside) return;
+          aside.classList.add('contact-leaving');
+          setTimeout(() => {
+            aside.innerHTML = `<div class="max-w-4xl mx-auto px-4 sm:px-6"><div class="contact-success" role="status" tabindex="-1"><svg class="contact-success-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg><p class="contact-success-heading">Ton inscription<br>est reçue.</p></div></div>`;
+            aside.classList.remove('contact-leaving');
+            aside.querySelector('[role="status"]')?.focus();
+          }, 280);
         } else {
           throw new Error('server error');
         }
@@ -252,3 +253,49 @@ const faqItems = [
     });
   }
 </script>
+
+<style is:global>
+  .contact-leaving {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .contact-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 14rem;
+    padding: 3rem 0;
+    gap: 0.75rem;
+  }
+
+  .contact-success-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-coral);
+    opacity: 0;
+    animation: success-arrive 0.4s ease-out forwards;
+  }
+
+  .contact-success-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.1;
+    color: var(--color-text);
+    margin: 0;
+    opacity: 0;
+    animation: success-arrive 0.5s 0.1s ease-out forwards;
+  }
+
+  @keyframes success-arrive {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-success-icon,
+    .contact-success-heading { animation: none; opacity: 1; }
+    .contact-leaving { transition: none; opacity: 1; transform: none; }
+  }
+</style>
