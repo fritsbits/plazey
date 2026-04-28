@@ -6,9 +6,8 @@ This repository contains:
 
 - **`site/`** — the production website. Astro + Tailwind, deployed on Netlify, with NL/FR routes and Netlify-handled forms.
 - **`docs/wiki/`** — the project wiki: strategy, scope, tone of voice, page-by-page skeletons, NL+FR copy, tech stack notes.
-- **`docs/superpowers/`** and **`site/docs/superpowers/`** — plans and design specs for individual features, written before implementation.
 
-Source material that informed the wiki (meeting transcripts, raw references, original photography) is kept private and is not part of this repository.
+Source material that informed the wiki (meeting transcripts, raw references, original photography, per-feature planning docs) is kept private and is not part of this repository.
 
 ## Run the site locally
 
@@ -35,8 +34,7 @@ plazey/
 │   ├── astro.config.mjs
 │   └── netlify.toml
 ├── docs/
-│   ├── wiki/          # Strategy, copy, page skeletons
-│   └── superpowers/   # Per-feature plans and specs
+│   └── wiki/          # Strategy, copy, page skeletons
 ├── LICENSE
 └── README.md
 ```

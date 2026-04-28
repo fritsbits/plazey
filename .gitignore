@@ -8,6 +8,7 @@ docs/.obsidian/
 
 # Private source material — never commit
 docs/raw/
+docs/superpowers/
 media/
 
 # Astro build output
