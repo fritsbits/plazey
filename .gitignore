@@ -6,6 +6,10 @@
 # Obsidian
 docs/.obsidian/
 
+# Private source material — never commit
+docs/raw/
+media/
+
 # Astro build output
 site/dist/
 site/.astro/
