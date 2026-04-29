@@ -1,5 +1,5 @@
 ---
-title: Korte films — buurtprogramma
+title: Korte films, buurtprogramma
 lang: nl
 day: sunday
 startTime: "20:30"

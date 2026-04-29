@@ -1,5 +1,5 @@
 ---
-title: Courts métrages — programme de quartier
+title: Courts métrages, programme de quartier
 lang: fr
 day: sunday
 startTime: "20:30"

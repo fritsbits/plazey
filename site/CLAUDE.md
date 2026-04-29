@@ -80,14 +80,61 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 
 Full guide: https://www.notion.so/frederik-vincx/Tone-of-voice-guide-Plazey-33fd3ecc475c81caa19dc265e61ebf70
 
-Key rules:
-- **One idea per sentence, keep sentences short.** The site must be readable for language learners, children, tired people, screenreaders.
+Brevity serves clarity, not minimalism. Two short sentences beats one long one, and beats one stripped one. The rules below pull in different directions on purpose — read all of them before writing.
+
+### Sentence craft
+
+- **One idea per sentence, keep sentences short.** Readable for language learners, children, tired people, screenreaders.
+  - ❌ Plazey is een gratis buurtfestival in het Elisabethpark dat al sinds 1992 bestaat en waar muziek, dans, workshops en kunst samenkomen.
+  - ✅ Plazey is een gratis buurtfestival in het Elisabethpark. Het bestaat al sinds 1992. Muziek, dans, workshops, kunst.
 - **Active voice.** Never passive.
-- **"Je" not "u"** — it's a neighbourhood festival, not a service.
-- **No jargon:** no "line-up", "headliner", "bottom-up", "meergenerationeel", "laagdrempelig", "inclusieve beleving", "shift" (use "terwijl je helpt" instead).
-- **Concrete over abstract:** name what you do and with whom. Never "100% toegankelijk voor iedereen".
-- **Three warm moments only:** Home hero, Over Plazey opening, Doe mee opening. Everywhere else: factual and tight.
-- The French version uses "tu" throughout and has its own warm openings (not translations of the NL).
+  - ❌ Het programma wordt gemaakt door de buurt.
+  - ✅ De buurt maakt het programma.
+- **Don't strip the object in warm moments.** Short ≠ stripped. Bridge CTAs and openings need a noun, not just a verb.
+  - ❌ We luisteren.
+  - ✅ We luisteren graag naar jouw idee.
+- **If you mean time, say time.** Vague quantifiers force the reader to guess the unit.
+  - ❌ Je kiest zelf wanneer en hoeveel.
+  - ✅ Je kiest zelf hoeveel tijd je wil helpen.
+
+### Word choice
+
+- **No jargon.** No "line-up", "headliner", "bottom-up", "meergenerationeel", "laagdrempelig", "inclusieve beleving", "shift" (use "terwijl je helpt" instead), "beleving", "evenement", "stay tuned", "ontdek".
+  - ❌ Een unieke meergenerationele beleving.
+  - ✅ Een buurtfeest voor kinderen, ouders en grootouders.
+- **Concrete over abstract.** Name what you do and with whom. Never "100% toegankelijk voor iedereen".
+  - ❌ Plazey is volledig toegankelijk.
+  - ✅ De hoofdpaden zijn vlak. Aan de infostand zijn oordopjes en een programma in braille.
+- **Forward-motion language for accessibility.** Be honest about progress, not defeated. Always pair what works with what's still in progress.
+  - ❌ We zeggen eerlijk wat al kan en wat nog niet.
+  - ✅ We geven duidelijk aan wat al toegankelijk is en waar we nog aan werken.
+- **Pick the colloquial sibling.** When two words mean the same, choose the one used in the park.
+  - ❌ het volledige weekend / met genoegen / we communiceren transparant
+  - ✅ het hele weekend / graag / we geven duidelijk aan
+
+### Punctuation
+
+- **No em dashes.** Use a comma for sentence-internal interruption, a colon for term-definition, a period + new sentence for closing thoughts. Em dashes feel "designed", trip language-learners, and don't sit naturally in our display face.
+  - ❌ Plazey is er voor iedereen — en je moet je er welkom voelen.
+  - ✅ Plazey is er voor iedereen, en je moet je er welkom voelen.
+  - ❌ `<strong>Oordopjes</strong> — aan de infostand.`
+  - ✅ `<strong>Oordopjes:</strong> aan de infostand.`
+  - **FR uses French spacing:** `<strong>Bouchons d'oreilles :</strong> à l'infostand.` (space before the colon).
+
+### Content patterns
+
+- **Three warm moments only.** Home hero, Over Plazey opening, Doe mee opening. Everywhere else is factual and tight.
+- **Pair every value statement with an action.** A values line shouldn't end on the value. State what to do.
+  - ❌ Ongewenst gedrag hoort hier niet thuis.
+  - ✅ Ongewenst gedrag hoort hier niet thuis, spreek gerust een medewerker aan als je iets opmerkt.
+- **Name the visible cue.** When you direct someone to take action, name what they should look for.
+  - ❌ Spreek een medewerker aan.
+  - ✅ Spreek een medewerker aan, herkenbaar aan een kleurrijke t-shirt met het Plazey-logo.
+
+### Per-language
+
+- **NL uses "je" not "u".** It's a neighbourhood festival, not a service.
+- **FR uses "tu" throughout** and has its own warm openings — not translations of the NL.
 
 ## Praktisch page in-page anchors
 

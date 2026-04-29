@@ -13,7 +13,7 @@ embedUrl: "https://open.spotify.com/artist/example"
 draft: true
 ---
 
-Cet item est uniquement destiné à la revue wireframe. Il sert à tester l'overflow — titres longs, scènes longues, noms d'artistes longs, descriptions longues, et hiérarchie visuelle absente sur du contenu dense.
+Cet item est uniquement destiné à la revue wireframe. Il sert à tester l'overflow : titres longs, scènes longues, noms d'artistes longs, descriptions longues, et hiérarchie visuelle absente sur du contenu dense.
 
 La description s'étale ici sur plusieurs paragraphes. Cela permet de voir comment la page de détail se comporte avec beaucoup de texte, si les titres restent bien alignés, et si le bouton d'embed reste net en bas même quand il y a beaucoup de contenu au-dessus.
 

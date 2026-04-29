@@ -13,7 +13,7 @@ embedUrl: "https://open.spotify.com/artist/example"
 draft: true
 ---
 
-Dit item is alleen voor wireframe-review. Het dient om overflow te testen — lange titels, lange podia, lange artiestnamen, lange beschrijvingen, en ontbrekende visuele hiërarchie bij tekstzware content.
+Dit item is alleen voor wireframe-review. Het dient om overflow te testen: lange titels, lange podia, lange artiestnamen, lange beschrijvingen, en ontbrekende visuele hiërarchie bij tekstzware content.
 
 De beschrijving loopt hier over meerdere alinea's heen. Zo kan je zien hoe de detailpagina schaalt bij veel tekst, of koppen goed blijven uitlijnen, en of de embed-knop netjes onderaan blijft staan ook als er veel content boven staat.
 
