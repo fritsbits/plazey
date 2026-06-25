@@ -10,11 +10,12 @@ docs/.obsidian/
 docs/raw/
 docs/superpowers/
 media/
+gfx/
 
-# Astro build output
+# Dependencies & build output (any level, incl. repo root)
+node_modules/
+.astro/
 site/dist/
-site/.astro/
-site/node_modules/
 
 # Superpowers brainstorming (local mockups)
 site/.superpowers/
