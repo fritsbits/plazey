@@ -6,3 +6,4 @@ export const FESTIVAL_DATES_FR = '28–30 août 2026';
 export const FESTIVAL_LOCATION = 'Elisabethpark, Koekelberg';
 export const CONTACT_EMAIL = 'info@plazey.be';
 export const FACEBOOK_URL = 'https://www.facebook.com/plazeyfestival';
+export const FATHOM_SITE_ID = 'LKVSWECZ';

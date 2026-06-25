@@ -725,6 +725,125 @@
     color: var(--color-text);
   }
 
+  /* Programme filter — sits on the green hero ground, so labels read light and
+     the selected option fills with a brand accent (mustard for day, coral for
+     type). Native radios/checkboxes stay in the DOM for keyboard + a11y; the
+     visible pill is the styled <label> with the input visually hidden inside. */
+  .programme-filter {
+    margin-block: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .filter-group {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .filter-legend {
+    display: block;
+    padding: 0;
+    margin-bottom: 0.625rem;
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-surface);
+  }
+  .filter-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .filter-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1;
+    padding: 0.5rem 0.95rem;
+    border: 2px solid color-mix(in oklab, var(--color-surface), transparent 55%);
+    border-radius: 9999px;
+    color: var(--color-surface);
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.14s ease, color 0.14s ease, border-color 0.14s ease, transform 0.14s ease;
+  }
+  .filter-pill input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+  .filter-pill:hover {
+    background: color-mix(in oklab, var(--color-surface), transparent 82%);
+    border-color: var(--color-surface);
+  }
+  .filter-pill:has(input:checked) {
+    background: var(--color-mustard);
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+  .filter-group--type .filter-pill:has(input:checked) {
+    background: var(--color-coral);
+  }
+  .filter-pill:has(input:focus-visible) {
+    outline: 2px solid var(--color-surface);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .filter-pill { transition: none; }
+  }
+
+  /* Reset link + empty state — light on the green ground, mustard underline. */
+  .filter-reset,
+  .programme-empty button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--color-surface);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--color-mustard);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .filter-reset:hover,
+  .programme-empty button:hover {
+    color: var(--color-mustard);
+  }
+  .programme-empty {
+    margin-top: 1.5rem;
+    color: var(--color-surface);
+    font-weight: 600;
+  }
+
+  /* Day group heading above each cluster of cards on the programme page. */
+  .day-header {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.625rem;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--color-surface);
+    margin: 2.5rem 0 1.25rem;
+  }
+  [data-day]:first-of-type .day-header { margin-top: 1.5rem; }
+
+  /* Card grid — content-sized cells (no equal-height stretch), so short cards
+     stay short instead of becoming empty skeleton boxes. */
+  .program-cards {
+    align-items: start;
+  }
+
   /* Shared play-button for programme detail embed */
   .play-btn {
     background: var(--color-surface);

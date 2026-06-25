@@ -4,32 +4,149 @@ interface Props {
   startTime: string;
   endTime?: string;
   type: string;
-  stage: string;
+  stage?: string;
+  curator?: string;
+  subtitle?: string;
   description?: string;
   href: string;
   lang: 'nl' | 'fr';
 }
-const { title, startTime, endTime, type, stage, description, href } = Astro.props;
-const timeDisplay = endTime ? `${startTime}–${endTime}` : startTime;
+const { title, startTime, endTime, type, stage, curator, subtitle, description, href, lang } = Astro.props;
+// A time only shows once a real slot is confirmed (start + end). Until the
+// detailed schedule lands, items carry a placeholder start used only for sorting.
+const timeDisplay = endTime ? `${startTime}–${endTime}` : null;
+
+const typeLabels: Record<'nl' | 'fr', Record<string, string>> = {
+  nl: { concert: 'Concert', dans: 'Dans', film: 'Film', workshop: 'Workshop', kids: 'Kinderen', 'off-stage': 'Off-stage', expo: 'Expo', theater: 'Theater', kermis: 'Kermis' },
+  fr: { concert: 'Concert', dans: 'Danse', film: 'Film', workshop: 'Atelier', kids: 'Enfants', 'off-stage': 'Hors scène', expo: 'Expo', theater: 'Théâtre', kermis: 'Fête foraine' },
+};
+const typeLabel = typeLabels[lang][type] ?? type;
+
+// "Presented by" credit — the curator is demoted to a quiet line; the gig is the hero.
+const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
 ---
 
-<a href={href} class="program-card flex flex-col gap-1 p-4 border no-underline">
-  <span class="time text-sm">{timeDisplay}</span>
-  <span class="type-chip self-start">{type}</span>
-  <h3 class="card-title font-medium">{title}</h3>
-  <span class="stage text-sm">{stage}</span>
-  {description && <p class="card-desc text-sm mt-1">{description}</p>}
+<a href={href} class={`program-card type-${type}`}>
+  <span class="type-badge">{typeLabel}</span>
+  <h3 class="card-title">{title}</h3>
+  {subtitle && <p class="card-subtitle">{subtitle}</p>}
+  {curator && <p class="card-curator">{curatorPrefix} {curator}</p>}
+  {description && <p class="card-desc">{description}</p>}
+  {(timeDisplay || stage) && (
+    <span class="card-meta">
+      {timeDisplay && <span class="meta-time">{timeDisplay}</span>}
+      {timeDisplay && stage && <span class="meta-dot" aria-hidden="true">·</span>}
+      {stage && <span class="meta-venue">{stage}</span>}
+    </span>
+  )}
 </a>
 
 <style>
+  /* A self-contained poster card: lives on the green programme/teaser ground but
+     paints its own ink-on-cream text ramp, so the section's cream/mustard heading
+     cascade can't bleed in (the old cream-on-cream title + yellow description bug).
+     Class selectors here beat the section's zero-specificity :where() rules. */
   .program-card {
-    border-color: var(--color-border-subtle);
-    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.05rem 1.15rem 1.15rem;
     background: var(--color-surface);
-    transition: background-color 0.15s;
+    border: 2.5px solid var(--color-text);
+    border-radius: var(--radius);
+    box-shadow: 4px 4px 0 var(--color-text);
+    text-decoration: none;
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
   }
   .program-card:hover {
-    background: var(--color-surface-muted);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-text);
     text-decoration: none;
   }
+  .program-card:active {
+    transform: translate(0, 0);
+    box-shadow: 2px 2px 0 var(--color-text);
+    transition-duration: 0.05s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .program-card:hover,
+    .program-card:active { transform: none; }
+  }
+
+  /* Type badge — soft per-type accent tint with dark ink text, sized well below
+     the title so the event name wins the card. Each type maps to a brand colour. */
+  .type-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 0.3rem 0.6rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--badge, var(--color-border)), var(--color-surface) 64%);
+    border: 1.5px solid color-mix(in oklab, var(--badge, var(--color-border)), var(--color-text) 20%);
+    color: var(--color-text);
+  }
+  .type-concert   { --badge: var(--color-coral); }
+  .type-dans      { --badge: var(--color-blush); }
+  .type-film      { --badge: var(--color-slate-blue); }
+  .type-workshop  { --badge: var(--color-mustard); }
+  .type-kids      { --badge: var(--color-green); }
+  .type-expo      { --badge: color-mix(in oklab, var(--color-slate-blue), var(--color-green) 55%); }
+  .type-theater   { --badge: color-mix(in oklab, var(--color-coral), var(--color-mustard) 50%); }
+  .type-kermis    { --badge: color-mix(in oklab, var(--color-mustard), var(--color-coral) 35%); }
+  .type-off-stage { --badge: var(--color-border); }
+
+  /* Text ramp — ink title down to faint meta, never an accent for running text. */
+  .program-card .card-title {
+    margin: 0.1rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+  .program-card .card-subtitle {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--color-text-muted);
+  }
+  /* Curator credit — a quiet line, lighter than the subtitle, so the gig name
+     keeps the card. Just who organised it, never the headline. */
+  .program-card .card-curator {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    color: var(--color-text-faint);
+  }
+  .program-card .card-desc {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .program-card .card-meta {
+    margin-top: 0.3rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .program-card .meta-dot { opacity: 0.7; }
 </style>

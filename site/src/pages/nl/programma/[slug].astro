@@ -40,9 +40,12 @@ const dayLabels: Record<string, string> = {
 
       <h1 class="mt-4">{item.data.title}</h1>
       <p class="meta text-sm mt-1">
-        {dayLabels[item.data.day]} · {item.data.startTime}{item.data.endTime && `–${item.data.endTime}`} · {item.data.type} · {item.data.stage}
+        {dayLabels[item.data.day]} · {item.data.startTime}{item.data.endTime && `–${item.data.endTime}`} · {item.data.type}{item.data.stage && ` · ${item.data.stage}`}
       </p>
       <span class="type-chip mt-2">{item.data.type}</span>
+      {item.data.curator && (
+        <p class="credits text-sm mt-2">Gepresenteerd door {item.data.curator}.</p>
+      )}
 
       <div class="description mt-6">
         <Content />

@@ -15,11 +15,16 @@ const items = allItems
     return a.data.startTime.localeCompare(b.data.startTime);
   });
 
+// Only show filter options that actually have programme items, so the
+// filters can never lead to an empty result. Order follows these lists.
+const presentDays = new Set<string>(items.map(e => e.data.day));
+const presentTypes = new Set<string>(items.map(e => e.data.type));
+
 const days = [
   { value: 'friday', label: 'Vrijdag 28 augustus' },
   { value: 'saturday', label: 'Zaterdag 29 augustus' },
   { value: 'sunday', label: 'Zondag 30 augustus' },
-];
+].filter(d => presentDays.has(d.value));
 
 const types = [
   { value: 'concert', label: 'Concert' },
@@ -27,8 +32,11 @@ const types = [
   { value: 'film', label: 'Film' },
   { value: 'workshop', label: 'Workshop' },
   { value: 'kids', label: 'Kinderen' },
+  { value: 'expo', label: 'Expo' },
+  { value: 'theater', label: 'Theater' },
+  { value: 'kermis', label: 'Kermis' },
   { value: 'off-stage', label: 'Off-stage' },
-];
+].filter(t => presentTypes.has(t.value));
 ---
 
 <BaseLayout title="Programma" lang="nl" currentPath="/nl/programma">
@@ -44,6 +52,7 @@ const types = [
       ) : (
         <>
           <p>28–30 augustus 2026. Alles is gratis.</p>
+          <p class="text-meta">Het uurrooster per act volgt binnenkort.</p>
 
           {SITE_PHASE === 'aftermovie' && (
             <div role="note" class="season-banner my-4 p-4 image-rounded" style="background: var(--color-surface-muted);">
@@ -51,32 +60,38 @@ const types = [
             </div>
           )}
 
-      <form id="filter-form" aria-label="Programma filteren" class="my-6 space-y-4">
-        <fieldset class="flex flex-wrap items-center gap-2">
-          <legend class="font-medium text-sm mr-2">Dag</legend>
-          <label class="flex items-center gap-1 text-sm">
-            <input type="radio" name="dag" value="alle" checked />
-            Alle dagen
-          </label>
-          {days.map(d => (
-            <label class="flex items-center gap-1 text-sm">
-              <input type="radio" name="dag" value={d.value} />
-              {d.label}
+      <form id="filter-form" aria-label="Programma filteren" class="programme-filter">
+        <fieldset class="filter-group filter-group--day">
+          <legend class="filter-legend">Dag</legend>
+          <div class="filter-pills">
+            <label class="filter-pill">
+              <input type="radio" name="dag" value="alle" checked />
+              Alle dagen
             </label>
-          ))}
+            {days.map(d => (
+              <label class="filter-pill">
+                <input type="radio" name="dag" value={d.value} />
+                {d.label}
+              </label>
+            ))}
+          </div>
         </fieldset>
 
-        <fieldset class="flex flex-wrap items-center gap-2">
-          <legend class="font-medium text-sm mr-2">Type</legend>
-          {types.map(t => (
-            <label class="flex items-center gap-1 text-sm">
-              <input type="checkbox" name="type" value={t.value} />
-              {t.label}
+        <fieldset class="filter-group filter-group--type">
+          <legend class="filter-legend">Type</legend>
+          <div class="filter-pills">
+            <label class="filter-pill">
+              <input type="radio" name="type" value="alle" checked />
+              Alle types
             </label>
-          ))}
+            {types.map(t => (
+              <label class="filter-pill">
+                <input type="radio" name="type" value={t.value} />
+                {t.label}
+              </label>
+            ))}
+          </div>
         </fieldset>
-
-        <button type="button" id="reset-filters" hidden class="text-sm underline">Alle filters wissen</button>
       </form>
 
       <div role="status" aria-live="polite" aria-atomic="true" id="filter-status" class="sr-only"></div>
@@ -87,17 +102,19 @@ const types = [
           if (dayItems.length === 0) return null;
           return (
             <section data-day={day.value} aria-labelledby={`day-${day.value}`}>
-              <h2 id={`day-${day.value}`} class="day-header font-medium text-lg mt-8 mb-4">{day.label}</h2>
+              <h2 id={`day-${day.value}`} class="day-header">{day.label}</h2>
               <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {dayItems.map(item => {
                   const cardProps = {
                     title: item.data.title,
                     startTime: item.data.startTime,
                     type: item.data.type,
-                    stage: item.data.stage,
                     href: `/nl/programma/${item.id.replace('nl/', '')}`,
                     lang: 'nl' as const,
+                    ...(item.data.stage && { stage: item.data.stage }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
+                    ...(item.data.curator && { curator: item.data.curator }),
+                    ...(item.data.genre && { subtitle: item.data.genre }),
                     ...(item.data.description && { description: item.data.description }),
                   };
                   return (
@@ -112,9 +129,8 @@ const types = [
         })}
       </div>
 
-      <p id="empty-state" hidden>
+      <p id="empty-state" class="programme-empty" hidden>
         Niks gevonden met deze filters.
-        <button type="button" id="reset-filters-empty" class="underline">Alle filters wissen</button>
       </p>
         </>
       )}
@@ -124,41 +140,83 @@ const types = [
 
 <script>
   const form = document.getElementById('filter-form') as HTMLFormElement;
-  const resetBtn = document.getElementById('reset-filters') as HTMLButtonElement;
-  const resetEmptyBtn = document.getElementById('reset-filters-empty') as HTMLButtonElement;
   const status = document.getElementById('filter-status') as HTMLElement;
   const emptyState = document.getElementById('empty-state') as HTMLElement;
   const list = document.getElementById('programme-list') as HTMLElement;
 
+  // Index of what's actually programmed, read from the rendered cards.
+  const cards2 = Array.from(list.querySelectorAll<HTMLElement>('li[data-type]'))
+    .map(el => ({ type: el.dataset.type!, day: el.dataset.day! }));
+  const allTypes = new Set(cards2.map(c => c.type));
+  const allDays = new Set(cards2.map(c => c.day));
+
+  // Faceted filtering: hide options that would yield zero results given the
+  // other axis. Type pills adapt to the chosen day; day pills adapt to the
+  // chosen type. Day and type are both single-select; a now-invalid selection
+  // falls back to "alle" so we never strand the user on an empty result.
+  function syncFacets() {
+    const { dag } = getFilters();
+
+    const typeAvail = dag === 'alle'
+      ? allTypes
+      : new Set(cards2.filter(c => c.day === dag).map(c => c.type));
+    form.querySelectorAll<HTMLInputElement>('input[name="type"]').forEach(r => {
+      if (r.value === 'alle') return;
+      const ok = typeAvail.has(r.value);
+      (r.closest('.filter-pill') as HTMLElement).hidden = !ok;
+      if (!ok && r.checked) {
+        r.checked = false;
+        form.querySelector<HTMLInputElement>('input[name="type"][value="alle"]')!.checked = true;
+      }
+    });
+
+    const selectedType = form.querySelector<HTMLInputElement>('input[name="type"]:checked')?.value ?? 'alle';
+    const dayAvail = selectedType === 'alle'
+      ? allDays
+      : new Set(cards2.filter(c => c.type === selectedType).map(c => c.day));
+    form.querySelectorAll<HTMLInputElement>('input[name="dag"]').forEach(r => {
+      if (r.value === 'alle') return;
+      const ok = dayAvail.has(r.value);
+      (r.closest('.filter-pill') as HTMLElement).hidden = !ok;
+      if (!ok && r.checked) {
+        r.checked = false;
+        form.querySelector<HTMLInputElement>('input[name="dag"][value="alle"]')!.checked = true;
+      }
+    });
+  }
+
   function getFilters() {
     const data = new FormData(form);
     const dag = data.get('dag') as string || 'alle';
-    const types = data.getAll('type') as string[];
-    return { dag, types };
+    const type = data.get('type') as string || 'alle';
+    return { dag, type };
   }
 
   function applyFilters() {
-    const { dag, types } = getFilters();
+    syncFacets();
+    const { dag, type } = getFilters();
     const dayFilter = dag !== 'alle';
-    const typeFilter = types.length > 0;
+    const typeFilter = type !== 'alle';
 
     let visibleCount = 0;
-
-    const sections = list.querySelectorAll<HTMLElement>('[data-day]');
-    sections.forEach(section => {
-      const sectionDay = section.getAttribute('data-day');
-      section.hidden = dayFilter && sectionDay !== dag;
-    });
 
     const cards = list.querySelectorAll<HTMLElement>('li[data-type]');
     cards.forEach(card => {
       const cardType = card.getAttribute('data-type');
       const cardDay = card.getAttribute('data-day');
       const dayMatch = !dayFilter || cardDay === dag;
-      const typeMatch = !typeFilter || types.includes(cardType!);
+      const typeMatch = !typeFilter || cardType === type;
       const visible = dayMatch && typeMatch;
       card.hidden = !visible;
       if (visible) visibleCount++;
+    });
+
+    // Hide a day's heading when none of its cards survive the active filters.
+    // Scope to section[data-day] — cards also carry data-day, so a bare
+    // [data-day] would match (and wrongly re-hide) every card too.
+    const sections = list.querySelectorAll<HTMLElement>('section[data-day]');
+    sections.forEach(section => {
+      section.hidden = !section.querySelector('li[data-type]:not([hidden])');
     });
 
     emptyState.hidden = visibleCount > 0;
@@ -168,37 +226,27 @@ const types = [
       ? '0 items gevonden.'
       : `${visibleCount} ${visibleCount === 1 ? 'item' : 'items'} gevonden.`;
 
-    resetBtn.hidden = !dayFilter && !typeFilter;
-
     const url = new URL(window.location.href);
     if (dag !== 'alle') url.searchParams.set('dag', dag); else url.searchParams.delete('dag');
-    if (types.length > 0) url.searchParams.set('type', types.join(',')); else url.searchParams.delete('type');
+    if (type !== 'alle') url.searchParams.set('type', type); else url.searchParams.delete('type');
     window.history.replaceState({}, '', url.toString());
-  }
-
-  function resetFilters() {
-    form.querySelectorAll<HTMLInputElement>('input[name="dag"]').forEach(r => r.checked = r.value === 'alle');
-    form.querySelectorAll<HTMLInputElement>('input[name="type"]').forEach(c => c.checked = false);
-    applyFilters();
   }
 
   function restoreFromURL() {
     const params = new URLSearchParams(window.location.search);
     const dag = params.get('dag');
-    const types = params.get('type')?.split(',') || [];
+    const type = params.get('type');
     if (dag) {
       const radio = form.querySelector<HTMLInputElement>(`input[name="dag"][value="${dag}"]`);
       if (radio) radio.checked = true;
     }
-    types.forEach(t => {
-      const cb = form.querySelector<HTMLInputElement>(`input[name="type"][value="${t}"]`);
-      if (cb) cb.checked = true;
-    });
+    if (type) {
+      const radio = form.querySelector<HTMLInputElement>(`input[name="type"][value="${type}"]`);
+      if (radio) radio.checked = true;
+    }
     applyFilters();
   }
 
   form.addEventListener('change', applyFilters);
-  resetBtn.addEventListener('click', resetFilters);
-  resetEmptyBtn.addEventListener('click', resetFilters);
   restoreFromURL();
 </script>

@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Partners from '../components/Partners.astro';
+import { FATHOM_SITE_ID } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
@@ -20,6 +21,9 @@ const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
     <title>{title} — Plazey</title>
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
     <link href="https://fonts.bunny.net/css?family=caprasimo:400|nunito:400,500,600,700,800&display=swap" rel="stylesheet" />
+    {import.meta.env.PROD && (
+      <script src="https://cdn.usefathom.com/script.js" data-site={FATHOM_SITE_ID} defer></script>
+    )}
   </head>
   <body class="min-h-screen flex flex-col">
     <a class="skip-link" href="#main-content">{skipLabel}</a>

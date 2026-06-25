@@ -15,11 +15,16 @@ const items = allItems
     return a.data.startTime.localeCompare(b.data.startTime);
   });
 
+// On n'affiche que les filtres qui ont vraiment des items, pour qu'un filtre
+// ne puisse jamais donner un résultat vide. L'ordre suit ces listes.
+const presentDays = new Set<string>(items.map(e => e.data.day));
+const presentTypes = new Set<string>(items.map(e => e.data.type));
+
 const days = [
   { value: 'friday', label: 'Vendredi 28 août' },
   { value: 'saturday', label: 'Samedi 29 août' },
   { value: 'sunday', label: 'Dimanche 30 août' },
-];
+].filter(d => presentDays.has(d.value));
 
 const types = [
   { value: 'concert', label: 'Concert' },
@@ -27,8 +32,11 @@ const types = [
   { value: 'film', label: 'Film' },
   { value: 'workshop', label: 'Atelier' },
   { value: 'kids', label: 'Enfants' },
+  { value: 'expo', label: 'Expo' },
+  { value: 'theater', label: 'Théâtre' },
+  { value: 'kermis', label: 'Fête foraine' },
   { value: 'off-stage', label: 'Hors scène' },
-];
+].filter(t => presentTypes.has(t.value));
 ---
 
 <BaseLayout title="Programme" lang="fr" currentPath="/fr/programme">
@@ -44,6 +52,7 @@ const types = [
       ) : (
         <>
           <p>28–30 août 2026. Tout est gratuit.</p>
+          <p class="text-meta">Les horaires détaillés par acte suivront bientôt.</p>
 
           {SITE_PHASE === 'aftermovie' && (
             <div role="note" class="season-banner my-4 p-4 image-rounded" style="background: var(--color-surface-muted);">
@@ -51,32 +60,38 @@ const types = [
             </div>
           )}
 
-      <form id="filter-form" aria-label="Filtrer le programme" class="my-6 space-y-4">
-        <fieldset class="flex flex-wrap items-center gap-2">
-          <legend class="font-medium text-sm mr-2">Jour</legend>
-          <label class="flex items-center gap-1 text-sm">
-            <input type="radio" name="dag" value="alle" checked />
-            Tous les jours
-          </label>
-          {days.map(d => (
-            <label class="flex items-center gap-1 text-sm">
-              <input type="radio" name="dag" value={d.value} />
-              {d.label}
+      <form id="filter-form" aria-label="Filtrer le programme" class="programme-filter">
+        <fieldset class="filter-group filter-group--day">
+          <legend class="filter-legend">Jour</legend>
+          <div class="filter-pills">
+            <label class="filter-pill">
+              <input type="radio" name="dag" value="alle" checked />
+              Tous les jours
             </label>
-          ))}
+            {days.map(d => (
+              <label class="filter-pill">
+                <input type="radio" name="dag" value={d.value} />
+                {d.label}
+              </label>
+            ))}
+          </div>
         </fieldset>
 
-        <fieldset class="flex flex-wrap items-center gap-2">
-          <legend class="font-medium text-sm mr-2">Type</legend>
-          {types.map(t => (
-            <label class="flex items-center gap-1 text-sm">
-              <input type="checkbox" name="type" value={t.value} />
-              {t.label}
+        <fieldset class="filter-group filter-group--type">
+          <legend class="filter-legend">Type</legend>
+          <div class="filter-pills">
+            <label class="filter-pill">
+              <input type="radio" name="type" value="alle" checked />
+              Tous les types
             </label>
-          ))}
+            {types.map(t => (
+              <label class="filter-pill">
+                <input type="radio" name="type" value={t.value} />
+                {t.label}
+              </label>
+            ))}
+          </div>
         </fieldset>
-
-        <button type="button" id="reset-filters" hidden class="text-sm underline">Effacer les filtres</button>
       </form>
 
       <div role="status" aria-live="polite" aria-atomic="true" id="filter-status" class="sr-only"></div>
@@ -87,17 +102,19 @@ const types = [
           if (dayItems.length === 0) return null;
           return (
             <section data-day={day.value} aria-labelledby={`day-${day.value}`}>
-              <h2 id={`day-${day.value}`} class="day-header font-medium text-lg mt-8 mb-4">{day.label}</h2>
+              <h2 id={`day-${day.value}`} class="day-header">{day.label}</h2>
               <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {dayItems.map(item => {
                   const cardProps = {
                     title: item.data.title,
                     startTime: item.data.startTime,
                     type: item.data.type,
-                    stage: item.data.stage,
                     href: `/fr/programme/${item.id.replace('fr/', '')}`,
                     lang: 'fr' as const,
+                    ...(item.data.stage && { stage: item.data.stage }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
+                    ...(item.data.curator && { curator: item.data.curator }),
+                    ...(item.data.genre && { subtitle: item.data.genre }),
                     ...(item.data.description && { description: item.data.description }),
                   };
                   return (
@@ -112,9 +129,8 @@ const types = [
         })}
       </div>
 
-      <p id="empty-state" hidden>
+      <p id="empty-state" class="programme-empty" hidden>
         Aucun résultat pour ces filtres.
-        <button type="button" id="reset-filters-empty" class="underline">Effacer les filtres</button>
       </p>
         </>
       )}
@@ -124,55 +140,91 @@ const types = [
 
 <script>
   const form = document.getElementById('filter-form') as HTMLFormElement;
-  const resetBtn = document.getElementById('reset-filters') as HTMLButtonElement;
-  const resetEmptyBtn = document.getElementById('reset-filters-empty') as HTMLButtonElement;
   const status = document.getElementById('filter-status') as HTMLElement;
   const emptyState = document.getElementById('empty-state') as HTMLElement;
   const list = document.getElementById('programme-list') as HTMLElement;
 
+  // Index de ce qui est réellement programmé, lu depuis les cartes rendues.
+  const cards2 = Array.from(list.querySelectorAll<HTMLElement>('li[data-type]'))
+    .map(el => ({ type: el.dataset.type!, day: el.dataset.day! }));
+  const allTypes = new Set(cards2.map(c => c.type));
+  const allDays = new Set(cards2.map(c => c.day));
+
+  // Filtrage à facettes : on masque les options qui ne donneraient aucun
+  // résultat compte tenu de l'autre axe. Les types s'adaptent au jour choisi ;
+  // les jours s'adaptent au type choisi. Jour et type sont à choix unique ;
+  // une sélection devenue invalide retombe sur « alle » pour ne jamais bloquer
+  // l'utilisateur sur un résultat vide.
+  function syncFacets() {
+    const { dag } = getFilters();
+
+    const typeAvail = dag === 'alle'
+      ? allTypes
+      : new Set(cards2.filter(c => c.day === dag).map(c => c.type));
+    form.querySelectorAll<HTMLInputElement>('input[name="type"]').forEach(r => {
+      if (r.value === 'alle') return;
+      const ok = typeAvail.has(r.value);
+      (r.closest('.filter-pill') as HTMLElement).hidden = !ok;
+      if (!ok && r.checked) {
+        r.checked = false;
+        form.querySelector<HTMLInputElement>('input[name="type"][value="alle"]')!.checked = true;
+      }
+    });
+
+    const selectedType = form.querySelector<HTMLInputElement>('input[name="type"]:checked')?.value ?? 'alle';
+    const dayAvail = selectedType === 'alle'
+      ? allDays
+      : new Set(cards2.filter(c => c.type === selectedType).map(c => c.day));
+    form.querySelectorAll<HTMLInputElement>('input[name="dag"]').forEach(r => {
+      if (r.value === 'alle') return;
+      const ok = dayAvail.has(r.value);
+      (r.closest('.filter-pill') as HTMLElement).hidden = !ok;
+      if (!ok && r.checked) {
+        r.checked = false;
+        form.querySelector<HTMLInputElement>('input[name="dag"][value="alle"]')!.checked = true;
+      }
+    });
+  }
+
   function getFilters() {
     const data = new FormData(form);
-    return { dag: data.get('dag') as string || 'alle', types: data.getAll('type') as string[] };
+    return { dag: data.get('dag') as string || 'alle', type: data.get('type') as string || 'alle' };
   }
 
   function applyFilters() {
-    const { dag, types } = getFilters();
+    syncFacets();
+    const { dag, type } = getFilters();
     let visibleCount = 0;
-
-    list.querySelectorAll<HTMLElement>('[data-day]').forEach(section => {
-      section.hidden = dag !== 'alle' && section.getAttribute('data-day') !== dag;
-    });
 
     list.querySelectorAll<HTMLElement>('li[data-type]').forEach(card => {
       const dayMatch = dag === 'alle' || card.getAttribute('data-day') === dag;
-      const typeMatch = types.length === 0 || types.includes(card.getAttribute('data-type')!);
+      const typeMatch = type === 'alle' || card.getAttribute('data-type') === type;
       card.hidden = !(dayMatch && typeMatch);
       if (!card.hidden) visibleCount++;
+    });
+
+    // On masque le titre d'un jour quand aucune de ses cartes ne passe les filtres.
+    // On cible section[data-day] : les cartes portent aussi data-day, donc un
+    // simple [data-day] les sélectionnerait (et les masquerait) à tort.
+    list.querySelectorAll<HTMLElement>('section[data-day]').forEach(section => {
+      section.hidden = !section.querySelector('li[data-type]:not([hidden])');
     });
 
     emptyState.hidden = visibleCount > 0;
     list.hidden = visibleCount === 0;
     status.textContent = visibleCount === 0 ? '0 résultat.' : `${visibleCount} résultat${visibleCount > 1 ? 's' : ''}.`;
-    resetBtn.hidden = dag === 'alle' && types.length === 0;
 
     const url = new URL(window.location.href);
     dag !== 'alle' ? url.searchParams.set('dag', dag) : url.searchParams.delete('dag');
-    types.length > 0 ? url.searchParams.set('type', types.join(',')) : url.searchParams.delete('type');
+    type !== 'alle' ? url.searchParams.set('type', type) : url.searchParams.delete('type');
     window.history.replaceState({}, '', url.toString());
-  }
-
-  function resetFilters() {
-    form.querySelectorAll<HTMLInputElement>('input[name="dag"]').forEach(r => r.checked = r.value === 'alle');
-    form.querySelectorAll<HTMLInputElement>('input[name="type"]').forEach(c => c.checked = false);
-    applyFilters();
   }
 
   const params = new URLSearchParams(window.location.search);
   const dag = params.get('dag');
-  if (dag) { const r = form.querySelector<HTMLInputElement>(`input[value="${dag}"]`); if (r) r.checked = true; }
-  params.get('type')?.split(',').forEach(t => { const c = form.querySelector<HTMLInputElement>(`input[value="${t}"]`); if (c) c.checked = true; });
+  if (dag) { const r = form.querySelector<HTMLInputElement>(`input[name="dag"][value="${dag}"]`); if (r) r.checked = true; }
+  const type = params.get('type');
+  if (type) { const r = form.querySelector<HTMLInputElement>(`input[name="type"][value="${type}"]`); if (r) r.checked = true; }
   form.addEventListener('change', applyFilters);
-  resetBtn.addEventListener('click', resetFilters);
-  resetEmptyBtn.addEventListener('click', resetFilters);
   applyFilters();
 </script>

@@ -16,9 +16,9 @@ const saturdayHighlights = frItems.filter(e => e.data.day === 'saturday').slice(
 const hasProgramme = frItems.length > 0;
 
 const festivalDays: Record<string, 'friday' | 'saturday' | 'sunday'> = {
-  '2026-08-22': 'friday',
-  '2026-08-23': 'saturday',
-  '2026-08-24': 'sunday',
+  '2026-08-28': 'friday',
+  '2026-08-29': 'saturday',
+  '2026-08-30': 'sunday',
 };
 const todayKey = new Date().toISOString().slice(0, 10);
 const todayFestivalDay = festivalDays[todayKey];
@@ -164,7 +164,8 @@ const todayItems = todayFestivalDay
                   startTime={item.data.startTime}
                   {...(item.data.endTime && { endTime: item.data.endTime })}
                   type={item.data.type}
-                  stage={item.data.stage}
+                  {...(item.data.stage && { stage: item.data.stage })}
+                  {...(item.data.curator && { curator: item.data.curator })}
                   {...(item.data.description && { description: item.data.description })}
                   href={`/fr/programme/${item.id.replace('fr/', '')}`}
                   lang="fr"
@@ -180,7 +181,7 @@ const todayItems = todayFestivalDay
           <p>Merci à toutes et tous celles et ceux qui étaient là.</p>
           <a href="/fr/programme" class="btn-text">Découvre le programme complet 2026 →</a>
         </>
-      ) : hasProgramme && SITE_PHASE !== 'save-the-date' ? (
+      ) : hasProgramme ? (
         <>
           <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
           <p class="day-label mt-4">Samedi 29 août</p>
@@ -193,7 +194,8 @@ const todayItems = todayFestivalDay
                     startTime={item.data.startTime}
                     {...(item.data.endTime && { endTime: item.data.endTime })}
                     type={item.data.type}
-                    stage={item.data.stage}
+                    {...(item.data.stage && { stage: item.data.stage })}
+                    {...(item.data.curator && { curator: item.data.curator })}
                     {...(item.data.description && { description: item.data.description })}
                     href={`/fr/programme/${item.id.replace('fr/', '')}`}
                     lang="fr"
