@@ -7,6 +7,7 @@ import { getCollection } from 'astro:content';
 import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '../../config/site.ts';
 import sfeerFestivalplein from '../../assets/images/sfeer-festivalplein.jpg';
 import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
+import sfeerAvondschemering from '../../assets/images/sfeer-avondschemering.jpg';
 import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 import theaterBasiliek from '../../assets/images/theater-basiliek.jpg';
 
@@ -237,6 +238,18 @@ const todayItems = todayFestivalDay
       <a href="/nl/praktisch#bereikbaarheid" class="btn-text mt-6">Lees meer over bereikbaarheid →</a>
     </Container>
   </section>
+  )}
+
+  {SITE_PHASE !== 'save-the-date' && (
+  <figure class="my-0">
+    <Image
+      src={sfeerAvondschemering}
+      alt="Festivalgangers in de avondschemering, slingers branden tussen de bomen."
+      widths={[800, 1200, 1600]}
+      sizes="100vw"
+      class="w-full figure-crop-wide"
+    />
+  </figure>
   )}
 
   <section aria-labelledby="doe-mee-teaser" class="split-section split--image-right">

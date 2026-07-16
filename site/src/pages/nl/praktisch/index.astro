@@ -7,6 +7,8 @@ import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION } from '../../../config/site';
 import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
+import toegankelijkheidMenigte from '../../../assets/images/toegankelijkheid-menigte.jpg';
+import kindOordoppen from '../../../assets/images/kind-oordoppen.jpg';
 
 const faqItems = [
   { question: 'Is Plazey echt gratis?', answer: 'Ja. Geen tickets, geen toegangsprijs. Plazey is gratis voor iedereen, al sinds 1992.' },
@@ -253,6 +255,21 @@ const faqItems = [
               <li>We luisteren zonder oordeel en zoeken samen uit wat er nodig is.</li>
             </ul>
           </div>
+        </div>
+
+        <div class="image-pair">
+          <Image
+            src={toegankelijkheidMenigte}
+            alt="Publiek dat een straatact volgt, met een rolstoelgebruiker vooraan tussen de andere bezoekers."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+          />
+          <Image
+            src={kindOordoppen}
+            alt="Een kind met gehoorbescherming op de schouders van een ouder, kijkend naar een optreden."
+            widths={[400, 600]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+          />
         </div>
 
         <div class="callout-inline">

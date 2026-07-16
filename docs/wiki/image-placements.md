@@ -20,6 +20,12 @@ The skeleton spec calls for a **custom illustration per edition** ("geen generie
 
 *`537787901` — Captures the full festival in one frame. Plazey sign, string lights, diverse crowd, wheelchair user visible naturally. Ideal brief for the illustrator.*
 
+**Alternative mood reference** (batch 2):
+
+![Violinist balanced on an acrobat's shoulders, Basilica of Koekelberg framed down the tree avenue](../../site/src/assets/images/acrobaat-basiliek.jpg)
+
+*`IMG_6299` — Best place-identity shot across both photo batches. Use if the illustrator brief should lean more on the park/Basilica setting than the crowd. Copied into `site/src/assets/images/` but not wired into a live page yet — this hero slot is an illustration brief reference, not a live photo placement.*
+
 ---
 
 ### "Doe mee" callout section
@@ -38,7 +44,9 @@ If the design needs a photo block between sections (e.g. a full-bleed break betw
 
 *`529568369` — Multi-generational crowd, relaxed festival vibe. Strong landscape crop.*
 
-> [PLACEHOLDER: Evening/dusk crowd shot — string lights lit, warm glow, people at tables after sunset. Currently only 1 evening photo in the set (stage only). Needed for a potential second hero rotation or off-hour atmosphere section.]
+![Crowd at dusk on wooden decking, string lights lit, EHBO tent visible](../../site/src/assets/images/sfeer-avondschemering.jpg)
+
+*`IMG_6385` (batch 2) — Resolves the evening/dusk gap. Warm string lights, after-sunset crowd. **Live** on `/nl/` and `/fr/`, as a full-bleed figure between "Hoe kom ik er?" and the "Doe mee" split section. Source photo is portrait; cropped via the `.figure-crop-wide` class in `global.css` (21:9, `object-position: center 36%`) to keep the string lights + crowd band in frame instead of the tree canopy above it.*
 
 ---
 
@@ -51,6 +59,12 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 ![Outdoor theatre on wooden stage, seated audience, Basilica of Koekelberg in background](../../site/src/assets/images/theater-basiliek.jpg)
 
 *`528386718` — Best location-identity shot in the set. Basilica backdrop = unmistakably Koekelberg.*
+
+**Alternative** (batch 2):
+
+![Theatre set with live musicians, seated chair-audience, Basilica visible in the avenue background](../../site/src/assets/images/theater-muzikanten-basiliek.jpg)
+
+*`IMG_6424` — Rivals `theater-basiliek.jpg`: adds live music to the theatre scene, same Basilica backdrop. Good for a theatre item that also involves a band. Copied into the repo but not wired into a live page — no programme item currently has a hero-image slot to place it in (see the still-open note below on `[slug].astro`).*
 
 ### Street theatre / puppet / spectacle
 
@@ -112,6 +126,12 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 *`529235257` — Candid, tender, intergenerational. Works for free-play zones or baby/toddler-friendly activities.*
 
+### Kids: sewing / craft workshop
+
+![Kids and adults sewing and stuffing fabric toy animals at a craft table, diverse group](../../site/src/assets/images/kids-naaiworkshop.jpg)
+
+*`IMG_6457` (batch 2) — New workshop type not covered by batch 1. Good for any hands-on craft/sewing activity. Copied into the repo but not wired into a live page — see note below.*
+
 ### Art installation / sculpture
 
 ![Parent holding a child up to look at a large metal wolf/dragon sculpture in the park](../../site/src/assets/images/kunst-wolfsculptuur.jpg)
@@ -148,11 +168,17 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 *`486746883` — Joyful and physical. Good for comedy acts, play activities, or circus-adjacent performances.*
 
-> [PLACEHOLDER: Spoken word / slam poetry / lecture — no suitable photo in current set. Needed for intellectually-framed programme items. A close-up of a speaker at a microphone with a small attentive crowd would work.]
+### Spoken word / storytelling
+
+![Storyteller with an illustrated banner, guitarist alongside](../../site/src/assets/images/verteller-optreden.jpg)
+
+*`IMG_6429` (batch 2) — Resolves the spoken-word gap. Use for storytelling, slam poetry, or lecture-type programme items. Copied into the repo but not wired into a live page — see note below.*
+
+> **Still open, all of S3 (per-item hero images):** the `programme` content collection schema (`src/content.config.ts`) has no `image` field, so no programme item currently renders a photo of any kind — this whole S3 section describes a future feature, not current behaviour. `theater-muzikanten-basiliek.jpg`, `acrobaat-basiliek.jpg`, `verteller-optreden.jpg`, and `kids-naaiworkshop.jpg` are staged in `site/src/assets/images/` for whenever that field is added.
 
 > [PLACEHOLDER: Film / cinema screening — no photo in current set. Could be abstract (projection light, audience silhouettes in dusk).]
 
-> [PLACEHOLDER: Main stage from audience perspective — wide shot looking at a large crowd + stage. The most classic festival photo and we don't have one. Needed for the biggest concert items.]
+> [PLACEHOLDER: Main stage from audience perspective — wide shot looking at a large crowd + stage. Batch 2 has two partial candidates (`IMG_6331`, `IMG_6508`, both still in `~/Downloads/OneDrive_1_15-7-2026/`, not yet copied into the repo) but neither is a classic "big concert stage + huge crowd" shot — worth revisiting if a wider stage shot arrives in a future batch.]
 
 ---
 
@@ -186,13 +212,25 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 *`528547725` — Shows the token system in practice. Use inline near the "tokens worden aanvaard" note.*
 
-### Toegankelijkheid — inline illustration
+### Toegankelijkheid — section header + inline
 
-![Hearing protection products on a table: ear muffs, earplugs, ear protector device](../../site/src/assets/images/oordopjes-producten.jpg)
+**Live** on `/nl/praktisch#toegankelijkheid` and `/fr/infos-pratiques#accessibilite`, as an `.image-pair` (the same two-up component already used on the Doe mee page) placed right after the four access-category cards:
 
-*`495741154` — Informational product shot. Use as a small inline image alongside the oordopjes entry in the toegankelijkheid list.*
+![Wide crowd facing a street performer, wheelchair user clearly seated front-row, Brussels skyline behind trees](../../site/src/assets/images/toegankelijkheid-menigte.jpg)
 
-> [PLACEHOLDER: Toegankelijkheid section header — a photo showing the festival being actively accessible. Options: accessible path to the site, a VGT interpreter in action, a visitor with a mobility aid navigating the festival comfortably. The current set only has the wheelchair user as a small figure in a wide crowd shot — not close enough to lead a section.]
+*`IMG_6331` (batch 2) — Resolves the toegankelijkheid header gap. A wheelchair user genuinely part of the crowd, not an incidental background figure. Strongest accessibility shot across both batches.*
+
+![Toddler on a parent's shoulders wearing ear defenders, watching a stage act](../../site/src/assets/images/kind-oordoppen.jpg)
+
+*`IMG_6157` (batch 2) — Candid, real-world use of ear protection.*
+
+**Alternative** (not currently used, would replace `toegankelijkheid-menigte.jpg` if a theatre-specific context is preferred):
+
+![Colourful theatre troupe performing, wheelchair user prominent in the seated front-row audience](../../site/src/assets/images/theater-publiek-rolstoel.jpg)
+
+*`IMG_6430` (batch 2) — Same strength, theatre-specific context.*
+
+Note: `oordopjes-producten.jpg` (`495741154`, the ear-protection product shot from batch 1) is still unused on the live site — it was never imported into `praktisch/index.astro`. `kind-oordoppen.jpg` above covers the same ground with a candid in-use photo instead.
 
 > [PLACEHOLDER: "Baby Spot" / families area — `528283988` exists (Baby Spot caravan) but is better used on the Doe mee / Over Plazey page. Praktisch ideally needs its own families/kids-facilities photo, e.g. a baby changing area or a stroller parked at the entrance.]
 
@@ -330,6 +368,14 @@ These photos have strong potential but aren't assigned to a primary slot above. 
 | `529235257` | Children in sandbox | S4 Praktisch kinderen-section, or S3 kids-item |
 | `538075720` | Wolf sculpture, parent + child | S3 art installation (also listed) |
 
+**Batch 2 — catalogued but not yet copied into the repo** (still in `~/Downloads/OneDrive_1_15-7-2026/`, see `wiki/image-mapping.md` for the full inventory):
+
+| File | What it shows | Potential use |
+|------|--------------|---------------|
+| `IMG_6177` | Second ear-defenders shot, wide crowd, string lights | Alt for toegankelijkheid inline, or S1 atmosphere accent |
+| `IMG_6444` | Petting zoo / animal pen, kids at the fence | S3 kids item — new activity type not yet in the repo |
+| `IMG_6508` | Main stage from within the crowd, singer in red feather outfit, child in ear defenders | Partial candidate for the still-open "main stage from audience" placeholder |
+
 ---
 
-*Last updated: 2026-04-18*
+*Last updated: 2026-07-16 — added 8 batch-2 photos (accessibility, evening atmosphere, spoken word, sewing workshop) from Lies.*

@@ -1120,6 +1120,20 @@
     outline-offset: -1px;
   }
 
+  /* Full-bleed atmosphere figure built from a portrait-source photo — crops
+     to a wide band so it sits at the same scale as the other full-bleed
+     figures on Home instead of towering over them. */
+  .figure-crop-wide {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    object-position: center 36%;
+    display: block;
+  }
+  @media (max-width: 639px) {
+    .figure-crop-wide { aspect-ratio: 4 / 3; }
+  }
+
   /* Pair of images side by side */
   .image-pair {
     display: grid;

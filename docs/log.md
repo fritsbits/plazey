@@ -55,6 +55,37 @@ Drie docx-bestanden ontvangen en geïngest naar `raw/` met provenance-headers (d
 
 Nieuw: `wiki/content-intake-status.md` — tracker per content-item (bron → site-target → status) + workflow voor volgende batches en geüpdatete docs. Site-updates toegepast in dezelfde sessie (programme-entries, praktisch, over-plazey, NL+FR).
 
+---
+
+## [2026-07-16] ingest | Image mapping — batch 2, 32 new photos from Lies
+
+Viewed and catalogued 32 new photos from Lies in `~/Downloads/OneDrive_1_15-7-2026/` (`IMG_6139.JPG`–`IMG_6508.JPG`, still raw — not yet copied into `site/src/assets/images/`). Appended a "Batch 2" section to `wiki/image-mapping.md` and updated the gap assessment.
+
+Batch 2 resolves several gaps flagged after batch 1:
+- Evening/dusk atmosphere — `IMG_6385`
+- Toegankelijkheid — `IMG_6331` and `IMG_6430` (wheelchair user visibly part of the crowd/audience), `IMG_6157`/`IMG_6177`/`IMG_6508` (real ear-protection use)
+- Main stage from audience perspective — `IMG_6331`, `IMG_6508`
+- Programme edge cases — `IMG_6429` (spoken word/storyteller), `IMG_6444` (petting zoo), `IMG_6457` (sewing/craft workshop), `IMG_6238` (face painting)
+- Landscape hero options — `IMG_6299` (Basilica avenue), `IMG_6424` (theatre + Basilica), `IMG_6255`
+
+Still open: behind-the-scenes/setup photos, a distinct organiser (GC De Platoo / GC De Zeyp) portrait.
+
+Top picks for actually copying into the repo: `IMG_6299`, `IMG_6331`, `IMG_6430`, `IMG_6157`, `IMG_6424`, `IMG_6385`, `IMG_6429`, `IMG_6457` (+ honorable mentions `IMG_6177`, `IMG_6444`, `IMG_6508`). Decision on which to bring in and how to rename them is pending — see conversation.
+
+---
+
+## [2026-07-16] update | Batch 2 photos copied into repo and wired into live pages
+
+Copied the 8 top picks into `site/src/assets/images/` (renamed: `acrobaat-basiliek.jpg`, `toegankelijkheid-menigte.jpg`, `theater-publiek-rolstoel.jpg`, `kind-oordoppen.jpg`, `theater-muzikanten-basiliek.jpg`, `sfeer-avondschemering.jpg`, `verteller-optreden.jpg`, `kids-naaiworkshop.jpg`).
+
+Wired 2 of the 8 into live pages, both NL + FR:
+- **Home** (`nl/index.astro`, `fr/index.astro`): `sfeer-avondschemering.jpg` added as a second full-bleed atmosphere figure, between "Hoe kom ik er?" and the "Doe mee" split section. Source photo is portrait (2656×3984); added a `.figure-crop-wide` class in `global.css` (21:9 aspect, `object-position: center 36%`) so the crop shows the string lights + crowd band rather than the tree canopy above it.
+- **Praktisch** (`nl/praktisch/index.astro`, `fr/infos-pratiques/index.astro`): `toegankelijkheid-menigte.jpg` + `kind-oordoppen.jpg` added as an `.image-pair` (reusing the existing component from the Doe mee page) right after the four access-category cards. This section previously had zero images.
+
+The remaining 6 (`acrobaat-basiliek.jpg`, `theater-muzikanten-basiliek.jpg`, `verteller-optreden.jpg`, `kids-naaiworkshop.jpg`, plus the un-copied honorable mentions) are documented in `wiki/image-placements.md` but not wired in: the `programme` content collection has no `image` field, so no per-programme-item photo placement is possible without a schema change first. Over-plazey, Doe mee, and Stel-een-project-voor already have assigned hero images and weren't touched.
+
+Verified: `npx astro check` (0 errors), `npm run build` (71 pages built), and visual check via Chrome on both new placements (home evening figure, praktisch toegankelijkheid image pair).
+
 ## [2026-07-16] update | Admin CMS live: programma-beheer + fase-switch via /admin
 
 Sveltia CMS toegevoegd op plazey.be/admin zodat Lies het programma zelf kan beheren en de site-fase kan omzetten. Zie [wiki/admin-cms.md](wiki/admin-cms.md) voor het volledige ontwerp. Kern:
