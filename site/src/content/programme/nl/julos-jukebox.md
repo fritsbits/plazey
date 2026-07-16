@@ -1,6 +1,5 @@
 ---
 title: Julo's Jukebox
-lang: nl
 day: friday
 startTime: "14:00"
 endTime: "17:00"

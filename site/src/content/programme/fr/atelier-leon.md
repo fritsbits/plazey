@@ -1,9 +1,8 @@
 ---
 title: Atelier Léon
-lang: fr
 day: friday
 startTime: "17:00"
-stage: Atelier
+stage: workshop
 type: workshop
 description: Restitution d'une semaine de danse avec LEON.
 ---

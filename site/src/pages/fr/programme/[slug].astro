@@ -2,11 +2,12 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import { getCollection, render } from 'astro:content';
+import { typeLabels, stageLabels } from '../../../config/programme-labels';
 
 export async function getStaticPaths() {
   const items = await getCollection('programme');
   return items
-    .filter(e => e.data.lang === 'fr')
+    .filter(e => e.id.startsWith('fr/'))
     .map(item => ({
       params: { slug: item.id.replace('fr/', '') },
       props: { item },
@@ -40,9 +41,9 @@ const dayLabels: Record<string, string> = {
 
       <h1 class="mt-4">{item.data.title}</h1>
       <p class="meta text-sm mt-1">
-        {dayLabels[item.data.day]} · {item.data.startTime}{item.data.endTime && `–${item.data.endTime}`} · {item.data.type}{item.data.stage && ` · ${item.data.stage}`}
+        {dayLabels[item.data.day]} · {item.data.startTime}{item.data.endTime && `–${item.data.endTime}`} · {typeLabels.fr[item.data.type] ?? item.data.type}{item.data.stage && ` · ${stageLabels.fr[item.data.stage] ?? item.data.stage}`}
       </p>
-      <span class="type-chip mt-2">{item.data.type}</span>
+      <span class="type-chip mt-2">{typeLabels.fr[item.data.type] ?? item.data.type}</span>
       {item.data.curator && (
         <p class="credits text-sm mt-2">Présenté par {item.data.curator}.</p>
       )}

@@ -1,6 +1,5 @@
 ---
 title: Vinyles avec Wawasda
-lang: fr
 day: friday
 startTime: "18:00"
 endTime: "20:30"

@@ -48,6 +48,8 @@ Organisers send updates (WhatsApp, email). Frederik pastes to LLM → LLM update
 
 Add **Decap CMS** (open source, sits on top of Astro + Git, gives a browser form UI to non-technical editors). This is a configuration exercise, not a rebuild — content stays in markdown.
 
+*Update 2026-07-16: this happened — Lies now manages the programme via a git-based CMS (Sveltia, the maintained Decap successor) on plazey.be/admin. See [admin-cms.md](admin-cms.md).*
+
 ---
 
 ## Forms

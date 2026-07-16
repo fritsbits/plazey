@@ -1,4 +1,6 @@
 ---
+import { typeLabels, stageLabels } from '../config/programme-labels';
+
 interface Props {
   title: string;
   startTime: string;
@@ -16,11 +18,8 @@ const { title, startTime, endTime, type, stage, curator, subtitle, description, 
 // detailed schedule lands, items carry a placeholder start used only for sorting.
 const timeDisplay = endTime ? `${startTime}–${endTime}` : null;
 
-const typeLabels: Record<'nl' | 'fr', Record<string, string>> = {
-  nl: { concert: 'Concert', dans: 'Dans', film: 'Film', workshop: 'Workshop', kids: 'Kinderen', 'off-stage': 'Off-stage', expo: 'Expo', theater: 'Theater', kermis: 'Kermis' },
-  fr: { concert: 'Concert', dans: 'Danse', film: 'Film', workshop: 'Atelier', kids: 'Enfants', 'off-stage': 'Hors scène', expo: 'Expo', theater: 'Théâtre', kermis: 'Fête foraine' },
-};
 const typeLabel = typeLabels[lang][type] ?? type;
+const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;
 
 // "Presented by" credit — the curator is demoted to a quiet line; the gig is the hero.
 const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
@@ -32,11 +31,11 @@ const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
   {subtitle && <p class="card-subtitle">{subtitle}</p>}
   {curator && <p class="card-curator">{curatorPrefix} {curator}</p>}
   {description && <p class="card-desc">{description}</p>}
-  {(timeDisplay || stage) && (
+  {(timeDisplay || stageLabel) && (
     <span class="card-meta">
       {timeDisplay && <span class="meta-time">{timeDisplay}</span>}
-      {timeDisplay && stage && <span class="meta-dot" aria-hidden="true">·</span>}
-      {stage && <span class="meta-venue">{stage}</span>}
+      {timeDisplay && stageLabel && <span class="meta-dot" aria-hidden="true">·</span>}
+      {stageLabel && <span class="meta-venue">{stageLabel}</span>}
     </span>
   )}
 </a>

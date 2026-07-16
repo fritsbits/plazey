@@ -19,6 +19,7 @@
 
 ### Tech
 - [Tech stack](wiki/tech-stack.md) — Astro + Netlify decision, rationale, content update workflow, forms (Formspree), Claude Code setup
+- [Admin CMS](wiki/admin-cms.md) — Sveltia CMS op /admin: programma-beheer voor Lies + site-fase switch, git-based, design decisions
 
 ### Media
 - [Image mapping](wiki/image-mapping.md) — All 25 photos analysed: what each shows, suggested website placement, coverage gaps per page

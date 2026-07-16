@@ -12,8 +12,9 @@ npx astro check   # TypeScript check (0 errors expected; ignore zod deprecation 
 
 ## Stack
 
-- Astro 6 (static), hosted on Netlify. No server, no CMS in v1.
-- Content in Markdown files under `src/content/`. No database.
+- Astro 6 (static), hosted on Netlify. No server, no database.
+- Content in Markdown files under `src/content/`.
+- Git-based CMS on `/admin` (Sveltia CMS, config in `public/admin/config.yml`): Lies manages programme items and the site phase; every save commits to `main` → Netlify auto-deploys. See `docs/wiki/admin-cms.md`.
 - No CSS framework — styles come when the huisstijl is ready. No visual design in v1.
 
 ## Site map
@@ -45,9 +46,9 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 - `ProgramCard.astro` — card link used on Programma pages and Home teaser
 - `Accordion.astro` — `<details>`/`<summary>` pattern, used for FAQ sections
 
-**Site config:** `src/config/site.ts` — exports `SITE_PHASE`, `FESTIVAL_YEAR`, `FESTIVAL_DATES_NL/FR`, `FESTIVAL_LOCATION`, `CONTACT_EMAIL`, `FACEBOOK_URL`. Change `SITE_PHASE` to control what renders (currently `'reveal'`).
+**Site config:** `src/config/site.ts` — exports `SITE_PHASE`, `FESTIVAL_YEAR`, `FESTIVAL_DATES_NL/FR`, `FESTIVAL_LOCATION`, `CONTACT_EMAIL`, `FACEBOOK_URL`. `SITE_PHASE` controls what renders and is read from `src/config/phase.json` (editable via the CMS — never hardcode the phase back into site.ts).
 
-**Programme collection:** glob loader from `src/content/programme/**/*.md`. Filter by `lang` field to separate NL/FR content. Content IDs include the language prefix (`nl/le-ministere-du-groove`) — strip it when building page slugs.
+**Programme collection:** glob loader from `src/content/programme/**/*.md`. The folder is the language: filter with `e.id.startsWith('nl/')` / `('fr/')` — there is no `lang` frontmatter field. NL and FR files share the same filename (one item = `nl/slug.md` + `fr/slug.md`); the CMS pairs them as one entry. Strip the prefix when building page slugs. Neutral enum values for `type` and `stage` are translated per language in `src/config/programme-labels.ts`.
 
 **Programme filter (Programma pages):** client-side JS only. Radio buttons for day, checkboxes for type. Filters show/hide rendered HTML — no re-fetch. URL query params sync state for shareable links. `aria-live` region announces result count.
 
@@ -58,23 +59,26 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 ## Programme content collection schema (`src/content.config.ts`)
 
 - `title` (string, required)
-- `lang` (enum: nl | fr, required)
 - `day` (enum: friday | saturday | sunday, required)
 - `startTime` (string "HH:MM", required)
 - `endTime` (string "HH:MM", optional)
-- `stage` (string, required)
-- `type` (enum: concert | film | workshop | kids | dans | off-stage, required)
+- `stage` (enum: dans | froefroe | tentoonstelling | workshop, optional) — neutral value, translated via `programme-labels.ts`
+- `type` (enum: concert | film | workshop | kids | dans | off-stage | expo | theater | kermis, required)
+- `curator` (string, optional) — select in the CMS; free string in the schema
 - `genre` (string, optional)
 - `artist` (string, optional)
-- `description` (string, optional)
+- `description` (string, optional) — short card text; the markdown body is the detail-page text
 - `embedUrl` (URL string, optional) — Spotify/SoundCloud, renders as click-to-play
+- `draft` (boolean, optional, default false)
+
+Adding a `stage` or `curator` option touches three files: `public/admin/config.yml`, `src/content.config.ts` (stage enum), and `src/config/programme-labels.ts` (stage labels).
 
 ## Content update workflow
 
-1. Organiser sends update (WhatsApp/email)
-2. Frederik pastes to Claude Code
-3. Claude updates the relevant `.md` file(s) in `src/content/programme/`
-4. Git commit → Netlify auto-deploys
+Two routes, both ending in a commit on `main` → Netlify auto-deploys:
+
+1. **Lies (organiser), self-service:** plazey.be/admin → edits programme items or the site phase → save commits directly.
+2. **Frederik via Claude Code:** organiser sends update (WhatsApp/email) → paste to Claude → Claude updates `.md` file(s) → git commit.
 
 ## Tone of voice
 
@@ -173,7 +177,7 @@ Warm, bubbly, accessible — the energy of a neighbourhood party, not a polished
 
 ## Do not suggest
 
-- A CMS (no CMS in v1)
+- A hosted/paid CMS or CMS migration (the git-based Sveltia setup on /admin is the CMS)
 - Server-side rendering or API routes
 - Database integrations
 - Ticketing, RSVP, or user accounts (festival is free and open)

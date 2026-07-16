@@ -11,7 +11,7 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 import theaterBasiliek from '../../assets/images/theater-basiliek.jpg';
 
 const allItems = await getCollection('programme');
-const nlItems = allItems.filter(e => e.data.lang === 'nl' && !e.data.draft);
+const nlItems = allItems.filter(e => e.id.startsWith('nl/') && !e.data.draft);
 const saturdayHighlights = nlItems.filter(e => e.data.day === 'saturday').slice(0, 3);
 const hasProgramme = nlItems.length > 0;
 

@@ -54,3 +54,13 @@ Drie docx-bestanden ontvangen en geïngest naar `raw/` met provenance-headers (d
 - `2026-07-16-randactiviteiten.md` — grotendeels lege tabel; promoteksten en foto's volgen in een latere batch
 
 Nieuw: `wiki/content-intake-status.md` — tracker per content-item (bron → site-target → status) + workflow voor volgende batches en geüpdatete docs. Site-updates toegepast in dezelfde sessie (programme-entries, praktisch, over-plazey, NL+FR).
+
+## [2026-07-16] update | Admin CMS live: programma-beheer + fase-switch via /admin
+
+Sveltia CMS toegevoegd op plazey.be/admin zodat Lies het programma zelf kan beheren en de site-fase kan omzetten. Zie [wiki/admin-cms.md](wiki/admin-cms.md) voor het volledige ontwerp. Kern:
+
+- Eén programma-entry per item met NL/FR naast elkaar (i18n multiple_folders op de bestaande mappenstructuur). Vijf FR-files hernoemd naar NL-slugs + 301-redirects.
+- `lang`-frontmatterveld geschrapt (map = taal); `stage` is nu een neutraal enum met vertaalmap in `programme-labels.ts`; `stage` en `curator` zijn selects in het CMS.
+- `SITE_PHASE` verhuisd van hardcoded in `site.ts` naar `phase.json` zodat het CMS erbij kan; build-time validatie toegevoegd.
+- Fixt en passant: detailpagina's toonden de ruwe type-waarde ("kermis") i.p.v. het vertaalde label.
+- Nog te doen door Frederik (buiten git): GitHub OAuth-app aanmaken, Netlify OAuth-provider instellen, Lies als collaborator uitnodigen.

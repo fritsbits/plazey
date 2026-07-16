@@ -1,9 +1,8 @@
 ---
 title: Atelier Leon
-lang: nl
 day: friday
 startTime: "17:00"
-stage: Workshop
+stage: workshop
 type: workshop
 description: Toonmoment van een week dansen met LEON.
 ---

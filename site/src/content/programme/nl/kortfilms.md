@@ -1,6 +1,5 @@
 ---
 title: Kortfilms
-lang: nl
 day: friday
 startTime: "21:00"
 type: film

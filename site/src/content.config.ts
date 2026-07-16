@@ -5,11 +5,10 @@ const programme = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/programme' }),
   schema: z.object({
     title: z.string(),
-    lang: z.enum(['nl', 'fr']),
     day: z.enum(['friday', 'saturday', 'sunday']),
     startTime: z.string(),
     endTime: z.string().optional(),
-    stage: z.string().optional(),
+    stage: z.enum(['dans', 'froefroe', 'tentoonstelling', 'workshop']).optional(),
     type: z.enum(['concert', 'film', 'workshop', 'kids', 'dans', 'off-stage', 'expo', 'theater', 'kermis']),
     curator: z.string().optional(),
     genre: z.string().optional(),

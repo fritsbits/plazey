@@ -1,0 +1,118 @@
+backend:
+  name: github
+  repo: fritsbits/plazey
+  branch: main
+  commit_messages:
+    create: 'content(programme): voeg {{slug}} toe via beheer'
+    update: 'content(programme): wijzig {{slug}} via beheer'
+    delete: 'content(programme): verwijder {{slug}} via beheer'
+
+# Lokaal testen: werkt automatisch op localhost.
+local_backend: true
+
+media_folder: site/public/images/uploads
+public_folder: /images/uploads
+
+i18n:
+  structure: multiple_folders
+  locales: [nl, fr]
+  default_locale: nl
+
+collections:
+  - name: programma
+    label: Programma
+    label_singular: Programma-item
+    folder: site/src/content/programme
+    i18n: true
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    summary: '{{title}} · {{fields.day}} {{fields.startTime}}'
+    sortable_fields: [title, day, startTime, type]
+    view_groups:
+      - label: Dag
+        field: day
+      - label: Type
+        field: type
+    editor:
+      preview: false
+    fields:
+      - { name: title, label: Titel, widget: string, i18n: true, hint: 'Meestal in beide talen hetzelfde (naam van de artiest of groep)' }
+      - name: day
+        label: Dag
+        widget: select
+        i18n: duplicate
+        options:
+          - { label: Vrijdag, value: friday }
+          - { label: Zaterdag, value: saturday }
+          - { label: Zondag, value: sunday }
+      - name: startTime
+        label: Startuur
+        widget: string
+        i18n: duplicate
+        pattern: ['^([01][0-9]|2[0-3]):[0-5][0-9]$', 'Gebruik het formaat UU:MM, bijvoorbeeld 14:00']
+        hint: 'Formaat UU:MM, bijvoorbeeld 14:00'
+      - name: endTime
+        label: Einduur
+        widget: string
+        i18n: duplicate
+        required: false
+        pattern: ['^([01][0-9]|2[0-3]):[0-5][0-9]$', 'Gebruik het formaat UU:MM, bijvoorbeeld 17:30']
+        hint: 'Mag leeg blijven'
+      - name: stage
+        label: Plek of podium
+        widget: select
+        i18n: duplicate
+        required: false
+        hint: 'Staat de juiste plek er niet tussen? Vraag Frederik om ze toe te voegen.'
+        options:
+          - { label: Dans, value: dans }
+          - { label: FroeFroe, value: froefroe }
+          - { label: Tentoonstelling, value: tentoonstelling }
+          - { label: Workshop, value: workshop }
+      - name: type
+        label: Type
+        widget: select
+        i18n: duplicate
+        options:
+          - { label: Concert, value: concert }
+          - { label: Film, value: film }
+          - { label: Workshop, value: workshop }
+          - { label: Kids, value: kids }
+          - { label: Dans, value: dans }
+          - { label: Off-stage, value: off-stage }
+          - { label: Expo, value: expo }
+          - { label: Theater, value: theater }
+          - { label: Kermis, value: kermis }
+      - name: curator
+        label: Curator
+        widget: select
+        i18n: duplicate
+        required: false
+        hint: 'Staat de organisatie er niet tussen? Vraag Frederik om ze toe te voegen.'
+        options: [3XXL, Afrodance, 'Archipel 19 & Pianofabriek', BOP, STRUK, VK]
+      - { name: genre, label: Genre, widget: string, i18n: true, required: false }
+      - { name: artist, label: Artiest, widget: string, i18n: duplicate, required: false }
+      - { name: description, label: Korte tekst (kaartje), widget: text, i18n: true, required: false, hint: 'Eén of twee zinnen. Verschijnt op het programma-overzicht.' }
+      - { name: embedUrl, label: Spotify- of SoundCloud-link, widget: string, i18n: duplicate, required: false, hint: 'Plak de volledige link. Bezoekers kunnen dan meteen luisteren.' }
+      - { name: draft, label: Nog niet tonen op de site, widget: boolean, i18n: duplicate, required: false, default: false }
+      - { name: body, label: Lange tekst (detailpagina), widget: markdown, i18n: true, required: false }
+
+  - name: instellingen
+    label: Site-instellingen
+    files:
+      - name: fase
+        label: Site-fase
+        file: site/src/config/phase.json
+        editor:
+          preview: false
+        fields:
+          - name: phase
+            label: Fase van de site
+            widget: select
+            hint: 'Bepaalt wat bezoekers zien. Wijzig dit enkel in overleg.'
+            options:
+              - { label: 'Save the date (alleen datum)', value: save-the-date }
+              - { label: 'Reveal (programma zichtbaar)', value: reveal }
+              - { label: 'Live (festivalweekend)', value: live }
+              - { label: 'Aftermovie (na het festival)', value: aftermovie }

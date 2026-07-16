@@ -1,6 +1,5 @@
 ---
 title: Wawasda & Mr. Pink
-lang: fr
 day: friday
 startTime: "22:30"
 type: concert

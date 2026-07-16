@@ -1,9 +1,8 @@
 ---
 title: Arborescences
-lang: fr
 day: sunday
 startTime: "14:00"
-stage: Exposition
+stage: tentoonstelling
 type: expo
 ---
 

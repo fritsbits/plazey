@@ -1,6 +1,5 @@
 ---
 title: Fête Foraine
-lang: nl
 day: saturday
 startTime: "14:00"
 type: kermis

@@ -7,7 +7,7 @@ import { SITE_PHASE, FACEBOOK_URL } from '../../../config/site.ts';
 
 const allItems = await getCollection('programme');
 const items = allItems
-  .filter(e => e.data.lang === 'fr' && !e.data.draft)
+  .filter(e => e.id.startsWith('fr/') && !e.data.draft)
   .sort((a, b) => {
     const dayOrder: Record<string, number> = { friday: 0, saturday: 1, sunday: 2 };
     const dayDiff = (dayOrder[a.data.day] ?? 0) - (dayOrder[b.data.day] ?? 0);

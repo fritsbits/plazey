@@ -6,8 +6,8 @@ import { getCollection } from 'astro:content';
 
 const all = await getCollection('programme');
 const drafts = all.filter(e => e.data.draft);
-const nlDrafts = drafts.filter(e => e.data.lang === 'nl');
-const frDrafts = drafts.filter(e => e.data.lang === 'fr');
+const nlDrafts = drafts.filter(e => e.id.startsWith('nl/'));
+const frDrafts = drafts.filter(e => e.id.startsWith('fr/'));
 
 type Entry = { href: string; label: string; note?: string };
 type Group = { title: string; entries: Entry[] };

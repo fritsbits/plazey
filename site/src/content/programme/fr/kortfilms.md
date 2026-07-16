@@ -1,6 +1,5 @@
 ---
 title: Court-métrages
-lang: fr
 day: friday
 startTime: "21:00"
 type: film

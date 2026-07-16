@@ -1,9 +1,8 @@
 ---
 title: Dance Orientation
-lang: fr
 day: friday
 startTime: "14:00"
-stage: Danse
+stage: dans
 type: dans
 ---
 

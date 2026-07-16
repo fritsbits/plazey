@@ -1,6 +1,5 @@
 ---
 title: Wawasda & Mr. Pink
-lang: nl
 day: friday
 startTime: "22:30"
 type: concert
