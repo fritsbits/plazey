@@ -27,6 +27,22 @@ const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
     {import.meta.env.PROD && (
       <script src="https://cdn.usefathom.com/script.js" data-site={FATHOM_SITE_ID} defer></script>
     )}
+    <noscript>
+      {/* Without JS the act lightbox can't open; show its content inline
+          under the card instead, and hide the now-dead controls. */}
+      <style>
+        dialog.act-dialog {
+          display: block;
+          position: static;
+          width: auto;
+          max-height: none;
+          margin: 0.75rem 0 0;
+          overflow: visible;
+        }
+        dialog.act-dialog .act-close { display: none; }
+        .program-card .card-more { display: none; }
+      </style>
+    </noscript>
   </head>
   <body class="min-h-screen flex flex-col">
     <a class="skip-link" href="#main-content">{skipLabel}</a>

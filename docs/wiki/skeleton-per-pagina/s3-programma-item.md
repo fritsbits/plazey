@@ -1,5 +1,7 @@
 # S3 — Programma-item detail (/programma/<slug>)
 
+> **⚠️ Achterhaald sinds 2026-07-16.** De detailpagina's zijn geschrapt: de lange tekst, embed en credits openen nu in een lightbox (`<dialog>`) vanuit de kaart op het programma-overzicht (S2). Oude slug-URL's 301'en naar het overzicht. Zie [log.md](../../log.md) voor de motivatie en meting.
+
 > **URL:** `/nl/programma/<slug>` (NL) · `/fr/programme/<slug>` (FR)
 
 > **Doel:** één programmaitem volledig uitleggen en de weg terug wijzen.

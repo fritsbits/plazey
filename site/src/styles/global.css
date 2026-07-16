@@ -714,17 +714,6 @@
     aspect-ratio: 4 / 3;
   }
 
-  /* Type chip — pill used on ProgramCard + programme detail pages */
-  .type-chip {
-    display: inline-block;
-    font-size: 0.75rem;
-    line-height: 1.25rem;
-    padding: 0.125rem 0.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: 9999px;
-    color: var(--color-text);
-  }
-
   /* Programme filter — sits on the green hero ground, so labels read light and
      the selected option fills with a brand accent (mustard for day, coral for
      type). Native radios/checkboxes stay in the DOM for keyboard + a11y; the
@@ -844,7 +833,7 @@
     align-items: start;
   }
 
-  /* Shared play-button for programme detail embed */
+  /* Shared play-button for the click-to-play embed in expanded programme cards */
   .play-btn {
     background: var(--color-surface);
     border-color: var(--color-border-subtle);

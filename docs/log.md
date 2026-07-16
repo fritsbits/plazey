@@ -95,3 +95,27 @@ Sveltia CMS toegevoegd op plazey.be/admin zodat Lies het programma zelf kan behe
 - `SITE_PHASE` verhuisd van hardcoded in `site.ts` naar `phase.json` zodat het CMS erbij kan; build-time validatie toegevoegd.
 - Fixt en passant: detailpagina's toonden de ruwe type-waarde ("kermis") i.p.v. het vertaalde label.
 - Nog te doen door Frederik (buiten git): GitHub OAuth-app aanmaken, Netlify OAuth-provider instellen, Lies als collaborator uitnodigen.
+
+## [2026-07-16] update | Programma-detailpagina's vervangen door uitklapbare kaarten
+
+De act-detailpagina's (`/nl/programma/<slug>` + `/fr/programme/<slug>`) zijn geschrapt. Meting: 15 van 27 items hadden 0–27 woorden body, dus de klik leverde vrijwel niets op; ~10 items hebben echte bio's (58–300 woorden). Beslissing (Frederik, na visuele mock): alles op het overzicht, detailpagina's weg, tekst-only (geen foto-veld).
+
+- `ProgramCard.astro` heeft nu twee gedaantes: uitklapbare `<details>`-kaart ("Lees meer" / "Lire la suite", mosterd-pil met chevron) wanneer een item een markdown-body, embed of artist heeft; anders een statische kaart zonder knop of link. Geen doodlopende kliks meer.
+- De click-to-play embed (Spotify/SoundCloud) en de artist-credit verhuisden mee naar de uitgeklapte kaart; het CMS-veld `embedUrl` blijft dus werken.
+- Home-teaserkaarten zijn statisch geworden (de "bekijk programma"-knop eronder blijft de CTA).
+- `[slug].astro` (NL+FR) verwijderd; netlify.toml: splat-301's `/nl/programma/*` en `/fr/programme/*` naar het overzicht (verving ook de vijf oude FR-slug-redirects, die er nu toch zouden landen).
+- CMS-label bijgewerkt: "Lange tekst (detailpagina)" → "Lange tekst (klapt open op het kaartje)" + hint.
+- Opgeruimd: `.type-chip` uit global.css (alleen de detailpagina gebruikte hem).
+- Fix onderweg: curator-regel rendde zonder spatie ("gepresenteerd doorAfrodance") en de uitgeklapte body erfde de mosterd-tekstkleur van `.hero-green :where(p)`; beide verholpen in ProgramCard.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, browser-check NL+FR (uitklap, filters incl. URL-sync, mobiel 390px). Wireframe S3 is hiermee achterhaald; noot toegevoegd in [wiki/skeleton-per-pagina/s3-programma-item.md](wiki/skeleton-per-pagina/s3-programma-item.md).
+
+## [2026-07-16] update | Uitklap-kaarten vervangen door lightbox na feedback
+
+Feedback Frederik op de uitklap-versie: de mosterd-pil was te opvallend, en lange teksten (Kortfilms, 300 woorden) werden een onleesbaar hoge smalle kolom in het grid. Vervangen door een lightbox:
+
+- De hele kaart (of de rustige "Lees meer"-tekstlink met coral-onderstreping, in de `.btn-text`-grammatica) opent een native `<dialog>`: focus-trap, Esc en backdrop-klik gratis. Poster-paneel op leesbreedte (36rem), interne scroll, sticky sluitknop, dag · tijd · plek-metaregel in de kop.
+- Zonder JS toont een `<noscript>`-style in BaseLayout de dialooginhoud inline onder de kaart.
+- Gotcha: Tailwind v4-preflight zet `margin: 0` op alles en sloopt zo de native centrering van `<dialog>`; expliciete `margin: auto` herstelt dat (dialoog verscheen linksboven).
+
+Geverifieerd in de browser (desktop 1280 + mobiel 390): openen via kaart-klik én toetsenbord, Esc, backdrop-klik, interne scroll bij Kortfilms, 0 console errors, `astro check` 0 errors.

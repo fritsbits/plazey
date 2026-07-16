@@ -43,7 +43,7 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 **Components:** `src/components/`
 - `Header.astro` — sticky nav, mobile hamburger with focus trap + Escape-to-close, lang toggle
 - `Footer.astro` — 4 blocks: contact, social (Facebook only), org (De Platoo + De Zeyp), legal
-- `ProgramCard.astro` — card link used on Programma pages and Home teaser
+- `ProgramCard.astro` — programme card used on Programma pages and Home teaser. When the item has a markdown body (default slot), embed, or artist credit, the card opens a native `<dialog>` lightbox with the full act info; otherwise it's a static card. No detail pages — everything lives on the overview.
 - `Accordion.astro` — `<details>`/`<summary>` pattern, used for FAQ sections
 
 **Site config:** `src/config/site.ts` — exports `SITE_PHASE`, `FESTIVAL_YEAR`, `FESTIVAL_DATES_NL/FR`, `FESTIVAL_LOCATION`, `CONTACT_EMAIL`, `FACEBOOK_URL`. `SITE_PHASE` controls what renders and is read from `src/config/phase.json` (editable via the CMS — never hardcode the phase back into site.ts).
@@ -52,7 +52,7 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 
 **Programme filter (Programma pages):** client-side JS only. Radio buttons for day, checkboxes for type. Filters show/hide rendered HTML — no re-fetch. URL query params sync state for shareable links. `aria-live` region announces result count.
 
-**Programme detail pages:** `[slug].astro` with `getStaticPaths`. Click-to-play embed: lazy iframe loaded on button click (JS), `<noscript>` fallback link.
+**Programme act info:** no detail pages. The card (or its quiet "Lees meer" / "Lire la suite" button) opens a native `<dialog>` lightbox — focus trap, Esc, and backdrop-click close for free. Old `/programma/<slug>` URLs 301 to the overview (netlify.toml splat redirects). Without JS, a `<noscript>` style in BaseLayout shows the dialog content inline under the card. Click-to-play embed inside the lightbox: lazy iframe loaded on button click (JS), `<noscript>` fallback link.
 
 **Forms:** Contact, volunteer, and project-proposal forms use **Netlify Forms** (`data-netlify="true"`). No third-party form backend. Submissions are captured by Netlify and forwarded by email. Each form has a hidden `form-name` input and a client-side JS progressive-enhancement handler that POSTs with `fetch()` so the user stays on the page. The `<noscript>` path still submits natively.
 
@@ -67,7 +67,7 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 - `curator` (string, optional) — select in the CMS; free string in the schema
 - `genre` (string, optional)
 - `artist` (string, optional)
-- `description` (string, optional) — short card text; the markdown body is the detail-page text
+- `description` (string, optional) — short card text; the markdown body is the text that expands on the card
 - `embedUrl` (URL string, optional) — Spotify/SoundCloud, renders as click-to-play
 - `draft` (boolean, optional, default false)
 

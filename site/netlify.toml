@@ -36,28 +36,15 @@
   to = "/fr/benevole"
   status = 301
 
-# FR programme slugs were unified with NL filenames for single-entry CMS editing.
+# Programme detail pages were folded into the overview (expandable cards).
+# Old act links land on the overview; the overview index itself is a real
+# file, so Netlify serves it and only deeper paths match these splats.
 [[redirects]]
-  from = "/fr/programme/battle-de-danse"
-  to = "/fr/programme/dance-battle"
+  from = "/nl/programma/*"
+  to = "/nl/programma/"
   status = 301
 
 [[redirects]]
-  from = "/fr/programme/court-metrages"
-  to = "/fr/programme/kortfilms"
-  status = 301
-
-[[redirects]]
-  from = "/fr/programme/theatre-froefroe"
-  to = "/fr/programme/theater-froefroe"
-  status = 301
-
-[[redirects]]
-  from = "/fr/programme/arborescences-samedi"
-  to = "/fr/programme/arborescences-zaterdag"
-  status = 301
-
-[[redirects]]
-  from = "/fr/programme/arborescences-dimanche"
-  to = "/fr/programme/arborescences-zondag"
+  from = "/fr/programme/*"
+  to = "/fr/programme/"
   status = 301

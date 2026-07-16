@@ -96,7 +96,7 @@ collections:
       - { name: description, label: Korte tekst (kaartje), widget: text, i18n: true, required: false, hint: 'Eén of twee zinnen. Verschijnt op het programma-overzicht.' }
       - { name: embedUrl, label: Spotify- of SoundCloud-link, widget: string, i18n: duplicate, required: false, hint: 'Plak de volledige link. Bezoekers kunnen dan meteen luisteren.' }
       - { name: draft, label: Nog niet tonen op de site, widget: boolean, i18n: duplicate, required: false, default: false }
-      - { name: body, label: Lange tekst (detailpagina), widget: markdown, i18n: true, required: false }
+      - { name: body, label: Lange tekst, widget: markdown, i18n: true, required: false, hint: 'Bezoekers zien deze tekst als ze op "Lees meer" tikken op het programma-overzicht.' }
 
   - name: instellingen
     label: Site-instellingen

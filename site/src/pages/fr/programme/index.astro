@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import ProgramCard from '../../../components/ProgramCard.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { SITE_PHASE, FACEBOOK_URL } from '../../../config/site.ts';
 
 const allItems = await getCollection('programme');
@@ -14,6 +14,15 @@ const items = allItems
     if (dayDiff !== 0) return dayDiff;
     return a.data.startTime.localeCompare(b.data.startTime);
   });
+
+// Le corps markdown se déplie dans la carte. Les items sans corps (et sans
+// embed/artiste) restent des cartes statiques : aucun clic sans suite.
+const withContent = await Promise.all(
+  items.map(async item => ({
+    item,
+    Content: item.body?.trim() ? (await render(item)).Content : null,
+  }))
+);
 
 // On n'affiche que les filtres qui ont vraiment des items, pour qu'un filtre
 // ne puisse jamais donner un résultat vide. L'ordre suit ces listes.
@@ -98,28 +107,34 @@ const types = [
 
       <div id="programme-list">
         {days.map(day => {
-          const dayItems = items.filter(e => e.data.day === day.value);
+          const dayItems = withContent.filter(({ item }) => item.data.day === day.value);
           if (dayItems.length === 0) return null;
           return (
             <section data-day={day.value} aria-labelledby={`day-${day.value}`}>
               <h2 id={`day-${day.value}`} class="day-header">{day.label}</h2>
               <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {dayItems.map(item => {
+                {dayItems.map(({ item, Content }) => {
                   const cardProps = {
                     title: item.data.title,
                     startTime: item.data.startTime,
                     type: item.data.type,
-                    href: `/fr/programme/${item.id.replace('fr/', '')}`,
+                    dayLabel: day.label,
                     lang: 'fr' as const,
                     ...(item.data.stage && { stage: item.data.stage }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
                     ...(item.data.curator && { curator: item.data.curator }),
                     ...(item.data.genre && { subtitle: item.data.genre }),
                     ...(item.data.description && { description: item.data.description }),
+                    ...(item.data.artist && { artist: item.data.artist }),
+                    ...(item.data.embedUrl && { embedUrl: item.data.embedUrl }),
                   };
                   return (
                     <li data-type={item.data.type} data-day={item.data.day}>
-                      <ProgramCard {...cardProps} />
+                      {Content ? (
+                        <ProgramCard {...cardProps}><Content /></ProgramCard>
+                      ) : (
+                        <ProgramCard {...cardProps} />
+                      )}
                     </li>
                   );
                 })}

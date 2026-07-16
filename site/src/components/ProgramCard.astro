@@ -10,10 +10,12 @@ interface Props {
   curator?: string;
   subtitle?: string;
   description?: string;
-  href: string;
+  artist?: string;
+  embedUrl?: string;
+  dayLabel?: string;
   lang: 'nl' | 'fr';
 }
-const { title, startTime, endTime, type, stage, curator, subtitle, description, href, lang } = Astro.props;
+const { title, startTime, endTime, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
 // A time only shows once a real slot is confirmed (start + end). Until the
 // detailed schedule lands, items carry a placeholder start used only for sorting.
 const timeDisplay = endTime ? `${startTime}–${endTime}` : null;
@@ -23,22 +25,120 @@ const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;
 
 // "Presented by" credit — the curator is demoted to a quiet line; the gig is the hero.
 const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
+
+// The card opens a lightbox when there is anything beyond the card face: a
+// longer markdown body (default slot), a music embed, or an artist credit.
+// Cards without extra content stay static — no dead-end clicks.
+const hasMore = Astro.slots.has('default') || !!embedUrl || !!artist;
+
+const moreLabel = { nl: 'Lees meer', fr: 'Lire la suite' }[lang];
+const closeLabel = { nl: 'Sluiten', fr: 'Fermer' }[lang];
+const listenLabel = { nl: `Beluister ${title}`, fr: `Écouter ${title}` }[lang];
+const listenFallback = { nl: 'Beluister op het externe platform →', fr: 'Écouter sur la plateforme externe →' }[lang];
+const artistPrefix = { nl: 'Artiest', fr: 'Artiste' }[lang];
+
+// Meta line inside the lightbox: day · time · stage (only confirmed facts).
+const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
 ---
 
-<a href={href} class={`program-card type-${type}`}>
-  <span class="type-badge">{typeLabel}</span>
-  <h3 class="card-title">{title}</h3>
-  {subtitle && <p class="card-subtitle">{subtitle}</p>}
-  {curator && <p class="card-curator">{curatorPrefix} {curator}</p>}
-  {description && <p class="card-desc">{description}</p>}
-  {(timeDisplay || stageLabel) && (
-    <span class="card-meta">
-      {timeDisplay && <span class="meta-time">{timeDisplay}</span>}
-      {timeDisplay && stageLabel && <span class="meta-dot" aria-hidden="true">·</span>}
-      {stageLabel && <span class="meta-venue">{stageLabel}</span>}
-    </span>
-  )}
-</a>
+<div class={`program-card type-${type}`} data-has-dialog={hasMore ? '' : undefined}>
+  <div class="card-face">
+    <span class="type-badge">{typeLabel}</span>
+    <h3 class="card-title">{title}</h3>
+    {subtitle && <p class="card-subtitle">{subtitle}</p>}
+    {curator && <p class="card-curator">{`${curatorPrefix} ${curator}`}</p>}
+    {description && <p class="card-desc">{description}</p>}
+    {(timeDisplay || stageLabel) && (
+      <span class="card-meta">
+        {timeDisplay && <span class="meta-time">{timeDisplay}</span>}
+        {timeDisplay && stageLabel && <span class="meta-dot" aria-hidden="true">·</span>}
+        {stageLabel && <span class="meta-venue">{stageLabel}</span>}
+      </span>
+    )}
+    {hasMore && <button class="card-more" aria-haspopup="dialog">{moreLabel}</button>}
+  </div>
+</div>
+{hasMore && (
+  <dialog class="act-dialog" aria-label={title}>
+    <button class="act-close" aria-label={closeLabel}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>
+    </button>
+    <div class="act-header">
+      <span class={`type-badge type-badge-dialog type-${type}`}>{typeLabel}</span>
+      <h3 class="act-title">{title}</h3>
+      {subtitle && <p class="act-subtitle">{subtitle}</p>}
+      {dialogMeta.length > 0 && (
+        <p class="act-meta">
+          {dialogMeta.map((part, i) => (
+            <>
+              {i > 0 && <span class="meta-dot" aria-hidden="true">·</span>}
+              <span>{part}</span>
+            </>
+          ))}
+        </p>
+      )}
+      {curator && <p class="act-curator">{`${curatorPrefix} ${curator}`}</p>}
+    </div>
+    <div class="act-body">
+      <slot />
+      {embedUrl && (
+        <div class="embed-wrapper mt-4" data-src={embedUrl} data-title={title}>
+          <button class="play-btn w-full border py-8 flex items-center justify-center gap-2" aria-label={listenLabel}>
+            <svg class="icon icon-md" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            {listenLabel}
+          </button>
+          <noscript>
+            <a href={embedUrl} rel="external noopener" target="_blank">{listenFallback}</a>
+          </noscript>
+        </div>
+      )}
+      {artist && <p class="act-credits">{artistPrefix}: {artist}.</p>}
+    </div>
+  </dialog>
+)}
+
+<script>
+  // Lightbox: the whole card (and its quiet "Lees meer" button) opens the
+  // adjacent <dialog>. Native showModal gives focus trap, Esc and backdrop;
+  // a click on the backdrop closes too. stopPropagation inside the dialog
+  // keeps the closing click from bubbling to the card and reopening it.
+  document.querySelectorAll<HTMLDialogElement>('dialog.act-dialog').forEach(dialog => {
+    const card = dialog.previousElementSibling as HTMLElement | null;
+    if (!card?.matches('.program-card[data-has-dialog]')) return;
+
+    card.addEventListener('click', () => {
+      if (!dialog.open) dialog.showModal();
+    });
+    dialog.addEventListener('click', e => {
+      e.stopPropagation();
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.querySelector('.act-close')?.addEventListener('click', () => dialog.close());
+  });
+
+  // Click-to-play embed: the iframe only loads after an explicit tap, so no
+  // external scripts run on page load. Multiple cards can carry an embed.
+  document.querySelectorAll<HTMLElement>('.embed-wrapper').forEach(wrapper => {
+    const btn = wrapper.querySelector<HTMLButtonElement>('.play-btn');
+    const src = wrapper.dataset.src;
+    const title = wrapper.dataset.title;
+    btn?.addEventListener('click', e => {
+      e.stopPropagation();
+      const iframe = document.createElement('iframe');
+      iframe.src = src!;
+      iframe.title = title || 'Media embed';
+      iframe.allow = 'autoplay';
+      iframe.width = '100%';
+      iframe.height = '152';
+      wrapper.replaceWith(iframe);
+    });
+  });
+</script>
 
 <style>
   /* A self-contained poster card: lives on the green programme/teaser ground but
@@ -46,30 +146,180 @@ const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
      cascade can't bleed in (the old cream-on-cream title + yellow description bug).
      Class selectors here beat the section's zero-specificity :where() rules. */
   .program-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.05rem 1.15rem 1.15rem;
+    display: block;
     background: var(--color-surface);
     border: 2.5px solid var(--color-text);
     border-radius: var(--radius);
     box-shadow: 4px 4px 0 var(--color-text);
-    text-decoration: none;
+  }
+  .card-face {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.05rem 1.15rem 1.15rem;
+  }
+
+  /* Cards with a lightbox behave like the links they used to be: pointer cursor
+     and the poster lift on hover. Static cards don't move. */
+  .program-card[data-has-dialog] {
+    cursor: pointer;
     transition: transform 0.14s ease, box-shadow 0.14s ease;
   }
-  .program-card:hover {
+  .program-card[data-has-dialog]:hover {
     transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0 var(--color-text);
-    text-decoration: none;
   }
-  .program-card:active {
+  .program-card[data-has-dialog]:active {
     transform: translate(0, 0);
     box-shadow: 2px 2px 0 var(--color-text);
     transition-duration: 0.05s;
   }
   @media (prefers-reduced-motion: reduce) {
-    .program-card:hover,
-    .program-card:active { transform: none; }
+    .program-card[data-has-dialog]:hover,
+    .program-card[data-has-dialog]:active { transform: none; }
+  }
+
+  /* Quiet "Lees meer" — an underlined text button in the card's own ramp, same
+     grammar as .btn-text. The card title stays the loudest thing on the card. */
+  .card-more {
+    margin-top: 0.45rem;
+    align-self: flex-start;
+    background: none;
+    border: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--color-coral);
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .card-more:hover {
+    color: var(--color-hover);
+    text-decoration-color: var(--color-text);
+  }
+
+  /* Lightbox — a poster panel in the top layer. Reading measure, internal
+     scroll for long texts (the kortfilms case), ink-dimmed park behind it. */
+  dialog.act-dialog {
+    /* Tailwind's preflight zeroes every margin, which kills the UA's native
+       dialog centering — restore it explicitly. */
+    margin: auto;
+    width: min(92vw, 36rem);
+    max-height: min(85dvh, 85vh);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 2.5px solid var(--color-text);
+    border-radius: var(--radius);
+    box-shadow: 8px 8px 0 var(--color-text);
+    padding: 1.4rem 1.5rem 1.6rem;
+    overscroll-behavior: contain;
+  }
+  dialog.act-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    animation: act-dialog-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  dialog.act-dialog::backdrop {
+    background: rgb(31 29 26 / 0.55);
+  }
+  @keyframes act-dialog-pop {
+    from { opacity: 0; transform: translateY(0.6rem) scale(0.98); }
+  }
+  /* Lock the page behind an open lightbox. */
+  :global(body:has(dialog.act-dialog[open])) { overflow: hidden; }
+
+  /* Close button rides along on top of the scrolling content. */
+  .act-close {
+    position: sticky;
+    top: 0;
+    align-self: flex-end;
+    flex-shrink: 0;
+    z-index: 1;
+    margin-bottom: -2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: var(--color-surface);
+    border: 2px solid var(--color-text);
+    border-radius: 9999px;
+    box-shadow: 2px 2px 0 var(--color-text);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  .act-close:hover { background: var(--color-mustard); }
+  .act-close svg { width: 1rem; height: 1rem; }
+
+  .act-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-right: 3rem;
+  }
+  .act-title {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+  .act-subtitle {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+  }
+  .act-meta {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .act-curator {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--color-text-faint);
+  }
+
+  /* Dialog body — the slotted markdown needs its own ink ramp: the green
+     programme ground paints `.hero-green :where(p)` mustard and `:where(a)`
+     cream, and inherited colour loses to those direct selectors. */
+  .act-body {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px dashed var(--color-border);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .act-body :global(p) { color: var(--color-text-muted); }
+  .act-body :global(a) { color: var(--color-text); }
+  .act-body :global(a:hover) { color: var(--color-hover); }
+  .act-body :global(strong) { color: var(--color-text); }
+  .act-credits {
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-faint);
   }
 
   /* Type badge — soft per-type accent tint with dark ink text, sized well below
@@ -147,5 +397,6 @@ const curatorPrefix = { nl: 'gepresenteerd door', fr: 'présenté par' }[lang];
     color: var(--color-text-faint);
     font-variant-numeric: tabular-nums;
   }
-  .program-card .meta-dot { opacity: 0.7; }
+  .program-card .meta-dot,
+  .act-meta .meta-dot { opacity: 0.7; }
 </style>
