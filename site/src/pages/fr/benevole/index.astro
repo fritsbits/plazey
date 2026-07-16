@@ -228,7 +228,7 @@ const faqItems = [
           setTimeout(() => {
             aside.innerHTML = `<div class="max-w-4xl mx-auto px-4 sm:px-6"><div class="contact-success" role="status" tabindex="-1"><svg class="contact-success-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg><p class="contact-success-heading">Ton inscription<br>est reçue.</p></div></div>`;
             aside.classList.remove('contact-leaving');
-            aside.querySelector('[role="status"]')?.focus();
+            aside.querySelector<HTMLElement>('[role="status"]')?.focus();
           }, 280);
         } else {
           throw new Error('server error');
