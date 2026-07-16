@@ -57,7 +57,7 @@ collections:
         widget: string
         i18n: duplicate
         required: false
-        pattern: ['^([01][0-9]|2[0-3]):[0-5][0-9]$', 'Gebruik het formaat UU:MM, bijvoorbeeld 17:30']
+        pattern: ['^$|^([01][0-9]|2[0-3]):[0-5][0-9]$', 'Gebruik het formaat UU:MM, bijvoorbeeld 17:30']
         hint: 'Mag leeg blijven'
       - name: stage
         label: Plek of podium

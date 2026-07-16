@@ -24,6 +24,10 @@ Publicatie is direct (geen review-stap): een fout is één git-revert verwijderd
 - **`stage` en `curator` zijn selects** — voorkomt spellingsvarianten. `stage` slaat een neutrale waarde op (bv. `tentoonstelling`) die per taal vertaald wordt in `site/src/config/programme-labels.ts` (zelfde patroon als `type`). Nieuwe optie toevoegen = Frederik past `config.yml` + `programme-labels.ts` + `content.config.ts` aan.
 - **Directe publicatie** — geen editorial workflow/PR-review; dat zou Frederik opnieuw tot bottleneck maken.
 
+## Hulp voor Lies
+
+Cheat sheet (NL, printbaar): **plazey.be/admin/hulp/** — bron: `site/public/admin/hulp/index.html`. Inloggen, item aanpassen/toevoegen, draft-veld, fase omzetten, wat te doen bij fouten.
+
 ## Onderhoud
 
 - Nieuwe plek/podium of curator: opties toevoegen in `site/public/admin/config.yml` (en voor stage ook `programme-labels.ts` + het enum in `content.config.ts`).
