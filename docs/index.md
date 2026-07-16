@@ -33,8 +33,14 @@
 - [5. Doe mee / Participe](wiki/website-copy/5-doe-mee.md) — Vrijwilligersrol, project voorstellen, FAQ
 - [6. Global UI & 404](wiki/website-copy/6-global-ui-404.md) — Nav labels, footer, 404, empty states, seizoensbanner
 
+### Content-intake
+- [Content-intake status](wiki/content-intake-status.md) — Tracker: welke contentbatches zijn binnen, wat is verwerkt op de site, open vragen. Workflow voor nieuwe/geüpdatete docs.
+
 ## Raw sources
 
+- [Basiswebsite (batch 1, 2026-07-16)](raw/2026-07-16-basiswebsite.md) — Prijslijst, openingsuren, gehoor, derde organisatorenblok
+- [Plazey pro (batch 1, 2026-07-16)](raw/2026-07-16-plazey-pro.md) — Programmateksten vrijdag/zaterdag/zondag met uren voor vrijdag
+- [Randactiviteiten (batch 1, 2026-07-16)](raw/2026-07-16-randactiviteiten.md) — Overzichtstabel randactiviteiten, teksten volgen nog
 - [Voorbereidingsvergadering 2026-04-10](raw/vergadering-2026-04-10.md) — Meeting transcript (22 min recording)
 - [Referenties](raw/referenties.md) — Bruzz interview Lies Van Overschée (aug 2023)
 - [Visual inspiration](raw/visual-inspiration.md) — 2 reference images

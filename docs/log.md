@@ -44,3 +44,13 @@ Summary of placeholders (8 total):
 Key findings:
 - Well covered: atmosphere/crowd, music performance, kids activities, food, volunteers, park establishing shots
 - Gaps: evening/dusk shots (only 1), toegankelijkheid (meaningful shots missing), main stage from audience POV, behind-the-scenes/setup, organiser portraits, landscape-oriented crops for hero slots
+
+## [2026-07-16] ingest | Contentbatch 1 van de organisatie (3 Word-docs)
+
+Drie docx-bestanden ontvangen en geïngest naar `raw/` met provenance-headers (datum + sha256, zodat een geüpdatete versie van hetzelfde doc detecteerbaar is):
+
+- `2026-07-16-basiswebsite.md` — prijslijst, openingsuren (vr 14u-24u, za/zo 14u-22u), gehoor = enkel oordopjes, vraag om derde organisatorenblok (De Zeyp, De Platoo, Vaartkapoen)
+- `2026-07-16-plazey-pro.md` — programmateksten podium: vrijdag met uren, za/zo zonder uren
+- `2026-07-16-randactiviteiten.md` — grotendeels lege tabel; promoteksten en foto's volgen in een latere batch
+
+Nieuw: `wiki/content-intake-status.md` — tracker per content-item (bron → site-target → status) + workflow voor volgende batches en geüpdatete docs. Site-updates toegepast in dezelfde sessie (programme-entries, praktisch, over-plazey, NL+FR).

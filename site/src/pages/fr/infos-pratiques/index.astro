@@ -12,7 +12,7 @@ const faqItems = [
   { question: 'Plazey est-il vraiment gratuit ?', answer: "Oui. Pas de tickets, pas d'entrée payante. Plazey est gratuit pour tout le monde, depuis 1992." },
   { question: 'Puis-je apporter ma propre nourriture et boisson ?', answer: "Oui. Nourriture et boissons personnelles sont toujours les bienvenues. L'eau du robinet est gratuite au bar." },
   { question: 'Y a-t-il un vestiaire ou une consigne ?', answer: 'Non. Viens avec le moins de bagages possible.' },
-  { question: 'À quelle heure commence et se termine le festival ?', answer: 'Le vendredi, ça commence à 19h30. On confirme les horaires du samedi et dimanche plus tard.' },
+  { question: 'À quelle heure commence et se termine le festival ?', answer: 'Le vendredi de 14h à minuit. Le samedi et le dimanche de 14h à 22h.' },
   { question: "Et s'il pleut ?", answer: "Plazey a toujours lieu, même sous la pluie. Le parc a des espaces couverts. Prends un imperméable par précaution." },
   { question: 'Puis-je y venir en fauteuil roulant ou avec une poussette ?', answer: 'Oui. Les allées principales sont planes et accessibles aux fauteuils roulants et poussettes. Tous les petits chemins ne le sont pas.' },
 ];
@@ -141,13 +141,36 @@ const faqItems = [
           <h2 id="heading-manger" class="h2-display"><span class="underline-mustard">Apporte ton pique-nique,</span> ou achète au bar</h2>
 
           <div class="eten-menu">
+            <h3 class="drinks-group">Softs</h3>
             <ul class="drinks-list">
-              <li><span class="drink">Eau du robinet</span><span class="dots" aria-hidden="true"></span><span class="price">gratuit</span></li>
-              <li><span class="drink">Eau pétillante</span><span class="dots" aria-hidden="true"></span><span class="price">€ 1</span></li>
-              <li><span class="drink">Soft</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
-              <li><span class="drink">Bière</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Vin</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Café</span><span class="dots" aria-hidden="true"></span><span class="price" data-pending="true">à confirmer</span></li>
+              <li><span class="drink">Eau plate</span><span class="dots" aria-hidden="true"></span><span class="price">gratuit</span></li>
+              <li><span class="drink">Eau pétillante</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
+              <li><span class="drink">Ritchie Cola</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Ritchie Cola Zero</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Ritchie Lemonade</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Jus d'orange</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Jus de pomme</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+            </ul>
+            <h3 class="drinks-group">Bières</h3>
+            <ul class="drinks-list">
+              <li><span class="drink">Zennepils 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Zinnebir 5,8%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Estaminet pils 0,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Pico Bello IPA 0,3%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Vandekelder Saison 5,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Vandekelder Cuvée 6,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Chaotique American IPA 6,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Koekelbeer Pale Ale 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Bodacious Lemon-lime Sour 4,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+            </ul>
+            <h3 class="drinks-group">Vins &amp; bulles</h3>
+            <ul class="drinks-list">
+              <li><span class="drink">Vin blanc ou rouge, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Vin blanc ou rouge, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 20</span></li>
+              <li><span class="drink">Cava, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
+              <li><span class="drink">Cava, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
+              <li><span class="drink">Mousseux Vendôme 0%, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
+              <li><span class="drink">Mousseux Vendôme 0%, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
             </ul>
           </div>
 
@@ -177,9 +200,8 @@ const faqItems = [
               Audition
             </span>
             <ul>
-              <li><strong>Appareil CM1 :</strong> à l'infostand. Connexion directe avec la sonorisation.</li>
-              <li><strong>Interprète LSFB :</strong> dimanche de 15h à 19h.</li>
               <li><strong>Bouchons d'oreilles :</strong> disponibles à l'infostand.</li>
+              <li>D'autres questions sur l'audition ? <a href="#contact" data-topic="accessibilite">Pose ta question</a>, on cherche la réponse pour toi.</li>
             </ul>
           </div>
 

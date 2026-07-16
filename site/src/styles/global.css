@@ -1780,6 +1780,17 @@
     font-size: 0.95rem;
     font-weight: 600;
   }
+  /* Group label above a drinks-list segment (Fris / Bier / Wijn & bubbels) */
+  .drinks-group {
+    margin: 1.75rem 0 0;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+  }
+  .drinks-group:first-child { margin-top: 0; }
 
   /* Inline notice — plain prose, no panel. */
   .callout-inline {

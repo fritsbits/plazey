@@ -12,7 +12,7 @@ const faqItems = [
   { question: 'Is Plazey echt gratis?', answer: 'Ja. Geen tickets, geen toegangsprijs. Plazey is gratis voor iedereen, al sinds 1992.' },
   { question: 'Mag ik mijn eigen eten en drinken meebrengen?', answer: 'Ja. Eigen eten en drinken zijn altijd welkom. Kraantjeswater haal je gratis aan de bar.' },
   { question: 'Is er een cloakroom of bagageruimte?', answer: 'Nee. Kom met zo weinig bagage als mogelijk.' },
-  { question: 'Hoe laat begint en eindigt het festival?', answer: 'Vrijdag start om 19:30. De uren voor zaterdag en zondag bevestigen we later.' },
+  { question: 'Hoe laat begint en eindigt het festival?', answer: 'Vrijdag van 14:00 tot middernacht. Zaterdag en zondag van 14:00 tot 22:00.' },
   { question: 'Wat als het regent?', answer: 'Plazey gaat altijd door, ook als het regent. Het park heeft overdekte plekken. Neem een regenjas mee voor de zekerheid.' },
   { question: 'Kan ik er met een rolstoel of kinderwagen naartoe?', answer: 'Ja. De hoofdpaden zijn vlak en toegankelijk voor rolstoelen en wandelwagens. Niet alle kleinere paden zijn toegankelijk.' },
 ];
@@ -141,13 +141,36 @@ const faqItems = [
           <h2 id="heading-eten" class="h2-display"><span class="underline-mustard">Breng je eigen picknick,</span> of koop aan de bar</h2>
 
           <div class="eten-menu">
+            <h3 class="drinks-group">Fris</h3>
             <ul class="drinks-list">
-              <li><span class="drink">Kraantjeswater</span><span class="dots" aria-hidden="true"></span><span class="price">gratis</span></li>
-              <li><span class="drink">Spuitwater</span><span class="dots" aria-hidden="true"></span><span class="price">€ 1</span></li>
-              <li><span class="drink">Frisdrank</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
-              <li><span class="drink">Pintje</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Wijn</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Koffie</span><span class="dots" aria-hidden="true"></span><span class="price" data-pending="true">nog te bevestigen</span></li>
+              <li><span class="drink">Plat water</span><span class="dots" aria-hidden="true"></span><span class="price">gratis</span></li>
+              <li><span class="drink">Bruisend water</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
+              <li><span class="drink">Ritchie Cola</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Ritchie Cola Zero</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Ritchie Lemonade</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Sinaasappelsap</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Appelsap</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+            </ul>
+            <h3 class="drinks-group">Bier</h3>
+            <ul class="drinks-list">
+              <li><span class="drink">Zennepils 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Zinnebir 5,8%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Estaminet pils 0,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Pico Bello IPA 0,3%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Vandekelder Saison 5,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Vandekelder Cuvée 6,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Chaotique American IPA 6,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Koekelbeer Pale Ale 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Bodacious Lemon-lime Sour 4,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+            </ul>
+            <h3 class="drinks-group">Wijn &amp; bubbels</h3>
+            <ul class="drinks-list">
+              <li><span class="drink">Witte of rode wijn, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
+              <li><span class="drink">Witte of rode wijn, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 20</span></li>
+              <li><span class="drink">Cava, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
+              <li><span class="drink">Cava, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
+              <li><span class="drink">Vendôme schuimwijn 0%, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
+              <li><span class="drink">Vendôme schuimwijn 0%, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
             </ul>
           </div>
 
@@ -177,9 +200,8 @@ const faqItems = [
               Gehoor
             </span>
             <ul>
-              <li><strong>CM1-toestel:</strong> aan de infostand. Maakt rechtstreeks verbinding met de geluidsinstallatie.</li>
-              <li><strong>Tolk Vlaamse Gebarentaal:</strong> zondag van 15:00 tot 19:00.</li>
               <li><strong>Oordopjes:</strong> te verkrijgen aan de infostand.</li>
+              <li>Andere vragen over gehoor? <a href="#contact" data-topic="toegankelijkheid">Stel je vraag</a>, we zoeken het voor je uit.</li>
             </ul>
           </div>
 
