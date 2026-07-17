@@ -119,3 +119,11 @@ Feedback Frederik op de uitklap-versie: de mosterd-pil was te opvallend, en lang
 - Gotcha: Tailwind v4-preflight zet `margin: 0` op alles en sloopt zo de native centrering van `<dialog>`; expliciete `margin: auto` herstelt dat (dialoog verscheen linksboven).
 
 Geverifieerd in de browser (desktop 1280 + mobiel 390): openen via kaart-klik én toetsenbord, Esc, backdrop-klik, interne scroll bij Kortfilms, 0 console errors, `astro check` 0 errors.
+
+## [2026-07-17] query | Extern onderzoek naar aanvulbare programma-info
+
+Onderzocht (3 parallelle agents: officiële kanalen, 3XXL-acts, overige acts + Gmail) wat er publiek verifieerbaar toe te voegen is aan de magere programma-items. Resultaat in [wiki/programma-onderzoek-extern-2026-07.md](wiki/programma-onderzoek-extern-2026-07.md). Kort: uren za/zo bestaan nog niet (Lies, mail 22/06: "die puzzel wordt pas eind juli gemaakt"); de officiële affiche staat op deplatoo.be met vrijdag-uren en één ontbrekende act (Apéro literair door Boekelberg); sterke bio-bronnen gevonden voor FroeFroe (Pretpakket 2.0, kalender-match 30/08 De Platoo), Arborescences, STRUK, Dance Orientation, Flemish Primitives en Jennifur; TROY/Neeya/KZ/Les Choux de Bruxelles waarschijnlijk maar onbevestigd; 3XXL, Karsten Quix en Afrodance-curator online onvindbaar → vragen aan Lies. Nog geen sitewijzigingen doorgevoerd.
+
+## [2026-07-17] update | Onderzochte bio's toegepast op 12 programma-items + nieuw item Apéro literair
+
+Vervolg op het externe onderzoek (zie vorige entry): bio's toegevoegd (NL+FR, description + body) voor Theater FroeFroe (Pretpakket 2.0), Arborescences ×2, Fête Foraine/STRUK, Dance Orientation (nu vrijdag 15:00, van de affiche), The Flemish Primitives, Jennifur, en, onder voorbehoud van bevestiging door Lies, TROY, Neeya, KZ en Les Choux de Bruxelles. Nieuw item `apero-literair.md` (zondag, off-stage, curator Boekelberg, enkel kaarttekst) van de officiële affiche; "Boekelberg" toegevoegd aan de curator-select in `public/admin/config.yml`. KZ-frontmatter opgeschoond (lege velden + placeholder-description weg). Statustracker en open vragen (nu 13) bijgewerkt in [wiki/content-intake-status.md](wiki/content-intake-status.md). Conceptmail met alle vragen voor Lies als Gmail-draft klaargezet. Geverifieerd: `astro check` 0 errors, build 17 pagina's.

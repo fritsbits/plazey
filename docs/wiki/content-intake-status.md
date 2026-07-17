@@ -52,15 +52,33 @@ Tracker voor de contentbatches die de organisatie aanlevert (Word-docs). Eén ri
 |---|---|---|
 | Alle randactiviteiten (sumo, springkasteel, kubb, spikeball, pannakooi, air badminton, kan jam, ninja run, Vormidable, Magico magico, Bamboeland, bijoux, vliegeren, boogschieten) | nog geen entries aangemaakt | ⏳ wacht: doc bevat enkel uren voor 8 slots, geen promoteksten ("van vorig jaar") en geen foto's |
 
+### Eigen onderzoek (2026-07-17) → Programma
+
+Zie [programma-onderzoek-extern-2026-07](programma-onderzoek-extern-2026-07.md) voor bronnen en zekerheid per item.
+
+| Item | Site-target | Status |
+|---|---|---|
+| Bio's FroeFroe (Pretpakket 2.0), Arborescences, STRUK, Dance Orientation, Flemish Primitives, Jennifur | 6 entries × NL/FR | ✅ toegepast (sterke bron) |
+| Bio's TROY, Neeya, KZ, Les Choux de Bruxelles | 4 entries × NL/FR | ✅ toegepast, ⏳ identificatie bevestigen bij Lies |
+| Nieuw item Apéro literair (Boekelberg, zondag) van de affiche | `programme/*/apero-literair.md` + curator-optie in CMS | ✅ aangemaakt (enkel titel + kaarttekst) |
+| Dance Orientation vrijdag 15u (affiche deplatoo.be) | `dance-orientation.md` | ✅ toegepast |
+| Karsten Quix, curator Afrodance, 3XXL-beschrijving | — | ❌ niets vindbaar, aan Lies gevraagd |
+
 ## Open vragen voor de organisatie
 
-1. **Curator zaterdagavond:** het doc zegt "3XXL presenteert", de site had "BiZa". Nu overal 3XXL. Klopt dat?
-2. **Uren zaterdag en zondag** (podium-acts) ontbreken nog.
+1. **Curator zaterdagavond:** het doc zegt "3XXL presenteert", de site had "BiZa". Nu overal 3XXL. Klopt dat? Online is over 3XXL niets te vinden (het Biza Collectief/@bizanders wél). Spelling + één zin beschrijving gevraagd.
+2. **Uren zaterdag en zondag** (podium-acts) ontbreken nog. Lies (mail 22/06): urenpuzzel wordt pas eind juli gemaakt.
 3. **Koffie** staat niet op de nieuwe prijslijst; van de site gehaald. Komt er koffie?
 4. **Randactiviteiten:** promoteksten "van vorig jaar" en foto's "in de map" zijn nog niet aangeleverd.
 5. **Maya Teklal:** FR- en ENG-bio aangekondigd in het doc, alleen NL zat erin. FR is nu een eigen vertaling.
 6. **Kinderkoptelefoons** (praktisch § kinderen): nog steeds vermeld, maar het gehoor-lijstje is teruggebracht tot enkel oordopjes. Bevestigen of koptelefoons er zijn.
 7. **Vrijdag 19u30:** de oude FAQ zei dat vrijdag om 19:30 begint; het nieuwe doc zegt 14u-middernacht. 14u aangehouden (matcht Julo's Jukebox om 14u).
+8. **Wawasda vrijdag:** affiche zegt 19u, plazey-pro.docx zegt 18u-20u30. Doc (recenter) aangehouden.
+9. **Dag-uren:** doc zegt vr 14-24u, za/zo 14-22u; deplatoo.be/dezeyp.be-eventpagina's zeggen alle dagen 14u-23u30. Doc aangehouden.
+10. **Identificaties bevestigen:** TROY (De Nieuwe Lichting 2026), Neeya (vi.be), K.Z (vi.be), Les Choux de Bruxelles (koor ARA vzw), FroeFroe = Pretpakket 2.0.
+11. **Karsten Quix:** geen bio vindbaar (enkel @karstenquixmusic op Instagram). Bio of link gevraagd.
+12. **Afrodance:** wie is de curator van de dance battle? Niet verifieerbaar online.
+13. **Apéro literair (Boekelberg):** stond op de affiche maar niet in de docs. Uur en korte tekst gevraagd.
 
 ## Conventies
 

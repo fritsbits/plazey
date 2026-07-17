@@ -36,6 +36,7 @@
 
 ### Content-intake
 - [Content-intake status](wiki/content-intake-status.md) — Tracker: welke contentbatches zijn binnen, wat is verwerkt op de site, open vragen. Workflow voor nieuwe/geüpdatete docs.
+- [Extern programma-onderzoek juli 2026](wiki/programma-onderzoek-extern-2026-07.md) — Per act: publiek verifieerbare bio's + bronnen, affiche-info van deplatoo.be, conflicten, wat veilig kan en wat aan Lies te vragen.
 
 ## Raw sources
 
