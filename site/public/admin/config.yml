@@ -116,3 +116,9 @@ collections:
               - { label: 'Reveal (programma zichtbaar)', value: reveal }
               - { label: 'Live (festivalweekend)', value: live }
               - { label: 'Aftermovie (na het festival)', value: aftermovie }
+          - name: showActTimes
+            label: Uren tonen bij de acts
+            widget: boolean
+            required: false
+            default: false
+            hint: 'Uit tot het uurrooster definitief is. Een act toont pas een uur als er een begin- én einduur is ingevuld.'

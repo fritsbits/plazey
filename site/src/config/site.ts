@@ -8,6 +8,10 @@ if (!PHASES.includes(phaseData.phase as Phase)) {
   throw new Error(`Invalid phase "${phaseData.phase}" in src/config/phase.json. Valid: ${PHASES.join(', ')}`);
 }
 export const SITE_PHASE: Phase = phaseData.phase as Phase;
+// Whether act times show on the programme. Off until the schedule is cleared to
+// go public; the beheer-CMS (/admin) toggles it. A time only shows for an act
+// once it has both a start and end time.
+export const SHOW_ACT_TIMES: boolean = phaseData.showActTimes === true;
 export const FESTIVAL_YEAR = 2026;
 export const FESTIVAL_DATES_NL = '28–30 augustus 2026';
 export const FESTIVAL_DATES_FR = '28–30 août 2026';

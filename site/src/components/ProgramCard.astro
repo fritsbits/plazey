@@ -1,5 +1,6 @@
 ---
 import { typeLabels, stageLabels } from '../config/programme-labels';
+import { SHOW_ACT_TIMES } from '../config/site';
 
 interface Props {
   title: string;
@@ -16,9 +17,10 @@ interface Props {
   lang: 'nl' | 'fr';
 }
 const { title, startTime, endTime, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
-// A time only shows once a real slot is confirmed (start + end). Until the
-// detailed schedule lands, items carry a placeholder start used only for sorting.
-const timeDisplay = endTime ? `${startTime}–${endTime}` : null;
+// Act times stay hidden until the beheer-CMS toggles them on (SHOW_ACT_TIMES).
+// Items carry a startTime used only for sorting. Once times are on, a time
+// shows for an act as soon as it has a confirmed slot (start + end).
+const timeDisplay = SHOW_ACT_TIMES && endTime ? `${startTime}–${endTime}` : null;
 
 const typeLabel = typeLabels[lang][type] ?? type;
 const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;

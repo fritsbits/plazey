@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import ProgramCard from '../../../components/ProgramCard.astro';
 import { getCollection, render } from 'astro:content';
-import { SITE_PHASE, FACEBOOK_URL } from '../../../config/site.ts';
+import { SITE_PHASE, SHOW_ACT_TIMES, FACEBOOK_URL } from '../../../config/site.ts';
 
 const allItems = await getCollection('programme');
 const items = allItems
@@ -61,7 +61,7 @@ const types = [
       ) : (
         <>
           <p>28–30 augustus 2026. Alles is gratis.</p>
-          <p class="text-meta">Het uurrooster per act volgt binnenkort.</p>
+          {!SHOW_ACT_TIMES && <p class="text-meta">Het uurrooster per act volgt binnenkort.</p>}
 
           {SITE_PHASE === 'aftermovie' && (
             <div role="note" class="season-banner my-4 p-4 image-rounded" style="background: var(--color-surface-muted);">
