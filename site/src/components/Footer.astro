@@ -11,6 +11,7 @@ const isNL = lang === 'nl';
 
 <footer class="site-footer">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 text-sm">
+    <p class="footer-wordmark" aria-hidden="true">Plazey</p>
     <div class="pt-4 text-sm flex justify-between items-center">
       <div>
         <a href="/nl" lang="nl" aria-current={lang === 'nl' ? 'true' : undefined}>NL</a>
@@ -31,20 +32,36 @@ const isNL = lang === 'nl';
 
 <style>
   .site-footer {
-    background: var(--color-text);
-    color: var(--color-surface);
-    border-top: 3px solid var(--color-text);
+    background: var(--color-green);
+    color: var(--color-cream);
+    border-top: 1px solid color-mix(in oklab, var(--color-cream), transparent 80%);
+    border-bottom: 3px solid var(--color-text);
+  }
+  .footer-wordmark {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-cream);
+    margin: 0 0 0.75rem;
+    transform: rotate(-1deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .footer-wordmark { transform: none; }
   }
   .site-footer a {
-    color: var(--color-surface);
+    color: var(--color-cream);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
   .site-footer a:hover {
-    color: var(--color-mustard);
+    color: var(--color-yellow);
   }
   .site-footer a[aria-current="true"] {
-    color: var(--color-mustard);
-    font-weight: 600;
+    background: var(--color-yellow);
+    color: var(--color-maroon);
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    padding: 2px 10px;
+    text-decoration: none;
   }
 </style>

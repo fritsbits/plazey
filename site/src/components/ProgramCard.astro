@@ -150,8 +150,9 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
   .program-card {
     display: block;
     background: var(--color-surface);
-    border: 2.5px solid var(--color-text);
-    border-radius: var(--radius);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-maroon);
     box-shadow: 4px 4px 0 var(--color-text);
   }
   .card-face {
@@ -196,7 +197,7 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
     color: var(--color-text);
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: var(--color-coral);
+    text-decoration-color: var(--color-orange);
     text-underline-offset: 3px;
     cursor: pointer;
   }
@@ -256,7 +257,7 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
     color: var(--color-text);
     cursor: pointer;
   }
-  .act-close:hover { background: var(--color-mustard); }
+  .act-close:hover { background: var(--color-yellow); }
   .act-close svg { width: 1rem; height: 1rem; }
 
   .act-header {
@@ -338,19 +339,18 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
     line-height: 1;
     padding: 0.3rem 0.6rem;
     border-radius: 9999px;
-    background: color-mix(in oklab, var(--badge, var(--color-border)), var(--color-surface) 64%);
-    border: 1.5px solid color-mix(in oklab, var(--badge, var(--color-border)), var(--color-text) 20%);
+    background: color-mix(in oklab, var(--badge, var(--color-yellow)), var(--color-surface) 64%);
+    border: 1.5px solid color-mix(in oklab, var(--badge, var(--color-yellow)), var(--color-text) 20%);
     color: var(--color-text);
   }
-  .type-concert   { --badge: var(--color-coral); }
-  .type-dans      { --badge: var(--color-blush); }
-  .type-film      { --badge: var(--color-slate-blue); }
-  .type-workshop  { --badge: var(--color-mustard); }
-  .type-kids      { --badge: var(--color-green); }
-  .type-expo      { --badge: color-mix(in oklab, var(--color-slate-blue), var(--color-green) 55%); }
-  .type-theater   { --badge: color-mix(in oklab, var(--color-coral), var(--color-mustard) 50%); }
-  .type-kermis    { --badge: color-mix(in oklab, var(--color-mustard), var(--color-coral) 35%); }
-  .type-off-stage { --badge: var(--color-border); }
+  .type-concert   { --badge: var(--color-maroon); }
+  .type-dans      { --badge: var(--color-green); }
+  .type-film      { --badge: var(--color-sage); }
+  .type-kids      { --badge: var(--color-pink); }
+  .type-expo      { --badge: var(--color-sage); }
+  .type-kermis    { --badge: var(--color-orange); }
+  /* workshop, theater, off-stage fall through to the default --badge fallback
+     (yellow, set on the background/border color-mix above). */
 
   /* Text ramp — ink title down to faint meta, never an accent for running text. */
   .program-card .card-title {

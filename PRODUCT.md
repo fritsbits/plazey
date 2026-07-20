@@ -18,18 +18,18 @@ Warm, bubbly, accessible — the energy of a neighbourhood party, not a polished
 
 ## Anti-references
 
-- Generic ticketed-festival look: dark backgrounds, neon accents, countdown timers, DJ-poster aesthetics.
+- Countdown timers, DJ-poster aesthetics, anything that looks like a ticketed concert site. (Dark backgrounds and neon accents are not anti-references — the nav is deliberately dark and the palette is deliberately saturated.)
 - Corporate polish, over-designed slickness, "beleving"-speak.
 - Anything requiring accounts, tickets, or newsletters — the festival is free and open.
 
 ## Design Principles
 
-1. **Type carries character.** Caprasimo display is the personality signal; body copy stays calm and legible.
-2. **Bold, not loud.** Energy from confident colour, thick ink borders, hard offset shadows, and composition — never decoration for its own sake.
-3. **Readable by everyone.** WCAG AA minimum, language learners and small screens first, `prefers-reduced-motion` always honoured.
-4. **Community-first aesthetics.** Paper-cutout poster quality over corporate finish; a little handmade roughness is on-brand.
-5. **Tokens, not values.** Every colour, radius, and rhythm goes through `--token` custom properties in `global.css`; the huisstijl is still iterating.
+1. **Type carries character.** Luckiest Guy as the display face is the personality signal — uppercase, tilted, loud; Karla carries the body copy, calm and legible.
+2. **Loud, on purpose.** Energy from saturated colour, thick maroon borders, hard offset shadows, tilts, and themed section panels — the direction is deliberately bold and loud, not restrained.
+3. **Readable by everyone.** WCAG AA minimum, language learners and small screens first, `prefers-reduced-motion` always honoured. Maroon ink is for display type and text on cream only; body text on the pink page uses `--color-text-on-page` to hold AA contrast.
+4. **Community-first aesthetics.** Poster quality over corporate finish; a little handmade roughness is on-brand.
+5. **Tokens, not values.** Every colour, radius, and rhythm goes through `--token` custom properties in `global.css`; radius is a 5-step scale, not a single value.
 
 ## Accessibility & Inclusion
 
-WCAG AA minimum, treated as default rather than a separate feature. Short sentences for language learners and screenreaders. Light mode only (cream paper surface). Reduced motion collapses rotations/transforms to none. Content must work for kids, grandparents, and tired people on phones.
+WCAG AA minimum, treated as default rather than a separate feature. Short sentences for language learners and screenreaders. Light mode only (pink page, cream cards). Reduced motion collapses rotations/transforms to none. Content must work for kids, grandparents, and tired people on phones.
