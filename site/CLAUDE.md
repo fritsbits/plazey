@@ -15,7 +15,7 @@ npx astro check   # TypeScript check (0 errors expected; ignore zod deprecation 
 - Astro 6 (static), hosted on Netlify. No server, no database.
 - Content in Markdown files under `src/content/`.
 - Git-based CMS on `/admin` (Sveltia CMS, config in `public/admin/config.yml`): Lies manages programme items and the site phase; every save commits to `main` → Netlify auto-deploys. See `docs/wiki/admin-cms.md`.
-- No CSS framework — styles come when the huisstijl is ready. No visual design in v1.
+- No CSS framework — styles live in a single `global.css` driven by design tokens (no Tailwind/Bootstrap). The huisstijl has shipped; see Design Context below.
 
 ## Site map
 
@@ -56,22 +56,9 @@ Note: `/fr/pratique/` exists as a 301 redirect to `/fr/infos-pratiques/`.
 
 **Forms:** Contact, volunteer, and project-proposal forms use **Netlify Forms** (`data-netlify="true"`). No third-party form backend. Submissions are captured by Netlify and forwarded by email. Each form has a hidden `form-name` input and a client-side JS progressive-enhancement handler that POSTs with `fetch()` so the user stays on the page. The `<noscript>` path still submits natively.
 
-## Programme content collection schema (`src/content.config.ts`)
+## Programme content collection schema
 
-- `title` (string, required)
-- `day` (enum: friday | saturday | sunday, required)
-- `startTime` (string "HH:MM", required)
-- `endTime` (string "HH:MM", optional)
-- `stage` (enum: dans | froefroe | tentoonstelling | workshop, optional) — neutral value, translated via `programme-labels.ts`
-- `type` (enum: concert | film | workshop | kids | dans | off-stage | expo | theater | kermis, required)
-- `curator` (string, optional) — select in the CMS; free string in the schema
-- `genre` (string, optional)
-- `artist` (string, optional)
-- `description` (string, optional) — short card text; the markdown body is the text that expands on the card
-- `embedUrl` (URL string, optional) — Spotify/SoundCloud, renders as click-to-play
-- `draft` (boolean, optional, default false)
-
-Adding a `stage` or `curator` option touches three files: `public/admin/config.yml`, `src/content.config.ts` (stage enum), and `src/config/programme-labels.ts` (stage labels).
+The field list lives in `src/content.config.ts` — read it there rather than duplicating it here. Gotcha: adding a `stage` or `curator` option touches three files: `public/admin/config.yml`, `src/content.config.ts` (stage enum), and `src/config/programme-labels.ts` (stage labels).
 
 ## Content update workflow
 

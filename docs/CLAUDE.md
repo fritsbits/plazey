@@ -84,14 +84,14 @@ Types: `ingest`, `query`, `lint`, `update`
 
 - **Festival:** Plazey — free 3-day urban festival, Elisabethpark Koekelberg, Brussels, since 1992
 - **Organisers:** GC De Platoo + GC De Zeyp
-- **Website:** plazey.be (currently Wix, being rebuilt)
+- **Website:** plazey.be — Astro rebuild (this repo), replacing the old Wix site
 - **Tech stack:** Astro (static) + Netlify/Vercel, bilingual NL/FR (/nl/ + /fr/)
 - **Owner/dev:** Frederik
-- **Status:** Design phase complete (strategy, skeleton, copy v1 drafted), build not started
+- **Status:** Built and live — huisstijl shipped; ongoing content and polish
 
 ## Key decisions (locked)
 
-- No CMS in v1 — Frederik is sole content editor
+- Git-based CMS on /admin (Sveltia): Lies self-services programme items and the site phase; Frederik also edits via Claude Code
 - No ticketing, newsletter, blog, press room, EN version
 - No Instagram until a real account exists (footer: Facebook only)
 - Accessibility is default, not a separate section
