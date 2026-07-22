@@ -44,6 +44,7 @@
   --radius-lg: 24px;   /* images */
   --radius-md: 20px;   /* cards */
   --radius-sm: 14px;   /* buttons */
+  --radius-xxs: 3px;   /* photo print corners */
   --radius-xs: 12px;   /* small tags / marks */
   --radius-pill: 999px;
   --radius: var(--radius-sm);  /* generic alias for legacy references */
@@ -1055,6 +1056,66 @@
   /* Image utility — shared border-radius across content images */
   .image-rounded {
     border-radius: var(--radius);
+  }
+
+  /* Taped snapshot — the treatment for every contained photo. A print pinned
+     to a board: cream print border, caption below the image, two tape strips
+     over the top corners, and the same translucent ink offset the cards cast.
+     The caption sits in normal flow, so the bottom margin grows when it wraps
+     on a narrow screen instead of overflowing a fixed band.
+     Full-bleed atmosphere bands are never taped. */
+  .snapshot {
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xxs);
+    box-shadow: 4px 6px 0 var(--color-shadow-ink);
+    transform: rotate(var(--snapshot-tilt, 0deg));
+  }
+  .snapshot img {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+  }
+  .snapshot figcaption {
+    padding: 0.55rem 0.15rem 0.35rem;
+    font-size: 0.82rem;
+    line-height: 1.3;
+    color: var(--color-text);
+  }
+
+  /* Tape — decorative only, drawn with pseudo-elements so a screenreader
+     never announces it. */
+  .snapshot::before,
+  .snapshot::after {
+    content: "";
+    position: absolute;
+    top: -12px;
+    width: 88px;
+    height: 26px;
+    background: color-mix(in srgb, var(--color-surface) 62%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border) 10%, transparent);
+    z-index: 2;
+  }
+  .snapshot::before { left: -14px; transform: rotate(-27deg); }
+  .snapshot::after  { right: -14px; transform: rotate(24deg); }
+
+  .snapshot--tilt-l { --snapshot-tilt: -1.5deg; }
+  .snapshot--tilt-r { --snapshot-tilt: 1.5deg; }
+
+  /* A print standing alone in a content column. Capped so the fixed 88px tape
+     stays in proportion — across the full 56rem content width the tape reads
+     as a small sticker rather than tape holding a photo up. */
+  .snapshot--solo {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  /* The figure tilt is motion and collapses. The tape rotation is the object's
+     shape, not motion, and stays. */
+  @media (prefers-reduced-motion: reduce) {
+    .snapshot { transform: none; }
   }
 
   /* Image utility — "sticker" treatment: thick maroon border + hard offset
