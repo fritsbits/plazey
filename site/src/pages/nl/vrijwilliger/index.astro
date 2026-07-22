@@ -320,9 +320,11 @@ const faqItems = [
 
   /* Signup row — the second volunteer photo (sage shadow) peeks out behind
      the form card on larger breakpoints: positioned to the card's right,
-     with the photo itself (not the figure) tucked partly under the card via
-     negative margin + z-index. Tilt comes from .snapshot--tilt-r.
-     Mobile keeps a simple stacked layout, photo below the card. */
+     tucked partly under the card via negative margin, but raised above the
+     card in stacking order so the print's own cream border (and caption)
+     wins over the card edge instead of being cut by it. Tilt comes from
+     .snapshot--tilt-r. Mobile keeps a simple stacked layout, photo below
+     the card. */
   .signup-row {
     display: flex;
     flex-direction: column;
@@ -340,16 +342,11 @@ const faqItems = [
     .signup-photo {
       width: 16rem;
       max-width: none;
+      flex-shrink: 0;
       margin-top: 4rem;
-      position: relative;
-    }
-    /* The tuck (negative margin + submerged z-index) applies to the photo
-       itself only, not the whole figure — the figcaption must stay clear of
-       the form card so its text is never hidden behind it. */
-    .signup-photo :global(img) {
       margin-left: -3.5rem;
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
   }
 </style>

@@ -55,7 +55,7 @@ Op mobile: stack verticaal, portret onder de openingsregel.
 [Afsluitregel: "Je hoeft geen ervaring te hebben. …"]
 ```
 
-Geen foto per rol-kaart. Twee sfeerbeelden (vrijwilligers-bar + vrijwilligers-babyspot) staan als image-pair onder het grid.
+Geen foto per rol-kaart. Eén getapete sfeerfoto (`.snapshot`) staat naast het gele "ervaring"-paneel; een tweede getapete foto staat bij het inschrijfformulier verderop op de pagina, deels achter de kaart geschoven.
 
 ---
 
