@@ -355,6 +355,23 @@
     .split-section.split--image-right > .split-image { order: 1; }
   }
 
+  /* Bare split — the same image/text row without a `.paper-sheet` frame, for
+     sections that already carry a card inside (eten & drinken's menu). The
+     sheet's inset padding is what made it read as card-in-card, so drop the
+     horizontal padding entirely: the text column then aligns with the
+     Container's other section headings. The image keeps just enough room for
+     its sticker shadow. */
+  .split-section--bare > .split-text {
+    padding-inline: 0;
+    padding-block: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .split-section--bare > .split-image { padding: 1.5rem 0.75rem 1.25rem 0; }
+  @media (min-width: 768px) {
+    .split-section--bare > .split-text { padding-block: clamp(2rem, 4vw, 3rem); }
+    .split-section--bare.split--image-right > .split-image { padding: 1.25rem 0.75rem 1.25rem 2.5rem; }
+    .split-section--bare.split--image-left > .split-image { padding: 1.25rem 2.5rem 1.25rem 0; }
+  }
+
   /* Split overlap — one full-bleed photo with an overlapping cream card
      folding two teasers ("Hoe kom ik er", "Doe mee") into a single section.
      Below 768px the card follows the photo in flow, pulled up to overlap its
@@ -923,6 +940,35 @@
   }
   @media (min-width: 1400px) {
     .programme-trees { display: block; }
+  }
+
+  /* Below 1400px there's no gutter left to pin the basilica/trees to the
+     viewport corners without overlapping the card column, so the same pair
+     reappears inline at the foot of the green section instead of just
+     vanishing on laptop, tablet and mobile widths. Basilica stays left,
+     trees stay right (mirrors the fixed left:0/right:0 corner placement);
+     negative bottom margin cancels the section's own bottom padding so the
+     pair sits flush with the true bottom edge of the green area instead of
+     floating above it. */
+  .programme-illustrations {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2.5rem;
+    margin-bottom: calc(-1 * var(--section-y-sm));
+  }
+  .programme-illustrations img {
+    width: clamp(140px, 34vw, 280px);
+    height: auto;
+  }
+  @media (min-width: 768px) {
+    .programme-illustrations { margin-bottom: calc(-1 * var(--section-y-md)); }
+  }
+  @media (min-width: 1024px) {
+    .programme-illustrations { margin-bottom: calc(-1 * var(--section-y-lg)); }
+  }
+  @media (min-width: 1400px) {
+    .programme-illustrations { display: none; }
   }
 
   /* Hero CTA row */
@@ -1646,11 +1692,10 @@
     outline-offset: -1px;
   }
 
-  /* Eten & drinken — poster card, same `.paper-sheet` + `.split-section` frame
-     as the other split image/text panels on the site (see home's
-     doe-mee-teaser). Body copy is set to near-black instead of the panel's
-     maroon default, so it reads as "black body text, brown display title"
-     like the page's other cards. */
+  /* Eten & drinken — a bare `.split-section` on the page background, no
+     `.paper-sheet` frame: the menu below is already a card, and wrapping it in
+     a second one read as card-in-card. Body copy is near-black so it reads as
+     "black body text, brown display title" like the page's other sections. */
   .eten-content > p,
   .eten-cash {
     color: var(--color-text-body);
