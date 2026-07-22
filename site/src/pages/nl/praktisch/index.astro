@@ -6,7 +6,6 @@ import { Image } from 'astro:assets';
 import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION } from '../../../config/site';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
-import toegankelijkheidMenigte from '../../../assets/images/toegankelijkheid-menigte.jpg';
 import kindOordoppen from '../../../assets/images/kind-oordoppen.jpg';
 
 const faqItems = [
@@ -129,15 +128,17 @@ const faqItems = [
       </section>
 
       <section id="eten-en-drinken" aria-labelledby="heading-eten" class="split-section split--image-right paper-sheet paper-sheet--surface-muted paper-sheet--tilt-l">
-        <figure class="split-image">
-          <Image
-            src={etenFoodkraam}
-            alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
-            widths={[600, 960, 1280]}
-            sizes="(max-width: 767px) 100vw, 50vw"
-            class="sticker-img sticker-img--sage"
-          />
-        </figure>
+        <div class="split-image">
+          <figure class="snapshot">
+            <Image
+              src={etenFoodkraam}
+              alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
+              widths={[600, 960, 1280]}
+              sizes="(max-width: 767px) 100vw, 50vw"
+            />
+            <figcaption>De standhouders komen uit de buurt.</figcaption>
+          </figure>
+        </div>
         <div class="split-text eten-content">
           <h2 id="heading-eten" class="h2-display"><span class="underline-mustard">Breng je eigen picknick,</span> of koop aan de bar</h2>
 
@@ -225,22 +226,15 @@ const faqItems = [
           </div>
         </div>
 
-        <div class="image-pair">
-          <Image
-            src={toegankelijkheidMenigte}
-            alt="Publiek dat een straatact volgt, met een rolstoelgebruiker vooraan tussen de andere bezoekers."
-            widths={[400, 600]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--orange"
-          />
+        <figure class="snapshot snapshot--tilt-l snapshot--solo">
           <Image
             src={kindOordoppen}
             alt="Een kind met gehoorbescherming op de schouders van een ouder, kijkend naar een optreden."
-            widths={[400, 600]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--pink"
+            widths={[520, 780]}
+            sizes="(max-width: 559px) 100vw, 492px"
           />
-        </div>
+          <figcaption>Soms wordt het te luid. Oordopjes helpen.</figcaption>
+        </figure>
 
         <div class="callout-inline">
           <p>Heb je een vraag of nodig je hulp? <a href="#contact" data-topic="toegankelijkheid">Stel je vraag.</a></p>
@@ -250,15 +244,17 @@ const faqItems = [
     </Container>
 
     <section id="kinderen" aria-labelledby="heading-kinderen" class="split-section split--image-left paper-sheet paper-sheet--beige paper-sheet--tilt-r">
-      <figure class="split-image">
-        <Image
-          src={kidsZandbak}
-          alt="Kinderen van verschillende leeftijden spelen samen in een zandbak op Plazey, met festivalkramen en lichtjes op de achtergrond."
-          widths={[800, 1200, 1600]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="sticker-img sticker-img--orange"
-        />
-      </figure>
+      <div class="split-image">
+        <figure class="snapshot">
+          <Image
+            src={kidsZandbak}
+            alt="Kinderen van verschillende leeftijden spelen samen in een zandbak op Plazey, met festivalkramen en lichtjes op de achtergrond."
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+          />
+          <figcaption>De zandbak zit de hele dag vol.</figcaption>
+        </figure>
+      </div>
       <div class="split-text">
         <h2 id="heading-kinderen">Kinderen welkom, van baby tot tiener</h2>
         <p>Kinderen zijn van harte welkom op Plazey. Er zijn activiteiten voor de allerkleinsten tot tieners.</p>
