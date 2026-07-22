@@ -121,15 +121,17 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 
   {SITE_PHASE === 'save-the-date' ? (
     <section aria-labelledby="participe-teaser" class="split-section split--image-right paper-sheet paper-sheet--tilt-l">
-      <figure class="split-image">
-        <Image
-          src={vrijwilligerPortret}
-          alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
-          widths={[800, 1200, 1600]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="sticker-img sticker-img--sage sticker-img--left"
-        />
-      </figure>
+      <div class="split-image">
+        <figure class="snapshot">
+          <Image
+            src={vrijwilligerPortret}
+            alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+          />
+          <figcaption>Envie de donner un coup de main ?</figcaption>
+        </figure>
+      </div>
       <div class="split-text">
         <h2 id="participe-teaser">Devenir bénévole</h2>
         <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>

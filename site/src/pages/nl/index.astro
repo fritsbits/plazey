@@ -121,15 +121,17 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
 
   {SITE_PHASE === 'save-the-date' ? (
     <section aria-labelledby="doe-mee-teaser" class="split-section split--image-right paper-sheet paper-sheet--tilt-l">
-      <figure class="split-image">
-        <Image
-          src={vrijwilligerPortret}
-          alt="Een vrijwilliger in roze Plazey-t-shirt kijkt omhoog, met het festivalterrein achter haar."
-          widths={[800, 1200, 1600]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="sticker-img sticker-img--sage sticker-img--left"
-        />
-      </figure>
+      <div class="split-image">
+        <figure class="snapshot">
+          <Image
+            src={vrijwilligerPortret}
+            alt="Een vrijwilliger in roze Plazey-t-shirt kijkt omhoog, met het festivalterrein achter haar."
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+          />
+          <figcaption>Zin om mee te helpen?</figcaption>
+        </figure>
+      </div>
       <div class="split-text">
         <h2 id="doe-mee-teaser">Vrijwilliger worden</h2>
         <p>Plazey draait op vrijwilligers. Wil je helpen? Achter de bar, aan de kassa of bij het opruimen.</p>
