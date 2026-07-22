@@ -7,7 +7,6 @@ import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION } from '../../../config/site';
 import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
-import toegankelijkheidMenigte from '../../../assets/images/toegankelijkheid-menigte.jpg';
 import kindOordoppen from '../../../assets/images/kind-oordoppen.jpg';
 
 const faqItems = [
@@ -140,15 +139,17 @@ const faqItems = [
       </section>
 
       <section id="manger-et-boire" aria-labelledby="heading-manger" class="split-section split--image-right paper-sheet paper-sheet--surface-muted paper-sheet--tilt-l">
-        <figure class="split-image">
-          <Image
-            src={etenFoodkraam}
-            alt="Un stand alimentaire sous une tente à Plazey : deux femmes préparent et servent à manger."
-            widths={[600, 960, 1280]}
-            sizes="(max-width: 767px) 100vw, 50vw"
-            class="sticker-img sticker-img--sage"
-          />
-        </figure>
+        <div class="split-image">
+          <figure class="snapshot">
+            <Image
+              src={etenFoodkraam}
+              alt="Un stand alimentaire sous une tente à Plazey : deux femmes préparent et servent à manger."
+              widths={[600, 960, 1280]}
+              sizes="(max-width: 767px) 100vw, 50vw"
+            />
+            <figcaption>Les stands viennent du quartier.</figcaption>
+          </figure>
+        </div>
         <div class="split-text eten-content">
           <h2 id="heading-manger" class="h2-display"><span class="underline-mustard">Apporte ton pique-nique,</span> ou achète au bar</h2>
 
@@ -237,22 +238,15 @@ const faqItems = [
           </div>
         </div>
 
-        <div class="image-pair">
-          <Image
-            src={toegankelijkheidMenigte}
-            alt="Un public suit un spectacle de rue, avec une personne en fauteuil roulant au premier rang parmi les autres visiteurs."
-            widths={[400, 600]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--yellow"
-          />
+        <figure class="snapshot snapshot--tilt-l snapshot--solo">
           <Image
             src={kindOordoppen}
             alt="Un enfant avec une protection auditive sur les épaules d'un parent, regardant un spectacle."
-            widths={[400, 600]}
-            sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--sage"
+            widths={[520, 780]}
+            sizes="(max-width: 559px) 100vw, 492px"
           />
-        </div>
+          <figcaption>Parfois c'est trop fort. Les bouchons aident.</figcaption>
+        </figure>
 
         <div class="callout-inline">
           <p>Une question ou besoin d'aide ? <a href="#contact" data-topic="accessibilite">Pose ta question.</a></p>
@@ -262,15 +256,17 @@ const faqItems = [
     </Container>
 
     <section id="enfants" aria-labelledby="heading-enfants" class="kids-bleed split-section split--image-left">
-      <figure class="split-image">
-        <Image
-          src={kidsZandbak}
-          alt="Des enfants d'âges différents jouent ensemble dans un bac à sable à Plazey, avec les stands du festival et des guirlandes en arrière-plan."
-          widths={[800, 1200, 1600]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="sticker-img sticker-img--orange"
-        />
-      </figure>
+      <div class="split-image">
+        <figure class="snapshot snapshot--tilt-r">
+          <Image
+            src={kidsZandbak}
+            alt="Des enfants d'âges différents jouent ensemble dans un bac à sable à Plazey, avec les stands du festival et des guirlandes en arrière-plan."
+            widths={[800, 1200, 1600]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+          />
+          <figcaption>Le bac à sable ne désemplit pas.</figcaption>
+        </figure>
+      </div>
       <div class="split-text">
         <h2 id="heading-enfants">Enfants bienvenus, du bébé à l'ado</h2>
         <p>Les enfants sont les bienvenus à Plazey. Il y a des activités pour les tout-petits jusqu'aux ados.</p>

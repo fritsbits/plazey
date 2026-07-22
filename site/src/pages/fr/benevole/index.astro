@@ -4,7 +4,6 @@ import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
 import { Image } from 'astro:assets';
 import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
-import etenGrillen from '../../../assets/images/eten-grillen.jpg';
 
 const faqItems = [
   { question: "Dois-je m'inscrire pour aider ?", answer: 'Oui, remplis le formulaire. On te répond dès que possible.' },
@@ -51,22 +50,15 @@ const faqItems = [
         </li>
       </ul>
 
-      <div class="image-pair">
+      <figure class="snapshot snapshot--tilt-l snapshot--solo">
         <Image
           src={vrijwilligersBar}
           alt="Des bénévoles en t-shirt rose Plazey derrière le bar."
-          widths={[400, 600]}
-          sizes="(max-width: 640px) 100vw, 50vw"
-          class="sticker-img sticker-img--yellow"
+          widths={[520, 780]}
+          sizes="(max-width: 559px) 100vw, 492px"
         />
-        <Image
-          src={etenGrillen}
-          alt="Un·e bénévole en t-shirt Plazey grille des brochettes à un stand extérieur."
-          widths={[400, 600]}
-          sizes="(max-width: 640px) 100vw, 50vw"
-          class="sticker-img sticker-img--sage"
-        />
-      </div>
+        <figcaption>Au bar, tu n'es jamais seul·e.</figcaption>
+      </figure>
 
       <p>Tu n'as pas besoin d'expérience. Plazey t'offre un repas et des boissons pendant que tu aides.</p>
     </Container>
