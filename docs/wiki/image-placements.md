@@ -46,7 +46,9 @@ If the design needs a photo block between sections (e.g. a full-bleed break betw
 
 ![Crowd at dusk on wooden decking, string lights lit, EHBO tent visible](../../site/src/assets/images/sfeer-avondschemering.jpg)
 
-*`IMG_6385` (batch 2) — Resolves the evening/dusk gap. Warm string lights, after-sunset crowd. **Live** on `/nl/` and `/fr/`, as a full-bleed figure between "Hoe kom ik er?" and the "Doe mee" split section. Source photo is portrait; cropped via the `.figure-crop-wide` class in `global.css` (21:9, `object-position: center 36%`) to keep the string lights + crowd band in frame instead of the tree canopy above it.*
+*`IMG_6385` (batch 2) — Resolves the evening/dusk gap. Warm string lights, after-sunset crowd. Source photo is portrait; cropped via the `.figure-crop-wide` class in `global.css` (21:9, `object-position: center 36%`) to keep the string lights + crowd band in frame instead of the tree canopy above it.*
+
+> **Stale reference (2026-07-22):** this file, `sfeer-avondschemering.jpg`, was deleted from the repo in commit `a21eac0` and no longer exists on disk. The description above is kept for historical context only; it is not "Live" anywhere.
 
 ---
 
@@ -202,6 +204,8 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 *`529162241` — Food preparation close-up. Use as secondary image alongside the price list.*
 
+> **Unplaced (2026-07-22):** no longer on the live site. The `.image-pair` it sat in collapsed to a single taped `.snapshot` photo when the sticker treatment was replaced; the file stays in `src/assets/images/` and may be reused.
+
 ![Bar area with people in pink Plazey t-shirts, beer bottles on counter](../../site/src/assets/images/vrijwilligers-bar.jpg)
 
 *`528351191` — Bar atmosphere with volunteer staff visible. Use near the drinks price table.*
@@ -214,15 +218,17 @@ Each programme item detail page has a hero image slot. Assign from this list bas
 
 ### Toegankelijkheid — section header + inline
 
-**Live** on `/nl/praktisch#toegankelijkheid` and `/fr/infos-pratiques#accessibilite`, as an `.image-pair` (the same two-up component already used on the Doe mee page) placed right after the four access-category cards:
+Previously **live** on `/nl/praktisch#toegankelijkheid` and `/fr/infos-pratiques#accessibilite`, as an `.image-pair` (the same two-up component already used on the Doe mee page) placed right after the four access-category cards. As of 2026-07-22 that `.image-pair` collapsed to a single taped `.snapshot` photo — see below.
 
 ![Wide crowd facing a street performer, wheelchair user clearly seated front-row, Brussels skyline behind trees](../../site/src/assets/images/toegankelijkheid-menigte.jpg)
 
 *`IMG_6331` (batch 2) — Resolves the toegankelijkheid header gap. A wheelchair user genuinely part of the crowd, not an incidental background figure. Strongest accessibility shot across both batches.*
 
+> **Unplaced (2026-07-22):** no longer on the live site. Deliberate loss, not an oversight — of the two photos in the collapsed pair, this was the one dropped, because it was the only image on the site that *showed* accessibility rather than described it. The file stays in `src/assets/images/` and may be reused.
+
 ![Toddler on a parent's shoulders wearing ear defenders, watching a stage act](../../site/src/assets/images/kind-oordoppen.jpg)
 
-*`IMG_6157` (batch 2) — Candid, real-world use of ear protection.*
+*`IMG_6157` (batch 2) — Candid, real-world use of ear protection. **Live**: this is the photo kept as the single taped `.snapshot` in the collapsed pair, on both `/nl/praktisch#toegankelijkheid` and `/fr/infos-pratiques#accessibilite`.*
 
 **Alternative** (not currently used, would replace `toegankelijkheid-menigte.jpg` if a theatre-specific context is preferred):
 
@@ -293,6 +299,8 @@ Note: `oordopjes-producten.jpg` (`495741154`, the ear-protection product shot fr
 ![Man in Plazey t-shirt grilling skewers at outdoor food stall](../../site/src/assets/images/eten-grillen.jpg)
 
 *`529162241` — Shows the cooking/food volunteer role.*
+
+> **Unplaced (2026-07-22):** no longer on the live site, for the same reason as the S4 mention above — see there for detail.
 
 **Infostand / Baby Spot:**
 

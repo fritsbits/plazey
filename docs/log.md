@@ -142,3 +142,20 @@ Frederik's observatie: de filterrij maakte iets eenvoudigs moeilijk. De cijfers 
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, browsertest NL 420px (28 kaarten → "Dans" = 2 kaarten / 2 dagkoppen / 2 ankerlinks / `?type=dans` → nog eens klikken = 28 terug en param weg → ankerlink scrollt naar `#day-sunday`), 0 console errors.
 
 Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md) (Zone 2 + Zone 4 herschreven, noot over de drie afwijkingen t.o.v. het wireframe), [wiki/skeleton-overzicht.md](wiki/skeleton-overzicht.md), [wiki/website-copy/2-programma.md](wiki/website-copy/2-programma.md) (NL + FR; ook de datums gecorrigeerd van 22–24 naar 28–30 augustus).
+
+## [2026-07-22] update | Fotobehandeling: van gekleurde sticker naar geplakte polaroid
+
+Frederik's observatie op de vrijwilligerspagina: de foto's klikken niet met de rest. De oorzaak was structureel — kaarten werpen een doorschijnende inktschaduw (`--color-shadow-ink`) die de ondergrond meekleurt, foto's wierpen een **ondoorzichtige accentkleur**. Op de oranje ondergrond heeft geel nauwelijks contrast, dus je zag geen schaduw maar een tweede rechthoek die 10px verschoven was. Naast het gele `.experience-panel` leek die schaduw bovendien uit de foto te lekken.
+
+- **Tien behandelingen geprototypeerd** in een wegwerplab (`public/photo-lab.html`, na afloop verwijderd): inktschaduw, papieren passe-partout, geplakte polaroid, uitgeknipt, kaal, kleurenmat, riso-misregistratie, boog, halftoon. Gekozen: **geplakte polaroid** — het buurtprikbord-register, niet het festivalmerk-register.
+- **`.snapshot`**: cream printrand, `<figcaption>` in de flow (de ondermarge groeit dus mee als het bijschrift afbreekt), twee plakbandstrookjes als pseudo-elementen, harde inktschaduw. Kantelingen wisselen af en vallen weg onder `prefers-reduced-motion`; de rotatie van het plakband blijft, want dat is vorm en geen beweging. Een `.snapshot` in een al gekantelde `.paper-sheet` krijgt géén kanteling — twee rotaties stapelen.
+- **Nieuw token** `--radius-xxs` (3px) voor printhoeken — de radiusschaal gaat van 5 naar 6 stappen.
+- **`.split-image` wordt een `<div>`** met de `<figure class="snapshot">` erin: de 2rem padding van `.split-image` slikte anders de printrand op.
+- **Weg:** `.sticker-img` met alle vijf modifiers, en `.image-pair`. Twee foto's naast elkaar met 1rem tussenruimte laten hun plakband botsen. In dezelfde opruimbeurt is ook het inmiddels ongebruikte `.figure-crop-wide` verwijderd (de crop die `sfeer-avondschemering.jpg` gebruikte, een foto die al eerder uit de repo verdween).
+- **Twee foto's van de site:** `toegankelijkheid-menigte.jpg` (NL + FR toegankelijkheid) en `eten-grillen.jpg` (FR benevole). Bewuste kost: die eerste was de enige afbeelding die toegankelijkheid *toonde* in plaats van benoemde.
+- **Bijschriften** bij alle zes NL / vijf FR foto's (11 in totaal). Twee concepten sneuvelden omdat ze feiten beweerden die nergens op de site staan ("gratis oordopjes", "Baby Spot = rustige plek").
+- **Onderweg gevonden:** de eerste inventaris was gebouwd op verouderde grep-regelnummers en miste beide `eten-foodkraam`-foto's. Opnieuw opgebouwd door de bron te parsen. Drie NL/FR-afwijkingen genoteerd (benevole-structuur, ankerbanner alleen in FR, kids-sectie wel/niet gekanteld) — bewust niet rechtgetrokken.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, `grep -rn "sticker-img\|image-pair" site/src` leeg, browsertest NL + FR op 1440px, 768px en 375px, plus `prefers-reduced-motion`.
+
+Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md) (radiusschaal + fotobehandeling), [wiki/image-placements.md](wiki/image-placements.md).
