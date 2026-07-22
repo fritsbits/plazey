@@ -44,8 +44,8 @@
   --radius-lg: 24px;   /* images */
   --radius-md: 20px;   /* cards */
   --radius-sm: 14px;   /* buttons */
-  --radius-xxs: 3px;   /* photo print corners */
   --radius-xs: 12px;   /* small tags / marks */
+  --radius-xxs: 3px;   /* photo print corners */
   --radius-pill: 999px;
   --radius: var(--radius-sm);  /* generic alias for legacy references */
 
@@ -308,10 +308,11 @@
     text-decoration: underline;
   }
 
-  /* Split section — image half, text half. The image half is a sticker
-     (thick border + hard offset shadow), so it gets inset padding rather
-     than touching the row edges; that padding is also what keeps the
-     10px hard shadow from being clipped by the grid row bounds. */
+  /* Split section — image half, text half. The image half holds a taped
+     `.snapshot` print (cream border + hard ink offset shadow), so it gets
+     inset padding rather than touching the row edges; that padding is also
+     what keeps the print's offset shadow and tape from being clipped by the
+     grid row bounds. */
   .split-section {
     display: grid;
     grid-template-columns: 1fr;
@@ -1092,7 +1093,12 @@
     content: "";
     position: absolute;
     top: -12px;
-    width: 88px;
+    /* Proportional, not fixed: prints run from a ~245px half-column up to the
+       32rem --solo cap, and a fixed width read as 13% of the print on the wide
+       ones and over a third on the narrow ones — changing the object's
+       character between pages. The clamp keeps it recognisably tape at both
+       ends. */
+    width: clamp(56px, 26%, 96px);
     height: 26px;
     background: color-mix(in srgb, var(--color-surface) 62%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border) 10%, transparent);
@@ -1117,6 +1123,15 @@
   @media (prefers-reduced-motion: reduce) {
     .snapshot { transform: none; }
   }
+
+  /* A snapshot nested in a .split-image still matches the older
+     `.split-section > .split-image img` rule below (it's a descendant
+     selector), which stretches the img to fill the flex item and pushes the
+     figcaption out past the print border. Override height/min-height back
+     to intrinsic for that combination, and stop stretching the figure
+     itself so the print sizes to its own content. */
+  .split-section > .split-image > .snapshot img { height: auto; min-height: 0; }
+  .split-section > .split-image > .snapshot { align-self: center; }
 
   /* Playful tilts — reset under reduced motion */
   .tilt-l { transform: rotate(-1deg); }
