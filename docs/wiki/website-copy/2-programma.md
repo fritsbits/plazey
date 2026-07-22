@@ -2,9 +2,11 @@
 
 
 
-> **Pagina:** `/programma` (NL) en `/programme` (FR) · **Doel:** bezoekers laten scannen wat er speelt per dag, filteren op wat relevant is. · **Primaire actie:** klik op item → detail. · **Secundair:** filteren op type.
+> **Pagina:** `/programma` (NL) en `/programme` (FR) · **Doel:** bezoekers laten scannen wat er speelt per dag, filteren op wat relevant is. · **Primaire actie:** klik op item → lightbox met de volledige act-info. · **Secundair:** filteren op type.
 
 > ⚠️ **De programma-items zelf worden per editie ingevuld door Frederik (~4 weken voor festival). Dit document bevat de structurele en UI-copy.**
+
+> **Bijgewerkt 2026-07-22:** de dagfilter en de lege staat zijn geschrapt (zie [S2](../skeleton-per-pagina/s2-programma.md)); de dagen zijn nu ankerlinks. Datums gecorrigeerd naar 28–30 augustus 2026.
 
 ---
 
@@ -18,27 +20,29 @@ Programma
 
 **Intro (direct onder H1):**
 
-22–24 augustus 2026. Alles is gratis.
+28–30 augustus 2026. Alles is gratis.
 
 ---
 
-### Filters
+### Dag-ankerlinks
+
+Onzichtbaar label voor screenreaders: *"Spring naar een dag"*.
+
+- Vrijdag
+
+- Zaterdag
+
+- Zondag
+
+---
+
+### Type-filters
 
 **Label boven filterrij:**
 
-*(geen zichtbaar label — filters zijn visueel zelfverklarend via chips)*
+*(geen zichtbaar label — de chips zijn visueel zelfverklarend. Onzichtbaar label voor screenreaders: "Filter op type".)*
 
-**Dag-filters:**
-
-- Alle dagen
-
-- Vrijdag 22 aug
-
-- Zaterdag 23 aug
-
-- Zondag 24 aug
-
-**Type-filters:**
+**Chips** — alleen die met items, in deze volgorde. Geen "Alle types"-chip: niets aanklikken toont al alles.
 
 - Concert
 
@@ -50,17 +54,23 @@ Programma
 
 - Kinderen
 
+- Expo
+
+- Theater
+
+- Kermis
+
 - Off-stage
 
 ---
 
-### Dag-headers (sticky bij scrollen)
+### Dag-headers
 
-- **Vrijdag 22 augustus**
+- **Vrijdag 28 augustus**
 
-- **Zaterdag 23 augustus**
+- **Zaterdag 29 augustus**
 
-- **Zondag 24 augustus**
+- **Zondag 30 augustus**
 
 ---
 
@@ -80,15 +90,9 @@ Elk programma-item bevat:
 
 ---
 
-### Lege staat (geen resultaten na filteren)
+### Lege staat — niet meer nodig
 
-**Tekst:**
-
-Niks gevonden met deze filters.
-
-**Knop:**
-
-Alle filters wissen
+Er zijn alleen chips voor types die items hebben, en je kan er maar één tegelijk aanzetten. Een filter kan dus nooit alles wegfilteren. De copy *"Niks gevonden met deze filters."* en de knop *"Alle filters wissen"* zijn geschrapt.
 
 ---
 
@@ -122,23 +126,29 @@ Programme
 
 **Intro:**
 
-22–24 août 2026. Tout est gratuit.
+28–30 août 2026. Tout est gratuit.
 
 ---
 
-### Filtres
+### Liens d'ancrage par jour
 
-**Filtres par jour:**
+Label invisible pour les lecteurs d'écran : *« Aller à un jour »*.
 
-- Tous les jours
+- Vendredi
 
-- Vendredi 22 août
+- Samedi
 
-- Samedi 23 août
+- Dimanche
 
-- Dimanche 24 août
+---
 
-**Filtres par type:**
+### Filtres par type
+
+**Label au-dessus de la rangée :**
+
+*(pas de label visible — les puces se comprennent d'elles-mêmes. Label invisible pour les lecteurs d'écran : « Filtrer par type ».)*
+
+**Puces** — uniquement celles qui ont des items, dans cet ordre. Pas de puce « Tous les types » : ne rien sélectionner affiche déjà tout.
 
 - Concert
 
@@ -150,17 +160,23 @@ Programme
 
 - Enfants
 
+- Expo
+
+- Théâtre
+
+- Fête foraine
+
 - Hors scène
 
 ---
 
-### En-têtes par jour (sticky au scroll)
+### En-têtes par jour
 
-- **Vendredi 22 août**
+- **Vendredi 28 août**
 
-- **Samedi 23 août**
+- **Samedi 29 août**
 
-- **Dimanche 24 août**
+- **Dimanche 30 août**
 
 ---
 
@@ -178,15 +194,9 @@ Programme
 
 ---
 
-### État vide (aucun résultat)
+### État vide — plus nécessaire
 
-**Texte:**
-
-Aucun résultat pour ces filtres.
-
-**Bouton:**
-
-Effacer les filtres
+Seuls les types qui ont des items reçoivent une puce, et on n'en active qu'une à la fois. Un filtre ne peut donc jamais tout masquer. La copy *« Aucun résultat pour ces filtres. »* et le bouton *« Effacer les filtres »* sont supprimés.
 
 ---
 

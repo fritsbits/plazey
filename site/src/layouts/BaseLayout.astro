@@ -9,8 +9,9 @@ interface Props {
   title: string;
   lang: 'nl' | 'fr';
   currentPath?: string;
+  bodyClass?: string;
 }
-const { title, lang, currentPath = '' } = Astro.props;
+const { title, lang, currentPath = '', bodyClass = '' } = Astro.props;
 
 const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
 ---
@@ -44,18 +45,79 @@ const skipLabel = lang === 'fr' ? 'Aller au contenu' : 'Ga naar inhoud';
       </style>
     </noscript>
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class:list={["min-h-screen flex flex-col", bodyClass]}>
     <a class="skip-link" href="#main-content">{skipLabel}</a>
     <Header lang={lang} currentPath={currentPath} />
-    <main id="main-content" class="flex-1">
+    <main id="main-content" tabindex="-1" class="flex-1">
       <slot />
     </main>
-    <Partners lang={lang} />
-    <Footer lang={lang} />
+    <div class="site-outro">
+      <img src="/decor/kite.png" alt="" aria-hidden="true" class="outro-kite" width="504" height="518" />
+      <Partners lang={lang} />
+      <Footer lang={lang} />
+    </div>
   </body>
 </html>
 
 <style>
+  /* On short pages, `main.flex-1` stretches taller than its content to fill
+     the viewport (body is a flex column), but the content itself doesn't grow
+     to match — leaving a gap of bare page background between the last
+     section and .site-outro below. Making main a flex column and growing its
+     last child closes that gap so the last section's own background (or the
+     page ground it deliberately shows) always reaches .site-outro. */
+  main#main-content {
+    display: flex;
+    flex-direction: column;
+  }
+  main#main-content > :last-child {
+    flex: 1 0 auto;
+  }
+
+  /* Partners + Footer share one continuous paper texture spanning both bands,
+     so the texture doesn't visibly restart at the seam between them. */
+  .site-outro {
+    position: relative;
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
+  }
+  /* Big kite crosses the top edge of the whole outro band from the section
+     above, tail dangling down past the partner logos near the right edge.
+     Only shown once there's enough side gutter to clear the centered content
+     column beneath it. */
+  .outro-kite {
+    display: none;
+    position: absolute;
+    top: clamp(-48px, -4vw, -28px);
+    right: clamp(1rem, 6vw, 4rem);
+    width: auto;
+    height: clamp(280px, 22vw, 400px);
+    transform: rotate(16deg);
+    transform-origin: top right;
+    pointer-events: none;
+    /* Above the homepage's split-overlap photo (unpositioned) AND its
+       absolutely-positioned card (z-index: 2) — the kite should cross over
+       both, not get tucked behind the card. */
+    z-index: 3;
+  }
+  @media (min-width: 1280px) {
+    .outro-kite { display: block; }
+    /* Reserve enough room for the rotated kite's lowest point (bottom-right
+       corner swings down ~0.96× its own height off the `top` anchor) so it
+       never pokes past the actual end of the page and exposes the pink page
+       ground behind it. */
+    .site-outro { padding-bottom: 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .outro-kite { transform: none; }
+  }
+  /* The homepage's closing .split-overlap section floats its "Doe mee" card
+     absolutely in that same bottom-right corner, only 3rem above this band's
+     top edge — too tight for the kite's usual crossing. Keep just a small
+     poke there instead of fighting the card for the same few pixels. */
+  main:has(.split-overlap) + .site-outro .outro-kite {
+    top: clamp(-22px, -1.5vw, -12px);
+  }
+
   .skip-link {
     position: absolute;
     left: -9999px;

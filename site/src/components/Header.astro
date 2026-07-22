@@ -40,9 +40,25 @@ const frNav = SITE_PHASE === 'save-the-date'
 const nav = lang === 'nl' ? nlNav : frNav;
 const homeHref = lang === 'nl' ? '/nl' : '/fr';
 
+// NL ↔ FR page pairs, so the language toggle keeps the reader on the same
+// page instead of dropping them on the other home.
+const nlToFr: Record<string, string> = {
+  '/nl': '/fr',
+  '/nl/programma': '/fr/programme',
+  '/nl/praktisch': '/fr/infos-pratiques',
+  '/nl/over-plazey': '/fr/a-propos',
+  '/nl/vrijwilliger': '/fr/benevole',
+  '/nl/stel-een-project-voor': '/fr/propose-ton-projet',
+  '/nl/privacyverklaring': '/fr/politique-de-confidentialite',
+};
+const frToNl = Object.fromEntries(Object.entries(nlToFr).map(([nl, fr]) => [fr, nl]));
+const nlHref = lang === 'nl' ? (currentPath || '/nl') : (frToNl[currentPath] ?? '/nl');
+const frHref = lang === 'fr' ? (currentPath || '/fr') : (nlToFr[currentPath] ?? '/fr');
+
 const navLabel = lang === 'fr' ? 'Navigation principale' : 'Hoofdnavigatie';
 const menuLabel = 'Menu';
 const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Plazey — naar de startpagina';
+const langLabel = lang === 'fr' ? 'Choix de la langue' : 'Taalkeuze';
 ---
 
 <header class="site-nav">
@@ -75,6 +91,11 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
         </li>
       ))}
     </ul>
+
+    <span class="site-nav-lang" role="group" aria-label={langLabel}>
+      <a href={nlHref} lang="nl" hreflang="nl" aria-current={lang === 'nl' ? 'true' : undefined}>NL</a>
+      <a href={frHref} lang="fr" hreflang="fr" aria-current={lang === 'fr' ? 'true' : undefined}>FR</a>
+    </span>
   </nav>
 </header>
 
@@ -101,7 +122,7 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
     });
 
     menu.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && menu.hasAttribute('data-open')) {
         toggle.setAttribute('aria-expanded', 'false');
         menu.removeAttribute('data-open');
         toggle.focus();
@@ -116,7 +137,10 @@ const logoAriaLabel = lang === 'fr' ? "Plazey — vers la page d'accueil" : 'Pla
     }
 
     menu.addEventListener('keydown', (e) => {
-      if (e.key !== 'Tab') return;
+      // Trap Tab only while the mobile menu is open as an overlay. On desktop
+      // the menu is a plain always-visible nav row — wrapping focus there
+      // locks keyboard users inside the nav (WCAG 2.1.2).
+      if (e.key !== 'Tab' || !menu.hasAttribute('data-open')) return;
       const focusable = Array.from(
         menu.querySelectorAll('a, button')
       ) as HTMLElement[];

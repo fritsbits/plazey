@@ -7,7 +7,7 @@ const { items, headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 ---
 
-<dl class="accordion">
+<div class="accordion">
   {items.map((item) => (
     <details class="accordion-item">
       <summary class="accordion-summary">
@@ -22,4 +22,4 @@ const Heading = headingLevel;
       <div class="accordion-answer"><p>{item.answer}</p></div>
     </details>
   ))}
-</dl>
+</div>

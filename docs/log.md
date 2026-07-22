@@ -127,3 +127,18 @@ Onderzocht (3 parallelle agents: officiële kanalen, 3XXL-acts, overige acts + G
 ## [2026-07-17] update | Onderzochte bio's toegepast op 12 programma-items + nieuw item Apéro literair
 
 Vervolg op het externe onderzoek (zie vorige entry): bio's toegevoegd (NL+FR, description + body) voor Theater FroeFroe (Pretpakket 2.0), Arborescences ×2, Fête Foraine/STRUK, Dance Orientation (nu vrijdag 15:00, van de affiche), The Flemish Primitives, Jennifur, en, onder voorbehoud van bevestiging door Lies, TROY, Neeya, KZ en Les Choux de Bruxelles. Nieuw item `apero-literair.md` (zondag, off-stage, curator Boekelberg, enkel kaarttekst) van de officiële affiche; "Boekelberg" toegevoegd aan de curator-select in `public/admin/config.yml`. KZ-frontmatter opgeschoond (lege velden + placeholder-description weg). Statustracker en open vragen (nu 13) bijgewerkt in [wiki/content-intake-status.md](wiki/content-intake-status.md). Conceptmail met alle vragen voor Lies als Gmail-draft klaargezet. Geverifieerd: `astro check` 0 errors, build 17 pagina's.
+
+## [2026-07-22] update | Programma-navigatie vereenvoudigd: dagfilter geschrapt, type als toggle-chips
+
+Frederik's observatie: de filterrij maakte iets eenvoudigs moeilijk. De cijfers gaven hem gelijk — 28 items (6 vr / 9 za / 13 zo), waarvan 19 concerten. Een dagfilter neemt weg wat je toch al ziet, en een "alle types"-knop bestond alleen omdat radio's niet leeg kunnen zijn.
+
+- **Dagfilter weg.** De dagen zijn al de structuur van de pagina. Vervangen door een `.day-jump` `<nav>` met gewone ankerlinks (*Vrijdag · Zaterdag · Zondag*) naar de dag-koppen: navigatie in plaats van state, werkt zonder JS, deelbaar. `scroll-margin-top` op `.day-header` houdt de kop onder de sticky site-header.
+- **Type als single-select toggle-chips** (`<button aria-pressed>`). Niets ingedrukt = alles tonen, dus geen "Alle types"-chip; nog eens drukken wist de selectie. Multi-select bewust niet: bij twee actieve chips weet niemand of het AND of OR is.
+- **Weg:** `syncFacets` (~30 regels facetten-mechaniek), de dag-fieldset, beide "alle"-knoppen, de lege staat, de `?dag=`-parameter, en de CSS voor `.filter-group`, `.filter-legend`, `.filter-pills`, `.filter-reset`, `.programme-empty`. Netto ~90 regels per pagina eruit. De lege staat is onbereikbaar geworden: chips bestaan alleen voor types die items hebben, dus één type aanklikken geeft altijd ≥1 kaart.
+- De chiprij ship't `hidden` en wordt door het script zichtbaar gemaakt, zodat je zonder JS geen knoppen ziet die niets doen.
+- Filteren verbergt nog steeds een dag-kop die leegvalt, en nu ook diens ankerlink.
+- Twee fixes onderweg: het oude script crashte in de `save-the-date`-fase (`list` is dan `null`, nu achter één guard), en de hover-stijl won van de ingedrukte staat, zodat een net aangeklikte chip troebel bleef zolang de muis erop stond (`:hover:not([aria-pressed="true"])`).
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, browsertest NL 420px (28 kaarten → "Dans" = 2 kaarten / 2 dagkoppen / 2 ankerlinks / `?type=dans` → nog eens klikken = 28 terug en param weg → ankerlink scrollt naar `#day-sunday`), 0 console errors.
+
+Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md) (Zone 2 + Zone 4 herschreven, noot over de drie afwijkingen t.o.v. het wireframe), [wiki/skeleton-overzicht.md](wiki/skeleton-overzicht.md), [wiki/website-copy/2-programma.md](wiki/website-copy/2-programma.md) (NL + FR; ook de datums gecorrigeerd van 22–24 naar 28–30 augustus).

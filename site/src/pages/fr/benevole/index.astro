@@ -15,7 +15,7 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Venir aider" lang="fr" currentPath="/fr/benevole">
+<BaseLayout title="Venir aider" lang="fr" currentPath="/fr/benevole" bodyClass="page-orange">
   <section class="section hero-intro hero-green">
     <Container>
       <h1>Venir aider</h1>
@@ -57,7 +57,7 @@ const faqItems = [
           alt="Des bénévoles en t-shirt rose Plazey derrière le bar."
           widths={[400, 600]}
           sizes="(max-width: 640px) 100vw, 50vw"
-          class="sticker-img sticker-img--orange"
+          class="sticker-img sticker-img--yellow"
         />
         <Image
           src={etenGrillen}
@@ -72,6 +72,7 @@ const faqItems = [
     </Container>
   </section>
 
+  <div class="yellow-band">
   <section aria-labelledby="questions-benevoles" class="faq-section">
     <Container>
       <h2 id="questions-benevoles">Questions</h2>
@@ -92,6 +93,8 @@ const faqItems = [
           class="flex flex-col gap-5"
         >
             <input type="hidden" name="form-name" value="benevole" />
+
+            <p class="form-note">Tous les champs sont obligatoires, sauf mention (facultatif).</p>
 
             <div class="form-field form-field--narrow">
               <label for="naam-vw">Nom</label>
@@ -118,7 +121,7 @@ const faqItems = [
             </div>
 
             <fieldset class="option-group">
-              <legend>Quand es-tu disponible ?</legend>
+              <legend>Quand es-tu disponible ? <small class="field-optional">(facultatif)</small></legend>
               <div class="options">
                 <label><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vendredi</label>
                 <label><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Samedi</label>
@@ -127,7 +130,7 @@ const faqItems = [
             </fieldset>
 
             <fieldset class="option-group">
-              <legend>Qu'est-ce qui t'intéresse ?</legend>
+              <legend>Qu'est-ce qui t'intéresse ? <small class="field-optional">(facultatif)</small></legend>
               <div class="options">
                 <label><input type="checkbox" name="rol" value="bar" /> Bar</label>
                 <label><input type="checkbox" name="rol" value="kassa" /> Caisse</label>
@@ -137,7 +140,7 @@ const faqItems = [
             </fieldset>
 
             <div class="form-field">
-              <label for="talen-vw">Quelles langues parles-tu ?</label>
+              <label for="talen-vw">Quelles langues parles-tu ? <small class="field-optional">(facultatif)</small></label>
               <input
                 type="text"
                 id="talen-vw"
@@ -163,6 +166,7 @@ const faqItems = [
       </div>
     </Container>
   </aside>
+  </div>
 </BaseLayout>
 
 <style>
@@ -182,7 +186,7 @@ const faqItems = [
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 1.5rem 1.5rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
     margin: 0;
   }
   .roles-list li:nth-child(4n+1) { transform: rotate(-0.6deg); }

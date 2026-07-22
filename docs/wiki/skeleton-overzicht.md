@@ -40,7 +40,7 @@
 
 1. **Layer-cake** op alle content-pagina's; Z-patroon alleen in de home hero.
 
-1. **Programma is één filterbare lijst**, geen sub-pagina's per dag. Item-detail is een apart, minimaal pagina-sjabloon.
+1. **Programma is één filterbare lijst**, geen sub-pagina's per dag. Item-detail opent in een lightbox op diezelfde lijst, niet op een eigen pagina. *(Het "apart, minimaal pagina-sjabloon" uit het oorspronkelijke ontwerp is geschrapt op 2026-07-16.)*
 
 1. **Praktisch is één pagina met vier anchor-secties**, niet vier sub-pagina's. Elke anker heeft een deelbare URL.
 
@@ -124,37 +124,37 @@ Elke pagina bevat: `<header>`, `<nav>`, `<main>`, `<footer>`. H1 exact één kee
 
 **Doel:** een bezoeker laat scannen wat er speelt, per dag, en helpt filteren op wat écht relevant is voor diens avond of namiddag.
 
-**Primaire actie:** klik op een item → detail-pagina. 
+**Primaire actie:** klik op een item → lightbox met de volledige act-info (er zijn geen detail-pagina's, zie S3).
 
 **Secundair:** filteren op type.
 
 ### Wireframe-brief (mobile first)
 
-1. **Page header** — H1: *"Programma"*. Eén zin eronder: *"22–24 augustus 2026. Alles is gratis."*
+1. **Page header** — H1: *"Programma"*. Eén zin eronder: *"28–30 augustus 2026. Alles is gratis."*
 
-1. **Filters** — horizontale chip-row op mobile (scroll-bar zichtbaar), ge-expanded op desktop. Filters: **Dag** (vrijdag / zaterdag / zondag / alles), **Type** (concert / dans / film / workshop / kinderen / off-stage). Filters zijn toggles; stapelbaar. Kiezen = onmiddellijk filteren, geen "toepassen"-knop. URL sync: actieve filters in query string zodat deelbaar.
+1. **Dag-ankerlinks** — *Vrijdag · Zaterdag · Zondag* als gewone anchors naar de dag-koppen. Navigatie, geen filter-state; werkt zonder JS.
 
-1. **Dag-groepen** — lijst van programma-items gegroepeerd per dag. Elke dag-kop is sticky terwijl je scrollt, zodat je altijd ziet welke dag je bekijkt.
+1. **Type-chips** — één rij toggles, single-select. Niets ingedrukt = alles tonen, dus geen "alle types"-chip; nog eens drukken wist de selectie. Kiezen = onmiddellijk filteren, geen "toepassen"- en geen resetknop. URL sync: `?type=` in de query string zodat deelbaar. Alleen chips voor types die items hebben. *(Herzien 2026-07-22: de dagfilter is geschrapt, zie S2 voor de motivatie.)*
+
+1. **Dag-groepen** — lijst van programma-items gegroepeerd per dag, met een dag-kop als ankerdoel. Een kop en zijn ankerlink verdwijnen als het actieve typefilter die dag leegmaakt.
 
 1. **Programma-item card** (herbruikbaar component):
 
-1. **Lege staat** — als filters alles wegfilteren: *"Niks gevonden met deze filters."* + knop *"Alle filters wissen"*.
-
 ### Componenten nieuw
 
-- Filter chip-row
+- Dag-ankerlinks (`.day-jump`)
+
+- Type chip-row
 
 - Programma-item card
 
-- Sticky dag-header
-
 ### Toegankelijkheid-specifiek
 
-- Filters als native `<button aria-pressed>` of checkbox-group, geen pure divs.
+- Filters als native `<button aria-pressed>`, geen pure divs. Ingedrukte staat ook zonder kleur herkenbaar (vinkje).
 
 - Focus state duidelijk zichtbaar op elke card.
 
-- `aria-live="polite"` region meldt *"37 items gevonden"* / *"0 items gevonden"* bij filterwijziging.
+- `aria-live="polite"` region meldt *"37 items gevonden"* bij filterwijziging, en zwijgt bij eerste paint.
 
 ---
 

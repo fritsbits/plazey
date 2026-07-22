@@ -53,39 +53,19 @@
 
 ---
 
-## Empty state — programmafilters (0 resultaten)
+## ~~Empty state — programmafilters (0 resultaten)~~ *— vervalt sinds 2026-07-22*
 
-**Conditie:** actieve filters leveren 0 programma-items op.
+Deze lege staat is **weggehaald in plaats van gebouwd**: hij is onbereikbaar geworden. Er is nog maar één filter-as (type), de chips bestaan alleen voor types die echt items hebben, en je kan er maar één tegelijk aanzetten. Filteren geeft dus altijd minstens één kaart. Zie [s2-programma.md](s2-programma.md).
 
-```javascript
-[Aria-live regio update: "0 items gevonden."]
-
-[Niks gevonden met deze filters.]
-[KNOP: Alle filters wissen]
-```
-
-**Regels:**
-
-- Toon de lege staat **in de lijst-container** op de plek waar anders cards staan.
-
-- Nooit een visuele fout-indicator (rood, X). Toon alleen de tekst + resetknop.
-
-- Resetknop verwijdert alle actieve filters uit URL en herstelt de volledige lijst.
-
-**HTML:**
+Wat blijft: de aria-live regio meldt het aantal na een filterwijziging, en zwijgt bij de eerste paint.
 
 ```html
-<!-- Aria-live region (altijd aanwezig in DOM, ook als gevuld) -->
 <div role="status" aria-live="polite" aria-atomic="true" class="sr-only">
-  0 items gevonden.
-</div>
-
-<!-- Zichtbare lege staat -->
-<div class="empty-state" aria-hidden="true">
-  <p>Niks gevonden met deze filters.</p>
-  <button type="button" class="btn-reset">Alle filters wissen</button>
+  12 items gevonden.
 </div>
 ```
+
+**Les die blijft gelden** voor lege staten elders: nooit een visuele fout-indicator (rood, X), en toon de lege staat in de lijst-container op de plek waar anders cards staan.
 
 ---
 

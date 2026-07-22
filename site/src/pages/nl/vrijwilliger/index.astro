@@ -14,13 +14,17 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Kom helpen" lang="nl" currentPath="/nl/vrijwilliger">
-  <section class="section hero-intro hero-green">
+<BaseLayout title="Kom helpen" lang="nl" currentPath="/nl/vrijwilliger" bodyClass="page-orange">
+  <section class="section hero-intro hero-green vrijwilliger-hero">
     <Container>
-      <h1>Kom helpen</h1>
-      <p class="opening">Achter de bar, aan de kassa, of bij het opruimen. Tientallen mensen helpen elk jaar mee.</p>
-      <div class="cta-group">
-        <a href="#inschrijven" class="btn-primary">Word vrijwilliger</a>
+      <div class="hero-row">
+        <div class="hero-copy">
+          <h1>Kom helpen</h1>
+          <p class="opening">Achter de bar, aan de kassa, of bij het opruimen. Tientallen mensen helpen elk jaar mee.</p>
+        </div>
+        <div class="cta-group">
+          <a href="#inschrijven" class="btn-primary">Word vrijwilliger</a>
+        </div>
       </div>
     </Container>
   </section>
@@ -46,28 +50,22 @@ const faqItems = [
         </li>
       </ul>
 
-      <div class="image-pair">
+      <div class="experience-row">
         <Image
           src={vrijwilligersBar}
           alt="Vrijwilligers in roze Plazey-t-shirt achter de bar."
           widths={[400, 600]}
-          sizes="(max-width: 640px) 100vw, 50vw"
-          class="sticker-img sticker-img--orange"
+          sizes="(max-width: 639px) 100vw, 50vw"
+          class="sticker-img sticker-img--yellow"
         />
-        <Image
-          src={vrijwilligersBabyspot}
-          alt="Twee vrijwilligers in roze Plazey-t-shirt voor de Baby Spot-caravan."
-          widths={[400, 600]}
-          sizes="(max-width: 640px) 100vw, 50vw"
-          class="sticker-img sticker-img--sage"
-        />
+        <div class="experience-panel">
+          <p>Je hoeft geen ervaring te hebben. Je kiest zelf hoeveel tijd je wil helpen: een halve dag, een hele dag of het hele weekend. Plazey zorgt voor een maaltijd en drankjes terwijl je helpt.</p>
+        </div>
       </div>
-
-      <p>Je hoeft geen ervaring te hebben. Je kiest zelf hoeveel tijd je wil helpen: een halve dag, een hele dag of het hele weekend. Plazey zorgt voor een maaltijd en drankjes terwijl je helpt.</p>
-
     </Container>
   </section>
 
+  <div class="yellow-band">
   <section aria-labelledby="vragen-vrijwilligers" class="faq-section">
     <Container>
       <h2 id="vragen-vrijwilligers">Vragen</h2>
@@ -77,91 +75,127 @@ const faqItems = [
 
   <aside id="inschrijven" aria-labelledby="inschrijven-heading" class="callout section">
     <Container>
-      <h2 id="inschrijven-heading">Word vrijwilliger.</h2>
-      <p>We nemen zo snel mogelijk contact op.</p>
+      <div class="signup-row">
+      <div class="volunteer-card">
+        <h2 id="inschrijven-heading">Word vrijwilliger.</h2>
+        <p>We nemen zo snel mogelijk contact op.</p>
 
-      <div class="cta-form">
-        <form
-          name="vrijwilliger"
-          method="POST"
-          data-netlify="true"
-          class="flex flex-col gap-5"
-        >
-            <input type="hidden" name="form-name" value="vrijwilliger" />
+        <div class="cta-form">
+          <form
+            name="vrijwilliger"
+            method="POST"
+            data-netlify="true"
+            class="flex flex-col gap-5"
+          >
+              <input type="hidden" name="form-name" value="vrijwilliger" />
 
-            <div class="form-field form-field--narrow">
-              <label for="naam-vw">Naam</label>
-              <input
-                type="text"
-                id="naam-vw"
-                name="naam"
-                required
-                autocomplete="name"
-                maxlength="200"
-              />
-            </div>
+              <p class="form-note">Alle velden zijn verplicht, behalve waar (optioneel) staat.</p>
 
-            <div class="form-field form-field--narrow">
-              <label for="email-vw">E-mailadres</label>
-              <input
-                type="email"
-                id="email-vw"
-                name="email"
-                required
-                autocomplete="email"
-                maxlength="254"
-              />
-            </div>
-
-            <fieldset class="option-group">
-              <legend>Wanneer ben je beschikbaar?</legend>
-              <div class="options">
-                <label><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vrijdag</label>
-                <label><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Zaterdag</label>
-                <label><input type="checkbox" name="beschikbaarheid" value="zondag" /> Zondag</label>
+              <div class="form-field form-field--narrow">
+                <label for="naam-vw">Naam</label>
+                <input
+                  type="text"
+                  id="naam-vw"
+                  name="naam"
+                  required
+                  autocomplete="name"
+                  maxlength="200"
+                />
               </div>
-            </fieldset>
 
-            <fieldset class="option-group">
-              <legend>Waarvoor heb je interesse?</legend>
-              <div class="options">
-                <label><input type="checkbox" name="rol" value="bar" /> Bar</label>
-                <label><input type="checkbox" name="rol" value="kassa" /> Kassa</label>
-                <label><input type="checkbox" name="rol" value="infostand" /> Infostand</label>
-                <label><input type="checkbox" name="rol" value="opbouw-opruim" /> Opbouw en opruim</label>
+              <div class="form-field form-field--narrow">
+                <label for="email-vw">E-mailadres</label>
+                <input
+                  type="email"
+                  id="email-vw"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  maxlength="254"
+                />
               </div>
-            </fieldset>
 
-            <div class="form-field">
-              <label for="talen-vw">Welke talen spreek je?</label>
-              <input
-                type="text"
-                id="talen-vw"
-                name="talen"
-                placeholder="bv. Nederlands, Frans, Engels"
-                maxlength="200"
-                autocomplete="language"
-              />
-            </div>
+              <fieldset class="option-group">
+                <legend>Wanneer ben je beschikbaar? <small class="field-optional">(optioneel)</small></legend>
+                <div class="options">
+                  <label><input type="checkbox" name="beschikbaarheid" value="vrijdag" /> Vrijdag</label>
+                  <label><input type="checkbox" name="beschikbaarheid" value="zaterdag" /> Zaterdag</label>
+                  <label><input type="checkbox" name="beschikbaarheid" value="zondag" /> Zondag</label>
+                </div>
+              </fieldset>
 
-            <div class="form-field">
-              <label for="extra-vw">Nog iets anders? <small class="field-optional">(optioneel)</small></label>
-              <textarea
-                id="extra-vw"
-                name="extra"
-                rows="3"
-                maxlength="1000"
-              ></textarea>
-            </div>
+              <fieldset class="option-group">
+                <legend>Waarvoor heb je interesse? <small class="field-optional">(optioneel)</small></legend>
+                <div class="options">
+                  <label><input type="checkbox" name="rol" value="bar" /> Bar</label>
+                  <label><input type="checkbox" name="rol" value="kassa" /> Kassa</label>
+                  <label><input type="checkbox" name="rol" value="infostand" /> Infostand</label>
+                  <label><input type="checkbox" name="rol" value="opbouw-opruim" /> Opbouw en opruim</label>
+                </div>
+              </fieldset>
 
-            <button type="submit" class="btn-primary self-start">Schrijf je in</button>
-          </form>
+              <div class="form-field">
+                <label for="talen-vw">Welke talen spreek je? <small class="field-optional">(optioneel)</small></label>
+                <input
+                  type="text"
+                  id="talen-vw"
+                  name="talen"
+                  placeholder="bv. Nederlands, Frans, Engels"
+                  maxlength="200"
+                  autocomplete="language"
+                />
+              </div>
+
+              <div class="form-field">
+                <label for="extra-vw">Nog iets anders? <small class="field-optional">(optioneel)</small></label>
+                <textarea
+                  id="extra-vw"
+                  name="extra"
+                  rows="3"
+                  maxlength="1000"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary self-start">Schrijf je in</button>
+            </form>
+        </div>
+      </div>
+
+      <Image
+        src={vrijwilligersBabyspot}
+        alt="Twee vrijwilligers in roze Plazey-t-shirt voor de Baby Spot-caravan."
+        widths={[400, 600]}
+        sizes="(max-width: 767px) 100vw, 256px"
+        class="sticker-img sticker-img--sage signup-photo"
+      />
       </div>
     </Container>
   </aside>
+  </div>
 </BaseLayout>
 
 <style>
+  /* Hero — copy left, signup CTA right within the container on larger
+     breakpoints (mobile keeps the stacked default). */
+  .hero-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .hero-row {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-copy { flex: 1; min-width: 0; }
+    .vrijwilliger-hero .cta-group { flex-shrink: 0; margin-top: 0; }
+  }
+  /* Tighten the gap to the roles section below now the CTA moved into the hero. */
+  .vrijwilliger-hero + .section { padding-top: 1.25rem; }
+  @media (min-width: 768px) { .vrijwilliger-hero + .section { padding-top: 1.5rem; } }
+
   .roles-list {
     list-style: none;
     padding: 0;
@@ -174,11 +208,11 @@ const faqItems = [
     .roles-list { grid-template-columns: 1fr; gap: 1.25rem; }
   }
   .roles-list li {
-    background: var(--color-surface-muted);
+    background: var(--color-surface-muted) url('/textures/page-cream.jpg') center / cover no-repeat;
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 1.5rem 1.5rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
     margin: 0;
   }
   .roles-list li:nth-child(4n+1) { transform: rotate(-0.6deg); }
@@ -187,19 +221,129 @@ const faqItems = [
   .roles-list li:nth-child(4n+4) { transform: rotate(0.5deg); }
   .roles-list li > h3 {
     margin-block-start: 0;
+    color: var(--color-text);
     font-size: 1.5rem;
     line-height: 1.05;
     letter-spacing: -0.015em;
   }
   .roles-list li > p {
     margin-top: 0.5rem;
-    color: var(--color-text);
-    font-weight: 600;
+    color: var(--color-text-body);
+    font-weight: 400;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.1;
   }
   @media (prefers-reduced-motion: reduce) {
     .roles-list li { transform: none !important; }
+  }
+
+  /* One volunteer photo alongside the "no experience needed" copy, lifted into
+     its own yellow textured panel so it holds contrast against the orange
+     page ground. */
+  .experience-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    margin: 1.5rem 0;
+  }
+  @media (min-width: 640px) {
+    .experience-row { grid-template-columns: 1fr 1fr; }
+  }
+  .experience-panel {
+    background: var(--color-yellow) url('/textures/page-yellow.jpg') center / cover no-repeat;
+    color: var(--color-maroon);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
+    padding: 1.75rem;
+    transform: rotate(0.6deg);
+  }
+  .experience-panel p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .experience-panel { transform: none; }
+  }
+
+  /* Signup content floats as a beige poster card on the unbroken orange page
+     texture (the .yellow-band + body.page-orange rules in global.css already
+     drop the callout's own background so the ground reads as one continuous
+     surface) — matching the maroon-on-cream treatment used elsewhere, instead
+     of tinting the whole section cream. */
+  .volunteer-card {
+    background: var(--color-surface) url('/textures/page-cream.jpg') center / cover no-repeat;
+    color: var(--color-text);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+    padding: 2rem 1.75rem;
+    max-width: 34rem;
+    transform: rotate(-0.4deg);
+  }
+  @media (min-width: 768px) {
+    .volunteer-card { padding: 2.5rem; }
+  }
+  .volunteer-card :where(h1, h2, h3, h4),
+  .volunteer-card label,
+  .volunteer-card legend,
+  .volunteer-card .field-optional {
+    color: var(--color-text);
+  }
+  .volunteer-card p,
+  .volunteer-card .form-note {
+    color: var(--color-text-body);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+  .volunteer-card .btn-primary {
+    background: var(--color-text);
+    color: var(--color-surface);
+    border-color: var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-orange);
+  }
+  .volunteer-card .btn-primary:hover {
+    background: var(--color-text);
+    color: var(--color-surface);
+    box-shadow: 6px 6px 0 var(--color-orange);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .volunteer-card { transform: none; }
+  }
+
+  /* Signup row — the second volunteer photo (sage shadow) peeks out behind
+     the form card on larger breakpoints: positioned to the card's right,
+     rotated, and tucked partly under it via negative margin + z-index.
+     Mobile keeps a simple stacked layout, photo below the card. */
+  .signup-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .signup-photo { max-width: 22rem; width: 100%; }
+  @media (min-width: 768px) {
+    .signup-row {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .volunteer-card { position: relative; z-index: 2; flex-shrink: 0; }
+    .signup-photo {
+      width: 16rem;
+      max-width: none;
+      margin-left: -3.5rem;
+      margin-top: 4rem;
+      position: relative;
+      z-index: 1;
+      transform: rotate(4deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .signup-photo { transform: none; }
   }
 </style>
 

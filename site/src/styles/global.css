@@ -5,24 +5,39 @@
 
   /* Base / semantic */
   --color-page: #F0788F;            /* pink — full-bleed page background */
+  --page-texture-veil: 0;           /* muting of the painterly pink page texture — 0 = full texture, higher = subtler */
   --color-surface: #FCF2E7;         /* cream — cards, panels */
   --color-surface-muted: #F3E7D6;   /* cream, one shade deeper */
   --color-text: #6F2418;            /* maroon ink — on cream + display type on pink */
   --color-text-on-page: #310801;    /* near-black — body copy on the pink page (AA) */
   --color-text-muted: #8A4433;      /* softer maroon — secondary text on cream */
   --color-text-faint: #A6685A;      /* faint maroon */
+  --color-text-body: color-mix(in oklab, #000000 80%, var(--color-text) 20%);
+                                     /* near-black, warmed 20% toward brown — default
+                                        running body copy on cream/paper card surfaces.
+                                        Titles stay --color-text (maroon); this is for
+                                        the regular-weight prose underneath. */
   --color-border: #6F2418;          /* maroon — all borders */
   --color-border-subtle: #D8A9A0;   /* pink-tinted subtle border */
-  --color-hover: #3F6C39;           /* green — link hover */
+  --color-hover: #1E3819;           /* dark green ink — link hover, AA on pink and cream */
+
+  /* Shadow ink — translucent maroon, so the hard offset shadow picks up whatever
+     paint ground it falls on: warm on pink, olive on yellow, near-black on green.
+     One knob for the whole site. Opaque maroon is kept for focus indicators
+     (they must stay high-contrast) and for the coloured sticker shadows, which
+     are deliberate colour offsets rather than shadows. */
+  --color-shadow-ink: rgb(111 36 24 / 0.30);
 
   /* Named accents — components opt in by name */
   --color-pink: #F0788F;
   --color-yellow: #F6CB2F;
   --color-orange: #F49A00;
+  --color-orange-hot: #FF7A0F;      /* hot orange — alternate page ground */
   --color-green: #3F6C39;
   --color-sage: #94AB86;
   --color-maroon: #6F2418;
   --color-cream: #FCF2E7;
+  --color-beige: #FFF9EF;            /* lighter, whiter paper tone — same grain as cream, paler tint */
   --color-nav: #2E2C26;
 
   /* Radius scale */
@@ -49,10 +64,43 @@
 @layer base {
   body {
     font-family: var(--font-sans);
+    /* 17px base — the audience reads tired, on phones, often in a second
+       language. Nothing interactive or running-copy sits under 15px. */
+    font-size: 1.0625rem;
     background: var(--color-page);
     color: var(--color-text-on-page);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Painterly pink page ground. Two fixed layers behind all content
+     (no background-attachment: fixed — avoids iOS repaint jank):
+     the texture over the flat pink, then a pink veil that mutes it.
+     Subtlety is one knob: --page-texture-veil. */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  body::before {
+    background: var(--color-page) url("/textures/page-pink.jpg") center / cover no-repeat;
+  }
+  body::after {
+    background: var(--color-page);
+    opacity: var(--page-texture-veil);
+  }
+
+  /* Beige-ground pages (e.g. Over Plazey / À propos): swap the painterly pink
+     page for one continuous beige paper texture. Because this layer is fixed,
+     every transparent section reads as the same unbroken surface — the page
+     ground never changes from section to section. (The matching contact-callout
+     override lives in @layer components, where the yellow .callout rule is
+     defined.) */
+  body.page-beige::before {
+    background: var(--color-beige) url("/textures/page-beige.jpg") center / cover no-repeat;
   }
 
   h1, h2, h3, h4 {
@@ -67,7 +115,7 @@
     letter-spacing: -0.02em;
   }
   h2 {
-    font-size: clamp(1.875rem, 4.6vw, 2.75rem);
+    font-size: clamp(2.4375rem, 5.98vw, 3.575rem);
     line-height: 1.02;
     letter-spacing: -0.025em;
     margin-block-end: 1rem;
@@ -91,13 +139,18 @@
 
   main li { line-height: 1.55; }
   main li + li { margin-top: 0.375rem; }
-  /* Layout lists use `gap` for spacing — prose margin would misalign grid rows */
-  main :where(.grid, .flex, .roles-list, .partners-logos, .page-nav) > li + li {
+  /* Layout lists use `gap`/margin utilities for spacing — prose margin would double up */
+  main :where(.grid, .flex, .roles-list, .partners-logos, .page-nav, .program-cards) > li + li {
     margin-top: 0;
   }
 
   a { color: inherit; text-decoration: underline; }
-  a:hover { color: var(--color-hover); }
+  a:hover { color: var(--color-hover); text-decoration-thickness: 2px; }
+
+  /* Body copy measure — the 56rem container is ~110ch, far past comfortable
+     reading width. Centered contexts re-center the capped box below. */
+  main p { max-width: 65ch; }
+  main .proposal-bridge p { margin-inline: auto; }
 
   ::selection { background: var(--color-yellow); color: var(--color-maroon); }
 
@@ -106,6 +159,19 @@
     outline: 2px solid var(--color-text);
     outline-offset: 2px;
     border-radius: var(--radius);
+  }
+  /* Maroon is invisible against the green panels, the dark nav, and the photo
+     anchor banner — those grounds get a cream focus ring instead. Elements on
+     a cream card inside a green section flip back to maroon. */
+  .section--green :focus-visible,
+  .site-nav :focus-visible,
+  .site-footer :focus-visible,
+  .anchors-banner :focus-visible {
+    outline-color: var(--color-cream);
+  }
+  .section--green .program-card :focus-visible,
+  .section--green dialog :focus-visible {
+    outline-color: var(--color-text);
   }
 }
 
@@ -125,6 +191,40 @@
   @media (min-width: 768px) { .section { padding-block: var(--section-y-md); } }
   @media (min-width: 1024px) { .section { padding-block: var(--section-y-lg); } }
 
+  /* Paper sheet — a cream reading band floating on the pink page, like a
+     poster taped to a wall: full ink border, hard offset shadow, slight
+     alternating tilt. Reading sections become sheets; the loud themed bands
+     (green programma, yellow callouts, footer) stay full-bleed between them.
+     Ink on a sheet is maroon (9.8:1 on cream). */
+  .paper-sheet {
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
+    color: var(--color-text);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+    max-width: min(58rem, calc(100% - 2.5rem));
+    margin-inline: auto;
+    margin-block: 2.25rem;
+  }
+  .paper-sheet--tilt-l { transform: rotate(-0.35deg); }
+  .paper-sheet--tilt-r { transform: rotate(0.3deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .paper-sheet--tilt-l,
+    .paper-sheet--tilt-r { transform: none; }
+  }
+  /* Flat-fill variants — no painterly texture, matching the flat poster-card
+     siblings (transport-card, access-cat, org-card) instead of the textured
+     cream default. */
+  .paper-sheet--surface-muted { background: var(--color-surface-muted); }
+  .paper-sheet--beige { background: var(--color-beige); }
+  .paper-sheet p { color: var(--color-text); }
+  .paper-sheet .h2-soft { color: var(--color-text); }
+  .paper-sheet .btn-text {
+    color: var(--color-text);
+    text-decoration-color: var(--color-orange);
+  }
+  .paper-sheet .btn-text:hover { color: var(--color-hover); }
+
   /* Buttons — poster-style pills. Display face, thick ink border, hard offset shadow. */
   .btn-primary,
   .btn-ghost,
@@ -143,7 +243,10 @@
   }
   .btn-primary,
   .btn-ghost {
-    padding: 0.75rem 1.25rem;
+    /* Luckiest Guy's glyphs sit high in its own em-box (tall ascent, near-zero
+       descent on caps), so geometric vertical centering reads as too-high text.
+       Padding is split unevenly, not 0.75rem/0.75rem, to optically recenter it. */
+    padding: 0.9rem 1.25rem 0.6rem;
     border: 2.5px solid var(--color-text);
     border-radius: 9999px;
   }
@@ -162,13 +265,13 @@
   .btn-ghost {
     background: var(--color-surface);
     color: var(--color-text);
-    box-shadow: 4px 4px 0 var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-shadow-ink);
   }
   .btn-ghost:hover {
     background: var(--color-yellow);
     color: var(--color-text);
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
     text-decoration: none;
   }
   .btn-primary:active,
@@ -178,7 +281,7 @@
     transition-duration: 0.05s;
   }
   .btn-ghost:active {
-    box-shadow: 2px 2px 0 var(--color-text);
+    box-shadow: 2px 2px 0 var(--color-shadow-ink);
   }
   @media (prefers-reduced-motion: reduce) {
     .btn-primary:hover,
@@ -189,10 +292,10 @@
     }
   }
   .btn-text {
-    color: var(--color-text);
+    color: var(--color-text-on-page);
     font-family: var(--font-sans);
     font-weight: 700;
-    font-size: 0.9375rem;
+    font-size: 1.0625rem;
     padding: 0.5rem 0.25rem;
     min-height: 44px;
     text-decoration: underline;
@@ -200,7 +303,7 @@
     text-underline-offset: 4px;
   }
   .btn-text:hover {
-    color: var(--color-orange);
+    color: var(--color-hover);
     text-decoration: underline;
   }
 
@@ -213,6 +316,7 @@
     grid-template-columns: 1fr;
     align-items: stretch;
     padding: 0;
+    scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
   @media (min-width: 768px) {
     .split-section { grid-template-columns: 1fr 1fr; }
@@ -249,6 +353,70 @@
     .split-section.split--image-right > .split-image { order: 1; }
   }
 
+  /* Split overlap — one full-bleed photo with an overlapping cream card
+     folding two teasers ("Hoe kom ik er", "Doe mee") into a single section.
+     Below 768px the card follows the photo in flow, pulled up to overlap its
+     bottom edge. At 768px+ the card floats absolutely over the photo's
+     bottom-right corner instead. */
+  .split-overlap {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    position: relative;
+  }
+  .split-overlap-photo { margin: 0; }
+  .split-overlap-img {
+    display: block;
+    width: 100%;
+  }
+  .split-overlap-card {
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
+    color: var(--color-text);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+    margin: -1.5rem 1.5rem 0;
+    padding: 1.75rem 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .split-overlap-card h2 { color: var(--color-text); }
+  .split-overlap-card p { color: var(--color-text-body); line-height: 1.1; }
+  .split-overlap-card .btn-text {
+    color: var(--color-text);
+    text-decoration-color: var(--color-orange);
+  }
+  .split-overlap-card .btn-text:hover { color: var(--color-hover); }
+  /* Yellow-fill primary modifier — used for the "Kom helpen"/"Viens aider" CTA
+     inside a cream card (not a `.section--green` panel), where the default
+     `.btn-primary` maroon fill would otherwise apply. */
+  .btn-primary--yellow {
+    background: var(--color-yellow);
+    color: var(--color-text);
+    border-color: var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-shadow-ink);
+  }
+  .btn-primary--yellow:hover {
+    background: var(--color-orange);
+    color: var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
+  }
+  .split-overlap-block + .split-overlap-block {
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  @media (min-width: 768px) {
+    .split-overlap-card {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(26rem, 40%);
+      margin: 0;
+      padding: 2.25rem 2.5rem;
+    }
+  }
+
   /* Modifier on a full-bleed split section that follows a Container'd page section.
      Margin (not padding) so the inner image runs flush to the section's top edge;
      border-top supplies the rule between this section and the prior page-section. */
@@ -261,21 +429,6 @@
     .kids-bleed { margin-top: 4rem; }
   }
 
-  /* Eyebrow — small uppercase tracked label above a heading. Body face, no pill,
-     no rule under it; just a clean label so it can't be mistaken for a button. */
-  .eyebrow {
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 0.75rem;
-    line-height: 1;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-text);
-    margin-bottom: 1rem;
-  }
-  .hero-green .eyebrow { color: var(--color-yellow); }
-
   /* Mustard highlighter under part of a heading — poster-style emphasis. */
   .underline-mustard {
     background: linear-gradient(transparent 62%, var(--color-yellow) 62%, var(--color-yellow) 94%, transparent 94%);
@@ -283,19 +436,6 @@
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
-
-  /* Soft tail inside an h1 — body face, smaller weight, drops to a new line. */
-  .h1-soft {
-    display: block;
-    font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 0.42em;
-    color: color-mix(in oklab, var(--color-surface), var(--color-green) 35%);
-    letter-spacing: -0.005em;
-    line-height: 1.15;
-    margin-top: 0.5rem;
-  }
-  .hero-green .h1-soft { color: color-mix(in oklab, var(--color-surface), var(--color-green) 35%); }
 
   /* Anchor pill band — sits in its own paper section beneath the hero. Each pill
      carries a different brand color and a numbered ink badge. */
@@ -353,29 +493,42 @@
     gap: 0.75rem;
     margin: 0;
   }
+  /* Plain variant — quick-links row sitting straight on the page ground
+     (no photo banner underneath), used on Praktisch beneath the hero. */
+  .hero-anchors--plain {
+    margin: 0.5rem 0 2rem;
+  }
   .hero-anchor {
     display: inline-flex;
     align-items: center;
     gap: 0.625rem;
     background: var(--anchor-bg, var(--color-surface));
-    color: var(--color-surface);
+    color: var(--color-text-on-page);
     border: 2.5px solid var(--color-text);
     border-radius: 9999px;
     padding: 0.4rem 1rem 0.4rem 0.4rem;
-    text-shadow: 0 2px 0 rgba(31, 29, 26, 0.55);
+    min-height: 2.75rem;
     font-family: var(--font-heading);
     font-size: 1rem;
     line-height: 1;
     text-decoration: none;
-    box-shadow: 3px 3px 0 var(--color-text);
+    box-shadow: 3px 3px 0 var(--color-shadow-ink);
     transition: transform 140ms ease, box-shadow 140ms ease;
   }
+  /* Dark pill fills (green, maroon) flip to cream text. */
+  .hero-anchor--dark { color: var(--color-surface); }
   .hero-anchor:hover,
   .hero-anchor:focus-visible {
     transform: translate(-2px, -2px) rotate(0deg) !important;
+    /* Focus indicator — stays opaque maroon. The shadow is the whole visible
+       focus cue here, so it must not thin out against the page. */
     box-shadow: 5px 5px 0 var(--color-text);
     text-decoration: none;
-    color: var(--color-surface);
+  }
+  .hero-anchor[aria-current="true"] {
+    text-decoration: underline;
+    text-decoration-thickness: 2.5px;
+    text-underline-offset: 4px;
   }
   .hero-anchor:nth-child(1) { transform: rotate(-1.5deg); }
   .hero-anchor:nth-child(2) { transform: rotate(0.5deg); }
@@ -399,6 +552,18 @@
     font-size: 0.8125rem;
     flex-shrink: 0;
   }
+  /* Same Luckiest Guy high-riding-glyph issue as .btn-primary/.btn-ghost, but the
+     badge sibling is already correctly centered, so the fix nudges only the
+     label text (via transform, so it doesn't shift layout/siblings). */
+  .hero-anchor-label {
+    display: inline-block;
+    transform: translateY(0.16em);
+  }
+  /* Plain pill variant — no numbered badge (Praktisch's simplified quick-links
+     row). Left padding matches the right side without the badge to fill it. */
+  .hero-anchor:not(:has(.hero-anchor-num)) {
+    padding-left: 1rem;
+  }
 
   /* Soft tail inside an h2 — body face, smaller, slightly tilted for poster energy. */
   .h2-soft {
@@ -406,7 +571,7 @@
     font-family: var(--font-sans);
     font-weight: 800;
     font-size: 0.42em;
-    color: var(--color-text-muted);
+    color: var(--color-text-on-page);
     letter-spacing: -0.005em;
     margin-left: 0.4em;
     transform: rotate(-1.5deg) translateY(-0.15em);
@@ -424,11 +589,11 @@
     padding: 0;
   }
   .feature-blocks > li {
-    background: var(--color-surface-muted);
+    background: var(--color-surface-muted) url("/textures/page-cream.jpg") center / cover no-repeat;
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 1.5rem 1.25rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
     margin: 0;
   }
   .feature-blocks > li:nth-child(1) { transform: rotate(-1deg); }
@@ -450,31 +615,34 @@
   .feature-icon svg { width: 100%; height: 100%; display: block; }
   .feature-blocks > li > h3 {
     margin-block-start: 0;
+    /* Always maroon: these titles sit on the cream card regardless of the
+       section's own background colour (pink page or `.section--green`). */
+    color: var(--color-text);
     font-size: 1.625rem;
     line-height: 1.05;
     letter-spacing: -0.015em;
   }
   .feature-blocks > li > p {
     margin-top: 0.5rem;
-    color: var(--color-text);
-    font-weight: 600;
+    color: var(--color-text-body);
+    font-weight: 400;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.1;
   }
 
   /* Hero intro — staggered cascade reveal on first paint. h1 first, then date,
      then CTAs (with a small scale-pop), then language link; figure rises last.
      Honours prefers-reduced-motion. */
   .hero-intro { overflow: hidden; }
-  .hero-intro :where(h1, .text-date, .text-meta, .cta-group, .lang-switcher, figure) {
+  .hero-intro :where(h1, .text-date, .text-free, .cta-group, .lang-switcher) {
     opacity: 0;
     transform: translateY(18px);
     animation: hero-intro-rise 720ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: var(--hero-d, 0ms);
   }
   .hero-intro h1 { --hero-d: 0ms; }
-  .hero-intro .text-date,
-  .hero-intro .text-meta { --hero-d: 140ms; }
+  .hero-intro .text-date { --hero-d: 140ms; }
+  .hero-intro .text-free { --hero-d: 220ms; }
   .hero-intro .cta-group { --hero-d: 240ms; }
   .hero-intro .cta-group .btn-primary,
   .hero-intro .cta-group .btn-ghost,
@@ -488,17 +656,10 @@
   .hero-intro .cta-group > *:nth-child(2) { --cta-d: 320ms; }
   .hero-intro .cta-group > *:nth-child(3) { --cta-d: 400ms; }
   .hero-intro .lang-switcher { --hero-d: 480ms; }
-  .hero-intro figure {
-    --hero-d: 320ms;
-    transform: translateY(40px) scale(1.03);
-    animation-name: hero-intro-reveal;
-    animation-duration: 900ms;
-  }
-  @keyframes hero-intro-rise   { to { opacity: 1; transform: translateY(0); } }
-  @keyframes hero-intro-pop    { to { opacity: 1; transform: translateY(0) scale(1); } }
-  @keyframes hero-intro-reveal { to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes hero-intro-rise { to { opacity: 1; transform: translateY(0); } }
+  @keyframes hero-intro-pop  { to { opacity: 1; transform: translateY(0) scale(1); } }
   @media (prefers-reduced-motion: reduce) {
-    .hero-intro :where(h1, p, .cta-group, .cta-group > *, .lang-switcher, figure) {
+    .hero-intro :where(h1, p, .cta-group, .cta-group > *, .lang-switcher) {
       animation: none;
       opacity: 1;
       transform: none;
@@ -507,46 +668,43 @@
 
   /* Hero — sits directly on the pink page ground (no panel), massive Luckiest Guy
      headline in maroon, green eyebrow pill, maroon/yellow date pill, mustard
-     primary + paper-outline ghost CTAs, full-bleed festival photo below. */
+     primary + paper-outline ghost CTAs, contained festival photo below. */
   .hero-green {
-    background: var(--color-page);
+    /* Transparent so the painterly pink page texture (body::before) shows
+       through — the hero is a pink section, not a flat panel. */
+    background: transparent;
     color: var(--color-text-on-page);
-    border-bottom: 3px solid var(--color-text);
     overflow: hidden;
     padding-block: 2.25rem;
   }
 
   @media (min-width: 768px) { .hero-green { padding-block: 3rem; } }
   @media (min-width: 1024px) { .hero-green { padding-block: 3.75rem; } }
-  .hero-green:has(.hero-green-figure) { padding-bottom: 0; }
+  /* Home hero — the full-bleed image sits flush under the sticky nav, no gap. */
+  .hero-green:has(.hero-bg-wrap) { padding-top: 0; }
   .hero-green .opening {
     margin-top: 1.75rem;
     margin-bottom: 0;
-    font-size: 1.25rem;
+    /* Matches the practical-info hero meta size — the confident, load-bearing
+       lead size shared across every subpage hero. */
+    font-size: clamp(1.375rem, 1rem + 1.6vw, 1.625rem);
     font-weight: 700;
     color: var(--color-text-on-page);
     letter-spacing: -0.005em;
-    line-height: 1.5;
+    line-height: 1.45;
     max-width: 38rem;
   }
   .hero-green :where(h1, h2, a) { color: var(--color-text-on-page); }
   .hero-green :where(p) { color: var(--color-text-on-page); }
 
-  /* AA fix: hero-intro sections without .hero-green (privacy pages) still sit
-     directly on the pink page ground — .opening must not fall back to the
-     muted maroon default (~2.78:1). Mirrors .hero-green .opening; on pages
-     that carry both classes this resolves to the same near-black value. */
-  .hero-intro .opening {
-    color: var(--color-text-on-page);
-  }
   .hero-green h1 {
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-size: clamp(3rem, 6.65vw, 5rem);
     line-height: 1.0;
     letter-spacing: -0.025em;
     text-wrap: balance;
     max-width: 18ch;
-    color: var(--color-text);
-    text-shadow: 4px 4px 0 rgba(31, 29, 26, 0.35);
+    /* Deep maroon display type on the pink hero. */
+    color: #761C09;
   }
   /* Refined dot separator between meta items — small filled circle, paper. */
   .meta-sep {
@@ -569,13 +727,13 @@
     background: var(--color-yellow);
     color: var(--color-text);
     border-color: var(--color-text);
-    box-shadow: 4px 4px 0 var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-shadow-ink);
   }
   .hero-green .btn-primary:hover {
     background: var(--color-orange);
     color: var(--color-text);
     transform: translate(-3px, -3px);
-    box-shadow: 8px 8px 0 var(--color-text);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
   }
   .hero-green .btn-ghost {
     background: var(--color-text);
@@ -597,7 +755,7 @@
   .hero-green .btn-text:hover { color: var(--color-maroon); }
   .hero-green .lang-switcher {
     margin-top: 1.75rem;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     color: var(--color-text-on-page);
   }
   .hero-green .lang-switcher a {
@@ -613,25 +771,75 @@
     color: var(--color-maroon);
     text-decoration-color: var(--color-yellow);
   }
-  .hero-green-figure {
-    margin: 3rem 0 0;
+  /* Home hero background — the carnival illustration bleeds to the full
+     viewport width. Image and overlay are stacked in the same grid cell
+     (both "grid-area: 1 / 1") instead of the overlay floating via absolute
+     positioning: a grid track sizes to the tallest item placed in it, so the
+     wrap is always at least as tall as the image AND at least as tall as the
+     card, whichever needs more room. object-fit: contain means the artwork
+     is never cropped even when the card is the taller of the two (a long FR
+     headline, a narrow phone) — it letterboxes instead of clipping. The card
+     sits on top like a poster glued over the artwork, rather than a
+     translucent scrim (keeps the poster-signature border + hard shadow
+     language instead of glassmorphism). CTAs live below, back on the plain
+     pink ground. */
+  .hero-bg-wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
   }
-  .hero-green-figure img {
-    display: block;
+  .hero-bg-img {
+    grid-area: 1 / 1;
     width: 100%;
-    outline: 3px solid var(--color-text);
-    outline-offset: -3px;
-    border-radius: 0;
+    height: 100%;
+    object-fit: contain;
   }
+  .hero-bg-overlay {
+    grid-area: 1 / 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: clamp(1.75rem, 6vw, 4rem);
+  }
+  .hero-bg-card {
+    display: inline-block;
+    text-align: left;
+    max-width: 42rem;
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
+    color: var(--color-text);
+    border: 3px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    transform: rotate(-1.5deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-card { transform: none; }
+  }
+  .hero-bg-card h1 { max-width: none; }
 
-  /* Section colour variants — dark green poster panel with light text. */
+  /* Section colour variants — dark green poster panel with light text.
+     Divides from the pink page by colour alone; no maroon frame. */
   .section--green {
-    background: var(--color-green);
+    background: var(--color-green) url("/textures/page-green.jpg") center / cover no-repeat;
     color: var(--color-surface);
-    border-top: 3px solid var(--color-text);
-    border-bottom: 3px solid var(--color-text);
   }
   .section--green :where(h1, h2, h3, h4) { color: var(--color-surface); }
+  /* Programma hero H1 — same big display size as the pink `.hero-green` heroes,
+     so the Programma page hero matches the other subpages (colour stays cream on
+     the green panel, set above). Scoped to the hero via the hero-intro class. */
+  .section--green.hero-intro h1 {
+    font-size: clamp(3rem, 6.65vw, 5rem);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    max-width: 18ch;
+  }
+  /* Hero lead on the green panel — same large `.opening` treatment as the other
+     subpages, recoloured to cream so it holds contrast on green. */
+  .section--green .opening { color: var(--color-cream); }
   .section--green a { color: var(--color-surface); }
   .section--green .btn-text {
     color: var(--color-surface);
@@ -642,14 +850,77 @@
     background: var(--color-yellow);
     color: var(--color-text);
     border-color: var(--color-text);
-    box-shadow: 4px 4px 0 var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-shadow-ink);
   }
   .section--green .btn-ghost:hover {
     background: var(--color-orange);
     color: var(--color-text);
     border-color: var(--color-text);
     transform: translate(-3px, -3px);
-    box-shadow: 8px 8px 0 var(--color-text);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+  }
+  /* The soft h2 tail defaults to near-black (for the pink page) — invisible
+     on green, so it flips to yellow here for contrast. */
+  .section--green .h2-soft { color: var(--color-yellow); }
+
+  /* Green band wrapper — pairs adjacent `.section--green` sections (the home
+     hero's CTA band + the "buurtfeest sinds 1992" section) so the painterly
+     texture reads as one continuous surface instead of each section painting
+     its own independently-scaled copy and creating a seam. Mirrors `.yellow-band`. */
+  .green-band {
+    background: var(--color-green) url("/textures/page-green.jpg") center / cover no-repeat;
+  }
+  .green-band .section--green {
+    background: none;
+  }
+
+  /* Programma page: green ground stays put behind the scrolling cards
+     instead of scrolling with the section, same fixed-pseudo-element trick
+     as the pink page texture (body::before). */
+  body.page-programme { --color-page: var(--color-green); }
+  body.page-programme::before {
+    background-image: url("/textures/page-green.jpg");
+  }
+  body.page-programme .section--green {
+    background: none;
+  }
+
+  /* Basilica silhouette pinned in the left gutter, fixed to the viewport so
+     it holds its spot while the programme list scrolls past it. z-index: -1
+     (same tier as the fixed page texture in body::before, painted after it)
+     keeps it behind the cards even where it's wide enough to reach under
+     the card column, instead of a fixed-position element's default of
+     painting above in-flow content. Only shown once the gutter beside the
+     centered card column is wide enough to clear it without overlapping. */
+  .programme-basiliek {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: clamp(440px, 30vw, 640px);
+    height: auto;
+    z-index: -1;
+    pointer-events: none;
+  }
+  @media (min-width: 1400px) {
+    .programme-basiliek { display: block; }
+  }
+
+  /* Trees with hanging lamps mirror the basilica, pinned to the bottom-right
+     corner instead of the bottom-left. Same fixed positioning, stacking, and
+     reveal-breakpoint approach. */
+  .programme-trees {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: clamp(320px, 20vw, 480px);
+    height: auto;
+    z-index: -1;
+    pointer-events: none;
+  }
+  @media (min-width: 1400px) {
+    .programme-trees { display: block; }
   }
 
   /* Hero CTA row */
@@ -661,10 +932,29 @@
     margin-top: 2rem;
   }
 
+  /* Hero CTA band — standalone green panel directly under the hero photo.
+     Centered, oversized CTAs pulled out of the hero itself so they read as
+     the page's one clear next step. */
+  .hero-cta-band .cta-group {
+    justify-content: center;
+    margin-top: 0;
+  }
+  .hero-cta-band .lang-switcher {
+    text-align: center;
+  }
+  .hero-cta-band .btn-primary,
+  .hero-cta-band .btn-ghost {
+    font-size: 1.5rem;
+    /* Same optical-centering split as the base .btn-primary/.btn-ghost rule,
+       re-tuned for this larger font-size (padding here overrides that rule). */
+    padding: 1.35rem 1.875rem 0.9rem;
+  }
+
   /* Meta line — date/location under hero h1. Sits on the pink hero ground,
      so near-black for AA (text-faint fails contrast on pink). */
   .text-meta {
-    font-size: 0.875rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
     color: var(--color-text-on-page);
     letter-spacing: 0.02em;
     margin-top: 0.75rem;
@@ -674,30 +964,37 @@
      Programma panel), same pattern as the filter labels and day-header. */
   .section--green .text-meta { color: var(--color-cream); }
 
-  /* Date line — load-bearing facts (when / where / free) under hero H1.
-     Maroon/yellow pill so it reads on the pink hero ground. */
+  /* Date line — load-bearing facts (when / where) under hero H1. No pill: a
+     solid pill here reads as a second heavy mass competing with the headline,
+     so the facts sit directly on the pink ground in near-black (AA), quiet and
+     supporting. The emphasis moves to the free-admission tagline below. */
   .text-date {
-    display: inline-block;
-    background: var(--color-maroon);
-    color: var(--color-yellow);
-    font-size: 1rem;
+    color: var(--color-text-on-page);
+    font-size: clamp(1.375rem, 1rem + 1.6vw, 1.625rem);
     font-weight: 700;
-    letter-spacing: 0.01em;
-    padding: 0.45rem 1rem;
-    border-radius: var(--radius-pill);
-    margin-top: 0.875rem;
+    letter-spacing: 0.005em;
+    line-height: 1.4;
+    margin-top: 1.25rem;
     font-variant-numeric: tabular-nums;
   }
-  /* Free-admission emphasis inside the maroon/yellow date pill — a small
-     yellow chip with maroon text so "Gratis"/"Gratuit" pops out from the
-     pill itself. Maroon-on-yellow keeps AA (~7:1) wherever the pill sits,
-     including the pink hero ground. */
-  .text-date-highlight {
-    background: var(--color-yellow);
-    color: var(--color-maroon);
-    padding: 0.05em 0.4em;
-    border-radius: var(--radius-pill);
-    font-weight: 800;
+  /* Free-admission tagline — the loud focal point under the facts: bigger than
+     the facts line, with a yellow highlighter swash echoing the headline marker
+     motif used elsewhere on the page. Near-black text over the swash holds AA on
+     both the pink ground and the yellow mark; box-decoration-break keeps the
+     swash intact when it wraps on narrow screens. */
+  .text-free {
+    margin-top: 0.5rem;
+    font-size: clamp(1.375rem, 1rem + 1.6vw, 1.625rem);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--color-text-on-page);
+  }
+  .text-free-mark {
+    background: linear-gradient(transparent 55%, var(--color-yellow) 55%);
+    padding: 0 0.12em;
+    color: var(--color-text-on-page);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   /* Eyebrow label above h1 — green/cream pill so it reads on the pink hero ground. */
@@ -714,19 +1011,24 @@
     margin-bottom: 0.75rem;
   }
 
-  /* Intro paragraph on section pages */
+  /* Intro paragraph on section pages. Near-black base so it holds AA on the
+     pink page ground; cream-surface contexts may soften it deliberately. */
   .opening {
-    font-size: 1.1875rem;
-    line-height: 1.65;
-    color: var(--color-text-muted);
+    font-size: clamp(1.375rem, 1rem + 1.6vw, 1.625rem);
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--color-text-on-page);
     margin-top: 0.5rem;
   }
 
-  /* Language switcher under hero */
+  /* Language switcher under hero. Not body copy, so it's exempt from the
+     `main p` reading-measure cap — that cap left it narrower than the CTA
+     row above it, breaking its text-align:center against the buttons. */
   .lang-switcher {
+    max-width: none;
     margin-top: 1.25rem;
-    font-size: 0.875rem;
-    color: var(--color-text-faint);
+    font-size: 1rem;
+    color: var(--color-text-on-page);
   }
   .lang-switcher a {
     text-decoration: none;
@@ -776,77 +1078,90 @@
   .tilt-l { transform: rotate(-1deg); }
   .tilt-r { transform: rotate(1deg); }
 
-  /* Programme filter — sits on the pink hero ground by default, so labels read
-     dark (AA); nested under `.section--green` (the future green programma
-     panel) the labels flip to light-on-green instead. The selected option
-     fills with a brand accent (mustard for day, coral for type) either way.
-     Native radios/checkboxes stay in the DOM for keyboard + a11y; the visible
-     pill is the styled <label> with the input visually hidden inside. */
-  .programme-filter {
-    margin-block: 1.75rem;
+  /* Title row — pairs the H1 with the day-jump nav on one line, day-jump
+     flush against the container's right edge. Falls back to stacking when
+     there isn't room for both. */
+  .programme-title-row {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
   }
-  .filter-group {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-  }
-  .filter-legend {
-    display: block;
-    padding: 0;
-    margin-bottom: 0.625rem;
+
+  /* Day jump links — navigation, not filter state. Plain anchors that scroll to
+     a day heading, so they keep working without JS. Deliberately styled as
+     links (not pills) so they never read as a second row of filters. */
+  .day-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
     font-family: var(--font-sans);
-    font-weight: 800;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-text-on-page);
+    font-weight: 700;
   }
-  .section--green .filter-legend { color: var(--color-cream); }
-  .filter-pills {
+  .day-jump a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-text-on-page);
+    text-decoration: underline;
+    text-decoration-color: var(--color-yellow);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .day-jump a:hover { color: var(--color-maroon); }
+  .section--green .day-jump a { color: var(--color-cream); }
+  .section--green .day-jump a:hover { color: var(--color-yellow); }
+
+  /* Programme type filter — toggle chips, single-select. Nothing pressed means
+     "show everything", so there is no "all types" meta-chip: pressing the
+     active chip again clears it. The chips only work with JS, so the bar is
+     rendered hidden and revealed by the page script. Sits on the pink hero
+     ground by default (dark labels, AA); light-on-green under
+     `.section--green`. */
+  .filter-section {
+    padding-block: 1.5rem;
+  }
+  .programme-filter {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
   .filter-pill {
-    position: relative;
+    appearance: none;
     display: inline-flex;
     align-items: center;
     font-family: var(--font-sans);
     font-weight: 700;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
     line-height: 1;
+    min-height: 2.75rem;
     padding: 0.5rem 0.95rem;
     border: 2px solid color-mix(in oklab, var(--color-text-on-page), transparent 55%);
-    border-radius: 9999px;
+    border-radius: var(--radius-pill);
     color: var(--color-text-on-page);
     background: transparent;
     cursor: pointer;
-    transition: background-color 0.14s ease, color 0.14s ease, border-color 0.14s ease, transform 0.14s ease;
+    transition: background-color 0.14s ease, color 0.14s ease, border-color 0.14s ease;
   }
-  .filter-pill input {
-    position: absolute;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-    pointer-events: none;
-  }
-  .filter-pill:hover {
+  /* Hover excludes the pressed chip: same specificity as the pressed rule, so
+     without :not() a lingering pointer would wash out the orange fill. */
+  .filter-pill:hover:not([aria-pressed="true"]) {
     background: color-mix(in oklab, var(--color-text-on-page), transparent 82%);
     border-color: var(--color-text-on-page);
   }
-  .filter-pill:has(input:checked) {
-    background: var(--color-yellow);
+  .filter-pill[aria-pressed="true"] {
+    background: var(--color-orange);
     color: var(--color-text);
     border-color: var(--color-text);
   }
-  .filter-group--type .filter-pill:has(input:checked) {
-    background: var(--color-orange);
+  /* Checkmark so the pressed state doesn't rely on colour alone (WCAG 1.4.1). */
+  .filter-pill[aria-pressed="true"]::before {
+    content: "✓";
+    font-weight: 800;
+    margin-right: 0.4em;
   }
-  .filter-pill:has(input:focus-visible) {
+  .filter-pill:focus-visible {
     outline: 2px solid var(--color-text-on-page);
     outline-offset: 2px;
   }
@@ -857,48 +1172,17 @@
     border-color: color-mix(in oklab, var(--color-cream), transparent 55%);
     color: var(--color-cream);
   }
-  .section--green .filter-pill:hover {
+  .section--green .filter-pill:hover:not([aria-pressed="true"]) {
     background: color-mix(in oklab, var(--color-cream), transparent 82%);
     border-color: var(--color-cream);
   }
-  .section--green .filter-pill:has(input:focus-visible) {
+  .section--green .filter-pill:focus-visible {
     outline-color: var(--color-cream);
   }
-
-  /* Reset link + empty state — dark on pink by default, light on green when
-     nested under `.section--green`. Mustard underline either way. */
-  .filter-reset,
-  .programme-empty button {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 0.9375rem;
-    color: var(--color-text-on-page);
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: var(--color-yellow);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-  }
-  .filter-reset:hover,
-  .programme-empty button:hover {
-    color: var(--color-maroon);
-  }
-  .programme-empty {
-    margin-top: 1.5rem;
-    color: var(--color-text-on-page);
-    font-weight: 600;
-  }
-  .section--green .filter-reset,
-  .section--green .programme-empty button,
-  .section--green .programme-empty {
-    color: var(--color-cream);
-  }
-  .section--green .filter-reset:hover,
-  .section--green .programme-empty button:hover {
-    color: var(--color-yellow);
+  .section--green .filter-pill[aria-pressed="true"] {
+    background: var(--color-orange);
+    color: var(--color-text);
+    border-color: var(--color-text);
   }
 
   /* Day group heading above each cluster of cards on the programme page.
@@ -911,15 +1195,23 @@
     letter-spacing: -0.015em;
     color: var(--color-text-on-page);
     margin: 2.5rem 0 1.25rem;
+    scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
   .section--green .day-header { color: var(--color-cream); }
   [data-day]:first-of-type .day-header { margin-top: 1.5rem; }
 
-  /* Card grid — content-sized cells (no equal-height stretch), so short cards
-     stay short instead of becoming empty skeleton boxes. */
-  .program-cards {
-    align-items: start;
+  /* Weekday reads twice the size of the date, in yellow, so "Zaterdag" pops
+     as the loud poster element while the exact date stays a quiet detail. */
+  .day-header-weekday {
+    display: inline-block;
+    font-size: 2em;
+    color: var(--color-yellow);
   }
+
+  /* Card "masonry" — multi-column flow instead of a grid, so a short card
+     doesn't leave a row-height gap: the next card stacks right under it in
+     the same column. `columns-*`/`break-inside-avoid` utilities do the work;
+     nothing extra needed here. */
 
   /* Shared play-button for the click-to-play embed in expanded programme cards */
   .play-btn {
@@ -941,8 +1233,6 @@
     z-index: 20;
     background: var(--color-nav);
     color: var(--color-cream);
-    border-bottom: 3px solid var(--color-border);
-    box-shadow: 0 2px 0 0 color-mix(in oklab, var(--color-nav), black 30%);
   }
   .site-nav-row {
     max-width: var(--max-content);
@@ -1007,24 +1297,28 @@
   @media (prefers-reduced-motion: reduce) {
     .site-nav-item::after { transition: none; }
   }
+  /* Language pill — body face (the display face is caps-only and too rough at
+     this size), yellow marks the current language (AA on maroon). */
   .site-nav-lang {
     margin-left: 0.5rem;
-    font-family: var(--font-heading);
+    font-family: var(--font-sans);
+    font-weight: 700;
     font-size: 0.875rem;
     background: var(--color-maroon);
     color: var(--color-cream);
     border-radius: var(--radius-pill);
-    padding: 0.25rem 0.75rem;
+    padding: 0.4rem 0.75rem;
   }
   .site-nav-lang a {
     color: inherit;
     text-decoration: none;
-    padding: 0 0.25rem;
+    padding: 0.4rem 0.25rem;
   }
-  .site-nav-lang a:hover { color: var(--color-pink); text-decoration: none; }
+  .site-nav-lang a:hover { color: var(--color-yellow); text-decoration: none; }
   .site-nav-lang a[aria-current="true"] {
-    color: var(--color-pink);
+    color: var(--color-yellow);
     text-decoration: underline;
+    text-decoration-thickness: 2px;
     text-underline-offset: 4px;
   }
 
@@ -1075,7 +1369,9 @@
     .site-nav-menu[data-open] { display: flex; }
     .site-nav-menu li { padding: 0.75rem 0; }
     .site-nav-item { font-size: 1.25rem; }
-    .site-nav-lang { display: none; }
+    /* Lang pill before the hamburger, hamburger flush at the edge. */
+    .site-nav-lang { order: 1; margin-left: auto; margin-right: 0.25rem; }
+    .site-nav-toggle { order: 2; margin-left: 0; }
   }
 
   /* Draft note — wireframe-phase marker for unvalidated values */
@@ -1094,15 +1390,101 @@
     color: var(--color-text);
   }
 
-  /* Callout block — yellow panel for bottom CTAs and secondary content */
+  /* Page ground themes — set with the `pageTheme` prop on BaseLayout, which puts
+     the class on <body>. Swaps the page token and the painterly texture behind
+     it (both live in @layer base, so these rules must sit in a later layer).
+     Every section that sits transparent on the ground follows along. */
+  body.page-orange {
+    --color-page: var(--color-orange-hot);
+  }
+  body.page-orange::before {
+    background-image: url("/textures/page-orange.jpg");
+  }
+  /* On the orange ground the bottom FAQ + CTA band drops its yellow, so the page
+     texture runs unbroken from the hero to the footer. Text sitting directly on
+     the ground swaps maroon for the near-black on-page ink to hold AA; maroon
+     stays on the cream accordion cards and white inputs nested inside. */
+  body.page-orange .yellow-band {
+    background: none;
+  }
+  body.page-orange .yellow-band .callout,
+  body.page-orange .yellow-band .callout p,
+  body.page-orange .yellow-band .callout label,
+  body.page-orange .yellow-band .callout legend,
+  body.page-orange .yellow-band .callout .field-optional {
+    color: var(--color-text-on-page);
+  }
+  /* Deeper red than the yellow-panel default — that one lands at 3.9:1 on the
+     hot orange ground. */
+  body.page-orange .yellow-band .form-error {
+    color: #641414;
+  }
+
+  /* Praktisch / Infos pratiques: yellow page ground — mirrors page-orange /
+     page-beige. The page is already themed yellow, so the shared .yellow-band
+     wrapper (FAQ + contact callout) drops its own painted texture and lets the
+     fixed page ground show through unbroken instead of stacking two
+     independently-scaled copies of the same jpg. */
+  body.page-yellow {
+    --color-page: var(--color-yellow);
+  }
+  body.page-yellow::before {
+    background-image: url("/textures/page-yellow.jpg");
+  }
+  body.page-yellow .yellow-band {
+    background: none;
+  }
+
+  /* Yellow band wrapper — pairs a .faq-section with the .callout that follows it
+     so the painterly texture reads as one continuous surface. Each section used
+     to paint its own independently-scaled copy of page-yellow.jpg; stacked back
+     to back (every FAQ → signup pattern on the site), the crop and scale never
+     matched and the seam between them was visible. Painting the texture once on
+     the shared wrapper removes the seam regardless of either section's height. */
+  .yellow-band {
+    background: var(--color-yellow) url("/textures/page-yellow.jpg") center / cover no-repeat;
+  }
+  .yellow-band .faq-section,
+  .yellow-band .callout {
+    background: none;
+  }
+
+  /* Callout block — yellow panel for bottom CTAs and secondary content.
+     Divides by colour alone; no maroon frame. */
   .callout {
-    border-top: 3px solid var(--color-border);
-    border-bottom: 3px solid var(--color-border);
-    background: var(--color-yellow);
+    background: var(--color-yellow) url("/textures/page-yellow.jpg") center / cover no-repeat;
     color: var(--color-maroon);
   }
   .callout :where(h1, h2, h3, h4) { color: var(--color-maroon); }
   .callout a { color: var(--color-maroon); }
+  /* Over Plazey / À propos: the contact callout sits on the shared green band
+     (see .green-band) instead of yellow. The plain `.callout` rules above are
+     equal specificity and declared later, so they'd otherwise win — override
+     explicitly for cream text on the dark ground. */
+  .callout.section--green { color: var(--color-surface); }
+  .callout.section--green :where(h1, h2, h3, h4) { color: var(--color-surface); }
+  .callout.section--green a { color: var(--color-surface); }
+  /* Beige-ground pages (Over Plazey / À propos): the callout drops its yellow
+     entirely and goes transparent, so the fixed beige page ground shows straight
+     through. Painting its own texture here would scroll independently of the
+     fixed ground and leave a visible seam. Must live in @layer components, same
+     layer as the yellow .callout above (later layers always win). */
+  body.page-beige .callout {
+    background: transparent;
+  }
+  /* ...except when the callout is the green contact band (Over Plazey / À
+     propos): it needs to paint its own green, not stay transparent. Higher
+     specificity than the transparent override above so this wins. */
+  body.page-beige .callout.section--green {
+    background: var(--color-green) url("/textures/page-green.jpg") center / cover no-repeat;
+  }
+  /* ...unless it's paired with the org-info section in a shared .green-band
+     (Over Plazey), where the band paints the texture once — same seam-avoidance
+     as .green-band .section--green, just re-stated at higher specificity so it
+     wins over the rule above. */
+  body.page-beige .green-band .callout.section--green {
+    background: none;
+  }
   /* The yellow highlighter (.underline-mustard) would vanish against the callout's
      own yellow background — swap it to cream so the emphasis still reads. */
   .callout .underline-mustard {
@@ -1130,6 +1512,23 @@
     margin-top: 2rem;
     max-width: 32rem;
   }
+  /* Over Plazey / À propos: the form floats as its own beige card on the
+     green contact band, matching the org-card treatment above it — the
+     "no nested card" default above is for the yellow-callout pages. */
+  body.page-beige .cta-form {
+    background: var(--color-beige);
+    border: 2.5px solid var(--color-text);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
+  }
+  /* Over Plazey / À propos: the two section titles on the green band (org
+     info + contact) stand out in yellow instead of the `.section--green`
+     default cream. Targets h2 specifically — org-card / VK card headings
+     are h3 and keep their own maroon-on-beige colour. */
+  body.page-beige .section--green h2 {
+    color: var(--color-yellow);
+  }
   /* Fields on the yellow callout surface — maroon borders, cream fills so
      they read as inputs rather than blending into the panel. */
   .callout .form-field label,
@@ -1149,73 +1548,20 @@
     scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
 
-  /* Sticky wrapper for in-page sub-navigation — sits flush under the page hero.
-     No own border: pills carry their own ink outline, hero's border supplies the
-     single rule above the strip. */
-  .page-subnav-wrapper {
-    position: sticky;
-    top: var(--header-height, 53px);
-    z-index: 10;
-    background: var(--color-surface);
-    padding-block: 0.875rem;
-  }
-
-  /* In-page anchor navigation — sticker-badge pills with coral current marker. */
-  .page-nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.875rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .page-nav li { margin: 0; }
-  .page-nav a {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--font-heading);
-    font-size: 0.9375rem;
-    line-height: 1;
-    color: var(--color-text);
-    text-decoration: none;
-    padding: 0.4rem 0.875rem;
-    border: 2px solid var(--color-text);
-    border-radius: 9999px;
-    background: var(--color-surface-muted);
-    transition: background 140ms ease, color 140ms ease, transform 140ms ease;
-  }
-  .page-nav a:hover,
-  .page-nav a:focus-visible {
-    background: var(--color-yellow);
-    color: var(--color-text);
-    transform: translateY(-1px);
-    text-decoration: none;
-  }
-  .page-nav a[aria-current="true"] {
-    background: var(--color-orange);
-    color: var(--color-text);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .page-nav a:hover,
-    .page-nav a:focus-visible { transform: none; }
-  }
-
   /* Page section with top rule — used on Praktisch and similar long pages */
   .page-section {
     padding-top: 3rem;
     margin-top: 3rem;
     border-top: 1px solid var(--color-border-subtle);
-    /* Offset for anchor jumps so the heading doesn't land under the sticky header (mobile)
-       or header + subnav (≥768px). JS click handler refines this live; CSS covers direct
-       links and back/forward. */
+    /* Offset for anchor jumps so the heading doesn't land under the sticky
+       header. JS click handler refines this live; CSS covers direct links
+       and back/forward. */
     scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
   @media (min-width: 768px) {
     .page-section {
       padding-top: 4rem;
       margin-top: 4rem;
-      scroll-margin-top: calc(var(--header-height, 53px) + 54px);
     }
   }
   /* First section sits directly under the subnav — no rule, no extra gap */
@@ -1270,73 +1616,32 @@
     .image-pair { grid-template-columns: 1fr; }
   }
 
-  /* Eten & drinken — full-bleed beige section. Image bleeds to the viewport's
-     right edge; copy and the menu sit on the left, padded out to align with
-     the page Container's natural left edge. */
-  .eten-section {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
-    margin-block: var(--section-y-md) 0;
-    background: var(--color-surface);
-    border-block: 3px solid var(--color-text);
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-areas: "image" "content";
-    min-height: 50vh;
+  /* Eten & drinken — poster card, same `.paper-sheet` + `.split-section` frame
+     as the other split image/text panels on the site (see home's
+     doe-mee-teaser). Body copy is set to near-black instead of the panel's
+     maroon default, so it reads as "black body text, brown display title"
+     like the page's other cards. */
+  .eten-content > p,
+  .eten-cash {
+    color: var(--color-text-body);
   }
-  @media (min-width: 768px) {
-    .eten-section {
-      /* minmax(0, 1fr) keeps each column at exactly half regardless of
-         intrinsic content min-width (otherwise the menu's leader dots
-         would inflate the content column). */
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      grid-template-areas: "content image";
-    }
-  }
-  .eten-content {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: 3rem;
-    padding-left: max(1.5rem, calc((100vw - var(--max-content)) / 2 + 1.5rem));
-    padding-right: 1.5rem;
-  }
-  @media (min-width: 1024px) {
-    .eten-content { padding-block: 4rem; padding-right: 2.5rem; }
-  }
-  .eten-content > h2 { margin-block-start: 0; }
   .eten-content > p {
-    color: var(--color-text);
     max-width: 38ch;
   }
   .eten-cash {
     font-weight: 700;
-    color: var(--color-text-muted);
-  }
-  .eten-image {
-    grid-area: image;
-    width: 100%;
-    height: 100%;
-    min-height: 240px;
-    max-height: 100%;
-    object-fit: cover;
-    object-position: center 70%;
-    display: block;
-  }
-  @media (max-width: 767px) {
-    .eten-image { height: 40vh; min-height: 240px; }
   }
 
-  /* Eten & drinken — menu card. Standard poster style: white fill,
-     full ink border on all four sides, hard offset shadow. */
+  /* Eten & drinken — menu card. Standard poster style: cream fill,
+     full ink border on all four sides, hard offset shadow. Deliberately
+     short: price ranges per category, not a full bar menu. */
   .eten-menu {
     margin-block: 1.75rem;
     padding: 1.5rem 1.75rem 1.75rem;
-    background: #fff;
+    background: var(--color-surface);
     border: 2.5px solid var(--color-text);
-    border-radius: 1.5rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
   }
   .eten-menu .drinks-list { margin-top: 0; }
 
@@ -1382,7 +1687,7 @@
     background: var(--color-yellow);
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
     transform: rotate(-0.3deg);
   }
   @media (max-width: 639px) {
@@ -1437,7 +1742,7 @@
     background: var(--color-surface-muted);
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
   }
   .transport-card:nth-child(3n+1) { transform: rotate(-0.6deg); }
   .transport-card:nth-child(3n+2) { transform: rotate(0.4deg); }
@@ -1469,16 +1774,18 @@
   .transport-card .mode {
     display: block;
     font-family: var(--font-heading);
+    font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.05;
     letter-spacing: -0.015em;
-    margin-bottom: 0.35rem;
+    margin-block: 0 0.35rem;
     color: var(--color-text);
   }
   .transport-card p {
     margin: 0;
-    font-weight: 600;
-    color: var(--color-text);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-text-body);
   }
   .transport-card p + ul,
   .transport-card p + p {
@@ -1487,10 +1794,12 @@
   .transport-card ul {
     margin: 0.5rem 0 0;
     padding-left: 1.1rem;
-    font-weight: 500;
+    color: var(--color-text-body);
+    font-weight: 400;
   }
   .transport-card li {
     margin-top: 0.25rem;
+    line-height: 1.1;
   }
 
   /* Kids split — image left, intro + dl right. Mirrors menu-split but flipped for rhythm. */
@@ -1563,7 +1872,7 @@
   .voorbeeld-body h3,
   .exemple-body h3 { margin-block: 0.5rem 0.25rem; }
   .voorbeeld-body p,
-  .exemple-body p { color: var(--color-text-muted); }
+  .exemple-body p { color: var(--color-text); }
 
   @media (max-width: 639px) {
     .voorbeeld-row,
@@ -1601,9 +1910,9 @@
     color: var(--color-text);
   }
   .chip-coral   { background: var(--color-orange); color: var(--color-text); }
-  .chip-blush   { background: var(--color-pink);   color: var(--color-text); }
+  .chip-blush   { background: var(--color-pink);   color: var(--color-text-on-page); }
   .chip-mustard { background: var(--color-yellow); color: var(--color-text); }
-  .chip-slate   { background: var(--color-sage);   color: var(--color-surface); }
+  .chip-slate   { background: var(--color-sage);   color: var(--color-text-on-page); }
   .chip-green   { background: var(--color-green);  color: var(--color-surface); }
   .chip-neutral { background: transparent; }
 
@@ -1616,7 +1925,7 @@
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 2.25rem 1.5rem;
-    box-shadow: 8px 8px 0 var(--color-text);
+    box-shadow: 8px 8px 0 var(--color-shadow-ink);
     transform: rotate(-0.6deg);
     text-align: center;
   }
@@ -1635,7 +1944,9 @@
   .proposal-bridge .btn-primary {
     margin-top: 1.5rem;
     font-size: 1.0625rem;
-    padding: 0.875rem 1.5rem;
+    /* Same optical-centering split as the base .btn-primary rule, re-tuned
+       for this font-size (padding here overrides that rule). */
+    padding: 1.05rem 1.5rem 0.7rem;
     box-shadow: 5px 5px 0 var(--color-orange);
   }
   .proposal-bridge .btn-primary:hover {
@@ -1651,22 +1962,59 @@
     outline-offset: -1px;
   }
 
+  /* Cream band — pairs the hero with the story-split section (Over Plazey /
+     À propos) so the painterly cream texture reads as one continuous surface
+     instead of the hero (transparent, showing the beige page ground) and
+     story-split (its own cream fill) reading as two different grounds.
+     Mirrors .green-band / .yellow-band. */
+  .cream-band {
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
+  }
+  .cream-band .story-split {
+    background: none;
+  }
+
   /* Story split — full-bleed two-column section used on Over Plazey / À propos.
      Left column: text padded so its left edge lines up with the standard
      Container (logo flush). Right column: image starts at viewport center
-     (50vw) and runs to the right edge, full section height, object-cover.
-     Bottom border separates from the next section. */
+     (50vw) and runs to the right edge, full section height, object-cover. */
   .story-split {
     display: grid;
     grid-template-columns: 1fr;
-    border-bottom: 1px solid var(--color-border-subtle);
+    position: relative;
+    background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
   }
+  /* Decorative birds drooping from the hero into the top-right of the photo.
+     Purely ornamental (empty alt, aria-hidden); desktop-only to avoid covering
+     stacked mobile content. Overlaps the photo below, sits above it via z-index.
+     Mirrored horizontally (scaleX) from the source art. */
+  .story-birds {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: clamp(2rem, 10vw, 10rem);
+    width: clamp(285px, 39vw, 510px);
+    height: auto;
+    transform: translateY(-58%) rotate(2deg) scaleX(-1);
+    transform-origin: top center;
+    z-index: 2;
+    pointer-events: none;
+  }
+  @media (min-width: 768px) { .story-birds { display: block; } }
+  @media (prefers-reduced-motion: reduce) {
+    .story-birds { transform: translateY(-58%) scaleX(-1); }
+  }
+  /* Text sits plainly on the page ground (no card) — just padded copy next
+     to the full-bleed photo. Heading stays maroon (display type on cream);
+     body copy uses the same near-black tone as the card pattern
+     (org-card, split-overlap-card) instead of maroon. */
   .story-split .story-text {
     padding-block: var(--section-y-sm);
-    padding-inline: 1rem;
+    padding-inline: 1.5rem;
     max-width: var(--max-content);
-    margin-inline: auto;
   }
+  .story-split .story-text h2 { color: var(--color-text); }
+  .story-split .story-text p { color: var(--color-text-body); }
   .story-split .story-image { align-self: stretch; }
   .story-split .story-image img {
     display: block;
@@ -1676,21 +2024,19 @@
     aspect-ratio: 4 / 3;
   }
   @media (min-width: 640px) {
-    .story-split .story-text { padding-inline: 1.5rem; }
+    .story-split .story-text { padding-inline: 1.75rem; }
   }
   @media (min-width: 768px) {
     .story-split { grid-template-columns: 1fr 1fr; }
     .story-split .story-text {
       padding-block: var(--section-y-md);
+      padding-right: 2.5rem;
       /* Container is max-w-4xl mx-auto with 1.5rem inline padding: the gutter
-         from viewport edge to container content is max(1.5rem, (100vw - 56rem)/2).
-         Match that on the left so copy aligns with the logo and the rest of the
-         page. Right padding gives breathing room before the image. */
-      padding-inline-start: max(1.5rem, calc((100vw - var(--max-content)) / 2));
-      padding-inline-end: 2.5rem;
+         from viewport edge to container content is max(1.5rem, (100vw - 56rem)/2 + 1.5rem).
+         Used as padding (not margin + separate inset) so the text content —
+         not just the box — lines up with the container (logo flush). */
+      padding-left: max(1.5rem, calc((100vw - var(--max-content)) / 2 + 1.5rem));
       max-width: none;
-      margin-inline: 0;
-      align-self: center;
     }
     .story-split .story-image img {
       aspect-ratio: auto;
@@ -1700,19 +2046,20 @@
   @media (min-width: 1024px) {
     .story-split .story-text {
       padding-block: var(--section-y-lg);
-      padding-inline-end: 3rem;
+      padding-right: 3rem;
     }
   }
 
   /* Organisation cards — Over Plazey / À propos. Same poster-card frame as
      transport-card and access-cat: paper-warm fill, ink border, hard offset
-     shadow, slight rotation per position. */
+     shadow, slight rotation per position. Beige fill (not the usual
+     surface-muted) to sit on this page's beige ground. */
   .org-card {
-    background: var(--color-surface-muted);
+    background: var(--color-beige);
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 1.5rem 1.25rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
   }
   .org-grid > .org-card:nth-child(odd)  { transform: rotate(-0.5deg); }
   .org-grid > .org-card:nth-child(even) { transform: rotate(0.4deg); }
@@ -1721,6 +2068,7 @@
   }
   .org-card h3 {
     margin: 0;
+    color: var(--color-text);
     font-size: 1.5rem;
     line-height: 1.05;
     letter-spacing: -0.015em;
@@ -1731,12 +2079,13 @@
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--color-text-faint);
+    color: var(--color-text-muted);
   }
   .org-card > p:not(.org-place) {
     margin-top: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-text-body);
   }
   .org-card .org-links {
     list-style: none;
@@ -1748,20 +2097,26 @@
     font-size: 0.9375rem;
   }
   main .org-card .org-links > li { margin: 0; }
+  /* Explicit colour so the link doesn't inherit the ambient cream text
+     colour of the surrounding `.section--green` band (Over Plazey / À propos). */
   .org-card .org-links a {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    color: var(--color-text);
     text-decoration: none;
     border-bottom: 1.5px solid var(--color-text);
     padding-bottom: 1px;
     font-weight: 600;
   }
-  .org-card .org-links a:hover { color: var(--color-orange); border-bottom-color: var(--color-orange); }
-  .org-card .org-links li + li a {
+  .org-card .org-links a:hover { color: var(--color-hover); border-bottom-color: var(--color-hover); }
+  /* Address — plain text, not a link. */
+  .org-card .org-links .org-address {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-weight: 500;
     color: var(--color-text-muted);
-    border-bottom-color: var(--color-border);
   }
 
   /* Access category — Toegankelijkheid. Same poster-card frame as the home page
@@ -1772,7 +2127,7 @@
     border: 2.5px solid var(--color-text);
     border-radius: 1.5rem;
     padding: 1.5rem 1.25rem;
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
   }
   .access-cat:nth-child(4n+1) { transform: rotate(-0.6deg); }
   .access-cat:nth-child(4n+2) { transform: rotate(0.4deg); }
@@ -1783,11 +2138,13 @@
   }
   .access-cat .label {
     display: block;
+    color: var(--color-text);
     font-family: var(--font-heading);
+    font-weight: 400;
     font-size: 1.5rem;
     line-height: 1.05;
     letter-spacing: -0.015em;
-    margin-bottom: 0.875rem;
+    margin-block: 0 0.875rem;
   }
   .access-cat .label svg {
     display: block;
@@ -1808,9 +2165,10 @@
   }
   .access-cat li {
     margin-top: 0.5rem;
+    color: var(--color-text-body);
     font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5;
+    font-weight: 400;
+    line-height: 1.1;
   }
 
   /* Section closing heading — sits below a grid of cards. Two lines:
@@ -1833,7 +2191,7 @@
     font-size: clamp(1.25rem, 2.6vw, 1.625rem);
     line-height: 1.2;
     margin-top: 0.5rem;
-    color: var(--color-text-muted);
+    color: var(--color-text);
   }
 
   /* Kids terms — Kinderen (short dt/dd list) */
@@ -1851,7 +2209,7 @@
   }
   .kids-terms dd {
     margin: 0;
-    color: var(--color-text-muted);
+    color: var(--color-text);
     align-self: center;
   }
   @media (max-width: 479px) {
@@ -1864,69 +2222,109 @@
     }
   }
 
-  /* Drinks list — poster-style menu. Bold Luckiest Guy on the drink name, the
-     leader dots, and the price; no dividers between rows. */
+  /* Standalone panel padding — for `.paper-sheet` used without `.split-section`
+     (no `.split-text` to supply it), e.g. the Praktisch contact card. */
+  .contact-card {
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  /* Drinks list — poster-style menu card, three category price ranges.
+     Names and prices read in bold Karla; the section heading and the
+     free-water line carry the poster voice.
+
+     The leader is a full-width dotted rule behind the row, with the label
+     and price painted in the card's fill so they punch out of it. Drawing
+     it as a flex gap instead starves it on the longest row (one stray dot,
+     which reads as a rendering bug) — this version can't starve at any
+     container width or string length. */
   .drinks-list {
     list-style: none;
     padding: 0;
     margin: 1rem 0 0;
   }
   .drinks-list li {
+    position: relative;
     display: flex;
     align-items: baseline;
-    gap: 0.75rem;
+    justify-content: space-between;
+    gap: 0.5rem;
     margin-top: 0;
     padding-block: 0.45rem;
   }
-  .drinks-list .drink {
-    font-family: var(--font-heading);
-    font-size: 1.375rem;
-    line-height: 1.1;
-    color: var(--color-text);
-  }
-  .drinks-list .dots {
-    flex: 1;
-    min-width: 0;
-    align-self: end;
+  .drinks-list li::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0.75em;
     height: 0.45em;
-    margin-bottom: 0.4em;
-    /* Bold leader dots, auto-filled. No overflow-driven layout pressure. */
-    background-image: radial-gradient(circle, var(--color-text) 38%, transparent 40%);
-    background-size: 0.55em 0.45em;
+    background-image: radial-gradient(circle, color-mix(in oklab, var(--color-text) 35%, transparent) 38%, transparent 40%);
+    background-size: 0.5em 0.45em;
     background-repeat: repeat-x;
     background-position: left center;
   }
+  .drinks-list .drink,
   .drinks-list .price {
-    font-family: var(--font-heading);
+    position: relative;
+    background: var(--color-surface);
+  }
+  .drinks-list .drink { padding-right: 0.4rem; }
+  .drinks-list .price { padding-left: 0.4rem; }
+  .drinks-list .drink {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    /* Category labels are short by design, so keep them on one line — a
+       wrapped label leaves no room for the leader dots beside it. */
+    white-space: nowrap;
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+  .drinks-list .price {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    /* Ranges must never wrap — a broken price column starves the leader
+       dots on that row and the whole device collapses. */
+    white-space: nowrap;
     font-variant-numeric: tabular-nums;
-    font-size: 1.375rem;
-    line-height: 1.1;
+    font-size: 1.0625rem;
+    line-height: 1.35;
     color: var(--color-text);
   }
   .drinks-list .price[data-pending="true"] {
     font-family: var(--font-sans);
-    color: var(--color-text-faint);
+    color: var(--color-text-muted);
     font-style: italic;
     font-size: 0.95rem;
     font-weight: 600;
   }
-  /* Group label above a drinks-list segment (Fris / Bier / Wijn & bubbels) */
-  .drinks-group {
-    margin: 1.75rem 0 0;
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 800;
+  /* Free drinking water — the headline fact of the menu card, so it is set
+     in the display face above the price ranges rather than as a table row. */
+  .drinks-free {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.375rem, 1.15rem + 1vw, 1.75rem);
+    line-height: 1.15;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    color: var(--color-text);
+  }
+  .drinks-free span { color: var(--color-green); }
+
+  /* Card footer — payment note, quieter than the price rows. */
+  .drinks-note {
+    margin: 1.25rem 0 0;
+    padding-top: 0.85rem;
+    border-top: 2px dotted color-mix(in oklab, var(--color-text) 35%, transparent);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 700;
     color: var(--color-text-muted);
   }
-  .drinks-group:first-child { margin-top: 0; }
 
   /* Inline notice — plain prose, no panel. */
   .callout-inline {
     margin-block: 1.5rem;
-    font-size: 0.9375rem;
-    color: var(--color-text-muted);
+    font-size: 1rem;
+    color: var(--color-text);
   }
   .callout-inline p { margin: 0; }
 
@@ -1961,11 +2359,11 @@
        border-radius transition where 9999px is clipped against the
        suddenly-taller open height. */
     border-radius: 1.75rem;
-    box-shadow: 4px 4px 0 var(--color-text);
+    box-shadow: 4px 4px 0 var(--color-shadow-ink);
     transition: box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .accordion-item[open] {
-    box-shadow: 6px 6px 0 var(--color-text);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
   }
   .accordion-summary {
     display: flex;
@@ -2026,9 +2424,8 @@
     padding: 0 1.75rem 1.25rem;
   }
   .accordion-answer p {
-    color: var(--color-text-muted);
-    font-size: 1rem;
-    line-height: 1.55;
+    color: var(--color-text-body);
+    line-height: 1.1;
     margin: 0;
   }
   /* Soft reveal of the answer when an item opens. Runs once per open. */
@@ -2047,10 +2444,12 @@
 
   /* Full-width amber FAQ section — sits between regular page sections.
      Drops out of the inner Container; uses its own Container for inner content. */
+  /* Colour bands divide by colour alone — no maroon frame. The yellow reads as
+     its own band against the pink page above and the cream footer below. */
   .faq-section {
-    background: var(--color-yellow);
+    background: var(--color-yellow) url("/textures/page-yellow.jpg") center / cover no-repeat;
     padding-block: var(--section-y-md);
-    border-block: 3px solid var(--color-text);
+    scroll-margin-top: calc(var(--header-height, 53px) + 8px);
   }
   @media (min-width: 1024px) {
     .faq-section { padding-block: var(--section-y-lg); }
@@ -2150,6 +2549,7 @@
   .form-field input:focus,
   .form-field textarea:focus {
     outline: none;
+    /* Focus indicator — opaque maroon, see .hero-anchor:focus-visible. */
     box-shadow: 4px 4px 0 var(--color-text);
     transform: translate(-1px, -1px);
   }
@@ -2178,6 +2578,7 @@
   }
   .form-field select:focus {
     outline: none;
+    /* Focus indicator — opaque maroon, see .hero-anchor:focus-visible. */
     box-shadow: 4px 4px 0 var(--color-text);
     transform: translate(-1px, -1px);
   }
@@ -2190,8 +2591,17 @@
     color: var(--color-text-muted);
   }
   .form-error {
-    color: #b91c1c;
-    font-size: 0.875rem;
+    /* Dark red — holds AA on the yellow callout panels the forms live in. */
+    color: #7f1d1d;
+    font-size: 0.9375rem;
     overflow-wrap: anywhere;
+  }
+
+  /* Note above a form stating the required-field convention. */
+  .form-note {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
   }
 }

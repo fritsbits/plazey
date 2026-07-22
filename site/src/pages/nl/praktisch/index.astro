@@ -4,7 +4,6 @@ import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
 import { Image } from 'astro:assets';
 import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION } from '../../../config/site';
-import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
 import toegankelijkheidMenigte from '../../../assets/images/toegankelijkheid-menigte.jpg';
@@ -20,45 +19,36 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="Praktisch" lang="nl" currentPath="/nl/praktisch">
+<BaseLayout title="Praktisch" lang="nl" currentPath="/nl/praktisch" bodyClass="page-yellow">
   <section class="section hero-intro hero-green">
     <Container>
       <h1>Alles wat je moet weten voor je komt.</h1>
       <p class="text-date">
-        {FESTIVAL_DATES_NL}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}<span class="meta-sep" aria-hidden="true"></span><span class="text-date-highlight">Gratis</span> voor iedereen.
+        {FESTIVAL_DATES_NL}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}
       </p>
+      <p class="text-free"><span class="text-free-mark">Gratis voor iedereen.</span></p>
     </Container>
   </section>
 
-  <div class="anchors-banner">
-    <Image
-      src={parkLaanKunst}
-      alt=""
-      widths={[960, 1440, 1920]}
-      sizes="100vw"
-      class="anchors-banner-img"
-      loading="eager"
-    />
-    <Container>
-      <nav class="hero-anchors" aria-label="Op deze pagina">
-        <a href="#bereikbaarheid" class="hero-anchor" style="--anchor-bg: var(--color-sage);">
-          <span class="hero-anchor-num">01</span>Bereikbaarheid
-        </a>
-        <a href="#eten-en-drinken" class="hero-anchor" style="--anchor-bg: var(--color-yellow);">
-          <span class="hero-anchor-num">02</span>Eten &amp; drinken
-        </a>
-        <a href="#toegankelijkheid" class="hero-anchor" style="--anchor-bg: var(--color-orange);">
-          <span class="hero-anchor-num">03</span>Toegankelijkheid
-        </a>
-        <a href="#kinderen" class="hero-anchor" style="--anchor-bg: var(--color-pink);">
-          <span class="hero-anchor-num">04</span>Kinderen
-        </a>
-        <a href="#faq" class="hero-anchor" style="--anchor-bg: var(--color-green);">
-          <span class="hero-anchor-num">05</span>Veelgestelde vragen
-        </a>
-      </nav>
-    </Container>
-  </div>
+  <Container>
+    <nav class="hero-anchors hero-anchors--plain" aria-label="Op deze pagina">
+      <a href="#bereikbaarheid" class="hero-anchor" style="--anchor-bg: var(--color-yellow);">
+        <span class="hero-anchor-label">Bereikbaarheid</span>
+      </a>
+      <a href="#eten-en-drinken" class="hero-anchor hero-anchor--dark" style="--anchor-bg: var(--color-green);">
+        <span class="hero-anchor-label">Eten &amp; drinken</span>
+      </a>
+      <a href="#toegankelijkheid" class="hero-anchor" style="--anchor-bg: var(--color-yellow);">
+        <span class="hero-anchor-label">Toegankelijkheid</span>
+      </a>
+      <a href="#kinderen" class="hero-anchor hero-anchor--dark" style="--anchor-bg: var(--color-green);">
+        <span class="hero-anchor-label">Kinderen</span>
+      </a>
+      <a href="#faq" class="hero-anchor" style="--anchor-bg: var(--color-yellow);">
+        <span class="hero-anchor-label">Veelgestelde vragen</span>
+      </a>
+    </nav>
+  </Container>
 
   <div>
     <Container>
@@ -77,7 +67,7 @@ const faqItems = [
                 <circle cx="42" cy="50" r="3.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Metro</span>
+            <h3 class="mode">Metro</h3>
             <p>Lijn 2 of 6, halte Simonis/Elisabeth. Vijf minuten wandelen naar het park. Het metrostation heeft een lift.</p>
           </div>
 
@@ -92,7 +82,7 @@ const faqItems = [
                 <circle cx="42" cy="20" r="2.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Fiets</span>
+            <h3 class="mode">Fiets</h3>
             <p>Onbewaakte stalling op het terrein. Breng een slot mee.</p>
           </div>
 
@@ -106,7 +96,7 @@ const faqItems = [
                 <circle cx="44" cy="44" r="4" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Auto</span>
+            <h3 class="mode">Auto</h3>
             <p>Betalend rondom het park, of in de ondergrondse parking Indigoneo. Adres: Eugène Simonisplein 24, 1081 Koekelberg.</p>
           </div>
 
@@ -121,7 +111,7 @@ const faqItems = [
                 <circle cx="42" cy="52" r="3.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Tram &amp; bus</span>
+            <h3 class="mode">Tram &amp; bus</h3>
             <p>Halte Elisabethpark of Simonis/Elisabeth.</p>
             <ul>
               <li>Tram 9 of 19</li>
@@ -138,54 +128,32 @@ const faqItems = [
         </div>
       </section>
 
-      <section id="eten-en-drinken" aria-labelledby="heading-eten" class="eten-section">
-        <div class="eten-content">
+      <section id="eten-en-drinken" aria-labelledby="heading-eten" class="split-section split--image-right paper-sheet paper-sheet--surface-muted paper-sheet--tilt-l">
+        <figure class="split-image">
+          <Image
+            src={etenFoodkraam}
+            alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
+            widths={[600, 960, 1280]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+            class="sticker-img sticker-img--sage"
+          />
+        </figure>
+        <div class="split-text eten-content">
           <h2 id="heading-eten" class="h2-display"><span class="underline-mustard">Breng je eigen picknick,</span> of koop aan de bar</h2>
 
           <div class="eten-menu">
-            <h3 class="drinks-group">Fris</h3>
+            <p class="drinks-free">Plat water is <span>gratis</span>.</p>
             <ul class="drinks-list">
-              <li><span class="drink">Plat water</span><span class="dots" aria-hidden="true"></span><span class="price">gratis</span></li>
-              <li><span class="drink">Bruisend water</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
-              <li><span class="drink">Ritchie Cola</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Ritchie Cola Zero</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Ritchie Lemonade</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Sinaasappelsap</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Appelsap</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Fris</span><span class="price">€ 2 tot € 3</span></li>
+              <li><span class="drink">Bier</span><span class="price">€ 3 tot € 4</span></li>
+              <li><span class="drink">Wijn &amp; bubbels</span><span class="price">€ 4 tot € 5</span></li>
             </ul>
-            <h3 class="drinks-group">Bier</h3>
-            <ul class="drinks-list">
-              <li><span class="drink">Zennepils 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Zinnebir 5,8%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Estaminet pils 0,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Pico Bello IPA 0,3%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Vandekelder Saison 5,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Vandekelder Cuvée 6,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Chaotique American IPA 6,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Koekelbeer Pale Ale 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Bodacious Lemon-lime Sour 4,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-            </ul>
-            <h3 class="drinks-group">Wijn &amp; bubbels</h3>
-            <ul class="drinks-list">
-              <li><span class="drink">Witte of rode wijn, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Witte of rode wijn, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 20</span></li>
-              <li><span class="drink">Cava, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
-              <li><span class="drink">Cava, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
-              <li><span class="drink">Vendôme schuimwijn 0%, glas</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
-              <li><span class="drink">Vendôme schuimwijn 0%, fles</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
-            </ul>
+            <p class="drinks-note">Wijn en bubbels per glas. Cash wordt aanvaard.</p>
           </div>
 
+          <p>Ons bier komt van Brusselse brouwers. Er is ook alcoholvrij bier en schuimwijn.</p>
           <p>Naast dranken zijn er eetstandjes. We kiezen bewust voor buurtbewoners, lokale horecazaken en start-ups als standhouders. Wie er dit jaar staat, vind je binnenkort op deze pagina.</p>
-          <p class="eten-cash">Cash wordt aanvaard.</p>
         </div>
-        <Image
-          src={etenFoodkraam}
-          alt="Een eetstand onder een tent op Plazey: twee vrouwen bereiden en serveren eten, één heft een beker op."
-          widths={[600, 960, 1280]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="eten-image"
-        />
       </section>
 
       <section id="toegankelijkheid" aria-labelledby="heading-toegankelijkheid" class="page-section page-section--no-rule">
@@ -193,14 +161,14 @@ const faqItems = [
 
         <div class="col-grid-2">
           <div class="access-cat">
-            <span class="label">
+            <h3 class="label">
               <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="30" cy="30" r="24" fill="var(--color-orange)" stroke="var(--color-text)" stroke-width="2.5"/>
                 <path d="M22 26 Q22 18 30 18 Q38 18 38 26 L38 36 Q38 42 32 42 Q28 42 28 38" stroke="var(--color-text)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M42 22 Q46 26 46 30 Q46 34 42 38" stroke="var(--color-text)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
               </svg>
               Gehoor
-            </span>
+            </h3>
             <ul>
               <li><strong>Oordopjes:</strong> te verkrijgen aan de infostand.</li>
               <li>Andere vragen over gehoor? <a href="#contact" data-topic="toegankelijkheid">Stel je vraag</a>, we zoeken het voor je uit.</li>
@@ -208,7 +176,7 @@ const faqItems = [
           </div>
 
           <div class="access-cat">
-            <span class="label">
+            <h3 class="label">
               <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="30" cy="30" r="24" fill="var(--color-sage)" stroke="var(--color-text)" stroke-width="2.5"/>
                 <circle cx="28" cy="16" r="3" fill="var(--color-text)"/>
@@ -217,7 +185,7 @@ const faqItems = [
                 <circle cx="32" cy="40" r="2" fill="var(--color-text)"/>
               </svg>
               Mobiliteit
-            </span>
+            </h3>
             <ul>
               <li><strong>Vlakke hoofdpaden:</strong> toegankelijk voor rolstoelen en wandelwagens.</li>
               <li><strong>Aangepaste toiletten:</strong> voor rolstoelgebruikers.</li>
@@ -226,14 +194,14 @@ const faqItems = [
           </div>
 
           <div class="access-cat">
-            <span class="label">
+            <h3 class="label">
               <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="30" cy="30" r="24" fill="var(--color-yellow)" stroke="var(--color-text)" stroke-width="2.5"/>
                 <circle cx="30" cy="20" r="2.5" fill="var(--color-text)"/>
                 <path d="M30 27 L30 42" stroke="var(--color-text)" stroke-width="4" stroke-linecap="round"/>
               </svg>
               Zorg &amp; info
-            </span>
+            </h3>
             <ul>
               <li><strong>Hulp bij dagelijkse dingen:</strong> vrijwilligers helpen je bij eten, drinken, toilet of de weg vinden op het terrein. <a href="#contact" data-topic="toegankelijkheid" data-prefill="adl">Vraag het vooraf aan.</a></li>
               <li><strong>Programma en dranklijst:</strong> in braille of in gewone druk, aan de infostand.</li>
@@ -242,13 +210,13 @@ const faqItems = [
           </div>
 
           <div class="access-cat">
-            <span class="label">
+            <h3 class="label">
               <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M30 8 L48 14 L48 28 Q48 42 30 52 Q12 42 12 28 L12 14 Z" fill="var(--color-green)" stroke="var(--color-text)" stroke-width="2.5" stroke-linejoin="round"/>
                 <path d="M22 30 L28 36 L40 22" stroke="var(--color-surface)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               Veiligheid
-            </span>
+            </h3>
             <ul>
               <li>Zie je dat iemand lastiggevallen wordt? Vraag gewoon: "Gaat het?"</li>
               <li>Voel je je zelf niet veilig? Spreek een medewerker aan, herkenbaar aan een kleurrijke t-shirt met het Plazey-logo.</li>
@@ -263,14 +231,14 @@ const faqItems = [
             alt="Publiek dat een straatact volgt, met een rolstoelgebruiker vooraan tussen de andere bezoekers."
             widths={[400, 600]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--yellow"
+            class="sticker-img sticker-img--orange"
           />
           <Image
             src={kindOordoppen}
             alt="Een kind met gehoorbescherming op de schouders van een ouder, kijkend naar een optreden."
             widths={[400, 600]}
             sizes="(max-width: 640px) 100vw, 50vw"
-            class="sticker-img sticker-img--sage"
+            class="sticker-img sticker-img--pink"
           />
         </div>
 
@@ -281,7 +249,7 @@ const faqItems = [
 
     </Container>
 
-    <section id="kinderen" aria-labelledby="heading-kinderen" class="kids-bleed split-section split--image-left">
+    <section id="kinderen" aria-labelledby="heading-kinderen" class="split-section split--image-left paper-sheet paper-sheet--beige paper-sheet--tilt-r">
       <figure class="split-image">
         <Image
           src={kidsZandbak}
@@ -304,7 +272,9 @@ const faqItems = [
         </dl>
       </div>
     </section>
+  </div>
 
+  <div class="yellow-band">
     <section id="faq" aria-labelledby="heading-faq" class="faq-section">
       <Container>
         <h2 id="heading-faq">Veelgestelde vragen</h2>
@@ -312,10 +282,10 @@ const faqItems = [
         <p class="faq-followup">Staat jouw vraag er niet bij? <a href="#contact" data-topic="anders">Stel je vraag.</a></p>
       </Container>
     </section>
-  </div>
 
   <aside id="contact" aria-labelledby="contact-heading" class="callout section">
     <Container>
+      <div class="paper-sheet paper-sheet--beige paper-sheet--tilt-l contact-card">
       <h2 id="contact-heading">Heb je een vraag?</h2>
       <p>Over bereikbaarheid, toegankelijkheid of eten? Schrijf ons.</p>
 
@@ -329,6 +299,8 @@ const faqItems = [
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="origin" value="praktisch" />
           <input type="hidden" name="lang" value="nl" />
+
+          <p class="form-note">Alle velden zijn verplicht.</p>
 
           <div class="form-field">
             <label for="contact-naam">Naam</label>
@@ -360,8 +332,10 @@ const faqItems = [
           <button type="submit" class="btn-primary self-start">Stuur je bericht</button>
         </form>
       </div>
+      </div>
     </Container>
   </aside>
+  </div>
 
   <script>
     const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
@@ -465,11 +439,7 @@ const faqItems = [
 
     function getOffset(): number {
       const header = document.querySelector('header') as HTMLElement | null;
-      const subnav = document.querySelector('.page-subnav-wrapper') as HTMLElement | null;
-      const headerH = header?.offsetHeight ?? 0;
-      const subnavSticky = subnav ? getComputedStyle(subnav).position === 'sticky' : false;
-      const subnavH = subnavSticky ? (subnav?.offsetHeight ?? 0) : 0;
-      return headerH + subnavH + 8;
+      return (header?.offsetHeight ?? 0) + 8;
     }
 
     function scrollToId(id: string) {
@@ -480,15 +450,15 @@ const faqItems = [
       window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
     }
 
-    // In-page anchor subnav: scroll-spy + click-to-scroll
+    // In-page anchor pills: scroll-spy + click-to-scroll
     const sections = Array.from(document.querySelectorAll('section[id]'));
-    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.page-nav a[href^="#"]'));
+    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.hero-anchor[href^="#"]'));
     if (sections.length && navLinks.length) {
       function update() {
         const offset = getOffset();
         let active = sections[0]?.id ?? '';
         for (const section of sections) {
-          if (section.getBoundingClientRect().top <= offset) active = section.id;
+          if (section.getBoundingClientRect().top <= offset + 2) active = section.id;
         }
         for (const link of navLinks) {
           if (link.getAttribute('href') === `#${active}`) {

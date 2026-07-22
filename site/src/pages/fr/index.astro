@@ -1,272 +1,169 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/Container.astro';
-import ProgramCard from '../../components/ProgramCard.astro';
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '../../config/site.ts';
-import sfeerFestivalplein from '../../assets/images/sfeer-festivalplein.jpg';
+import heroCarnaval from '../../assets/images/hero-carnaval.png';
 import sfeerPicknicktafels from '../../assets/images/sfeer-picknicktafels.jpg';
-import sfeerAvondschemering from '../../assets/images/sfeer-avondschemering.jpg';
 import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
-import theaterBasiliek from '../../assets/images/theater-basiliek.jpg';
-
-const allItems = await getCollection('programme');
-const frItems = allItems.filter(e => e.id.startsWith('fr/') && !e.data.draft);
-const saturdayHighlights = frItems.filter(e => e.data.day === 'saturday').slice(0, 3);
-const hasProgramme = frItems.length > 0;
-
-const festivalDays: Record<string, 'friday' | 'saturday' | 'sunday'> = {
-  '2026-08-28': 'friday',
-  '2026-08-29': 'saturday',
-  '2026-08-30': 'sunday',
-};
-const todayKey = new Date().toISOString().slice(0, 10);
-const todayFestivalDay = festivalDays[todayKey];
-const todayItems = todayFestivalDay
-  ? frItems
-      .filter(e => e.data.day === todayFestivalDay)
-      .sort((a, b) => a.data.startTime.localeCompare(b.data.startTime))
-      .slice(0, 3)
-  : saturdayHighlights;
 ---
 
 <BaseLayout title="Plazey festival" lang="fr" currentPath="/fr">
-  <section aria-label="Héro" class="section pb-0 hero-intro hero-green">
-    <Container class="pb-8">
-      {SITE_PHASE !== 'save-the-date' && <span class="edition-indicator">Édition 2026</span>}
-      {SITE_PHASE === 'aftermovie' ? (
-        <>
-          <h1>Merci. À l'année prochaine.</h1>
-          <div class="cta-group">
-            <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-primary">Découvre nos photos sur Facebook</a>
-          </div>
-        </>
-      ) : (
-        <>
-          {SITE_PHASE === 'save-the-date' ? (
-            <h1>Chaque année, le quartier fait Plazey. Cette année, toi aussi ?</h1>
-          ) : (
-            <h1>Passez nous voir. Plazey, c'est trois jours de fête gratuite au parc Élisabeth.</h1>
-          )}
-          <p class={SITE_PHASE === 'save-the-date' ? 'text-date' : 'text-meta'}>{FESTIVAL_DATES_FR} · {FESTIVAL_LOCATION}</p>
-          <div class="cta-group">
-            {SITE_PHASE === 'save-the-date' && (
-              <>
-                <a href="/fr/benevole" class="btn-primary">Viens aider</a>
-                <a href="/fr/propose-ton-projet" class="btn-ghost">Propose un projet</a>
-              </>
-            )}
-            {SITE_PHASE === 'reveal' && (
-              <>
-                <a href="/fr/programme" class="btn-primary">Découvre le programme</a>
-                <a href="/fr/benevole" class="btn-ghost">Viens aider</a>
-                <a href="/fr/infos-pratiques#acces" class="btn-text">Vois comment venir</a>
-              </>
-            )}
-            {SITE_PHASE === 'live' && (
-              <>
-                <a href="/fr/programme" class="btn-primary">Découvre ce qui se passe aujourd'hui</a>
-                <a href="/fr/infos-pratiques#acces" class="btn-ghost">Vois comment venir</a>
-              </>
-            )}
-          </div>
-        </>
-      )}
-      <p class="lang-switcher">
-        <a href="/nl" lang="nl" hreflang="nl">Lees in het Nederlands →</a>
-      </p>
-    </Container>
-    <figure class="hero-green-figure">
+  <section aria-label="Héro" class="section pb-0 hero-green">
+    <div class="hero-bg-wrap">
       <Image
-        src={sfeerFestivalplein}
-        alt="Le site du festival Plazey au parc Élisabeth : tables de pique-nique, guirlandes et le panneau Plazey entre les arbres."
-        widths={[800, 1200, 1600]}
+        src={heroCarnaval}
+        alt=""
+        widths={[640, 1024, 1440, 1920, 2478]}
         sizes="100vw"
-        class="w-full"
+        format="webp"
+        loading="eager"
+        fetchpriority="high"
+        class="hero-bg-img"
       />
-    </figure>
+      <div class="hero-bg-overlay">
+        <Container>
+          <div class="hero-bg-card">
+            {SITE_PHASE === 'aftermovie' ? (
+              <h1>Merci. À l'année prochaine.</h1>
+            ) : (
+              <>
+                {SITE_PHASE === 'save-the-date' ? (
+                  <h1>Chaque année, le quartier fait Plazey. Cette année, toi aussi ?</h1>
+                ) : (
+                  <h1>Passe nous voir. Trois jours de fête gratuite au parc Élisabeth.</h1>
+                )}
+                <p class="text-date"><mark class="text-free-mark">{FESTIVAL_DATES_FR} · {FESTIVAL_LOCATION}</mark></p>
+              </>
+            )}
+          </div>
+        </Container>
+      </div>
+    </div>
   </section>
 
-  <section aria-labelledby="quest-ce-que-plazey" class="section">
-    <Container>
-      <h2 id="quest-ce-que-plazey">Une fête de quartier depuis 1992. <span class="h2-soft">Et toujours gratuite.</span></h2>
-        <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
-          <li>
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="30" cy="30" r="26" fill="var(--color-orange)" stroke="var(--color-text)" stroke-width="2.5"/>
-                <path d="M18,28 Q30,40 42,28" stroke="var(--color-text)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                <circle cx="22" cy="22" r="2.5" fill="var(--color-text)"/>
-                <circle cx="38" cy="22" r="2.5" fill="var(--color-text)"/>
-              </svg>
-            </span>
-            <h3>Pour le quartier, par le quartier.</h3>
-            <p>De Platoo et De Zeyp organisent avec les voisin·es, les artistes et les bénévoles.</p>
-          </li>
-          <li>
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                <rect x="8" y="10" width="44" height="40" rx="4" fill="var(--color-sage)" stroke="var(--color-text)" stroke-width="2.5"/>
-                <path d="M8,22 L52,22" stroke="var(--color-text)" stroke-width="2.5"/>
-                <path d="M16,16 L16,8 M44,16 L44,8" stroke="var(--color-text)" stroke-width="2.5" stroke-linecap="round"/>
-                <text x="30" y="44" text-anchor="middle" style="font-family: var(--font-heading)" font-size="22" fill="var(--color-surface)">29</text>
-              </svg>
-            </span>
-            <h3>Trois jours, un week-end.</h3>
-            <p>Vendredi 28, samedi 29 et dimanche 30 août 2026. De l'après-midi jusque tard le soir.</p>
-          </li>
-          <li>
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10,50 L10,28 L30,12 L50,28 L50,50 Z" fill="var(--color-yellow)" stroke="var(--color-text)" stroke-width="2.5" stroke-linejoin="round"/>
-                <rect x="24" y="34" width="12" height="16" fill="var(--color-text)"/>
-                <circle cx="33" cy="42" r="1.5" fill="var(--color-yellow)"/>
-              </svg>
-            </span>
-            <h3>Un seul lieu : parc Élisabeth.</h3>
-            <p>Le grand parc au cœur de Koekelberg. Tram, bus et métro à proximité. L'entrée est toujours ouverte.</p>
-          </li>
-        </ul>
-        <a href="/fr/a-propos" class="btn-text mt-6">Découvre Plazey →</a>
-    </Container>
-  </section>
+  <div class="green-band">
+    <section aria-label="Actions principales" class="section section--green hero-cta-band">
+      <Container>
+        <div class="cta-group">
+          {SITE_PHASE === 'aftermovie' && (
+            <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-primary">Découvre nos photos sur Facebook</a>
+          )}
+          {SITE_PHASE === 'save-the-date' && (
+            <>
+              <a href="/fr/benevole" class="btn-primary">Viens aider</a>
+              <a href="/fr/propose-ton-projet" class="btn-ghost">Propose un projet</a>
+            </>
+          )}
+          {SITE_PHASE === 'reveal' && (
+            <>
+              <a href="/fr/programme" class="btn-primary">Découvre le programme</a>
+              <a href="/fr/benevole" class="btn-ghost">Viens aider</a>
+            </>
+          )}
+          {SITE_PHASE === 'live' && (
+            <>
+              <a href="/fr/programme" class="btn-primary">Découvre ce qui se passe aujourd'hui</a>
+              <a href="/fr/infos-pratiques#acces" class="btn-ghost">Vois comment venir</a>
+            </>
+          )}
+        </div>
+        <p class="lang-switcher">
+          <a href="/nl" lang="nl" hreflang="nl">Lees in het Nederlands →</a>
+        </p>
+      </Container>
+    </section>
+
+    <section aria-labelledby="quest-ce-que-plazey" class="section section--green">
+      <Container>
+        <h2 id="quest-ce-que-plazey">Une fête de quartier depuis 1992. <span class="h2-soft">Et toujours gratuite.</span></h2>
+          <ul role="list" class="feature-blocks grid grid-cols-1 sm:grid-cols-3 gap-8 mt-6">
+            <li>
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="30" cy="30" r="26" fill="var(--color-orange)" stroke="var(--color-text)" stroke-width="2.5"/>
+                  <path d="M18,28 Q30,40 42,28" stroke="var(--color-text)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                  <circle cx="22" cy="22" r="2.5" fill="var(--color-text)"/>
+                  <circle cx="38" cy="22" r="2.5" fill="var(--color-text)"/>
+                </svg>
+              </span>
+              <h3>Pour le quartier, par le quartier.</h3>
+              <p>De Platoo et De Zeyp organisent avec les voisin·es, les artistes et les bénévoles.</p>
+            </li>
+            <li>
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="8" y="10" width="44" height="40" rx="4" fill="var(--color-sage)" stroke="var(--color-text)" stroke-width="2.5"/>
+                  <path d="M8,22 L52,22" stroke="var(--color-text)" stroke-width="2.5"/>
+                  <path d="M16,16 L16,8 M44,16 L44,8" stroke="var(--color-text)" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="30" y="44" text-anchor="middle" style="font-family: var(--font-heading)" font-size="22" fill="var(--color-surface)">29</text>
+                </svg>
+              </span>
+              <h3>Trois jours, un week-end.</h3>
+              <p>Vendredi 28, samedi 29 et dimanche 30 août 2026. De l'après-midi jusque tard le soir.</p>
+            </li>
+            <li>
+              <span class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10,50 L10,28 L30,12 L50,28 L50,50 Z" fill="var(--color-yellow)" stroke="var(--color-text)" stroke-width="2.5" stroke-linejoin="round"/>
+                  <rect x="24" y="34" width="12" height="16" fill="var(--color-text)"/>
+                  <circle cx="33" cy="42" r="1.5" fill="var(--color-yellow)"/>
+                </svg>
+              </span>
+              <h3>Un seul lieu : parc Élisabeth.</h3>
+              <p>Le grand parc au cœur de Koekelberg. Tram, bus et métro à proximité. L'entrée est toujours ouverte.</p>
+            </li>
+          </ul>
+          <a href="/fr/a-propos" class="btn-text mt-6">Découvre Plazey →</a>
+      </Container>
+    </section>
+  </div>
 
   {SITE_PHASE === 'save-the-date' ? (
-    <section aria-labelledby="programme-teaser" class="split-section split--image-left section--green">
+    <section aria-labelledby="participe-teaser" class="split-section split--image-right paper-sheet paper-sheet--tilt-l">
       <figure class="split-image">
         <Image
-          src={theaterBasiliek}
-          alt="Spectacle en plein air sur la scène du parc Élisabeth, avec la Basilique de Koekelberg en arrière-plan."
+          src={vrijwilligerPortret}
+          alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
           widths={[800, 1200, 1600]}
           sizes="(max-width: 767px) 100vw, 50vw"
-          class="sticker-img sticker-img--yellow"
+          class="sticker-img sticker-img--sage sticker-img--left"
         />
       </figure>
       <div class="split-text">
-        <h2 id="programme-teaser">C'est toi qui fais le programme</h2>
-        <p>Musique, danse, ateliers, arts. Chaque année, les habitant·es font le programme. Tu as quelque chose ?</p>
+        <h2 id="participe-teaser">Devenir bénévole</h2>
+        <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
         <div class="cta-group">
-          <a href="/fr/propose-ton-projet" class="btn-ghost">Envoie ton idée</a>
-          <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-text">Suis-nous sur Facebook →</a>
+          <a href="/fr/benevole" class="btn-ghost">Viens aider</a>
         </div>
       </div>
     </section>
   ) : (
-  <section aria-labelledby="programme-teaser" class="section section--green">
-    <Container>
-      {SITE_PHASE === 'live' ? (
-        <>
-          <h2 id="programme-teaser">Aujourd'hui à Plazey</h2>
-          <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            {todayItems.map(item => (
-              <li>
-                <ProgramCard
-                  title={item.data.title}
-                  startTime={item.data.startTime}
-                  {...(item.data.endTime && { endTime: item.data.endTime })}
-                  type={item.data.type}
-                  {...(item.data.stage && { stage: item.data.stage })}
-                  {...(item.data.curator && { curator: item.data.curator })}
-                  {...(item.data.description && { description: item.data.description })}
-                  lang="fr"
-                />
-              </li>
-            ))}
-          </ul>
-          <a href="/fr/programme" class="btn-text">Découvre tout ce qui se passe aujourd'hui →</a>
-        </>
-      ) : SITE_PHASE === 'aftermovie' ? (
-        <>
-          <h2 id="programme-teaser">Retour sur Plazey 2026</h2>
-          <p>Merci à toutes et tous celles et ceux qui étaient là.</p>
-          <a href="/fr/programme" class="btn-text">Découvre le programme complet 2026 →</a>
-        </>
-      ) : hasProgramme ? (
-        <>
-          <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
-          <p class="day-label mt-4">Samedi 29 août</p>
-          <div>
-            <ul role="list" class="program-cards grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-              {saturdayHighlights.map(item => (
-                <li>
-                  <ProgramCard
-                    title={item.data.title}
-                    startTime={item.data.startTime}
-                    {...(item.data.endTime && { endTime: item.data.endTime })}
-                    type={item.data.type}
-                    {...(item.data.stage && { stage: item.data.stage })}
-                    {...(item.data.curator && { curator: item.data.curator })}
-                    {...(item.data.description && { description: item.data.description })}
-                    lang="fr"
-                  />
-                </li>
-              ))}
-            </ul>
+    <section aria-label="Accès et participation" class="split-overlap">
+      <figure class="split-overlap-photo">
+        <Image
+          src={sfeerPicknicktafels}
+          alt="Des festivaliers aux tables de pique-nique près de la scène, familles et guirlandes dans les arbres."
+          widths={[800, 1200, 1600]}
+          sizes="100vw"
+          class="split-overlap-img"
+        />
+      </figure>
+      <div class="split-overlap-card">
+        <div class="split-overlap-block">
+          <h2 id="comment-sy-rendre">Comment s'y rendre ?</h2>
+          <p>En métro ligne 2 ou 6, arrêt Simonis. De là, dix minutes à pied jusqu'au parc.</p>
+          <p>Tu peux aussi venir en tram, en bus, à vélo ou en voiture.</p>
+          <a href="/fr/infos-pratiques#acces" class="btn-text">Lis plus sur l'accès →</a>
+        </div>
+        <div class="split-overlap-block">
+          <h2 id="participe-teaser">Participe</h2>
+          <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
+          <div class="cta-group">
+            <a href="/fr/benevole" class="btn-primary btn-primary--yellow">Viens aider</a>
           </div>
-          <a href="/fr/programme" class="btn-text">Découvre le programme complet →</a>
-        </>
-      ) : (
-        <>
-          <h2 id="programme-teaser">Qu'est-ce qui est au programme ?</h2>
-          <p>Le programme arrive bientôt. <a href={FACEBOOK_URL} rel="external noopener" target="_blank">Suis-nous sur Facebook pour l'annonce.</a></p>
-        </>
-      )}
-    </Container>
-  </section>
-  )}
-
-  {SITE_PHASE !== 'save-the-date' && (
-  <figure class="my-0">
-    <Image
-      src={sfeerPicknicktafels}
-      alt="Des festivaliers aux tables de pique-nique près de la scène, familles et guirlandes dans les arbres."
-      widths={[800, 1200, 1600]}
-      sizes="100vw"
-      class="w-full"
-    />
-  </figure>
-  )}
-
-  {SITE_PHASE !== 'save-the-date' && (
-  <section aria-labelledby="comment-sy-rendre" class="section">
-    <Container>
-      <h2 id="comment-sy-rendre">Comment s'y rendre ?</h2>
-      <p>En métro ligne 2 ou 6, arrêt Simonis. De là, dix minutes à pied jusqu'au parc.</p>
-      <p>Tu peux aussi venir en tram, en bus, à vélo ou en voiture.</p>
-      <a href="/fr/infos-pratiques#acces" class="btn-text">Lis plus sur l'accès →</a>
-    </Container>
-  </section>
-  )}
-
-  {SITE_PHASE !== 'save-the-date' && (
-  <figure class="my-0">
-    <Image
-      src={sfeerAvondschemering}
-      alt="Festivaliers à la tombée de la nuit, guirlandes allumées entre les arbres."
-      widths={[800, 1200, 1600]}
-      sizes="100vw"
-      class="w-full figure-crop-wide"
-    />
-  </figure>
-  )}
-
-  <section aria-labelledby="participe-teaser" class="split-section split--image-right">
-    <figure class="split-image">
-      <Image
-        src={vrijwilligerPortret}
-        alt="Une bénévole en t-shirt rose Plazey regarde vers le haut, avec le site du festival derrière elle."
-        widths={[800, 1200, 1600]}
-        sizes="(max-width: 767px) 100vw, 50vw"
-        class="sticker-img sticker-img--sage sticker-img--left"
-      />
-    </figure>
-    <div class="split-text">
-      <h2 id="participe-teaser">{SITE_PHASE === 'save-the-date' ? 'Devenir bénévole' : 'Participe'}</h2>
-      <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
-      <div class="cta-group">
-        <a href="/fr/benevole" class="btn-ghost">Viens aider</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </BaseLayout>

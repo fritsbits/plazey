@@ -25,8 +25,9 @@ const faqItems = [
     <Container>
       <h1>Tout ce que tu dois savoir avant de venir.</h1>
       <p class="text-date">
-        {FESTIVAL_DATES_FR}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}<span class="meta-sep" aria-hidden="true"></span><span class="text-date-highlight">Gratuit</span> pour tout le monde.
+        {FESTIVAL_DATES_FR}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}
       </p>
+      <p class="text-free"><span class="text-free-mark">Gratuit pour tout le monde.</span></p>
     </Container>
   </section>
 
@@ -42,19 +43,19 @@ const faqItems = [
     <Container>
       <nav class="hero-anchors" aria-label="Sur cette page">
         <a href="#acces" class="hero-anchor" style="--anchor-bg: var(--color-sage);">
-          <span class="hero-anchor-num">01</span>Accès
+          <span class="hero-anchor-num">01</span><span class="hero-anchor-label">Accès</span>
         </a>
         <a href="#manger-et-boire" class="hero-anchor" style="--anchor-bg: var(--color-yellow);">
-          <span class="hero-anchor-num">02</span>Manger &amp; boire
+          <span class="hero-anchor-num">02</span><span class="hero-anchor-label">Manger &amp; boire</span>
         </a>
         <a href="#accessibilite" class="hero-anchor" style="--anchor-bg: var(--color-orange);">
-          <span class="hero-anchor-num">03</span>Accessibilité
+          <span class="hero-anchor-num">03</span><span class="hero-anchor-label">Accessibilité</span>
         </a>
         <a href="#enfants" class="hero-anchor" style="--anchor-bg: var(--color-pink);">
-          <span class="hero-anchor-num">04</span>Enfants
+          <span class="hero-anchor-num">04</span><span class="hero-anchor-label">Enfants</span>
         </a>
-        <a href="#questions-frequentes" class="hero-anchor" style="--anchor-bg: var(--color-green);">
-          <span class="hero-anchor-num">05</span>Questions fréquentes
+        <a href="#questions-frequentes" class="hero-anchor hero-anchor--dark" style="--anchor-bg: var(--color-green);">
+          <span class="hero-anchor-num">05</span><span class="hero-anchor-label">Questions fréquentes</span>
         </a>
       </nav>
     </Container>
@@ -77,7 +78,7 @@ const faqItems = [
                 <circle cx="42" cy="50" r="3.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Métro</span>
+            <h3 class="mode">Métro</h3>
             <p>Ligne 2 ou 6, arrêt Simonis/Élisabeth. Cinq minutes à pied jusqu'au parc. La station a un ascenseur.</p>
           </div>
 
@@ -92,7 +93,7 @@ const faqItems = [
                 <circle cx="42" cy="20" r="2.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Vélo</span>
+            <h3 class="mode">Vélo</h3>
             <p>Parking vélo non gardé sur le site. Prends un antivol.</p>
           </div>
 
@@ -106,7 +107,7 @@ const faqItems = [
                 <circle cx="44" cy="44" r="4" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Voiture</span>
+            <h3 class="mode">Voiture</h3>
             <p>Stationnement payant autour du parc, ou parking souterrain Indigoneo. Adresse : Place Eugène Simonis 24, 1081 Koekelberg.</p>
           </div>
 
@@ -121,7 +122,7 @@ const faqItems = [
                 <circle cx="42" cy="52" r="3.5" fill="var(--color-text)"/>
               </svg>
             </span>
-            <span class="mode">Tram &amp; bus</span>
+            <h3 class="mode">Tram &amp; bus</h3>
             <p>Arrêt Parc Élisabeth ou Simonis/Élisabeth.</p>
             <ul>
               <li>Tram 9 ou 19</li>
@@ -138,54 +139,33 @@ const faqItems = [
         </div>
       </section>
 
-      <section id="manger-et-boire" aria-labelledby="heading-manger" class="eten-section">
-        <div class="eten-content">
+      <section id="manger-et-boire" aria-labelledby="heading-manger" class="split-section split--image-right paper-sheet paper-sheet--surface-muted paper-sheet--tilt-l">
+        <figure class="split-image">
+          <Image
+            src={etenFoodkraam}
+            alt="Un stand alimentaire sous une tente à Plazey : deux femmes préparent et servent à manger."
+            widths={[600, 960, 1280]}
+            sizes="(max-width: 767px) 100vw, 50vw"
+            class="sticker-img sticker-img--sage"
+          />
+        </figure>
+        <div class="split-text eten-content">
           <h2 id="heading-manger" class="h2-display"><span class="underline-mustard">Apporte ton pique-nique,</span> ou achète au bar</h2>
 
           <div class="eten-menu">
-            <h3 class="drinks-group">Softs</h3>
+            <p class="drinks-free">L'eau plate est <span>gratuite</span>.</p>
             <ul class="drinks-list">
-              <li><span class="drink">Eau plate</span><span class="dots" aria-hidden="true"></span><span class="price">gratuit</span></li>
-              <li><span class="drink">Eau pétillante</span><span class="dots" aria-hidden="true"></span><span class="price">€ 2</span></li>
-              <li><span class="drink">Ritchie Cola</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Ritchie Cola Zero</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Ritchie Lemonade</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Jus d'orange</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Jus de pomme</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
+              <li><span class="drink">Softs</span><span class="price">€ 2 à € 3</span></li>
+              <li><span class="drink">Bières</span><span class="price">€ 3 à € 4</span></li>
+              <li><span class="drink">Vins &amp; bulles</span><span class="price">€ 4 à € 5</span></li>
             </ul>
-            <h3 class="drinks-group">Bières</h3>
-            <ul class="drinks-list">
-              <li><span class="drink">Zennepils 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Zinnebir 5,8%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Estaminet pils 0,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 3</span></li>
-              <li><span class="drink">Pico Bello IPA 0,3%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Vandekelder Saison 5,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Vandekelder Cuvée 6,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Chaotique American IPA 6,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Koekelbeer Pale Ale 4,9%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Bodacious Lemon-lime Sour 4,0%</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-            </ul>
-            <h3 class="drinks-group">Vins &amp; bulles</h3>
-            <ul class="drinks-list">
-              <li><span class="drink">Vin blanc ou rouge, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 4</span></li>
-              <li><span class="drink">Vin blanc ou rouge, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 20</span></li>
-              <li><span class="drink">Cava, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
-              <li><span class="drink">Cava, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
-              <li><span class="drink">Mousseux Vendôme 0%, verre</span><span class="dots" aria-hidden="true"></span><span class="price">€ 5</span></li>
-              <li><span class="drink">Mousseux Vendôme 0%, bouteille</span><span class="dots" aria-hidden="true"></span><span class="price">€ 25</span></li>
-            </ul>
+            <p class="drinks-note">Vins et bulles au verre. Espèces acceptées.</p>
           </div>
 
+          <p>Nos bières viennent de brasseurs bruxellois. Il y a aussi de la bière et du mousseux sans alcool.</p>
+
           <p>Il y a aussi des stands alimentaires. Nous choisissons délibérément des habitant·es du quartier, des établissements horeca locaux et des start-ups. Les stands de cette année seront annoncés bientôt.</p>
-          <p class="eten-cash">Espèces acceptées.</p>
         </div>
-        <Image
-          src={etenFoodkraam}
-          alt="Un stand alimentaire sous une tente à Plazey : deux femmes préparent et servent à manger."
-          widths={[600, 960, 1280]}
-          sizes="(max-width: 767px) 100vw, 50vw"
-          class="eten-image"
-        />
       </section>
 
       <section id="accessibilite" aria-labelledby="heading-accessibilite" class="page-section page-section--no-rule">
@@ -200,7 +180,7 @@ const faqItems = [
                 <path d="M42 22 Q46 26 46 30 Q46 34 42 38" stroke="var(--color-text)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
               </svg>
               Audition
-            </span>
+            </h3>
             <ul>
               <li><strong>Bouchons d'oreilles :</strong> disponibles à l'infostand.</li>
               <li>D'autres questions sur l'audition ? <a href="#contact" data-topic="accessibilite">Pose ta question</a>, on cherche la réponse pour toi.</li>
@@ -217,7 +197,7 @@ const faqItems = [
                 <circle cx="32" cy="40" r="2" fill="var(--color-text)"/>
               </svg>
               Mobilité
-            </span>
+            </h3>
             <ul>
               <li><strong>Allées principales planes :</strong> accessibles aux fauteuils roulants et poussettes.</li>
               <li><strong>Toilettes adaptées :</strong> pour personnes en fauteuil roulant.</li>
@@ -233,7 +213,7 @@ const faqItems = [
                 <path d="M30 27 L30 42" stroke="var(--color-text)" stroke-width="4" stroke-linecap="round"/>
               </svg>
               Aide &amp; info
-            </span>
+            </h3>
             <ul>
               <li><strong>Aide au quotidien :</strong> des bénévoles t'aident à manger, boire, aller aux toilettes ou trouver ton chemin sur le site. <a href="#contact" data-topic="accessibilite" data-prefill="adl">Demande-le à l'avance.</a></li>
               <li><strong>Programme et liste de boissons :</strong> en braille ou en impression standard, à l'infostand.</li>
@@ -248,7 +228,7 @@ const faqItems = [
                 <path d="M22 30 L28 36 L40 22" stroke="var(--color-surface)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               Sécurité
-            </span>
+            </h3>
             <ul>
               <li>Tu vois que quelqu'un est importuné ? Demande simplement : « Ça va ? »</li>
               <li>Tu ne te sens pas en sécurité ? Parle à un·e bénévole, reconnaissable à son t-shirt coloré avec le logo Plazey.</li>
@@ -304,7 +284,9 @@ const faqItems = [
         </dl>
       </div>
     </section>
+  </div>
 
+  <div class="yellow-band">
     <section id="questions-frequentes" aria-labelledby="heading-faq" class="faq-section">
       <Container>
         <h2 id="heading-faq">Questions fréquentes</h2>
@@ -312,7 +294,6 @@ const faqItems = [
         <p class="faq-followup">Ta question n'est pas là ? <a href="#contact" data-topic="autre">Pose ta question.</a></p>
       </Container>
     </section>
-  </div>
 
   <aside id="contact" aria-labelledby="contact-heading" class="callout section">
     <Container>
@@ -329,6 +310,8 @@ const faqItems = [
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="origin" value="infos-pratiques" />
           <input type="hidden" name="lang" value="fr" />
+
+          <p class="form-note">Tous les champs sont obligatoires.</p>
 
           <div class="form-field">
             <label for="contact-naam">Nom</label>
@@ -362,6 +345,7 @@ const faqItems = [
       </div>
     </Container>
   </aside>
+  </div>
 
   <script>
     const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
@@ -466,11 +450,7 @@ const faqItems = [
 
     function getOffset(): number {
       const header = document.querySelector('header') as HTMLElement | null;
-      const subnav = document.querySelector('.page-subnav-wrapper') as HTMLElement | null;
-      const headerH = header?.offsetHeight ?? 0;
-      const subnavSticky = subnav ? getComputedStyle(subnav).position === 'sticky' : false;
-      const subnavH = subnavSticky ? (subnav?.offsetHeight ?? 0) : 0;
-      return headerH + subnavH + 8;
+      return (header?.offsetHeight ?? 0) + 8;
     }
 
     function scrollToId(id: string) {
@@ -482,13 +462,13 @@ const faqItems = [
     }
 
     const sections = Array.from(document.querySelectorAll('section[id]'));
-    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.page-nav a[href^="#"]'));
+    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.hero-anchor[href^="#"]'));
     if (sections.length && navLinks.length) {
       function update() {
         const offset = getOffset();
         let active = sections[0]?.id ?? '';
         for (const section of sections) {
-          if (section.getBoundingClientRect().top <= offset) active = section.id;
+          if (section.getBoundingClientRect().top <= offset + 2) active = section.id;
         }
         for (const link of navLinks) {
           if (link.getAttribute('href') === `#${active}`) {

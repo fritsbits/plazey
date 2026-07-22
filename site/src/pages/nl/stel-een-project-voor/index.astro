@@ -105,6 +105,7 @@ const faqItems = [
     </Container>
   </section>
 
+  <div class="yellow-band">
   <section aria-labelledby="vragen-projectvoorstel" class="faq-section">
     <Container>
       <h2 id="vragen-projectvoorstel">Vragen</h2>
@@ -125,6 +126,8 @@ const faqItems = [
           class="flex flex-col gap-6"
         >
             <input type="hidden" name="form-name" value="project-voorstel" />
+
+            <p class="form-note">Alle velden zijn verplicht, behalve waar (optioneel) staat.</p>
 
             <div class="form-field">
               <label for="naam-pv">Naam</label>
@@ -162,7 +165,7 @@ const faqItems = [
             </div>
 
             <div class="form-field">
-              <label for="project-nodig">Wat heb je nodig? <span style="font-weight: 400; color: var(--color-text-muted)">(ruimte, materiaal, tijd)</span></label>
+              <label for="project-nodig">Wat heb je nodig? <span style="font-weight: 400; color: var(--color-text-muted)">(ruimte, materiaal, tijd)</span> <small class="field-optional">(optioneel)</small></label>
               <textarea
                 id="project-nodig"
                 name="nodig"
@@ -172,7 +175,7 @@ const faqItems = [
             </div>
 
             <fieldset class="flex flex-col gap-2">
-              <legend class="font-semibold text-sm">Voor welke dag denk je?</legend>
+              <legend class="font-semibold text-sm">Voor welke dag denk je? <small class="field-optional">(optioneel)</small></legend>
               <label class="flex items-center gap-2"><input type="radio" name="dag" value="vrijdag" /> Vrijdag</label>
               <label class="flex items-center gap-2"><input type="radio" name="dag" value="zaterdag" /> Zaterdag</label>
               <label class="flex items-center gap-2"><input type="radio" name="dag" value="zondag" /> Zondag</label>
@@ -185,6 +188,7 @@ const faqItems = [
       </div>
     </Container>
   </aside>
+  </div>
 </BaseLayout>
 
 <script>

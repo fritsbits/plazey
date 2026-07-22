@@ -11,7 +11,6 @@ const isNL = lang === 'nl';
 
 <footer class="site-footer">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 text-sm">
-    <p class="footer-wordmark" aria-hidden="true">Plazey</p>
     <div class="pt-4 text-sm flex justify-between items-center">
       <div>
         <a href="/nl" lang="nl" aria-current={lang === 'nl' ? 'true' : undefined}>NL</a>
@@ -32,29 +31,22 @@ const isNL = lang === 'nl';
 
 <style>
   .site-footer {
-    background: var(--color-green);
-    color: var(--color-cream);
-    border-top: 1px solid color-mix(in oklab, var(--color-cream), transparent 80%);
-    border-bottom: 3px solid var(--color-text);
-  }
-  .footer-wordmark {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--color-cream);
-    margin: 0 0 0.75rem;
-    transform: rotate(-1deg);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .footer-wordmark { transform: none; }
+    /* Texture comes from the shared .site-outro wrapper so it spans Partners +
+       Footer as one continuous background. */
+    background: transparent;
+    color: var(--color-text);
+    position: relative;
   }
   .site-footer a {
-    color: var(--color-cream);
+    color: var(--color-text);
     text-decoration: underline;
     text-underline-offset: 3px;
+    /* Inline padding widens the tap area of these small, tightly packed links. */
+    display: inline-block;
+    padding: 0.375rem 0.25rem;
   }
   .site-footer a:hover {
-    color: var(--color-yellow);
+    color: var(--color-orange);
   }
   .site-footer a[aria-current="true"] {
     background: var(--color-yellow);

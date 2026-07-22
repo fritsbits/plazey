@@ -80,21 +80,13 @@ Naar praktisch
 
 ---
 
-## Lege staat — programmafilters
+## Lege staat — programmafilters *(geschrapt 2026-07-22)*
 
-**Tekst:**
-
-Niks gevonden met deze filters.
-
-**Knop:**
-
-Alle filters wissen
+De copy *"Niks gevonden met deze filters."* en de knop *"Alle filters wissen"* bestaan niet meer: met één filter-as en chips alleen voor types die items hebben, kan filteren nooit alles wegfilteren. Zie [2-programma.md](2-programma.md).
 
 **Aria-live-bericht bij filterwijziging (voor screenreaders):**
 
 [Aantal] items gevonden.
-
-0 items gevonden.
 
 ---
 

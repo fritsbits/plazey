@@ -5,11 +5,12 @@ import { Image } from 'astro:assets';
 import dansPark from '../../../assets/images/dans-park.jpg';
 ---
 
-<BaseLayout title="Over Plazey" lang="nl" currentPath="/nl/over-plazey">
+<BaseLayout title="Over Plazey" lang="nl" currentPath="/nl/over-plazey" bodyClass="page-beige">
+  <div class="cream-band">
   <section class="section hero-intro hero-green">
     <Container>
       <h1>Over Plazey</h1>
-      <p class="opening">Dertig jaar buurtfeest in het Elisabethpark. Dit is wie het maakt.</p>
+      <p class="opening">Dertig jaar buurtfeest in het Elisabethpark.<br />Dit is wie het maakt.</p>
       <div class="cta-group">
         <a href="#contact" class="btn-primary">Neem contact op</a>
       </div>
@@ -17,6 +18,7 @@ import dansPark from '../../../assets/images/dans-park.jpg';
   </section>
 
   <section aria-labelledby="het-verhaal" class="story-split">
+    <img src="/decor/birds.png" alt="" aria-hidden="true" class="story-birds" width="1080" height="972" />
     <div class="story-text">
       <h2 id="het-verhaal">Het verhaal</h2>
       <p>Plazey begon in 1992 als een klein muziekfeest voor de omwonenden van het Elisabethpark. Gratis, buiten, voor de buren. In de kern is het dat nog steeds.</p>
@@ -35,8 +37,10 @@ import dansPark from '../../../assets/images/dans-park.jpg';
       />
     </div>
   </section>
+  </div>
 
-  <section aria-labelledby="de-centra" class="section">
+  <div class="green-band">
+  <section aria-labelledby="de-centra" class="section section--green">
     <Container>
       <h2 id="de-centra">De organisaties achter Plazey</h2>
       <div class="org-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -48,18 +52,19 @@ import dansPark from '../../../assets/images/dans-park.jpg';
             <li>
               <a href="https://www.deplatoo.be" rel="external noopener" target="_blank">
                 deplatoo.be
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
                 </svg>
+                <span class="sr-only">(opent in nieuw tabblad)</span>
               </a>
             </li>
             <li>
-              <a href="https://maps.google.com/?q=Pantheonlaan+14,+1081+Koekelberg" rel="external noopener" target="_blank">
+              <span class="org-address">
                 Pantheonlaan 14, 1081 Koekelberg
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
-              </a>
+              </span>
             </li>
           </ul>
         </div>
@@ -71,18 +76,19 @@ import dansPark from '../../../assets/images/dans-park.jpg';
             <li>
               <a href="https://www.dezeyp.be" rel="external noopener" target="_blank">
                 dezeyp.be
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
                 </svg>
+                <span class="sr-only">(opent in nieuw tabblad)</span>
               </a>
             </li>
             <li>
-              <a href="https://maps.google.com/?q=Zeypstraat+47,+1083+Ganshoren" rel="external noopener" target="_blank">
+              <span class="org-address">
                 Zeypstraat 47, 1083 Ganshoren
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
-              </a>
+              </span>
             </li>
           </ul>
         </div>
@@ -94,18 +100,19 @@ import dansPark from '../../../assets/images/dans-park.jpg';
             <li>
               <a href="https://www.vaartkapoen.be" rel="external noopener" target="_blank">
                 vaartkapoen.be
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in nieuw tabblad)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
                 </svg>
+                <span class="sr-only">(opent in nieuw tabblad)</span>
               </a>
             </li>
             <li>
-              <a href="https://maps.google.com/?q=Schoolstraat+76,+1080+Sint-Jans-Molenbeek" rel="external noopener" target="_blank">
+              <span class="org-address">
                 Schoolstraat 76, 1080 Sint-Jans-Molenbeek
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-label="(opent in Google Maps)">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
-              </a>
+              </span>
             </li>
           </ul>
         </div>
@@ -113,7 +120,7 @@ import dansPark from '../../../assets/images/dans-park.jpg';
     </Container>
   </section>
 
-  <aside id="contact" aria-labelledby="contact-heading" class="callout section">
+  <aside id="contact" aria-labelledby="contact-heading" class="callout section section--green">
     <Container>
       <h2 id="contact-heading">Neem contact op.</h2>
       <p>Vraag, idee, of iets anders? Laat het weten.</p>
@@ -128,6 +135,8 @@ import dansPark from '../../../assets/images/dans-park.jpg';
             <input type="hidden" name="form-name" value="contact" />
             <input type="hidden" name="origin" value="over-plazey" />
             <input type="hidden" name="lang" value="nl" />
+
+            <p class="form-note">Alle velden zijn verplicht.</p>
 
             <div class="form-field">
               <label for="contact-naam">Naam</label>
@@ -169,6 +178,7 @@ import dansPark from '../../../assets/images/dans-park.jpg';
       </div>
     </Container>
   </aside>
+  </div>
 </BaseLayout>
 
 <script>

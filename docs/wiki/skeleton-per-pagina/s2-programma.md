@@ -2,13 +2,20 @@
 
 
 
+> **⚠️ Deels achterhaald.** Dit blijft het wireframe van de ontwerpfase; het gebouwde scherm wijkt op drie punten af:
+> 1. **Geen detailpagina's** (2026-07-16). De kaart opent een `<dialog>`-lightbox. Zie de noot in [s3-programma-item.md](s3-programma-item.md).
+> 2. **Geen dagfilter en geen lege staat** (2026-07-22). Eén filter-as: type. Zie Zone 2 en Zone 4 hieronder, die zijn bijgewerkt.
+> 3. **Geen sticky dag-header.** Dag-koppen scrollen gewoon mee; de ankerlinks uit Zone 2 vervangen het snelnavigatie-doel.
+>
+> Ook de datums in dit document (22–24 augustus) zijn die van het oorspronkelijke ontwerp; het festival valt op **28–30 augustus 2026**.
+
 > **URL:** `/nl/programma` (NL) · `/fr/programme` (FR)
 
 > **Doel:** bezoekers laten scannen wat er speelt per dag en filteren op wat relevant is.
 
-> **Primaire actie:** klik op een item → detail-pagina
+> **Primaire actie:** klik op een item → lightbox met de volledige act-info
 
-> **Secundaire actie:** filteren op dag of type
+> **Secundaire actie:** filteren op type
 
 **Copy:** zie [2. Programma / Programme (NL + FR)](https://www.notion.so/33fd3ecc475c81be8266faf517c76a31)
 
@@ -27,58 +34,49 @@
 
 ---
 
-### Zone 2: Filterrij
+### Zone 2: Dag-ankers + type-chips *(herzien 2026-07-22)*
 
-**Mobile:** horizontale chip-row met zichtbare scroll-indicator (scrollbar of fade-out aan de rand).
-
-**Desktop:** alle chips ge-expanded, geen scroll nodig.
+Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filteren** op type.
 
 ```javascript
-[Filter: Dag]
-[Alle dagen] [Vrijdag 22 aug] [Zaterdag 23 aug] [Zondag 24 aug]
+[Vrijdag] [Zaterdag] [Zondag]          ← ankerlinks, geen state
 
-[Filter: Type]
-[Concert] [Dans] [Film] [Workshop] [Kinderen] [Off-stage]
+[Concert] [Dans] [Film] [Workshop] [Expo] [Theater] [Kermis] [Off-stage]
 ```
 
-**Gedrag:**
+**Dag-ankerlinks:** gewone `<a href="#day-sunday">` in een `<nav aria-label>`, die naar de dag-kop scrollen. Bewust als links gestyled, niet als chips, zodat ze niet als tweede filterrij lezen. Werken zonder JS. Verschijnen alleen als er meer dan één dag geprogrammeerd staat.
 
-- Chips zijn toggles: actief/inactief. Meerdere types tegelijk selecteerbaar.
+**Type-chips:**
 
-- Filteren is instant: geen “Toepassen”-knop.
+- Toggles, **single-select**. Niets ingedrukt = alles tonen, dus er is géén "Alle types"-chip. Nog eens op de actieve chip drukken wist hem.
 
-- Actieve filters in de URL (query string): bv. `?dag=zaterdag&type=concert`. URL deelbaar.
+- Filteren is instant: geen "Toepassen"-knop, geen resetknop nodig.
 
-- Dag-filter is single-select (of “Alle dagen”). Type-filter is multi-select.
+- Actieve filter in de URL: `?type=concert`. Deelbaar.
 
-- Resetknop verschijnt als één of meer filters actief zijn: “Alle filters wissen”.
+- Alleen chips voor types die echt items hebben, dus 0 resultaten is onbereikbaar.
+
+**Waarom geen dagfilter meer:** de dagen zijn al de structuur van de pagina (drie koppen, ~28 kaarten totaal). Een dagfilter neemt weg wat je toch al ziet, en dwong een facetten-mechaniek af (types verbergen die niet bij de gekozen dag horen, en omgekeerd) die veel complexer was dan het probleem. Wat mensen willen is springen, niet filteren.
+
+**Waarom single-select bij type:** bij multi-select weet niemand of "dans + theater" AND of OR betekent, en met ~28 items levert de extra kracht niets op.
 
 **Semantische HTML:**
 
 ```html
-<!-- Dag — single-select → radio group -->
-<fieldset>
-  <legend>Dag</legend>
-  <label><input type="radio" name="dag" value="alle"> Alle dagen</label>
-  <label><input type="radio" name="dag" value="vrijdag"> Vrijdag 22 aug</label>
+<nav class="day-jump" aria-label="Spring naar een dag">
+  <a href="#day-friday" data-day="friday">Vrijdag</a>
   …
-</fieldset>
+</nav>
 
-<!-- Type — multi-select → checkbox group -->
-<fieldset>
-  <legend>Type</legend>
-  <label><input type="checkbox" name="type" value="concert"> Concert</label>
+<!-- hidden in de HTML; het script maakt de rij zichtbaar, want zonder JS
+     doen de knoppen niets -->
+<div id="type-filter" role="group" aria-label="Filter op type" hidden>
+  <button type="button" data-type="concert" aria-pressed="false">Concert</button>
   …
-</fieldset>
+</div>
 ```
 
-**Alternatief (button-gebaseerd):**
-
-```html
-<button type="button" aria-pressed="false">Concert</button>
-```
-
-**Aria-live regio** (voor screenreaders):
+**Aria-live regio** (voor screenreaders) — blijft leeg bij eerste paint, zodat er geen telling wordt voorgelezen die niemand vroeg:
 
 ```html
 <div role="status" aria-live="polite" aria-atomic="true">
@@ -153,16 +151,11 @@
 
 ---
 
-### Zone 4: Lege staat
+### Zone 4: Lege staat — *bestaat niet meer (2026-07-22)*
 
-**Conditie:** alle filters wissen = 0 resultaten.
+De chips worden alleen gerenderd voor types die items hebben, en er is maar één filter-as. Eén type aanklikken geeft dus altijd minstens één kaart: 0 resultaten is onbereikbaar. De lege staat en de "Alle filters wissen"-knop zijn verwijderd in plaats van dood gehouden.
 
-```javascript
-[Niks gevonden met deze filters.]
-[KNOP: Alle filters wissen]
-```
-
-**Aria-live:** de regio uit Zone 2 meldt “0 items gevonden.”
+Wat wél gebeurt bij filteren: een dag-kop en zijn ankerlink verdwijnen als geen enkele kaart van die dag het filter overleeft.
 
 ---
 
@@ -182,11 +175,13 @@ Zie S0 voor het volledige fase-model en de `SITE_PHASE` variabele.
 
 ## Toegankelijkheid — checklist Programma
 
-- [ ] Filter-chips als echte form controls (radio/checkbox of `aria-pressed` buttons), nooit pure divs
+- [ ] Filter-chips als echte `<button aria-pressed>`, nooit pure divs
 
-- [ ] `aria-live="polite"` regio update bij filterwijziging
+- [ ] Ingedrukte chip herkenbaar zonder kleur (vinkje), niet enkel via de oranje vulling — WCAG 1.4.1
 
-- [ ] Dag-header sticky: niet verborgen voor screenreaders bij scrollen
+- [ ] `aria-live="polite"` regio update bij filterwijziging, maar zwijgt bij eerste paint
+
+- [ ] Dag-ankerlinks in een `<nav>` met `aria-label`; `scroll-margin-top` houdt de dag-kop onder de sticky site-header
 
 - [ ] Elke card is één focussable element (`<a>`), geen geneste interactieve elementen
 
