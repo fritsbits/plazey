@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
 import { Image } from 'astro:assets';
-import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION } from '../../../config/site';
+import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION, SITE_PHASE } from '../../../config/site';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
 import kindOordoppen from '../../../assets/images/kind-oordoppen.jpg';
@@ -266,6 +266,11 @@ const faqItems = [
           <dt>Te hard geluid?</dt>
           <dd>Gratis oordopjes en kinderkoptelefoons aan de infostand, in ruil voor een identiteitskaart.</dd>
         </dl>
+        {SITE_PHASE !== 'save-the-date' && (
+          <p class="kids-programme-link">
+            <a class="btn-primary" href="/nl/programma/?type=kids">Alle kinderactiviteiten</a>
+          </p>
+        )}
       </div>
     </section>
   </div>

@@ -878,7 +878,7 @@
     transform: translate(-3px, -3px);
     box-shadow: 8px 8px 0 var(--color-shadow-ink);
   }
-  /* A cream `.paper-sheet` (e.g. the kids-callout) dropped inside a green panel
+  /* A cream `.paper-sheet` dropped inside a green panel
      otherwise inherits the panel's light-on-dark ramp above — cream heading on
      cream card, pale-yellow link on cream card. Both unreadable. Repaint back
      to the sheet's own ink ramp; the extra class beats the section rules on
@@ -1237,27 +1237,6 @@
      `.section--green`. */
   .filter-section {
     padding-block: 1.5rem;
-  }
-  /* Kinderen-en-families blokje (Programma pages) — a compact beige sheet
-     between the intro and the day sections. Points to the kids type-filter
-     and the family info on Praktisch. */
-  .kids-callout {
-    max-width: min(36rem, calc(100% - 1rem));
-    margin-inline: 0;
-    margin-block: 1.75rem 0.5rem;
-    padding: 1.5rem 1.75rem 1.65rem;
-  }
-  .kids-callout h2 {
-    margin: 0 0 0.4rem;
-    font-size: clamp(1.5rem, 3vw, 1.9rem);
-  }
-  .kids-callout p { margin: 0 0 1.15rem; }
-  .kids-callout-links {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem 1.25rem;
-    margin: 0;
   }
   .programme-filter {
     display: flex;
@@ -2330,6 +2309,10 @@
     .kids-terms dd {
       margin-top: 0.125rem;
     }
+  }
+  /* Bridge out of the Kinderen section into the kids filter on Programma. */
+  .kids-programme-link {
+    margin: 1.5rem 0 0;
   }
 
   /* Standalone panel padding — for `.paper-sheet` used without `.split-section`

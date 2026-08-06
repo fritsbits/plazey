@@ -21,8 +21,8 @@ export const typeGroups = [
 // `kids` keeps its name from the type it grew out of: the kids callout links
 // `?type=kids`, and those links get shared.
 export const typeGroupLabels: Record<'nl' | 'fr', Record<string, string>> = {
-  nl: { music: 'Muziek', kids: 'Kinderen', workshop: 'Workshop', see: 'Te zien' },
-  fr: { music: 'Musique', kids: 'Enfants', workshop: 'Ateliers', see: 'À voir' },
+  nl: { music: 'Muziek', kids: 'Kinderen en families', workshop: 'Workshop', see: 'Te zien' },
+  fr: { music: 'Musique', kids: 'Enfants et familles', workshop: 'Ateliers', see: 'À voir' },
 };
 
 export const stageLabels: Record<'nl' | 'fr', Record<string, string>> = {

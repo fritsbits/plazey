@@ -41,7 +41,7 @@ Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filte
 ```javascript
 [Vrijdag] [Zaterdag] [Zondag]          ← ankerlinks, geen state
 
-[Muziek] [Kinderen] [Workshop] [Te zien]
+[Muziek] [Kinderen en families] [Workshop] [Te zien]
 ```
 
 **Dag-ankerlinks:** gewone `<a href="#day-sunday">` in een `<nav aria-label>`, die naar de dag-kop scrollen. Bewust als links gestyled, niet als chips, zodat ze niet als tweede filterrij lezen. Werken zonder JS. Verschijnen alleen als er meer dan één dag geprogrammeerd staat.
@@ -56,7 +56,7 @@ Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filte
 
 - Alleen chips voor groepen die echt items hebben, dus 0 resultaten is onbereikbaar.
 
-- **Eén chip dekt meerdere types** *(2026-08-06)*. Negen types gaven negen chips, waarvan er zes het programma terugbrachten tot twee items of minder: dat is een inhoudstafel, geen filter. `typeGroups` in `src/config/programme-labels.ts` groepeert ze tot vier: **Muziek** (concert), **Kinderen** (kids, kermis), **Workshop**, **Te zien** (dans, film, theater, expo, off-stage). FR: Musique / Enfants / Ateliers / À voir. De kaarten houden hun eigen precieze badge, dus een Fête Foraine-kaart leest nog steeds "Kermis" onder de chip Kinderen. De groep `kids` houdt bewust die naam, want het kinderblok linkt `?type=kids`.
+- **Eén chip dekt meerdere types** *(2026-08-06)*. Negen types gaven negen chips, waarvan er zes het programma terugbrachten tot twee items of minder: dat is een inhoudstafel, geen filter. `typeGroups` in `src/config/programme-labels.ts` groepeert ze tot vier: **Muziek** (concert), **Kinderen en families** (kids, kermis), **Workshop**, **Te zien** (dans, film, theater, expo, off-stage). FR: Musique / Enfants et familles / Ateliers / À voir. De kaarten houden hun eigen precieze badge, dus een Fête Foraine-kaart leest nog steeds "Kermis" onder de chip Kinderen en families. De groep `kids` houdt bewust die naam, want de sectie Kinderen op Praktisch linkt naar `/nl/programma/?type=kids` (FR `/fr/programme/?type=kids`). Dat is de enige ingang naar de kinderfilter, dus die link moet blijven werken.
 
 **Waarom geen dagfilter meer:** de dagen zijn al de structuur van de pagina (drie koppen, ~28 kaarten totaal). Een dagfilter neemt weg wat je toch al ziet, en dwong een facetten-mechaniek af (types verbergen die niet bij de gekozen dag horen, en omgekeerd) die veel complexer was dan het probleem. Wat mensen willen is springen, niet filteren.
 

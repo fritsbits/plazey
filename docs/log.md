@@ -176,3 +176,19 @@ Frederiks observatie op de programmapagina: te veel pillen. De cijfers gaven hem
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, en 43 browserasserties tegen de gebouwde site: per chip de telling, nog eens klikken wist, URL-sync, dagkoppen en ankerlinks die meekrimpen, de aria-live-telling, beide taalversies, `?type=expo` → Te zien, `?type=nonsense` → alles, en de groepering die echt types mengt (Kinderen trekt de kermiskaart mee en sluit de concerten uit; Te zien dekt alle vijf haar leden).
 
 Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md) (Zone 2 + Zone 4).
+
+---
+
+## [2026-08-06] update | Kinderblok van de programmapagina weg, ingang verhuist naar Praktisch
+
+Frederiks oordeel over het blokje van vanmiddag: te aanwezig. Een beige `paper-sheet` met kop, tekst en twee knoppen stond tussen de intro en de chips, terwijl de chip **Kinderen** een centimeter lager hetzelfde doet. Het blok verkocht een filter die al zichtbaar was.
+
+- **`.kids-callout` is weg** op `nl/programma` en `fr/programme`, samen met zijn CSS en de `a[data-filter-type]`-handler in beide filterscripts. Die handler bestond alleen om de knop in het blok in place te laten filteren; de `?type=`-sync bij page load doet de rest.
+- **De ingang zit nu waar de vraag ontstaat.** Wie op Praktisch de sectie Kinderen leest (zoek geraakt kind, Babycaravan, oordopjes), krijgt onder de lijst één knop: **Alle kinderactiviteiten** → `/nl/programma/?type=kids`. FR: **Toutes les activités enfants** → `/fr/programme/?type=kids`. Eén richting in plaats van twee knoppen die naar elkaar wijzen.
+- **Verborgen in de save-the-date-fase**, want dan staat er geen programma om naartoe te linken.
+- De groep `kids` houdt daarom nog altijd bewust die naam: die cross-page link is nu de enige ingang naar de kinderfilter.
+- **De chip heet nu "Kinderen en families"** (FR "Enfants et familles"), zoals Lies vroeg. Alleen het label in `typeGroupLabels`; de sleutel blijft `kids`. Op 1280px staan de vier chips nog op één rij, op 375px wrapt het naar twee.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, `grep -c kids-callout dist/**` → 0, en een browsertest die vanaf `#kinderen` doorklikt: URL `?type=kids`, chip Kinderen actief, 15 kaarten zichtbaar.
+
+Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md).

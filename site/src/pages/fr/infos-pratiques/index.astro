@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
 import { Image } from 'astro:assets';
-import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION } from '../../../config/site';
+import { FESTIVAL_DATES_FR, FESTIVAL_LOCATION, SITE_PHASE } from '../../../config/site';
 import parkLaanKunst from '../../../assets/images/park-laan-kunst.jpg';
 import etenFoodkraam from '../../../assets/images/eten-foodkraam.jpg';
 import kidsZandbak from '../../../assets/images/kids-zandbak.jpg';
@@ -278,6 +278,11 @@ const faqItems = [
           <dt>Trop fort ?</dt>
           <dd>Bouchons d'oreilles et casques enfants gratuits à l'infostand, en échange d'une carte d'identité.</dd>
         </dl>
+        {SITE_PHASE !== 'save-the-date' && (
+          <p class="kids-programme-link">
+            <a class="btn-primary" href="/fr/programme/?type=kids">Toutes les activités enfants</a>
+          </p>
+        )}
       </div>
     </section>
   </div>
