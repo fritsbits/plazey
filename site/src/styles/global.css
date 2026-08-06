@@ -826,7 +826,7 @@
   .hero-bg-card {
     display: inline-block;
     text-align: left;
-    max-width: 42rem;
+    max-width: 50rem;
     background: var(--color-surface) url("/textures/page-cream.jpg") center / cover no-repeat;
     color: var(--color-text);
     border: 3px solid var(--color-border);
