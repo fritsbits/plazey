@@ -192,3 +192,18 @@ Frederiks oordeel over het blokje van vanmiddag: te aanwezig. Een beige `paper-s
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, `grep -c kids-callout dist/**` → 0, en een browsertest die vanaf `#kinderen` doorklikt: URL `?type=kids`, chip Kinderen actief, 15 kaarten zichtbaar.
 
 Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md).
+
+---
+
+## [2026-08-06] update | FAQ-openingsuren gelijkgezet met het programma
+
+De FAQ op Praktisch zei nog "zaterdag en zondag van 14:00 tot 22:00", maar sinds de dagschema's van Lies begint zondag al om 10:00 (Arborescences en Zwerfsteen om 10:00, apéro literair om 10:30). Zaterdag en zondag staan nu apart:
+
+- NL: "Vrijdag van 14:00 tot middernacht. Zaterdag van 14:00 tot 22:00. Zondag van 10:00 tot 22:00."
+- FR: "Le vendredi de 14h à minuit. Le samedi de 14h à 22h. Le dimanche de 10h à 22h."
+
+De sluitingsuren blijven staan zoals in het basisdoc (vr middernacht, za/zo 22u); die volgen niet uit het programma, want de laatste acts (3XL DJ's 21:15 op zaterdag, Nostos 21:00 op zondag) hebben geen einduur. Ter bevestiging voorgelegd aan Lies.
+
+Dezelfde regel rechtgezet in [wiki/website-copy/3-praktisch.md](wiki/website-copy/3-praktisch.md), waar nog de achterhaalde 19:30-versie met invulplaatsen stond.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, en beide regels teruggevonden in `dist`.
