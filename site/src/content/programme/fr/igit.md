@@ -1,7 +1,7 @@
 ---
 title: IGIT
 day: sunday
-startTime: "14:00"
+startTime: "15:30"
 type: concert
 description: Auteur-compositeur-interprète français, voix éraillée et chansons mélancoliques.
 ---

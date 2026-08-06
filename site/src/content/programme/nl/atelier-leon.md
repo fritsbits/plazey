@@ -1,7 +1,8 @@
 ---
 title: Atelier Leon
 day: friday
-startTime: "17:00"
+startTime: "16:15"
+endTime: "17:00"
 stage: workshop
 type: workshop
 description: Toonmoment van een week dansen met LEON.

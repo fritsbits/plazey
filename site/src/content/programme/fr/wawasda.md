@@ -2,7 +2,7 @@
 title: Vinyles avec Wawasda
 day: friday
 startTime: "18:00"
-endTime: "20:30"
+endTime: "20:00"
 type: concert
 description: Le DJ maison de Plazey passe des disques.
 ---

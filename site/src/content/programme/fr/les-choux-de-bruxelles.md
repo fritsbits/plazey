@@ -1,7 +1,7 @@
 ---
 title: Les Choux de Bruxelles
 day: sunday
-startTime: "14:00"
+startTime: "17:45"
 type: concert
 description: La chorale la plus conviviale de Bruxelles chante chansons françaises et classiques bruxellois.
 ---

@@ -2,7 +2,7 @@
 title: Julo's Jukebox
 day: friday
 startTime: "14:00"
-endTime: "17:00"
+endTime: "18:00"
 type: concert
 curator: BOP
 description: Dansen op Brusselse 45-toerenplaatjes, met tai chi en Boomer- & Parkiboks tussendoor.

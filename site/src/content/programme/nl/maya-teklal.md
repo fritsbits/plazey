@@ -1,7 +1,7 @@
 ---
 title: Maya Teklal
 day: sunday
-startTime: "14:00"
+startTime: "20:00"
 type: concert
 description: Intieme indiefolk, samen met gitarist Rueben Van Den Broeck.
 ---

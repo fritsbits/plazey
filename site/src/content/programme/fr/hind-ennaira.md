@@ -1,7 +1,7 @@
 ---
 title: Hind Ennaira
 day: sunday
-startTime: "14:00"
+startTime: "18:30"
 type: concert
 description: Jeune artiste gnaoua d'Essaouira, maîtresse du guembri.
 ---

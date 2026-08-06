@@ -1,7 +1,7 @@
 ---
 title: HYMM
 day: sunday
-startTime: "14:00"
+startTime: "20:30"
 type: concert
 description: Vergeten volks-, werk- en protestliederen, van de middeleeuwen tot vandaag.
 ---

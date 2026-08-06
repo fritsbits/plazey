@@ -1,7 +1,7 @@
 ---
 title: Les Choux de Bruxelles
 day: sunday
-startTime: "14:00"
+startTime: "17:45"
 type: concert
 description: Het gezelligste koor van Brussel zingt chansons en Brusselse klassiekers.
 ---

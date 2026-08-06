@@ -1,7 +1,7 @@
 ---
 title: Taxus Brown
 day: sunday
-startTime: "14:00"
+startTime: "17:00"
 type: concert
 description: Blues, funk, rock en pop. Eigen werk en covers, van Tom Waits tot de Spice Girls.
 ---

@@ -1,7 +1,7 @@
 ---
 title: White Privileged Girls
 day: sunday
-startTime: "14:00"
+startTime: "14:45"
 type: concert
 description: Punk, ambient folk en dadaïstische noise, met bizarre kostuums en accordeon.
 ---

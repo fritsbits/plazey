@@ -1,7 +1,7 @@
 ---
 title: HYMM
 day: sunday
-startTime: "14:00"
+startTime: "20:30"
 type: concert
 description: Chants populaires, de travail et de lutte oubliés, du Moyen Âge à nos jours.
 ---

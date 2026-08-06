@@ -1,7 +1,7 @@
 ---
 title: Arborescences
 day: sunday
-startTime: "14:00"
+startTime: "10:00"
 stage: tentoonstelling
 type: expo
 description: "Eco-expo onder de bomen: elke kunstenaar krijgt één boom in het park."

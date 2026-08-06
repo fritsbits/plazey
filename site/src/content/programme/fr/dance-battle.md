@@ -1,7 +1,7 @@
 ---
 title: Battle de danse
 day: sunday
-startTime: "14:00"
+startTime: "15:00"
 type: dans
 curator: Afrodance
 ---

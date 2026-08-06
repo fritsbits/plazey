@@ -2,7 +2,7 @@
 title: Plaatjes met Wawasda
 day: friday
 startTime: "18:00"
-endTime: "20:30"
+endTime: "20:00"
 type: concert
 description: De huis-dj van Plazey draait plaatjes.
 ---

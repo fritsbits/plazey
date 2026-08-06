@@ -1,6 +1,7 @@
 ---
 title: Dance Orientation
 day: friday
+draft: true
 startTime: "15:00"
 stage: dans
 type: dans
