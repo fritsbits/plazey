@@ -34,14 +34,14 @@
 
 ---
 
-### Zone 2: Dag-ankers + type-chips *(herzien 2026-07-22)*
+### Zone 2: Dag-ankers + type-chips *(herzien 2026-08-06)*
 
 Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filteren** op type.
 
 ```javascript
 [Vrijdag] [Zaterdag] [Zondag]          ← ankerlinks, geen state
 
-[Concert] [Dans] [Film] [Workshop] [Expo] [Theater] [Kermis] [Off-stage]
+[Muziek] [Kinderen] [Workshop] [Te zien]
 ```
 
 **Dag-ankerlinks:** gewone `<a href="#day-sunday">` in een `<nav aria-label>`, die naar de dag-kop scrollen. Bewust als links gestyled, niet als chips, zodat ze niet als tweede filterrij lezen. Werken zonder JS. Verschijnen alleen als er meer dan één dag geprogrammeerd staat.
@@ -52,9 +52,11 @@ Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filte
 
 - Filteren is instant: geen "Toepassen"-knop, geen resetknop nodig.
 
-- Actieve filter in de URL: `?type=concert`. Deelbaar.
+- Actieve filter in de URL: `?type=music`. Deelbaar. Een onbekende waarde valt terug op de groep die dat type bevat, dus een link die vóór de groepering gedeeld is (`?type=expo`) komt nog altijd op de juiste chip terecht.
 
-- Alleen chips voor types die echt items hebben, dus 0 resultaten is onbereikbaar.
+- Alleen chips voor groepen die echt items hebben, dus 0 resultaten is onbereikbaar.
+
+- **Eén chip dekt meerdere types** *(2026-08-06)*. Negen types gaven negen chips, waarvan er zes het programma terugbrachten tot twee items of minder: dat is een inhoudstafel, geen filter. `typeGroups` in `src/config/programme-labels.ts` groepeert ze tot vier: **Muziek** (concert), **Kinderen** (kids, kermis), **Workshop**, **Te zien** (dans, film, theater, expo, off-stage). FR: Musique / Enfants / Ateliers / À voir. De kaarten houden hun eigen precieze badge, dus een Fête Foraine-kaart leest nog steeds "Kermis" onder de chip Kinderen. De groep `kids` houdt bewust die naam, want het kinderblok linkt `?type=kids`.
 
 **Waarom geen dagfilter meer:** de dagen zijn al de structuur van de pagina (drie koppen, ~28 kaarten totaal). Een dagfilter neemt weg wat je toch al ziet, en dwong een facetten-mechaniek af (types verbergen die niet bij de gekozen dag horen, en omgekeerd) die veel complexer was dan het probleem. Wat mensen willen is springen, niet filteren.
 
@@ -70,8 +72,10 @@ Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filte
 
 <!-- hidden in de HTML; het script maakt de rij zichtbaar, want zonder JS
      doen de knoppen niets -->
+<!-- data-type = groepssleutel, data-types = de types die de chip dekt;
+     het script matcht op lidmaatschap, niet op gelijkheid -->
 <div id="type-filter" role="group" aria-label="Filter op type" hidden>
-  <button type="button" data-type="concert" aria-pressed="false">Concert</button>
+  <button type="button" data-type="kids" data-types="kids kermis" aria-pressed="false">Kinderen</button>
   …
 </div>
 ```
@@ -153,7 +157,7 @@ Twee rijen die verschillende dingen doen: **navigeren** naar een dag, en **filte
 
 ### Zone 4: Lege staat — *bestaat niet meer (2026-07-22)*
 
-De chips worden alleen gerenderd voor types die items hebben, en er is maar één filter-as. Eén type aanklikken geeft dus altijd minstens één kaart: 0 resultaten is onbereikbaar. De lege staat en de "Alle filters wissen"-knop zijn verwijderd in plaats van dood gehouden.
+Een chip wordt alleen gerenderd als zijn groep items heeft, en er is maar één filter-as. Eén chip aanklikken geeft dus altijd minstens één kaart: 0 resultaten is onbereikbaar. De lege staat en de "Alle filters wissen"-knop zijn verwijderd in plaats van dood gehouden. De groepering van 2026-08-06 verandert daar niets aan: groeperen kan een groep alleen groter maken, nooit leeg.
 
 Wat wél gebeurt bij filteren: een dag-kop en zijn ankerlink verdwijnen als geen enkele kaart van die dag het filter overleeft.
 

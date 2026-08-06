@@ -1305,12 +1305,15 @@
   @media (prefers-reduced-motion: reduce) {
     .filter-pill { transition: none; }
   }
+  /* Filled a shade darker than the green ground, so the pills read as objects
+     sitting on the panel rather than as outlines cut out of it. */
   .section--green .filter-pill {
     border-color: color-mix(in oklab, var(--color-cream), transparent 55%);
     color: var(--color-cream);
+    background: color-mix(in oklab, var(--color-green), black 14%);
   }
   .section--green .filter-pill:hover:not([aria-pressed="true"]) {
-    background: color-mix(in oklab, var(--color-cream), transparent 82%);
+    background: color-mix(in oklab, var(--color-green), black 26%);
     border-color: var(--color-cream);
   }
   .section--green .filter-pill:focus-visible {

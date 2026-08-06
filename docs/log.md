@@ -159,3 +159,20 @@ Frederik's observatie op de vrijwilligerspagina: de foto's klikken niet met de r
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, `grep -rn "sticker-img\|image-pair" site/src` leeg, browsertest NL + FR op 1440px, 768px en 375px, plus `prefers-reduced-motion`.
 
 Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md) (radiusschaal + fotobehandeling), [wiki/image-placements.md](wiki/image-placements.md).
+
+---
+
+## [2026-08-06] update | Programmafilter: negen typechips teruggebracht tot vier
+
+Frederiks observatie op de programmapagina: te veel pillen. De cijfers gaven hem gelijk. Negen types over 48 gepubliceerde items betekende dat zes chips het programma terugbrachten tot twee items of minder (theater 1, kermis 1, film 1, dans 1, expo 2, off-stage 2). Een chip die 48 kaarten tot één kaart filtert is een inhoudstafel, geen filter.
+
+- **`typeGroups` + `typeGroupLabels`** in [`site/src/config/programme-labels.ts`](../site/src/config/programme-labels.ts), naast de bestaande `typeLabels`: **Muziek** (concert, 23), **Kinderen** (kids + kermis, 15), **Workshop** (3), **Te zien** (dans, film, theater, expo, off-stage, 7). FR: Musique / Enfants / Ateliers / À voir. De vier groepen dekken samen alle 48 items en geen enkele houdt er minder dan drie.
+- **De contenttypes blijven negen.** De groepering is puur weergave: `content.config.ts`, de CMS-config en de `.md`-bestanden zijn niet aangeraakt, en de kaarten houden hun eigen `typeLabels`-badge. Een Fête Foraine-kaart leest dus nog steeds "Kermis", ook al zit ze onder de chip Kinderen.
+- **Matchen op lidmaatschap.** Elke chip draagt `data-type` (groepssleutel) en `data-types` (de types die ze dekt); het script bouwt daar een Map van in plaats van op gelijkheid te vergelijken.
+- **Oude gedeelde links blijven werken.** `?type=expo` is geen chipsleutel meer; de vorige guard zou hem stil negeren en alles tonen. Een `resolve()` valt nu terug op de groep die het type bevat. `?type=kids` blijft ongewijzigd, want het kinderblok linkt ernaar, en daarom houdt die groep bewust de naam `kids`.
+- **Onderweg gevonden:** de eerste telling (concert 24, 50 items) kwam uit een grep over de map en telde twee `draft: true`-items mee, Dance Orientation en The Flemish Primitives. De pagina rendert er 48. Verandert de groepering niet, wel de cijfers.
+- **Chipvulling**: de pillen krijgen een dekkende vulling 14% donkerder dan de groene ondergrond (hover 26%) in plaats van de doorschijnende cream-hover. Ze lezen nu als objecten op het paneel in plaats van als uitgesneden contouren.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, en 43 browserasserties tegen de gebouwde site: per chip de telling, nog eens klikken wist, URL-sync, dagkoppen en ankerlinks die meekrimpen, de aria-live-telling, beide taalversies, `?type=expo` → Te zien, `?type=nonsense` → alles, en de groepering die echt types mengt (Kinderen trekt de kermiskaart mee en sluit de concerten uit; Te zien dekt alle vijf haar leden).
+
+Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md) (Zone 2 + Zone 4).

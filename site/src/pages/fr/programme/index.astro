@@ -4,6 +4,7 @@ import Container from '../../../components/Container.astro';
 import ProgramCard from '../../../components/ProgramCard.astro';
 import { getCollection, render } from 'astro:content';
 import { SITE_PHASE, SHOW_ACT_TIMES, FACEBOOK_URL } from '../../../config/site.ts';
+import { typeGroups, typeGroupLabels } from '../../../config/programme-labels';
 
 const allItems = await getCollection('programme');
 const items = allItems
@@ -24,7 +25,7 @@ const withContent = await Promise.all(
   }))
 );
 
-// On n'affiche que les puces de type qui ont vraiment des items. Combiné au
+// On n'affiche une puce que si son groupe a vraiment des items. Combiné au
 // choix unique, un résultat vide devient impossible : pas d'état vide à gérer.
 // L'ordre suit ces listes.
 const presentDays = new Set<string>(items.map(e => e.data.day));
@@ -36,17 +37,13 @@ const days = [
   { value: 'sunday', label: 'Dimanche 30 août', weekday: 'Dimanche', date: '30 août' },
 ].filter(d => presentDays.has(d.value));
 
-const types = [
-  { value: 'concert', label: 'Concert' },
-  { value: 'dans', label: 'Danse' },
-  { value: 'film', label: 'Film' },
-  { value: 'workshop', label: 'Atelier' },
-  { value: 'kids', label: 'Enfants' },
-  { value: 'expo', label: 'Expo' },
-  { value: 'theater', label: 'Théâtre' },
-  { value: 'kermis', label: 'Fête foraine' },
-  { value: 'off-stage', label: 'Hors scène' },
-].filter(t => presentTypes.has(t.value));
+const groups = typeGroups
+  .map(g => ({
+    value: g.value,
+    label: typeGroupLabels.fr[g.value],
+    types: g.types.filter(t => presentTypes.has(t)),
+  }))
+  .filter(g => g.types.length > 0);
 ---
 
 <BaseLayout title="Programme" lang="fr" currentPath="/fr/programme" bodyClass="page-programme">
@@ -92,8 +89,8 @@ const types = [
 
       <div class="filter-section">
         <div id="type-filter" class="programme-filter" role="group" aria-label="Filtrer par type" hidden>
-          {types.map(t => (
-            <button type="button" class="filter-pill" data-type={t.value} aria-pressed="false">{t.label}</button>
+          {groups.map(g => (
+            <button type="button" class="filter-pill" data-type={g.value} data-types={g.types.join(' ')} aria-pressed="false">{g.label}</button>
           ))}
         </div>
       </div>
@@ -167,6 +164,9 @@ const types = [
     bar.hidden = false;
 
     const chips = Array.from(bar.querySelectorAll<HTMLButtonElement>('button[data-type]'));
+    // Une puce couvre plusieurs types de contenu : on teste l'appartenance
+    // plutôt que l'égalité. Clé de la puce → les types qu'elle représente.
+    const members = new Map(chips.map(c => [c.dataset.type!, new Set((c.dataset.types ?? '').split(' '))]));
     let active: string | null = null;
 
     // `announce` reste false au premier rendu : la zone live ne doit pas
@@ -174,7 +174,7 @@ const types = [
     function apply(announce: boolean) {
       let visible = 0;
       list!.querySelectorAll<HTMLElement>('li[data-type]').forEach(card => {
-        const show = !active || card.dataset.type === active;
+        const show = !active || !!members.get(active)?.has(card.dataset.type!);
         card.hidden = !show;
         if (show) visible++;
       });
@@ -208,16 +208,25 @@ const types = [
       apply(true);
     });
 
-    const fromURL = new URLSearchParams(window.location.search).get('type');
-    if (fromURL && chips.some(c => c.dataset.type === fromURL)) active = fromURL;
+    // Une clé de puce l'emporte ; sinon on retombe sur le groupe qui contient
+    // ce type, pour que les liens partagés avant le regroupement (?type=expo)
+    // atterrissent sur la bonne puce au lieu de tout afficher.
+    function resolve(value: string | null | undefined): string | null {
+      if (!value) return null;
+      if (members.has(value)) return value;
+      for (const [key, types] of members) if (types.has(value)) return key;
+      return null;
+    }
+
+    active = resolve(new URLSearchParams(window.location.search).get('type'));
     apply(false);
 
     // The kids-callout button is a plain ?type= link (works without JS via the
     // URL sync above); with JS it filters in place instead of reloading.
     document.querySelectorAll<HTMLAnchorElement>('a[data-filter-type]').forEach(a => {
       a.addEventListener('click', e => {
-        const type = a.dataset.filterType!;
-        if (!chips.some(c => c.dataset.type === type)) return;
+        const type = resolve(a.dataset.filterType);
+        if (!type) return;
         e.preventDefault();
         active = type;
         apply(true);
