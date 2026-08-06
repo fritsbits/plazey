@@ -6,6 +6,7 @@ interface Props {
   title: string;
   startTime: string;
   endTime?: string;
+  allDay?: boolean;
   type: string;
   stage?: string;
   curator?: string;
@@ -16,11 +17,28 @@ interface Props {
   dayLabel?: string;
   lang: 'nl' | 'fr';
 }
-const { title, startTime, endTime, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
+const { title, startTime, endTime, allDay, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
 // Act times stay hidden until the beheer-CMS toggles them on (SHOW_ACT_TIMES).
 // Once times are on, every act shows its start time; the end time joins it
-// only when the act has one (most slots are announced start-only).
-const timeDisplay = SHOW_ACT_TIMES ? (endTime ? `${startTime}–${endTime}` : startTime) : null;
+// only when the act has one (most slots are announced start-only). All-day
+// items (expos, speelplekken) say "doorlopend" — their startTime only sorts.
+const allDayLabel = { nl: 'doorlopend', fr: 'en continu' }[lang];
+// Schedule times come from the organiser's real-world doc and land on odd
+// minutes (e.g. 22:52) once acts cascade back-to-back. Round to the nearest
+// 5 minutes for display only — the poster grid reads clean, and two acts
+// that share a boundary still round to the same number on both sides.
+const roundToFive = (time: string) => {
+  const [h = 0, m = 0] = time.split(':').map(Number);
+  const rounded = (Math.round((h * 60 + m) / 5) * 5) % 1440;
+  return `${String(Math.floor(rounded / 60)).padStart(2, '0')}:${String(rounded % 60).padStart(2, '0')}`;
+};
+const timeDisplay = SHOW_ACT_TIMES
+  ? allDay
+    ? allDayLabel
+    : endTime
+      ? `${roundToFive(startTime)}–${roundToFive(endTime)}`
+      : roundToFive(startTime)
+  : null;
 
 const typeLabel = typeLabels[lang][type] ?? type;
 const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;

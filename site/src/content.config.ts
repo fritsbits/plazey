@@ -14,6 +14,7 @@ const programme = defineCollection({
     day: z.enum(['friday', 'saturday', 'sunday']),
     startTime: z.string(),
     endTime: emptyAsUndefined(z.string()),
+    allDay: z.boolean().optional().default(false),
     stage: emptyAsUndefined(z.enum(['dans', 'froefroe', 'tentoonstelling', 'workshop'])),
     type: z.enum(['concert', 'film', 'workshop', 'kids', 'dans', 'off-stage', 'expo', 'theater', 'kermis']),
     curator: emptyAsUndefined(z.string()),

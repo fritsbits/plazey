@@ -75,6 +75,15 @@ const types = [
           <p class="opening">28–30 août 2026. Tout est gratuit.</p>
           {!SHOW_ACT_TIMES && <p class="text-meta">Les horaires détaillés par acte suivront bientôt.</p>}
 
+          <aside class="kids-callout paper-sheet paper-sheet--beige paper-sheet--tilt-r" aria-labelledby="kids-callout-heading">
+            <h2 id="kids-callout-heading">Enfants et familles</h2>
+            <p>Des jouets géants, des ateliers et la plus petite fête foraine de Bruxelles. Chaque jour du festival, il y a de quoi faire pour les enfants.</p>
+            <p class="kids-callout-links">
+              <a class="btn-primary" href="?type=kids" data-filter-type="kids">Activités enfants</a>
+              <a class="btn-text" href="/fr/infos-pratiques/#enfants">Infos pratiques familles</a>
+            </p>
+          </aside>
+
           {SITE_PHASE === 'aftermovie' && (
             <div role="note" class="season-banner my-4 p-4 image-rounded" style="background: var(--color-surface-muted);">
               <p>C'était le programme de Plazey 2026.</p>
@@ -110,6 +119,7 @@ const types = [
                     lang: 'fr' as const,
                     ...(item.data.stage && { stage: item.data.stage }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
+                    ...(item.data.allDay && { allDay: true }),
                     ...(item.data.curator && { curator: item.data.curator }),
                     ...(item.data.genre && { subtitle: item.data.genre }),
                     ...(item.data.description && { description: item.data.description }),
@@ -201,5 +211,17 @@ const types = [
     const fromURL = new URLSearchParams(window.location.search).get('type');
     if (fromURL && chips.some(c => c.dataset.type === fromURL)) active = fromURL;
     apply(false);
+
+    // The kids-callout button is a plain ?type= link (works without JS via the
+    // URL sync above); with JS it filters in place instead of reloading.
+    document.querySelectorAll<HTMLAnchorElement>('a[data-filter-type]').forEach(a => {
+      a.addEventListener('click', e => {
+        const type = a.dataset.filterType!;
+        if (!chips.some(c => c.dataset.type === type)) return;
+        e.preventDefault();
+        active = type;
+        apply(true);
+      });
+    });
   }
 </script>

@@ -1,7 +1,8 @@
 ---
 title: Fête foraine
 day: saturday
-startTime: "14:00"
+startTime: "15:00"
+endTime: "18:00"
 type: kermis
 curator: STRUK
 description: La plus petite fête foraine de Bruxelles, construite à hauteur d'enfant en bois, métal et récup.
