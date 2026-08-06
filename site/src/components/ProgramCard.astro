@@ -18,9 +18,9 @@ interface Props {
 }
 const { title, startTime, endTime, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
 // Act times stay hidden until the beheer-CMS toggles them on (SHOW_ACT_TIMES).
-// Items carry a startTime used only for sorting. Once times are on, a time
-// shows for an act as soon as it has a confirmed slot (start + end).
-const timeDisplay = SHOW_ACT_TIMES && endTime ? `${startTime}–${endTime}` : null;
+// Once times are on, every act shows its start time; the end time joins it
+// only when the act has one (most slots are announced start-only).
+const timeDisplay = SHOW_ACT_TIMES ? (endTime ? `${startTime}–${endTime}` : startTime) : null;
 
 const typeLabel = typeLabels[lang][type] ?? type;
 const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;
