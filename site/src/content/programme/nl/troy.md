@@ -3,7 +3,7 @@ title: Troy
 day: saturday
 startTime: "20:30"
 type: concert
-curator: 3XXL
+curator: 3XL
 description: Rapper, producer en trompettist. Winnaar van De Nieuwe Lichting 2026.
 ---
 

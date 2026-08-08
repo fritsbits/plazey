@@ -3,7 +3,7 @@ title: Taraf Budișteanu
 day: saturday
 startTime: "16:00"
 type: concert
-curator: VK
+curator: Romani Kafana
 description: Volks- en zigeunermuziek uit Boekarest.
 ---
 
