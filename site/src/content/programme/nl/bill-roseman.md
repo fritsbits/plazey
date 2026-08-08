@@ -1,7 +1,7 @@
 ---
 title: Bill Roseman
 day: saturday
-startTime: "16:00"
+startTime: "15:00"
 type: concert
 description: Bluesman uit South Jersey, elektrische rootsgitaar en grooves.
 ---

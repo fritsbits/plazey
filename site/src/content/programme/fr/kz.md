@@ -1,7 +1,7 @@
 ---
 title: KZ
 day: saturday
-startTime: "20:30"
+startTime: "21:15"
 type: concert
 curator: 3XXL
 description: "Du rap UK aux influences house et afrobeat : frais, positif et dansant."

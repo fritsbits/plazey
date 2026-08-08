@@ -1,7 +1,7 @@
 ---
 title: Troy
 day: saturday
-startTime: "19:15"
+startTime: "20:30"
 type: concert
 curator: 3XXL
 description: Rappeur, producteur et trompettiste. Lauréat de De Nieuwe Lichting 2026.

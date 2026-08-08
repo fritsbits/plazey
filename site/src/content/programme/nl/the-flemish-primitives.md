@@ -1,8 +1,7 @@
 ---
 title: The Flemish Primitives
 day: saturday
-draft: true
-startTime: "14:00"
+startTime: "19:30"
 type: concert
 curator: 3XXL
 description: Vijf jonge Leuvenaars, psychedelische garagerock en postpunk.
