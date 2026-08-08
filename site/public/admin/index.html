@@ -8,6 +8,17 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎪</text></svg>" />
   </head>
   <body>
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
+    <!--
+      Versie gepind + SRI-hash, bewust. In deze pagina leeft na het inloggen een
+      GitHub-token met schrijfrecht op de repo, dus een ongepinde third-party
+      bundle is een openstaande deur. Upgraden: vervang versie én hash samen,
+      zie docs/wiki/admin-cms.md.
+    -->
+    <script
+      src="https://unpkg.com/@sveltia/cms@0.181.1/dist/sveltia-cms.js"
+      type="module"
+      integrity="sha384-56C5raxd/5XdH4pb8zeqvfejo4JFZEVSmBt5/IqeNDxSrjUve6rHPOl3fz1LXHWf"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
