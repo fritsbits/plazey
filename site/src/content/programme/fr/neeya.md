@@ -3,7 +3,7 @@ title: Neeya
 day: saturday
 startTime: "17:00"
 type: concert
-curator: 3XXL
+curator: 3XL
 description: Chanteuse belge aux racines congolaises, entre R&B, soul et afro.
 ---
 

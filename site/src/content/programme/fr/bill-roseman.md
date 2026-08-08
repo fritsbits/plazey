@@ -1,7 +1,8 @@
 ---
 title: Bill Roseman
 day: saturday
-startTime: "16:00"
+curator: Baraka Sounds
+startTime: "15:00"
 type: concert
 description: Bluesman du South Jersey, guitare roots et grooves électriques.
 ---

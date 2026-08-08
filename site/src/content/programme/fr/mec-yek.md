@@ -1,9 +1,9 @@
 ---
 title: Mec Yek
 day: saturday
-startTime: "18:15"
+startTime: "18:00"
 type: concert
-curator: VK
+curator: Romani Kafana
 description: Chants des Balkans avec cuivres, jazz et voix riches.
 ---
 
