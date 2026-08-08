@@ -192,3 +192,28 @@ Frederiks oordeel over het blokje van vanmiddag: te aanwezig. Een beige `paper-s
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, `grep -c kids-callout dist/**` → 0, en een browsertest die vanaf `#kinderen` doorklikt: URL `?type=kids`, chip Kinderen actief, 15 kaarten zichtbaar.
 
 Docs bijgewerkt: [site/CLAUDE.md](../site/CLAUDE.md), [wiki/skeleton-per-pagina/s2-programma.md](wiki/skeleton-per-pagina/s2-programma.md).
+
+---
+
+## [2026-08-08] update | CMS-toegang gedocumenteerd als voorwaarde, Sveltia-bundle gepind
+
+Vraag van Frederik na het lezen van [wiki/admin-cms.md](wiki/admin-cms.md): `/admin` is een raadbare URL, en kan om het even wie met een GitHub-account daar inloggen?
+
+**De URL is geen risico.** `site/public/admin/index.html` is een script-tag en verder niets. Wie hem laadt, krijgt een leeg loginscherm. De `noindex` is beleefdheid tegenover zoekmachines, geen controle, en hoeft dat ook niet te zijn.
+
+**Inloggen kan inderdaad iedereen, opslaan niet.** De CMS heeft geen eigen backend: een save is een GitHub API-call met het token van de ingelogde persoon zelf. Zonder push-recht op `fritsbits/plazey` weigert GitHub de commit. De repo is publiek, dus lezen kon sowieso al rechtstreeks op GitHub. De grens die telt is GitHub's permissiemodel, en die staat.
+
+**Twee echte bevindingen:**
+
+- De collaborator-lijst van `fritsbits/plazey` bevat enkel `fritsbits` (admin). `admin-cms.md` beweerde nochtans dat Lies al collaborator-toegang had. Ofwel is ze nooit uitgenodigd, ofwel staat de uitnodiging nog open (openstaande uitnodigingen tonen niet in die lijst). **Actie voor Frederik: nakijken.** Zonder aanvaarde uitnodiging loopt het pas mis op de Save-knop.
+- `admin/index.html` laadde `@sveltia/cms` ongepind van unpkg, altijd de laatste release, zonder SRI. In die pagina leeft een GitHub-token met schrijfrecht, dus dat is een openstaande deur richting third-party code.
+
+**Wat aangepast is:**
+
+- **Bundle gepind op `0.181.1`** met `integrity` (sha384) en `crossorigin="anonymous"`. Hash afgeleid uit de npm-tarball; unpkg serveert die bytes ongewijzigd. De upgrade-procedure (versie én hash samen vervangen) staat nu met kant-en-klaar commando in admin-cms.md.
+- **Nieuwe sectie "Toegang"** in admin-cms.md: toegang als voorwaarde geformuleerd in plaats van als feit, met de vier stappen (account → username doorgeven → uitnodigen met rol Write → uitnodiging aanvaarden) en waarom de volgorde vastligt.
+- **Hulppagina uitgebreid** met "Eén keer instellen" vóór "Inloggen": account aanmaken, username doorsturen, uitnodiging aanvaarden. "Inloggen" vermeldt nu het Authorize-scherm, en "Iets misgelopen?" koppelt een foutmelding bij het bewaren aan de niet-aanvaarde uitnodiging.
+
+Niet aangepast: direct publiceren naar `main` zonder branch protection blijft zoals het is. Dat is de bewuste keuze uit de oorspronkelijke opzet (review maakt Frederik opnieuw de bottleneck) en de schade is één revert ver.
+
+Geverifieerd: beide HTML-bestanden sluiten correct, de `integrity` in `admin/index.html` komt overeen met de sha384 van `package/dist/sveltia-cms.js` uit de tarball van 0.181.1. Geen Astro-build gedraaid: alles zit in `public/` (wordt ongewijzigd gekopieerd) en in `docs/`.

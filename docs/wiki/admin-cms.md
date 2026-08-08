@@ -8,7 +8,18 @@ Een git-based CMS op **plazey.be/admin**: een browser-formulier bovenop de besta
 
 - **CMS:** [Sveltia CMS](https://github.com/sveltia/sveltia-cms) — actief onderhouden opvolger van Decap/Netlify CMS, zelfde config-formaat, betere UX.
 - **Bestanden:** `site/public/admin/index.html` (laadt Sveltia van unpkg) + `site/public/admin/config.yml` (collecties, velden, Nederlandse labels).
-- **Login:** GitHub OAuth via Netlify's OAuth-provider. Lies heeft een GitHub-account met collaborator-toegang tot `fritsbits/plazey`.
+- **Login:** GitHub OAuth via Netlify's OAuth-provider.
+
+## Toegang
+
+Collaborator-toegang is een **voorwaarde**, geen gevolg van het inloggen. De CMS heeft geen eigen backend: elke save is een GitHub API-call met het token van de ingelogde persoon zelf. Elke GitHub-account raakt dus door de OAuth-flow en ziet de beheerschermen, maar zonder push-recht op `fritsbits/plazey` weigert GitHub de commit. Het loopt dan pas mis op de Save-knop, wat een slechte manier is om het te ontdekken. Vandaar de volgorde:
+
+1. De beheerder maakt een GitHub-account en geeft haar username door (die is nodig om uit te nodigen, dus dit komt eerst).
+2. Frederik nodigt uit: repo → Settings → Collaborators and teams → Add people → rol **Write**. Write volstaat; committen naar `main` is alles wat de CMS doet.
+3. De beheerder **aanvaardt** de uitnodiging (mail van GitHub, of `github.com/fritsbits/plazey/invitations`). Dit stapje wordt vaak vergeten en openstaande uitnodigingen staan niet in de collaborator-lijst.
+4. Pas daarna werkt plazey.be/admin. Bij de eerste login komt er nog een Authorize-scherm van GitHub.
+
+De repo is publiek, dus de inhoud is sowieso leesbaar op GitHub. De grens die er toe doet is schrijfrecht, en die ligt bij GitHub's permissies, niet bij de `/admin`-URL. Die URL is `noindex` en nergens gelinkt, maar dat is beleefdheid tegenover zoekmachines: de pagina zelf bevat niets dan een script-tag.
 
 ## Wat Lies kan beheren
 
@@ -26,10 +37,18 @@ Publicatie is direct (geen review-stap): een fout is één git-revert verwijderd
 
 ## Hulp voor Lies
 
-Cheat sheet (NL, printbaar): **plazey.be/admin/hulp/** — bron: `site/public/admin/hulp/index.html`. Inloggen, item aanpassen/toevoegen, draft-veld, fase omzetten, wat te doen bij fouten.
+Cheat sheet (NL, printbaar): **plazey.be/admin/hulp/** — bron: `site/public/admin/hulp/index.html`. Eenmalige setup (account + uitnodiging aanvaarden), inloggen, item aanpassen/toevoegen, draft-veld, fase omzetten, wat te doen bij fouten.
 
 ## Onderhoud
 
 - Nieuwe plek/podium of curator: opties toevoegen in `site/public/admin/config.yml` (en voor stage ook `programme-labels.ts` + het enum in `content.config.ts`).
-- CMS-versie: unpkg laadt automatisch de laatste Sveltia-release; bij breaking changes kan een versie gepind worden in `admin/index.html`.
+- **CMS-versie: gepind op een vaste release met SRI-hash** (nu `0.181.1`). Reden is veiligheid, niet stabiliteit: na het inloggen leeft in die pagina een GitHub-token met schrijfrecht op de repo, dus een ongepinde third-party bundle die altijd de laatste release trekt is een openstaande deur. Upgraden = versie **en** hash samen vervangen in `admin/index.html`:
+
+  ```bash
+  V=$(curl -s https://registry.npmjs.org/@sveltia/cms/latest | python3 -c 'import json,sys; print(json.load(sys.stdin)["version"])')
+  curl -sL "https://registry.npmjs.org/@sveltia/cms/-/cms-$V.tgz" | tar -xzO package/dist/sveltia-cms.js \
+    | openssl dgst -sha384 -binary | openssl base64 -A | sed "s|^|$V  sha384-|"
+  ```
+
+  (unpkg serveert de bestanden uit die tarball ongewijzigd, dus de hash klopt voor beide bronnen.) Een verkeerde hash betekent dat de browser het script weigert en `/admin` leeg blijft, dus test na een upgrade even in.
 - Lokaal testen: `local_backend: true` staat in de config; draai `npx decap-server` in de repo-root en open `localhost:4321/admin/index.html` (in Brave werkt alleen de Decap-variant; Sveltia's lokale modus vereist de File System Access API die Brave standaard blokkeert).
