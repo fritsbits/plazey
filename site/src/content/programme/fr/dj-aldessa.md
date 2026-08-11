@@ -3,7 +3,7 @@ title: DJ Aldessa
 day: saturday
 startTime: "20:00"
 type: concert
-curator: Romani Kafana
+curator: VK
 description: DJ, rom, queer et féministe.
 ---
 

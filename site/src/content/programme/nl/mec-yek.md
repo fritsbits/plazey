@@ -3,7 +3,7 @@ title: Mec Yek
 day: saturday
 startTime: "18:00"
 type: concert
-curator: Romani Kafana
+curator: VK
 description: Balkanliederen met koperblazers, jazz en rijke zang.
 ---
 
