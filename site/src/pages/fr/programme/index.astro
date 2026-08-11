@@ -211,5 +211,48 @@ const groups = typeGroups
 
     active = resolve(new URLSearchParams(window.location.search).get('type'));
     apply(false);
+
+    // The chip bar rides under the nav for the whole list. A sentinel in the
+    // bar's original place flips `data-stuck`, so the bar only paints its
+    // background once it has really left the flow — parked in place it stays
+    // transparent over the section's textured green. Sentinel and measurement
+    // are built here rather than in the markup: without JS there are no chips,
+    // so there is nothing to stick.
+    const section = bar.closest<HTMLElement>('.filter-section');
+    if (section) {
+      const root = document.documentElement;
+      // Day anchors offset by this, so their heading clears the bar.
+      const setFilterHeight = () =>
+        root.style.setProperty('--filter-height', `${section.offsetHeight}px`);
+      new ResizeObserver(setFilterHeight).observe(section);
+      setFilterHeight();
+
+      const sentinel = document.createElement('div');
+      sentinel.setAttribute('aria-hidden', 'true');
+      sentinel.style.cssText = 'height:1px;margin-bottom:-1px;pointer-events:none';
+      section.before(sentinel);
+
+      // rootMargin has to match the nav's real height, so rebuild on resize.
+      let io: IntersectionObserver | null = null;
+      const watch = () => {
+        io?.disconnect();
+        const headerH =
+          parseFloat(getComputedStyle(root).getPropertyValue('--header-height')) || 53;
+        io = new IntersectionObserver(
+          entries => {
+            const entry = entries[entries.length - 1];
+            if (!entry) return;
+            // Not `!isIntersecting`: that is also true while the sentinel is
+            // still below the fold, which would stick the bar before you reach it.
+            const passed = entry.boundingClientRect.top < (entry.rootBounds?.top ?? 0);
+            section.toggleAttribute('data-stuck', passed);
+          },
+          { rootMargin: `-${headerH + 1}px 0px 0px 0px` }
+        );
+        io.observe(sentinel);
+      };
+      watch();
+      window.addEventListener('resize', watch, { passive: true });
+    }
   }
 </script>

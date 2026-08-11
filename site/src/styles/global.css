@@ -1238,6 +1238,46 @@
   .filter-section {
     padding-block: 1.5rem;
   }
+
+  /* The chip bar rides along under the nav for the whole programme scroll, so
+     the type filter stays reachable from anywhere in the list.
+
+     `.hero-intro` carries `overflow: hidden` to contain its reveal animation,
+     which would make it a scroll container and silently break the stickiness.
+     On this page it becomes `overflow-x: clip` instead: clip still clips, but
+     it does not create a scroll container, so sticky keeps working. */
+  .page-programme .hero-intro {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+  .page-programme .filter-section {
+    position: sticky;
+    top: var(--header-height, 53px);
+    z-index: 15;
+    padding-block: 0.875rem;
+    /* Full-bleed out of the container: a band that stopped at the container
+       edge would put flat green against the section's textured green and read
+       as a seam. The padding puts the gutter back, so the chips still line up
+       with the cards. `overflow-x: clip` above absorbs the 100vw overhang. */
+    margin-inline: calc(50% - 50vw);
+    padding-inline: calc(50vw - 50%);
+    transition: background-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  /* Background only once it actually sticks. Sitting in place it has to stay
+     transparent: a flat green band on the section's textured green would read
+     as a seam. */
+  .page-programme .filter-section[data-stuck] {
+    background: var(--color-green);
+    box-shadow: 0 2px 0 color-mix(in oklab, var(--color-cream), transparent 78%);
+  }
+  /* No JS means no chips: don't reserve a sticky strip for an empty bar. */
+  .page-programme .filter-section:has(> [hidden]) {
+    position: static;
+    padding-block: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-programme .filter-section { transition: none; }
+  }
   .programme-filter {
     display: flex;
     flex-wrap: wrap;
@@ -1315,6 +1355,11 @@
     color: var(--color-text-on-page);
     margin: 2.5rem 0 1.25rem;
     scroll-margin-top: calc(var(--header-height, 53px) + 8px);
+  }
+  /* Day anchors have to clear the sticky nav *and* the sticky chip bar, so the
+     heading doesn't land underneath it. `--filter-height` is measured live. */
+  .page-programme .day-header {
+    scroll-margin-top: calc(var(--header-height, 53px) + var(--filter-height, 0px) + 8px);
   }
   .section--green .day-header { color: var(--color-cream); }
   [data-day]:first-of-type .day-header { margin-top: 1.5rem; }

@@ -232,3 +232,25 @@ Vraag van Frederik na het lezen van [wiki/admin-cms.md](wiki/admin-cms.md): `/ad
 Niet aangepast: direct publiceren naar `main` zonder branch protection blijft zoals het is. Dat is de bewuste keuze uit de oorspronkelijke opzet (review maakt Frederik opnieuw de bottleneck) en de schade is één revert ver.
 
 Geverifieerd: beide HTML-bestanden sluiten correct, de `integrity` in `admin/index.html` komt overeen met de sha384 van `package/dist/sveltia-cms.js` uit de tarball van 0.181.1. Geen Astro-build gedraaid: alles zit in `public/` (wordt ongewijzigd gekopieerd) en in `docs/`.
+
+---
+
+## [2026-08-11] update | Typechips blijven meescrollen onder de nav
+
+De chipbalk op Programma stond bovenaan de pagina en verdween zodra je begon te scrollen. Wie halverwege zaterdag bedacht dat hij enkel workshops wou zien, moest eerst helemaal terug naar boven. De balk plakt nu onder de nav (`position: sticky`, `top: var(--header-height)`, `z-index: 15`, één onder de nav zelf).
+
+Wat het tegenhield: `.hero-intro` draagt `overflow: hidden` om zijn openingsanimatie binnen de sectie te houden, en daarmee wordt die sectie een scrollcontainer, wat sticky stilzwijgend uitschakelt. Op deze pagina staat er nu `overflow-x: clip`: clip knipt wel af, maar maakt geen scrollcontainer aan.
+
+Drie details die het af maken:
+
+- **De balk loopt van rand tot rand** (`margin-inline: calc(50% - 50vw)`, padding zet de goot terug). Een band die op de containerrand stopt, zet vlak groen tegen de getextureerde groene sectie: dat leest als een naad. De chips blijven wel uitlijnen met de kaarten.
+- **Achtergrond pas bij `[data-stuck]`.** Op zijn plek blijft de balk doorzichtig boven de textuur. Een sentinel plus `IntersectionObserver` zet het attribuut; de cream haarlijn eronder is een `box-shadow`, dus zonder layout shift.
+- **Dagankers springen ook langs de balk.** `--filter-height` wordt live gemeten met een `ResizeObserver` en telt mee in `scroll-margin-top`, anders landt "Zondag" onder de chips.
+
+Sentinel en meting worden in JS aangemaakt, niet in de markup: zonder JS zijn er geen chips, dus valt er niets vast te zetten. Een `:has(> [hidden])`-regel klapt de lege balk in dat geval dicht.
+
+Op mobiel kost de balk 124px (vier chips over twee rijen), samen met de nav 197px van 844px. Bewust zo gelaten: één rij met horizontaal scrollen zou chips verstoppen.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, en een Playwright-test op NL én FR (1440px en 390px) die bevestigt dat de balk vlak onder de nav zit (gap 0), dat de linkerrand van de chips gelijkloopt met die van de kaarten (296/296 desktop, 16/16 mobiel), dat er geen horizontale overflow bijkomt, dat de achtergrond weer loslaat bovenaan, en dat `#day-sunday` vrij van de balk landt.
+
+Terzijde vastgesteld: [site/CLAUDE.md](../site/CLAUDE.md) beweert "No CSS framework — no Tailwind", maar Tailwind v4 draait wel degelijk (`@tailwindcss/vite`, `@import "tailwindcss"`, en `Container.astro` gebruikt `max-w-4xl mx-auto px-4 sm:px-6`). Nog niet rechtgezet.
