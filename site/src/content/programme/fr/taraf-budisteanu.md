@@ -1,9 +1,9 @@
 ---
 title: Taraf Budișteanu
 day: saturday
-startTime: "16:00"
+startTime: "15:00"
 type: concert
-curator: Romani Kafana
+curator: VK
 description: Musique populaire et tzigane de Bucarest.
 ---
 

@@ -91,7 +91,7 @@ collections:
         i18n: duplicate
         required: false
         hint: 'Staat de organisatie er niet tussen? Vraag Frederik om ze toe te voegen.'
-        options: [3XL, Afrodance, 'Archipel 19 & Pianofabriek', 'Baraka Sounds', Boekelberg, BOP, 'Romani Kafana', STRUK]
+        options: [3XL, Afrodance, 'Archipel 19 & Pianofabriek', 'Baraka Sounds', Boekelberg, BOP, 'Romani Kafana', STRUK, VK]
       - { name: genre, label: Genre, widget: string, i18n: true, required: false }
       - { name: artist, label: Artiest, widget: string, i18n: duplicate, required: false }
       - { name: description, label: Korte tekst (kaartje), widget: text, i18n: true, required: false, hint: 'Eén of twee zinnen. Verschijnt op het programma-overzicht.' }
