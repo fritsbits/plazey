@@ -142,7 +142,7 @@ Nee. Kom met zo weinig bagage als mogelijk.
 
 *Hoe laat begint en eindigt het festival?*
 
-Op vrijdag starten de activiteiten om 19:30. Op zaterdag en zondag vanaf [starttijd invullen]. Het festival eindigt om [eindtijd invullen].
+Vrijdag van 14:00 tot middernacht. Zaterdag van 14:00 tot 22:00. Zondag van 10:00 tot 22:00.
 
 *Kan ik er met een rolstoel of wandelwagen naartoe?*
 
