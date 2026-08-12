@@ -12,7 +12,7 @@ npx astro check   # TypeScript check (0 errors expected; ignore zod deprecation 
 
 ## Stack
 
-- Astro 6 (static), hosted on Netlify. No server, no database.
+- Astro 7 (static), hosted on Netlify. No server, no database.
 - Content in Markdown files under `src/content/`.
 - Git-based CMS on `/admin` (Sveltia CMS, config in `public/admin/config.yml`): Lies manages programme items and the site phase; every save commits to `main` → Netlify auto-deploys. See `docs/wiki/admin-cms.md`.
 - No CSS framework — styles live in a single `global.css` driven by design tokens (no Tailwind/Bootstrap). The huisstijl has shipped; see Design Context below.
