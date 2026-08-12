@@ -21,6 +21,9 @@ site/dist/
 site/.superpowers/
 .superpowers/
 
+# Lavish review artifacts (local only)
+.lavish/
+
 # Env files
 .env
 .env.*
