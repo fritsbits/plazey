@@ -1,13 +1,14 @@
 ---
-title: Dance Orientation
+title: DanceOrientation
 day: friday
-draft: true
-startTime: "15:00"
+startTime: "16:30"
+endTime: "20:00"
 stage: dans
 type: dans
-description: "Danse inclusive avec le club bruxellois : tout le monde danse avec tout le monde."
+description: "Des cours de danse inclusifs pour les personnes aveugles et malvoyantes, avec des partenaires voyants."
 ---
 
-Dance Orientation est un club de danse bruxellois qui existe depuis 1999. Sa spécialité : la danse inclusive, aussi pour les personnes avec un handicap visuel ou autre. Tout le monde y danse avec tout le monde.
+DanceOrientation est la première école de danse en Flandre et à Bruxelles à proposer des cours inclusifs pour les personnes aveugles et malvoyantes. Tu y danses avec des partenaires voyants. Au programme : salsa, bachata et kizomba. Le mouvement et le rythme rassemblent les gens.
 
-Au menu : salsa cubaine, bachata et beaucoup d'envie.
+- 17h : atelier salsa
+- 18h : atelier bachata
