@@ -1,13 +1,14 @@
 ---
-title: Dance Orientation
+title: DanceOrientation
 day: friday
-draft: true
-startTime: "15:00"
+startTime: "16:30"
+endTime: "20:00"
 stage: dans
 type: dans
-description: "Inclusief dansen met de Brusselse dansclub: iedereen danst met iedereen."
+description: "Inclusieve danslessen voor blinde en slechtziende mensen, samen met ziende partners."
 ---
 
-Dance Orientation is een Brusselse dansclub die al sinds 1999 bestaat. Hun specialiteit: inclusief dansen, ook voor mensen met een visuele of andere beperking. Iedereen danst er met iedereen.
+DanceOrientation is de eerste dansschool in Vlaanderen en Brussel met inclusieve danslessen voor blinde en slechtziende mensen. Je danst er samen met ziende partners. Op het programma: salsa, bachata en kizomba. Beweging en ritme brengen mensen samen.
 
-Op het menu: Cubaanse salsa, bachata en veel goesting.
+- 17u: workshop salsa
+- 18u: workshop bachata
