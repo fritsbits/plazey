@@ -1229,6 +1229,20 @@
   .section--green .day-jump a { color: var(--color-cream); }
   .section--green .day-jump a:hover { color: var(--color-yellow); }
 
+  /* Today's day, marked client-side during the festival. The underline does the
+     work on the pink page, where the small bold link has to keep its
+     `--color-text-on-page` to hold AA. Past days stay clickable, they just stop
+     competing. */
+  .day-jump a[aria-current] {
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 3px;
+  }
+  .section--green .day-jump a[aria-current] {
+    color: var(--color-yellow);
+    text-decoration-color: var(--color-yellow);
+  }
+  .day-jump a[data-past] { opacity: 0.6; }
+
   /* Programme type filter — toggle chips, single-select. Nothing pressed means
      "show everything", so there is no "all types" meta-chip: pressing the
      active chip again clears it. The chips only work with JS, so the bar is
@@ -1363,6 +1377,29 @@
   }
   .section--green .day-header { color: var(--color-cream); }
   [data-day]:first-of-type .day-header { margin-top: 1.5rem; }
+
+  /* "Vandaag" / "Aujourd'hui" pill, appended to the day heading by script during
+     the festival. Yellow on maroon ink, the same badge treatment the cards use,
+     so the loudest thing on the page is the day you're standing in. */
+  .day-today-badge {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text);
+    background: var(--color-yellow);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-pill);
+    padding: 0.3em 0.75em;
+    transform: rotate(-2deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .day-today-badge { transform: none; }
+  }
 
   /* Weekday reads twice the size of the date, in yellow, so "Zaterdag" pops
      as the loud poster element while the exact date stays a quiet detail. */

@@ -141,7 +141,7 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
       </div>
     </section>
   ) : (
-    <section aria-label="Bereikbaarheid en meedoen" class="split-overlap">
+    <section aria-label={SITE_PHASE === 'live' ? 'Bereikbaarheid en infostand' : 'Bereikbaarheid en meedoen'} class="split-overlap">
       <figure class="split-overlap-photo">
         <Image
           src={sfeerPicknicktafels}
@@ -158,13 +158,24 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
           <p>Je kan ook komen met de tram, de bus, de fiets of de wagen.</p>
           <a href="/nl/praktisch#bereikbaarheid" class="btn-text">Lees meer over bereikbaarheid →</a>
         </div>
-        <div class="split-overlap-block">
-          <h2 id="doe-mee-teaser">Doe mee</h2>
-          <p>Plazey draait op vrijwilligers. Wil je helpen? Achter de bar, aan de kassa of bij het opruimen.</p>
-          <div class="cta-group">
-            <a href="/nl/vrijwilliger" class="btn-primary btn-primary--yellow">Kom helpen</a>
+        {SITE_PHASE === 'live' ? (
+          <div class="split-overlap-block">
+            <h2 id="infostand-teaser">Iets nodig?</h2>
+            <p>Kind kwijt? Oordopjes nodig? Kom naar de infostand.</p>
+            <p>Onze medewerkers herken je aan hun kleurrijke t-shirt met het Plazey-logo.</p>
+            <div class="cta-group">
+              <a href="/nl/praktisch" class="btn-primary btn-primary--yellow">Praktisch</a>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div class="split-overlap-block">
+            <h2 id="doe-mee-teaser">Doe mee</h2>
+            <p>Plazey draait op vrijwilligers. Wil je helpen? Achter de bar, aan de kassa of bij het opruimen.</p>
+            <div class="cta-group">
+              <a href="/nl/vrijwilliger" class="btn-primary btn-primary--yellow">Kom helpen</a>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )}

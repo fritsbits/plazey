@@ -141,7 +141,7 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
       </div>
     </section>
   ) : (
-    <section aria-label="Accès et participation" class="split-overlap">
+    <section aria-label={SITE_PHASE === 'live' ? "Accès et infostand" : 'Accès et participation'} class="split-overlap">
       <figure class="split-overlap-photo">
         <Image
           src={sfeerPicknicktafels}
@@ -158,13 +158,24 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
           <p>Tu peux aussi venir en tram, en bus, à vélo ou en voiture.</p>
           <a href="/fr/infos-pratiques#acces" class="btn-text">Lis plus sur l'accès →</a>
         </div>
-        <div class="split-overlap-block">
-          <h2 id="participe-teaser">Participe</h2>
-          <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
-          <div class="cta-group">
-            <a href="/fr/benevole" class="btn-primary btn-primary--yellow">Viens aider</a>
+        {SITE_PHASE === 'live' ? (
+          <div class="split-overlap-block">
+            <h2 id="infostand-teaser">Besoin d'aide ?</h2>
+            <p>Enfant perdu ? Besoin de bouchons d'oreilles ? Viens à l'infostand.</p>
+            <p>Tu reconnais notre équipe à son t-shirt coloré avec le logo Plazey.</p>
+            <div class="cta-group">
+              <a href="/fr/infos-pratiques" class="btn-primary btn-primary--yellow">Pratique</a>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div class="split-overlap-block">
+            <h2 id="participe-teaser">Participe</h2>
+            <p>Plazey tourne grâce à ses bénévoles. Tu veux aider ? Derrière le bar, à la caisse ou pour le rangement.</p>
+            <div class="cta-group">
+              <a href="/fr/benevole" class="btn-primary btn-primary--yellow">Viens aider</a>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )}

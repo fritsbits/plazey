@@ -7,6 +7,9 @@ interface Props {
 }
 const { lang, currentPath = '' } = Astro.props;
 
+// During the festival itself the volunteer call-out leaves the nav: someone
+// standing in the park wants the programme and the practical info, not a sign-up
+// form. The page itself stays live and reachable, it just isn't top-level.
 const nlNav = SITE_PHASE === 'save-the-date'
   ? [
       { href: '/nl/praktisch', label: 'Praktisch' },
@@ -14,13 +17,19 @@ const nlNav = SITE_PHASE === 'save-the-date'
       { href: '/nl/vrijwilliger', label: 'Kom helpen' },
       { href: '/nl/stel-een-project-voor', label: 'Stel project voor' },
     ]
-  : // reveal, live, and aftermovie all share the same nav links
-    [
-      { href: '/nl/programma', label: SITE_PHASE === 'aftermovie' ? 'Programma 2026' : 'Programma' },
-      { href: '/nl/praktisch', label: 'Praktisch' },
-      { href: '/nl/vrijwilliger', label: 'Kom helpen' },
-      { href: '/nl/over-plazey', label: 'Over Plazey' },
-    ];
+  : SITE_PHASE === 'live'
+    ? [
+        { href: '/nl/programma', label: 'Programma' },
+        { href: '/nl/praktisch', label: 'Praktisch' },
+        { href: '/nl/over-plazey', label: 'Over Plazey' },
+      ]
+    : // reveal and aftermovie share the same nav links
+      [
+        { href: '/nl/programma', label: SITE_PHASE === 'aftermovie' ? 'Programma 2026' : 'Programma' },
+        { href: '/nl/praktisch', label: 'Praktisch' },
+        { href: '/nl/vrijwilliger', label: 'Kom helpen' },
+        { href: '/nl/over-plazey', label: 'Over Plazey' },
+      ];
 
 const frNav = SITE_PHASE === 'save-the-date'
   ? [
@@ -29,13 +38,19 @@ const frNav = SITE_PHASE === 'save-the-date'
       { href: '/fr/benevole', label: 'Viens aider' },
       { href: '/fr/propose-ton-projet', label: 'Propose un projet' },
     ]
-  : // reveal, live, and aftermovie all share the same nav links
-    [
-      { href: '/fr/programme', label: SITE_PHASE === 'aftermovie' ? 'Programme 2026' : 'Programme' },
-      { href: '/fr/infos-pratiques', label: 'Pratique' },
-      { href: '/fr/benevole', label: 'Viens aider' },
-      { href: '/fr/a-propos', label: 'À propos' },
-    ];
+  : SITE_PHASE === 'live'
+    ? [
+        { href: '/fr/programme', label: 'Programme' },
+        { href: '/fr/infos-pratiques', label: 'Pratique' },
+        { href: '/fr/a-propos', label: 'À propos' },
+      ]
+    : // reveal and aftermovie share the same nav links
+      [
+        { href: '/fr/programme', label: SITE_PHASE === 'aftermovie' ? 'Programme 2026' : 'Programme' },
+        { href: '/fr/infos-pratiques', label: 'Pratique' },
+        { href: '/fr/benevole', label: 'Viens aider' },
+        { href: '/fr/a-propos', label: 'À propos' },
+      ];
 
 const nav = lang === 'nl' ? nlNav : frNav;
 const homeHref = lang === 'nl' ? '/nl' : '/fr';

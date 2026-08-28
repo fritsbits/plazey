@@ -31,10 +31,13 @@ const withContent = await Promise.all(
 const presentDays = new Set<string>(items.map(e => e.data.day));
 const presentTypes = new Set<string>(items.map(e => e.data.type));
 
+// `iso` is what the "vandaag"-script matches against the browser's clock. The
+// site is a static build that only redeploys on a CMS save, so which day it is
+// can't be worked out at build time.
 const days = [
-  { value: 'friday', label: 'Vrijdag 28 augustus', weekday: 'Vrijdag', date: '28 augustus' },
-  { value: 'saturday', label: 'Zaterdag 29 augustus', weekday: 'Zaterdag', date: '29 augustus' },
-  { value: 'sunday', label: 'Zondag 30 augustus', weekday: 'Zondag', date: '30 augustus' },
+  { value: 'friday', label: 'Vrijdag 28 augustus', weekday: 'Vrijdag', date: '28 augustus', iso: '2026-08-28' },
+  { value: 'saturday', label: 'Zaterdag 29 augustus', weekday: 'Zaterdag', date: '29 augustus', iso: '2026-08-29' },
+  { value: 'sunday', label: 'Zondag 30 augustus', weekday: 'Zondag', date: '30 augustus', iso: '2026-08-30' },
 ].filter(d => presentDays.has(d.value));
 
 const groups = typeGroups
@@ -56,7 +59,7 @@ const groups = typeGroups
         {SITE_PHASE !== 'save-the-date' && days.length > 1 && (
           <nav class="day-jump" aria-label="Spring naar een dag">
             {days.map(d => (
-              <a href={`#day-${d.value}`} data-day={d.value}>{d.weekday}</a>
+              <a href={`#day-${d.value}`} data-day={d.value} data-date={d.iso}>{d.weekday}</a>
             ))}
           </nav>
         )}
@@ -93,7 +96,7 @@ const groups = typeGroups
           const dayItems = withContent.filter(({ item }) => item.data.day === day.value);
           if (dayItems.length === 0) return null;
           return (
-            <section data-day={day.value} aria-labelledby={`day-${day.value}`}>
+            <section data-day={day.value} data-date={day.iso} aria-labelledby={`day-${day.value}`}>
               <h2 id={`day-${day.value}`} class="day-header">
                 <span class="day-header-weekday">{day.weekday}</span> <span class="day-header-date">{day.date}</span>
               </h2>
@@ -106,6 +109,7 @@ const groups = typeGroups
                     dayLabel: day.label,
                     lang: 'nl' as const,
                     ...(item.data.stage && { stage: item.data.stage }),
+                    ...(item.data.timeChange && { timeChange: item.data.timeChange }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
                     ...(item.data.allDay && { allDay: true }),
                     ...(item.data.curator && { curator: item.data.curator }),
@@ -253,6 +257,68 @@ const groups = typeGroups
       };
       watch();
       window.addEventListener('resize', watch, { passive: true });
+    }
+  }
+
+  // Which day it is has to come from the browser: this is a static build that
+  // only redeploys when someone saves in the CMS. Date-driven rather than
+  // phase-driven, so it is right on the day even if the phase never gets
+  // flipped. Outside the festival weekend nothing below matches and the page
+  // stays exactly as it was.
+  const daySections = Array.from(
+    document.querySelectorAll<HTMLElement>('#programme-list section[data-date]')
+  );
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const currentDay = daySections.find(s => s.dataset.date === today);
+
+  if (currentDay) {
+    // ISO dates compare correctly as strings, so a plain `<` is enough here.
+    jump?.querySelectorAll<HTMLAnchorElement>('a[data-date]').forEach(link => {
+      const date = link.dataset.date!;
+      if (date === today) link.setAttribute('aria-current', 'date');
+      else if (date < today) link.setAttribute('data-past', '');
+    });
+
+    const header = currentDay.querySelector('.day-header');
+    if (header) {
+      const badge = document.createElement('span');
+      badge.className = 'day-today-badge';
+      badge.textContent = 'Vandaag';
+      header.append(' ', badge);
+    }
+
+    // On the first day the top of the page is already today, so leave the
+    // reader where they landed. From day two on, an unfiltered visit would
+    // otherwise open on a day that is already over. Skipped when the reader
+    // asked for something specific (a day anchor, a type filter) or when the
+    // browser restored a scroll position.
+    const params = new URLSearchParams(window.location.search);
+    if (
+      currentDay !== daySections[0] &&
+      !window.location.hash &&
+      !params.get('type') &&
+      window.scrollY < 10
+    ) {
+      // Re-anchor once the display font and the card images have landed: both
+      // change the height of everything above today, so a single scroll here
+      // ends up parked in the middle of yesterday. Any real scroll input from
+      // the reader wins and stops us moving the page under them.
+      let readerMoved = false;
+      const release = () => { readerMoved = true; };
+      ['wheel', 'touchstart', 'keydown'].forEach(type =>
+        window.addEventListener(type, release, { passive: true, once: true })
+      );
+
+      // Scroll the heading, not the section: `scroll-margin-top` (which clears
+      // the sticky nav and chip bar) lives on `.day-header`, so aiming at the
+      // section parks the heading underneath both of them.
+      const anchor = () => {
+        if (!readerMoved) (header ?? currentDay).scrollIntoView({ block: 'start' });
+      };
+      anchor();
+      document.fonts?.ready.then(anchor);
+      window.addEventListener('load', anchor);
     }
   }
 </script>

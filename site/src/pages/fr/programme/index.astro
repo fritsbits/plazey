@@ -31,10 +31,13 @@ const withContent = await Promise.all(
 const presentDays = new Set<string>(items.map(e => e.data.day));
 const presentTypes = new Set<string>(items.map(e => e.data.type));
 
+// `iso` est ce que le script « aujourd'hui » compare à l'horloge du navigateur.
+// Le site est un build statique qui ne se redéploie qu'à un enregistrement dans
+// le CMS : impossible de déterminer le jour au moment du build.
 const days = [
-  { value: 'friday', label: 'Vendredi 28 août', weekday: 'Vendredi', date: '28 août' },
-  { value: 'saturday', label: 'Samedi 29 août', weekday: 'Samedi', date: '29 août' },
-  { value: 'sunday', label: 'Dimanche 30 août', weekday: 'Dimanche', date: '30 août' },
+  { value: 'friday', label: 'Vendredi 28 août', weekday: 'Vendredi', date: '28 août', iso: '2026-08-28' },
+  { value: 'saturday', label: 'Samedi 29 août', weekday: 'Samedi', date: '29 août', iso: '2026-08-29' },
+  { value: 'sunday', label: 'Dimanche 30 août', weekday: 'Dimanche', date: '30 août', iso: '2026-08-30' },
 ].filter(d => presentDays.has(d.value));
 
 const groups = typeGroups
@@ -56,7 +59,7 @@ const groups = typeGroups
         {SITE_PHASE !== 'save-the-date' && days.length > 1 && (
           <nav class="day-jump" aria-label="Aller à un jour">
             {days.map(d => (
-              <a href={`#day-${d.value}`} data-day={d.value}>{d.weekday}</a>
+              <a href={`#day-${d.value}`} data-day={d.value} data-date={d.iso}>{d.weekday}</a>
             ))}
           </nav>
         )}
@@ -93,7 +96,7 @@ const groups = typeGroups
           const dayItems = withContent.filter(({ item }) => item.data.day === day.value);
           if (dayItems.length === 0) return null;
           return (
-            <section data-day={day.value} aria-labelledby={`day-${day.value}`}>
+            <section data-day={day.value} data-date={day.iso} aria-labelledby={`day-${day.value}`}>
               <h2 id={`day-${day.value}`} class="day-header">
                 <span class="day-header-weekday">{day.weekday}</span> <span class="day-header-date">{day.date}</span>
               </h2>
@@ -106,6 +109,7 @@ const groups = typeGroups
                     dayLabel: day.label,
                     lang: 'fr' as const,
                     ...(item.data.stage && { stage: item.data.stage }),
+                    ...(item.data.timeChange && { timeChange: item.data.timeChange }),
                     ...(item.data.endTime && { endTime: item.data.endTime }),
                     ...(item.data.allDay && { allDay: true }),
                     ...(item.data.curator && { curator: item.data.curator }),
@@ -253,6 +257,67 @@ const groups = typeGroups
       };
       watch();
       window.addEventListener('resize', watch, { passive: true });
+    }
+  }
+
+  // Le jour courant vient du navigateur : ce build statique n'est redéployé
+  // qu'à un enregistrement dans le CMS. Piloté par la date et non par la phase,
+  // donc juste le jour même même si la phase n'est jamais basculée. En dehors du
+  // week-end du festival rien ne correspond et la page reste telle quelle.
+  const daySections = Array.from(
+    document.querySelectorAll<HTMLElement>('#programme-list section[data-date]')
+  );
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const currentDay = daySections.find(s => s.dataset.date === today);
+
+  if (currentDay) {
+    // Les dates ISO se comparent correctement comme des chaînes, un `<` suffit.
+    jump?.querySelectorAll<HTMLAnchorElement>('a[data-date]').forEach(link => {
+      const date = link.dataset.date!;
+      if (date === today) link.setAttribute('aria-current', 'date');
+      else if (date < today) link.setAttribute('data-past', '');
+    });
+
+    const header = currentDay.querySelector('.day-header');
+    if (header) {
+      const badge = document.createElement('span');
+      badge.className = 'day-today-badge';
+      badge.textContent = "Aujourd'hui";
+      header.append(' ', badge);
+    }
+
+    // Le premier jour, le haut de page est déjà le bon : on laisse le lecteur
+    // où il a atterri. À partir du deuxième jour, une visite sans filtre
+    // ouvrirait sur un jour déjà passé. Ignoré si le lecteur a demandé quelque
+    // chose de précis (ancre de jour, filtre de type) ou si le navigateur a
+    // restauré une position de défilement.
+    const params = new URLSearchParams(window.location.search);
+    if (
+      currentDay !== daySections[0] &&
+      !window.location.hash &&
+      !params.get('type') &&
+      window.scrollY < 10
+    ) {
+      // On se ré-ancre une fois la police d'affichage et les images chargées :
+      // les deux modifient la hauteur de tout ce qui précède aujourd'hui, donc
+      // un seul défilement ici finit au milieu de la veille. Le moindre geste de
+      // défilement du lecteur l'emporte et nous arrête.
+      let readerMoved = false;
+      const release = () => { readerMoved = true; };
+      ['wheel', 'touchstart', 'keydown'].forEach(type =>
+        window.addEventListener(type, release, { passive: true, once: true })
+      );
+
+      // On fait défiler le titre, pas la section : `scroll-margin-top` (qui
+      // dégage la nav collante et la barre de puces) est sur `.day-header`.
+      // Viser la section coince le titre sous les deux.
+      const anchor = () => {
+        if (!readerMoved) (header ?? currentDay).scrollIntoView({ block: 'start' });
+      };
+      anchor();
+      document.fonts?.ready.then(anchor);
+      window.addEventListener('load', anchor);
     }
   }
 </script>
