@@ -17,6 +17,10 @@ const programme = defineCollection({
     allDay: z.boolean().optional().default(false),
     stage: emptyAsUndefined(z.enum(['dans', 'froefroe', 'tentoonstelling', 'workshop'])),
     type: z.enum(['concert', 'film', 'workshop', 'kids', 'dans', 'off-stage', 'expo', 'theater', 'kermis']),
+    // Set when an act's time moves after the programme is already public, so
+    // the card can say so instead of quietly showing a different number than
+    // the flyer. Clear it once the change is old news.
+    timeChange: emptyAsUndefined(z.enum(['earlier', 'later'])),
     curator: emptyAsUndefined(z.string()),
     genre: emptyAsUndefined(z.string()),
     artist: emptyAsUndefined(z.string()),

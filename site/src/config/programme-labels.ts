@@ -25,6 +25,14 @@ export const typeGroupLabels: Record<'nl' | 'fr', Record<string, string>> = {
   fr: { music: 'Musique', kids: 'Enfants et familles', workshop: 'Ateliers', see: 'À voir' },
 };
 
+// Badge on a card whose time moved after the programme went public. Says which
+// direction it moved, because "gewijzigd" sends someone hunting for the new
+// time while "vervroegd" tells them to come earlier.
+export const timeChangeLabels: Record<'nl' | 'fr', Record<string, string>> = {
+  nl: { earlier: 'Vervroegd', later: 'Uitgesteld' },
+  fr: { earlier: 'Avancé', later: 'Reporté' },
+};
+
 export const stageLabels: Record<'nl' | 'fr', Record<string, string>> = {
   nl: { dans: 'Dans', froefroe: 'FroeFroe', tentoonstelling: 'Tentoonstelling', workshop: 'Workshop' },
   fr: { dans: 'Danse', froefroe: 'FroeFroe', tentoonstelling: 'Exposition', workshop: 'Atelier' },

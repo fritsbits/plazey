@@ -1,5 +1,5 @@
 ---
-import { typeLabels, stageLabels } from '../config/programme-labels';
+import { typeLabels, stageLabels, timeChangeLabels } from '../config/programme-labels';
 import { SHOW_ACT_TIMES } from '../config/site';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
   allDay?: boolean;
   type: string;
   stage?: string;
+  timeChange?: string;
   curator?: string;
   subtitle?: string;
   description?: string;
@@ -17,7 +18,7 @@ interface Props {
   dayLabel?: string;
   lang: 'nl' | 'fr';
 }
-const { title, startTime, endTime, allDay, type, stage, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
+const { title, startTime, endTime, allDay, type, stage, timeChange, curator, subtitle, description, artist, embedUrl, dayLabel, lang } = Astro.props;
 // Act times stay hidden until the beheer-CMS toggles them on (SHOW_ACT_TIMES).
 // Once times are on, every act shows its start time; the end time joins it
 // only when the act has one (most slots are announced start-only). All-day
@@ -42,6 +43,9 @@ const timeDisplay = SHOW_ACT_TIMES
 
 const typeLabel = typeLabels[lang][type] ?? type;
 const stageLabel = stage ? (stageLabels[lang][stage] ?? stage) : undefined;
+// Only meaningful next to a time, so it stays hidden while times are off.
+const timeChangeLabel =
+  timeChange && timeDisplay ? timeChangeLabels[lang][timeChange] : undefined;
 
 // "Presented by" credit — the curator is demoted to a quiet line; the gig is the hero.
 const curatorPrefix = { nl: 'Gepresenteerd door', fr: 'Présenté par' }[lang];
@@ -58,7 +62,7 @@ const listenFallback = { nl: 'Beluister op het externe platform →', fr: 'Écou
 const artistPrefix = { nl: 'Artiest', fr: 'Artiste' }[lang];
 
 // Meta line inside the lightbox: day · time · stage (only confirmed facts).
-const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
+const dialogMeta = [dayLabel, timeDisplay, timeChangeLabel, stageLabel].filter(Boolean);
 ---
 
 <div class={`program-card type-${type}`} data-has-dialog={hasMore ? '' : undefined}>
@@ -70,6 +74,7 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
     {(timeDisplay || stageLabel) && (
       <span class="card-meta">
         {timeDisplay && <span class="meta-time">{timeDisplay}</span>}
+        {timeChangeLabel && <span class="meta-change">{timeChangeLabel}</span>}
         {timeDisplay && stageLabel && <span class="meta-dot" aria-hidden="true">·</span>}
         {stageLabel && <span class="meta-venue">{stageLabel}</span>}
       </span>
@@ -415,6 +420,22 @@ const dialogMeta = [dayLabel, timeDisplay, stageLabel].filter(Boolean);
     font-weight: 600;
     color: var(--color-text);
     font-variant-numeric: tabular-nums;
+  }
+  /* "Vervroegd" / "Avancé" — sits right against the time it corrects. Same
+     yellow pill as the "Vandaag" badge on the day header, sized down to ride
+     inside the meta line rather than headline it. */
+  .program-card .meta-change {
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-variant-numeric: normal;
+    color: var(--color-text);
+    background: var(--color-yellow);
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-pill);
+    padding: 0.2em 0.6em;
   }
   .program-card .meta-dot,
   .act-meta .meta-dot { opacity: 0.7; }

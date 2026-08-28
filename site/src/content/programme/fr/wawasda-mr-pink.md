@@ -1,8 +1,9 @@
 ---
 title: Wawasda & Mr. Pink
 day: friday
-startTime: "23:00"
+startTime: "22:20"
 endTime: "00:00"
+timeChange: earlier
 type: concert
 description: Danser avec le DJ maison de Plazey et Mr. Pink.
 ---
