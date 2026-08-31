@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
+import { SITE_PHASE } from '../../../config/site.ts';
 import { Image } from 'astro:assets';
 import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
 
@@ -22,6 +23,11 @@ const faqItems = [
       <div class="cta-group">
         <a href="#inscription" class="btn-primary">Deviens bénévole</a>
       </div>
+      {SITE_PHASE === 'aftermovie' && (
+        <div role="note" class="season-banner">
+          <p>Merci à tous les bénévoles de 2026. Sans vous, pas de Plazey.</p>
+        </div>
+      )}
     </Container>
   </section>
 
@@ -74,9 +80,12 @@ const faqItems = [
 
   <aside id="inscription" aria-labelledby="inscription-heading" class="callout section">
     <Container>
-      <h2 id="inscription-heading">Deviens bénévole.</h2>
-      <p>Envoie-nous tes coordonnées. On te répond dès que possible.</p>
-      <p>Jeudi 27 août à 18h, il y a un moment d'info pour tous les bénévoles. Chaque bénévole recevra aussi une invitation personnelle.</p>
+      <h2 id="inscription-heading">{SITE_PHASE === 'aftermovie' ? 'Deviens bénévole en 2027.' : 'Deviens bénévole.'}</h2>
+      {SITE_PHASE === 'aftermovie' ? (
+        <p>Laisse-nous tes coordonnées. On te contacte quand le prochain festival approche.</p>
+      ) : (
+        <p>Envoie-nous tes coordonnées. On te répond dès que possible.</p>
+      )}
 
       <div class="cta-form">
         <form

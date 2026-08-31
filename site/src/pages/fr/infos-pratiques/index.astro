@@ -22,11 +22,17 @@ const faqItems = [
 <BaseLayout title="Infos pratiques" lang="fr" currentPath="/fr/infos-pratiques">
   <section class="section hero-intro hero-green">
     <Container>
-      <h1>Tout ce que tu dois savoir avant de venir.</h1>
+      <h1>{SITE_PHASE === 'aftermovie' ? "Plazey 2026, ça marchait comme ça." : 'Tout ce que tu dois savoir avant de venir.'}</h1>
       <p class="text-date">
         {FESTIVAL_DATES_FR}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}
       </p>
       <p class="text-free"><span class="text-free-mark">Gratuit pour tout le monde.</span></p>
+      {SITE_PHASE === 'aftermovie' && (
+        <div role="note" class="season-banner">
+          <p>Plazey 2026, c'est fini. Ce que tu lis ici, c'était pour cette édition.</p>
+          <p>Les infos pour 2027 arrivent ici plus tard.</p>
+        </div>
+      )}
     </Container>
   </section>
 

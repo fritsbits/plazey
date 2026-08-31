@@ -254,3 +254,25 @@ Op mobiel kost de balk 124px (vier chips over twee rijen), samen met de nav 197p
 Geverifieerd: `astro check` 0 errors, build 17 pagina's, en een Playwright-test op NL én FR (1440px en 390px) die bevestigt dat de balk vlak onder de nav zit (gap 0), dat de linkerrand van de chips gelijkloopt met die van de kaarten (296/296 desktop, 16/16 mobiel), dat er geen horizontale overflow bijkomt, dat de achtergrond weer loslaat bovenaan, en dat `#day-sunday` vrij van de balk landt.
 
 Terzijde vastgesteld: [site/CLAUDE.md](../site/CLAUDE.md) beweert "No CSS framework — no Tailwind", maar Tailwind v4 draait wel degelijk (`@tailwindcss/vite`, `@import "tailwindcss"`, en `Container.astro` gebruikt `max-w-4xl mx-auto px-4 sm:px-6`). Nog niet rechtgezet.
+
+---
+
+## [2026-08-31] update | Site in aftermovie-modus, met een fotomuur op de home
+
+De dag na het festival. `phase.json` staat op `aftermovie`. Dat schakelt de home om naar "Bedankt! Tot volgend jaar.", hernoemt Programma naar Programma 2026 in de nav, en zet een terugblikbanner op Programma.
+
+Wat de fase niet deed, was de rest van de site meenemen. Praktisch stond er byte voor byte hetzelfde bij als tijdens het festival. En Vrijwilliger, dat in deze fase terugkeert in de nav, beloofde nog altijd een infomoment op donderdag 27 augustus. Dat is nu weg in beide talen.
+
+**Fotomuur.** Er is geen aftermovie, wel tien foto's. Die staan nu op de home, direct onder de hero, in plaats van de losse Facebook-knop. Facebook blijft als tekstlink eronder staan. De lijst en de alt-teksten per taal staan in `src/config/photos-2026.ts`, zodat NL en FR één volgorde delen. Die volgorde begint aan de kassa op zaterdagmiddag en eindigt op de dansvloer 's nachts, met dag en avond afgewisseld zodat de muur geen blok donkere kaders wordt.
+
+De prints zijn `.snapshot` zonder het plakband. Plakband steekt links en rechts een centimeter of anderhalf buiten de print, dus buren in een raster botsen met de hoeken. Die regel stond al in site/CLAUDE.md. De print houdt wel de cream rand, de harde inktschaduw en de scheefstand. Die scheefstand loopt in vier stappen in plaats van links-rechts, anders krijgt elke rij van een driekolomsmuur dezelfde helling op dezelfde plek.
+
+De muur loopt op 72rem, breder dan de 56rem leesmaat van de rest van de site. Op de contentbreedte was elke print ongeveer 265px, wat leest als een contactafdruk in plaats van als foto's. Nu is het 339px. De titel en de Facebook-link blijven wel op 56rem, zodat ze uitlijnen met de andere sectiekoppen en alleen de muur uitsteekt.
+
+**Seizoensbanner.** `.season-banner` bestond als classnaam op Programma maar had geen enkele CSS-regel. Hij haalde zijn achtergrond uit een inline style en kwam eruit als een vlakke doos zonder rand of schaduw. Nu draagt hij de posterhandtekening, en hij staat ook op Praktisch en Vrijwilliger. Cream, niet een van de accentkleuren: hij moet leesbaar zijn op de roze home, de gele Praktisch-pagina, de oranje Vrijwilliger-pagina en het groene Programma-paneel, en cream is de enige grond die op alle vier opvalt.
+
+Praktisch en Vrijwilliger wisselen daarnaast hun H1 en hun formuliercopy. De rest van beide pagina's blijft bewust in de tegenwoordige tijd: het beschrijft een editie die geweest is en volgend jaar grotendeels weer klopt, dus de fase terugzetten volstaat om de site weer open te zetten.
+
+Terzijde rechtgezet, en het bleek vandaag te knellen: site/CLAUDE.md beweerde "No CSS framework, no Tailwind". Tailwind v4 draait wel degelijk, en dat is niet vrijblijvend. De utilities-laag wint van `@layer components`, ongeacht specificiteit. Daarom kon de fotomuur `Container`'s `max-w-4xl` niet overschrijven en kreeg hij een eigen wrapperclass. De stack-sectie zegt dat nu, met de gotcha erbij.
+
+Geverifieerd: `astro check` 0 errors, build 17 pagina's, en Playwright-shots van NL en FR op 1440px, 768px en 390px. Printbreedte 339px op desktop, geen horizontale overflow op geen enkele breedte, en de linkerrand van de sectietitel loopt gelijk met die van de andere sectiekoppen (296/296).

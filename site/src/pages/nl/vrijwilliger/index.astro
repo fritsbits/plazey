@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Container from '../../../components/Container.astro';
 import Accordion from '../../../components/Accordion.astro';
+import { SITE_PHASE } from '../../../config/site.ts';
 import { Image } from 'astro:assets';
 import vrijwilligersBar from '../../../assets/images/vrijwilligers-bar.jpg';
 import vrijwilligersBabyspot from '../../../assets/images/vrijwilligers-babyspot.jpg';
@@ -26,6 +27,11 @@ const faqItems = [
           <a href="#inschrijven" class="btn-primary">Word vrijwilliger</a>
         </div>
       </div>
+      {SITE_PHASE === 'aftermovie' && (
+        <div role="note" class="season-banner">
+          <p>Bedankt aan alle vrijwilligers van 2026. Zonder jullie geen Plazey.</p>
+        </div>
+      )}
     </Container>
   </section>
 
@@ -79,9 +85,12 @@ const faqItems = [
     <Container>
       <div class="signup-row">
       <div class="volunteer-card">
-        <h2 id="inschrijven-heading">Word vrijwilliger.</h2>
-        <p>We nemen zo snel mogelijk contact op.</p>
-        <p>Op donderdag 27 augustus om 18u is er een infomoment voor alle vrijwilligers. Elke vrijwilliger krijgt daarvoor nog een persoonlijke uitnodiging.</p>
+        <h2 id="inschrijven-heading">{SITE_PHASE === 'aftermovie' ? 'Word vrijwilliger in 2027.' : 'Word vrijwilliger.'}</h2>
+        {SITE_PHASE === 'aftermovie' ? (
+          <p>Laat je gegevens achter. We nemen contact op als het nieuwe festival dichterbij komt.</p>
+        ) : (
+          <p>We nemen zo snel mogelijk contact op.</p>
+        )}
 
         <div class="cta-form">
           <form

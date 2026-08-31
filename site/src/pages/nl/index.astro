@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/Container.astro';
+import PhotoWall from '../../components/PhotoWall.astro';
 import { Image } from 'astro:assets';
 import { FESTIVAL_DATES_NL, FESTIVAL_LOCATION, SITE_PHASE, FACEBOOK_URL } from '../../config/site.ts';
 import heroCarnaval from '../../assets/images/hero-carnaval.png';
@@ -25,7 +26,7 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
         <Container>
           <div class="hero-bg-card">
             {SITE_PHASE === 'aftermovie' ? (
-              <h1>Bedankt. Tot volgend jaar.</h1>
+              <h1>Bedankt!<br />Tot volgend jaar.</h1>
             ) : (
               <>
                 {SITE_PHASE === 'save-the-date' ? (
@@ -42,13 +43,32 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
     </div>
   </section>
 
+  {SITE_PHASE === 'aftermovie' && (
+    <section aria-labelledby="fotos-2026" id="fotos" class="section hero-green photo-wall-section">
+      {/* Heading and link stay on the 56rem measure so they line up with every
+          other section on the page. Only the wall itself runs wider, which
+          reads as a deliberate gallery bleed rather than a misalignment. It
+          needs its own wrapper class: Container's Tailwind `max-w-4xl` sits in
+          the utilities layer and would win over any component-layer override. */}
+      <Container>
+        <h2 id="fotos-2026">Zo zag Plazey 2026 eruit.</h2>
+      </Container>
+      <div class="photo-wall-container">
+        <PhotoWall lang="nl" />
+      </div>
+      <Container>
+        <p class="mt-6">
+          <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-text">Meer foto's op Facebook →</a>
+        </p>
+      </Container>
+    </section>
+  )}
+
   <div class="green-band">
     <section aria-label="Belangrijkste acties" class="section section--green hero-cta-band">
       <Container>
+        {SITE_PHASE !== 'aftermovie' && (
         <div class="cta-group">
-          {SITE_PHASE === 'aftermovie' && (
-            <a href={FACEBOOK_URL} rel="external noopener" target="_blank" class="btn-primary">Bekijk onze foto's op Facebook</a>
-          )}
           {SITE_PHASE === 'save-the-date' && (
             <>
               <a href="/nl/vrijwilliger" class="btn-primary">Kom helpen</a>
@@ -68,6 +88,7 @@ import vrijwilligerPortret from '../../assets/images/vrijwilliger-portret.jpg';
             </>
           )}
         </div>
+        )}
         <p class="lang-switcher">
           <a href="/fr" lang="fr" hreflang="fr">Lire en français →</a>
         </p>

@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import { photos2026 } from '../config/photos-2026';
+
+interface Props {
+  lang: 'nl' | 'fr';
+}
+const { lang } = Astro.props;
+---
+
+{/* A pile of prints on a table, not a taped board: every photo keeps the cream
+    print border and the hard ink offset the cards cast, but none of them carry
+    tape. Tape corners overhang the print on both sides and would collide
+    between neighbours, so a wall is deliberately the untaped variant of the
+    `.snapshot` object. Tilts alternate down the columns and collapse under
+    prefers-reduced-motion. */}
+<ul role="list" class="photo-wall">
+  {photos2026.map(photo => (
+    <li>
+      {/* `sizes` ends in a fixed px rather than a vw: the wall caps at 72rem,
+          so past that width a column stops growing and a vw hint would keep
+          over-fetching. */}
+      <figure class="photo-print">
+        <Image
+          src={photo.src}
+          alt={photo.alt[lang]}
+          widths={[400, 700, 1000]}
+          sizes="(max-width: 639px) 92vw, (max-width: 1151px) 45vw, 350px"
+          format="webp"
+          loading="lazy"
+        />
+      </figure>
+    </li>
+  ))}
+</ul>

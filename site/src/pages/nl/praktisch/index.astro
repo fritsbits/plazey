@@ -21,11 +21,17 @@ const faqItems = [
 <BaseLayout title="Praktisch" lang="nl" currentPath="/nl/praktisch" bodyClass="page-yellow">
   <section class="section hero-intro hero-green">
     <Container>
-      <h1>Alles wat je moet weten voor je komt.</h1>
+      <h1>{SITE_PHASE === 'aftermovie' ? 'Zo werkte Plazey 2026.' : 'Alles wat je moet weten voor je komt.'}</h1>
       <p class="text-date">
         {FESTIVAL_DATES_NL}<span class="meta-sep" aria-hidden="true"></span>{FESTIVAL_LOCATION}
       </p>
       <p class="text-free"><span class="text-free-mark">Gratis voor iedereen.</span></p>
+      {SITE_PHASE === 'aftermovie' && (
+        <div role="note" class="season-banner">
+          <p>Plazey 2026 is voorbij. Wat je hier leest, ging over die editie.</p>
+          <p>De info voor 2027 komt hier later.</p>
+        </div>
+      )}
     </Container>
   </section>
 

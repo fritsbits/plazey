@@ -1001,6 +1001,12 @@
   .hero-cta-band .lang-switcher {
     text-align: center;
   }
+  /* In the `aftermovie` phase the band has no CTAs left — the photo wall above
+     is the page's next step. Without this the full section ramp wraps a single
+     language link in a screen of empty green. */
+  .hero-cta-band:not(:has(.cta-group)) {
+    padding-block: 1.5rem;
+  }
   .hero-cta-band .btn-primary,
   .hero-cta-band .btn-ghost {
     font-size: 1.5rem;
@@ -1189,6 +1195,96 @@
      itself so the print sizes to its own content. */
   .split-section > .split-image > .snapshot img { height: auto; min-height: 0; }
   .split-section > .split-image > .snapshot { align-self: center; }
+
+  /* Photo wall — the look-back gallery on the home page in the `aftermovie`
+     phase. Masonry via `columns`, the same trick the programme cards use, so
+     portrait and landscape prints pack without letterboxing or cropping.
+     Each print is the `.snapshot` object minus its tape: tape overhangs a
+     print by roughly 15px on both sides, so neighbours in a grid would knock
+     corners. Untaped, the wall reads as photos spread on a table, which is the
+     right object for the day after. */
+  /* Wider than the 56rem reading measure. A gallery is not prose, and at the
+     content width three columns put each print at roughly 265px, which reads
+     as a contact sheet instead of photographs. */
+  .photo-wall-container {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) { .photo-wall-container { padding-inline: 1.5rem; } }
+
+  .photo-wall {
+    columns: 1;
+    column-gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 640px) { .photo-wall { columns: 2; } }
+  @media (min-width: 1024px) { .photo-wall { columns: 3; column-gap: 2rem; } }
+
+  .photo-wall > li {
+    break-inside: avoid;
+    /* Bottom margin only: `columns` has no row-gap, so the print's own margin
+       is the vertical rhythm. It has to clear the 6px ink offset below. */
+    margin-bottom: 1.75rem;
+  }
+
+  .photo-print {
+    margin: 0;
+    padding: 10px;
+    background: var(--color-surface);
+    border-radius: var(--radius-xxs);
+    box-shadow: 4px 6px 0 var(--color-shadow-ink);
+    transform: rotate(var(--print-tilt, 0deg));
+  }
+  .photo-print img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  /* Four tilts on a repeating cycle rather than two: a strict l/r alternation
+     lands the same lean in the same column position on every row of a
+     three-column wall, which reads as a pattern instead of a pile. */
+  .photo-wall > li:nth-child(4n + 1) .photo-print { --print-tilt: -1.5deg; }
+  .photo-wall > li:nth-child(4n + 2) .photo-print { --print-tilt: 1deg; }
+  .photo-wall > li:nth-child(4n + 3) .photo-print { --print-tilt: 2deg; }
+  .photo-wall > li:nth-child(4n + 4) .photo-print { --print-tilt: -1deg; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-print { transform: none; }
+  }
+
+  /* Season note — the one thing the `aftermovie` phase adds to a page that is
+     otherwise unchanged, so it has to carry the poster signature (maroon
+     border, hard offset, slight lean) rather than sit there as a plain box.
+     Used on Programma and Praktisch in both languages. */
+  .season-banner {
+    /* Cream, not one of the named accents: this note has to read on the pink
+       home, the yellow Praktisch page, the orange Vrijwilliger page and the
+       green Programma panel, and cream is the only ground that pops on all
+       four. The lean and the heavy border keep it from reading as one more
+       card. */
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 3px solid var(--color-text);
+    border-radius: var(--radius-md);
+    box-shadow: 6px 6px 0 var(--color-shadow-ink);
+    padding: 1rem 1.25rem;
+    margin-block: 1.5rem;
+    transform: rotate(-1deg);
+    max-width: 44rem;
+  }
+  .season-banner p {
+    margin: 0;
+    color: var(--color-text);
+  }
+  .season-banner p + p { margin-top: 0.35rem; }
+  @media (prefers-reduced-motion: reduce) {
+    .season-banner { transform: none; }
+  }
 
   /* Playful tilts — reset under reduced motion */
   .tilt-l { transform: rotate(-1deg); }
